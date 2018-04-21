@@ -1,0 +1,10 @@
+const enum ActionTypes {
+    ADD_TO_HUNT = "ADD_TO_HUNT",
+    REMOVE_FROM_HUNT = "REMOVE_FROM_HUNT",
+    IMPORT = "IMPORT",
+    SET_NAME = "SET_NAME",
+    SET_SURVIVOR_NAME = "SET_SURVIVOR_NAME",
+    SET_SURVIVOR_GENDER = "SET_SURVIVOR_GENDER",
+}
+
+export default ActionTypes;
