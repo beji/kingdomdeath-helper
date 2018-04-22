@@ -1,5 +1,5 @@
-import React, { SyntheticEvent } from "react";
-import { Component, Fragment } from "react";
+import React from "react";
+import { Component, SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { setName } from "../actions/settlementActions";

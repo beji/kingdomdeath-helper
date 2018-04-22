@@ -1,6 +1,5 @@
-import { applyMiddleware, compose, createStore } from "redux";
+import { compose, createStore } from "redux";
 import initialState from "./initialstate";
-import { Gender, ISettlement, ISurvivor } from "./interfaces";
 import rootReducer from "./reducers";
 
 interface IExtendedWindow extends Window {

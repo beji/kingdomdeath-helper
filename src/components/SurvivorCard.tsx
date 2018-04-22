@@ -2,7 +2,7 @@ import React from "react";
 import { Component, MouseEvent, SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { Gender, ID, ISettlement, ISurvivor } from "../interfaces";
+import { ID, ISettlement, ISurvivor } from "../interfaces";
 import { clone } from "../util";
 
 const StyledCard = styled.div`
@@ -44,7 +44,7 @@ const mapStateToProps = (state: ISettlement, ownProps: ISurvivorCardProps): ISur
     };
 };
 
-class SurvivorCard extends React.Component<ISurvivorCardProps> {
+class SurvivorCard extends Component<ISurvivorCardProps> {
     public constructor(props: ISurvivorCardProps) {
         super(props);
 

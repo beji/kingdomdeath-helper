@@ -1,12 +1,4 @@
-import fs from "fs";
 import { IncomingMessage, ServerResponse } from "http";
-import React from "react";
-import ReactDOMServer from "react-dom/server";
-import { Provider } from "react-redux";
-import { ServerStyleSheet } from "styled-components";
-import url from "url";
-import App from "./components/App";
-import normalize from "./normalize";
 
 const htmlhead = `<!doctype html>
 <html>

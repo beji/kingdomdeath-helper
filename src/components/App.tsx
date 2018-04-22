@@ -1,10 +1,11 @@
 import React from "react";
+import { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions/";
 import { setName } from "../actions/settlementActions";
 import { setSurvivorGender, setSurvivorName } from "../actions/survivorActions";
-import { Gender, ID, ISettlement, ISurvivor } from "../interfaces";
+import { ID, ISettlement } from "../interfaces";
 import ExportForm from "./ExportForm";
 import SettlementName from "./SettlementName";
 import SurvivorCard from "./SurvivorCard";
@@ -41,7 +42,7 @@ const mapStateToProps = (state: ISettlement): IAppProps => {
     };
 };
 
-class App extends React.Component<IAppProps> {
+class App extends Component<IAppProps> {
     public render() {
         const { huntingSurvivors, survivors, aliveCount } = this.props;
         return (
