@@ -5,6 +5,7 @@ import { Dispatch } from "redux";
 import { importSettlement } from "../actions/importAction";
 import { ISettlement } from "../interfaces";
 import { ImportAction } from "../interfaces/importAction";
+import { clone } from "../util";
 
 interface IExportFormProps extends ISettlement {
     importSettlement: (settlement: ISettlement) => ImportAction;
@@ -15,7 +16,7 @@ interface IExportFormState {
 }
 
 const mapStateToProps = (state: ISettlement): IExportFormProps => {
-    return JSON.parse(JSON.stringify(state)) as IExportFormProps;
+    return clone(state) as IExportFormProps;
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<ImportAction>) => ({

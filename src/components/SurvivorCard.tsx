@@ -3,6 +3,7 @@ import { Component, MouseEvent, SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { Gender, ID, ISettlement, ISurvivor } from "../interfaces";
+import { clone } from "../util";
 
 const StyledCard = styled.div`
     border: 1px solid #333;
@@ -39,7 +40,7 @@ const mapStateToProps = (state: ISettlement, ownProps: ISurvivorCardProps): ISur
     return {
         firstnameEdit: false,
         id: ownProps.id,
-        survivor: JSON.parse(JSON.stringify(newSurvivor)),
+        survivor: clone(newSurvivor),
     };
 };
 

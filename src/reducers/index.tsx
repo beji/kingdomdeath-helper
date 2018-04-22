@@ -6,6 +6,7 @@ import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions
 import { ImportAction } from "../interfaces/importAction";
 import { SetNameAction } from "../interfaces/settlementActions";
 import { SetSurvivorGenderAction, SetSurvivorNameAction } from "../interfaces/survivorActions";
+import { clone } from "../util";
 
 type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | SetSurvivorNameAction | SetSurvivorGenderAction;
 
@@ -52,7 +53,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         }
         case ActionTypes.SET_NAME: {
             if (action.payload) {
-                const nextState: ISettlement = JSON.parse(JSON.stringify(state));
+                const nextState = clone(state);
                 nextState.name = action.payload;
                 return nextState;
             }
