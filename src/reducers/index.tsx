@@ -60,7 +60,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             if (action.payload) {
                 const newSurvivor = action.payload as ISurvivor;
                 const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
-                    if (survivor.id === newSurvivor.id) {
+                    if (survivor.id === newSurvivor.id && newSurvivor.name !== "") {
                         return clone(newSurvivor);
                     }
                     return survivor;
