@@ -5,17 +5,15 @@ import ActionTypes from "../interfaces/actionTypes";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
 import { ImportAction } from "../interfaces/importAction";
 import { SetNameAction } from "../interfaces/settlementActions";
-import { SetSurvivorGenderAction, SetSurvivorNameAction } from "../interfaces/survivorActions";
+import { UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 
-type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | SetSurvivorNameAction | SetSurvivorGenderAction;
+type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | UpdateSurvivorAction;
 
 function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
     const updatedSurvivors = state.survivors.map(mapfunc);
-    const nextState: ISettlement = {
-        survivors: updatedSurvivors,
-        ...state,
-    };
+    const nextState = clone(state);
+    nextState.survivors = updatedSurvivors;
     return nextState;
 }
 
@@ -58,27 +56,16 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             }
             return state;
         }
-        case ActionTypes.SET_SURVIVOR_NAME: {
+        case ActionTypes.UPDATE_SURVIVOR: {
             if (action.payload) {
-                const { id, name } = action.payload;
-                return generateWithUpdatedSurvivors(state, (survivor) => {
-                    if (survivor.id === id) {
-                        survivor.name = name;
+                const newSurvivor = action.payload as ISurvivor;
+                const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
+                    if (survivor.id === newSurvivor.id) {
+                        return clone(newSurvivor);
                     }
                     return survivor;
                 });
-            }
-            return state;
-        }
-        case ActionTypes.SET_SURVIVOR_GENDER: {
-            if (action.payload) {
-                const { id, gender } = action.payload;
-                return generateWithUpdatedSurvivors(state, (survivor) => {
-                    if (survivor.id === id) {
-                        survivor.gender = gender;
-                    }
-                    return survivor;
-                });
+                return nextState;
             }
             return state;
         }

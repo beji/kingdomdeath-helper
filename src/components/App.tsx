@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions/";
 import { setName } from "../actions/settlementActions";
-import { setSurvivorGender, setSurvivorName } from "../actions/survivorActions";
+import { updateSurvivor } from "../actions/survivorActions";
 import { ID, ISettlement } from "../interfaces";
 import ExportForm from "./ExportForm";
 import SettlementName from "./SettlementName";
@@ -84,8 +84,7 @@ class App extends Component<IAppProps> {
                 id={id}
                 addToHunt={addToHunt}
                 removeFromHunt={removeFromHunt}
-                setSurvivorName={setSurvivorName}
-                setSurvivorGender={setSurvivorGender}
+                updateSurvivor={updateSurvivor}
             />);
     }
 }

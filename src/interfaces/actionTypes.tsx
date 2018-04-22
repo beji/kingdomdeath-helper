@@ -3,8 +3,7 @@ const enum ActionTypes {
     REMOVE_FROM_HUNT = "REMOVE_FROM_HUNT",
     IMPORT = "IMPORT",
     SET_NAME = "SET_NAME",
-    SET_SURVIVOR_NAME = "SET_SURVIVOR_NAME",
-    SET_SURVIVOR_GENDER = "SET_SURVIVOR_GENDER",
+    UPDATE_SURVIVOR = "UPDATE_SURVIVOR",
 }
 
 export default ActionTypes;

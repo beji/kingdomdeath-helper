@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions";
-import { setSurvivorGender, setSurvivorName } from "../actions/survivorActions";
+import { updateSurvivor } from "../actions/survivorActions";
 import { Gender, ID, ISettlement } from "../interfaces";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
-import { IStats } from "../interfaces/survivor";
-import { SetSurvivorGenderAction, SetSurvivorNameAction } from "../interfaces/survivorActions";
+import { IStats, ISurvivor } from "../interfaces/survivor";
+import { UpdateSurvivorAction } from "../interfaces/survivorActions";
 
 interface ISurvivorListItemProps {
     id: ID;
@@ -19,8 +19,7 @@ interface ISurvivorListItemProps {
     baseStats?: IStats;
     addToHunt: (id: ID) => AddToHuntAction;
     removeFromHunt: (id: ID) => RemoveFromHuntAction;
-    setSurvivorName: (id: ID, name: string) => SetSurvivorNameAction;
-    setSurvivorGender: (id: ID, gender: Gender) => SetSurvivorGenderAction;
+    updateSurvivor: (survivor: ISurvivor) => UpdateSurvivorAction;
 }
 
 interface ISurvivorListItemState {
@@ -33,11 +32,10 @@ const Cell = styled.td`
     padding: 0.25vh 0.25vw;
 `;
 
-const mapDispatchToProps = (dispatch: Dispatch<AddToHuntAction | RemoveFromHuntAction | SetSurvivorNameAction | SetSurvivorGenderAction>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<AddToHuntAction | RemoveFromHuntAction | UpdateSurvivorAction>) => ({
     addToHunt: (id: ID) => dispatch(addToHunt(id)),
     removeFromHunt: (id: ID) => dispatch(removeFromHunt(id)),
-    setSurvivorGender: (id: ID, gender: Gender) => dispatch(setSurvivorGender(id, gender)),
-    setSurvivorName: (id: ID, name: string) => dispatch(setSurvivorName(id, name)),
+    updateSurvivor: (survivor: ISurvivor) => dispatch(updateSurvivor(survivor)),
 });
 
 const mapStateToProps = (state: ISettlement, ownProps: ISurvivorListItemProps): ISurvivorListItemProps => {
@@ -62,6 +60,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
 
         this.handleGenderChange = this.handleGenderChange.bind(this);
         this.handleGenderClick = this.handleGenderClick.bind(this);
+
     }
 
     public render() {
@@ -103,7 +102,11 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
         });
     }
     private handleNameBlur(e: SyntheticEvent<HTMLInputElement>) {
-        this.props.setSurvivorName(this.props.id, e.currentTarget.value);
+        const { name, id, gender, alive, hunting, baseStats } = this.props;
+        const updateData = {
+            alive, baseStats, gender, hunting, id, name: e.currentTarget.value,
+        } as ISurvivor;
+        this.props.updateSurvivor(updateData);
         this.setState({
             editName: false,
         });
@@ -116,7 +119,12 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
     }
     private handleGenderChange(e: SyntheticEvent<HTMLSelectElement>) {
         const newGender = e.currentTarget.value === "M" ? Gender.Male : Gender.Female;
-        this.props.setSurvivorGender(this.props.id, newGender);
+        const { name, id, gender, alive, hunting, baseStats } = this.props;
+        const updateData = {
+            alive, baseStats, gender: newGender, hunting, id, name,
+        } as ISurvivor;
+        this.props.updateSurvivor(updateData);
+
         this.setState({
             editGender: false,
         });
