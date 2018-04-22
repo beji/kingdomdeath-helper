@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
 import initialState from "../initialstate";
-import { ISettlement } from "../interfaces";
+import { ISettlement, ISurvivor } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
 import { ImportAction } from "../interfaces/importAction";
@@ -9,6 +9,15 @@ import { SetSurvivorGenderAction, SetSurvivorNameAction } from "../interfaces/su
 import { clone } from "../util";
 
 type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | SetSurvivorNameAction | SetSurvivorGenderAction;
+
+function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
+    const updatedSurvivors = state.survivors.map(mapfunc);
+    const nextState: ISettlement = {
+        survivors: updatedSurvivors,
+        ...state,
+    };
+    return nextState;
+}
 
 const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: Actions): ISettlement => {
 
@@ -22,31 +31,21 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                 alert("You can not bring more than four survivors to a hunt!");
                 return state;
             } else {
-                const updatedSurvivors = state.survivors.map((survivor) => {
+                return generateWithUpdatedSurvivors(state, (survivor) => {
                     if (survivor.id === action.payload && survivor.alive) {
                         survivor.hunting = true;
                     }
                     return survivor;
                 });
-                const nextState: ISettlement = {
-                    survivors: updatedSurvivors,
-                    ...state,
-                };
-                return nextState;
             }
         }
         case ActionTypes.REMOVE_FROM_HUNT: {
-            const updatedSurvivors = state.survivors.map((survivor) => {
+            return generateWithUpdatedSurvivors(state, (survivor) => {
                 if (survivor.id === action.payload) {
                     survivor.hunting = false;
                 }
                 return survivor;
             });
-            const nextState: ISettlement = {
-                survivors: updatedSurvivors,
-                ...state,
-            };
-            return nextState;
         }
         case ActionTypes.IMPORT: {
             return action.payload || state;
@@ -62,34 +61,24 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         case ActionTypes.SET_SURVIVOR_NAME: {
             if (action.payload) {
                 const { id, name } = action.payload;
-                const updatedSurvivors = state.survivors.map((survivor) => {
+                return generateWithUpdatedSurvivors(state, (survivor) => {
                     if (survivor.id === id) {
                         survivor.name = name;
                     }
                     return survivor;
                 });
-                const nextState: ISettlement = {
-                    survivors: updatedSurvivors,
-                    ...state,
-                };
-                return nextState;
             }
             return state;
         }
         case ActionTypes.SET_SURVIVOR_GENDER: {
             if (action.payload) {
                 const { id, gender } = action.payload;
-                const updatedSurvivors = state.survivors.map((survivor) => {
+                return generateWithUpdatedSurvivors(state, (survivor) => {
                     if (survivor.id === id) {
                         survivor.gender = gender;
                     }
                     return survivor;
                 });
-                const nextState: ISettlement = {
-                    survivors: updatedSurvivors,
-                    ...state,
-                };
-                return nextState;
             }
             return state;
         }
