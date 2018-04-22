@@ -49,7 +49,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             return action.payload || state;
         }
         case ActionTypes.SET_NAME: {
-            if (action.payload) {
+            if (action.payload && action.payload !== "") {
                 const nextState = clone(state);
                 nextState.name = action.payload;
                 return nextState;
