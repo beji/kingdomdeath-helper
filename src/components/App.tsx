@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions/";
 import { setName } from "../actions/settlementActions";
-import { updateSurvivor } from "../actions/survivorActions";
+import { killSurvivor, reviveSurvivor, updateSurvivor } from "../actions/survivorActions";
 import { ID, ISettlement } from "../interfaces";
 import ExportForm from "./ExportForm";
 import SettlementName from "./SettlementName";
@@ -67,6 +67,7 @@ class App extends Component<IAppProps> {
                             <th>Luck</th>
                             <th>Speed</th>
                             <th>Hunting</th>
+                            <th>Kill/Revive</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -85,6 +86,8 @@ class App extends Component<IAppProps> {
                 addToHunt={addToHunt}
                 removeFromHunt={removeFromHunt}
                 updateSurvivor={updateSurvivor}
+                killSurvivor={killSurvivor}
+                reviveSurvivor={reviveSurvivor}
             />);
     }
 }

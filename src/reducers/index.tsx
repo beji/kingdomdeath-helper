@@ -5,10 +5,10 @@ import ActionTypes from "../interfaces/actionTypes";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
 import { ImportAction } from "../interfaces/importAction";
 import { SetNameAction } from "../interfaces/settlementActions";
-import { UpdateSurvivorAction } from "../interfaces/survivorActions";
+import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 
-type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | UpdateSurvivorAction;
+type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | UpdateSurvivorAction | KillSurvivorAction | ReviveSurvivorAction;
 
 function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
     const updatedSurvivors = state.survivors.map(mapfunc);
@@ -68,6 +68,27 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                 return nextState;
             }
             return state;
+        }
+        case ActionTypes.KILL_SURVIVOR: {
+            if (action.payload) {
+                return generateWithUpdatedSurvivors(state, (survivor) => {
+                    if (survivor.id === action.payload) {
+                        survivor.alive = false;
+                        survivor.hunting = false;
+                    }
+                    return survivor;
+                });
+            }
+        }
+        case ActionTypes.REVIVE_SURVIVOR: {
+            if (action.payload) {
+                return generateWithUpdatedSurvivors(state, (survivor) => {
+                    if (survivor.id === action.payload) {
+                        survivor.alive = true;
+                    }
+                    return survivor;
+                });
+            }
         }
         default: return state;
     }

@@ -4,6 +4,8 @@ const enum ActionTypes {
     IMPORT = "IMPORT",
     SET_NAME = "SET_NAME",
     UPDATE_SURVIVOR = "UPDATE_SURVIVOR",
+    KILL_SURVIVOR = "KILL_SURVIVOR",
+    REVIVE_SURVIVOR = "REVIVE_SURVIVOR",
 }
 
 export default ActionTypes;

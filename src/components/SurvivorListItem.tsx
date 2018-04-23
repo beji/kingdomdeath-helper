@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions";
-import { updateSurvivor } from "../actions/survivorActions";
+import { killSurvivor, reviveSurvivor, updateSurvivor } from "../actions/survivorActions";
 import { Gender, ID, ISettlement } from "../interfaces";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
 import { IStats, ISurvivor } from "../interfaces/survivor";
-import { UpdateSurvivorAction } from "../interfaces/survivorActions";
+import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 
 interface ISurvivorListItemProps {
@@ -17,6 +17,8 @@ interface ISurvivorListItemProps {
     addToHunt: (id: ID) => AddToHuntAction;
     removeFromHunt: (id: ID) => RemoveFromHuntAction;
     updateSurvivor: (survivor: ISurvivor) => UpdateSurvivorAction;
+    killSurvivor: (id: ID) => KillSurvivorAction;
+    reviveSurvivor: (id: ID) => ReviveSurvivorAction;
 }
 
 interface ISurvivorListItemState {
@@ -29,9 +31,11 @@ const Cell = styled.td`
     padding: 0.25vh 0.25vw;
 `;
 
-const mapDispatchToProps = (dispatch: Dispatch<AddToHuntAction | RemoveFromHuntAction | UpdateSurvivorAction>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<AddToHuntAction | RemoveFromHuntAction | UpdateSurvivorAction | KillSurvivorAction | ReviveSurvivorAction>) => ({
     addToHunt: (id: ID) => dispatch(addToHunt(id)),
+    killSurvivor: (id: ID) => dispatch(killSurvivor(id)),
     removeFromHunt: (id: ID) => dispatch(removeFromHunt(id)),
+    reviveSurvivor: (id: ID) => dispatch(reviveSurvivor(id)),
     updateSurvivor: (survivor: ISurvivor) => dispatch(updateSurvivor(survivor)),
 });
 
@@ -58,6 +62,9 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
         this.handleGenderChange = this.handleGenderChange.bind(this);
         this.handleGenderClick = this.handleGenderClick.bind(this);
 
+        this.handleKillClick = this.handleKillClick.bind(this);
+        this.handleReviveClick = this.handleReviveClick.bind(this);
+
     }
 
     public render() {
@@ -83,6 +90,9 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
                     <Cell>{luck}</Cell>
                     <Cell>{speed}</Cell>
                     <Cell>{alive && <input type="checkbox" checked={hunting} onChange={this.handleHuntBoxChange} />}</Cell>
+                    <Cell>
+                        {alive ? <button onClick={this.handleKillClick}>Kill</button> : <button onClick={this.handleReviveClick}>Revive</button>}
+                    </Cell>
                 </tr>
             );
         } else {
@@ -150,6 +160,13 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
             return "";
         }
 
+    }
+
+    private handleKillClick(e: SyntheticEvent<HTMLButtonElement>) {
+        this.props.killSurvivor(this.props.id);
+    }
+    private handleReviveClick(e: SyntheticEvent<HTMLButtonElement>) {
+        this.props.reviveSurvivor(this.props.id);
     }
 }
 
