@@ -114,7 +114,7 @@ class ComplexStat extends React.Component<IComplexStatProps, IComplexStatState> 
         const { permanent, gear, token, label } = this.props.stat;
         return (
             <StatLayer>
-                <LayerHeadline>{label}</LayerHeadline>
+                <LayerHeadline>{this.props.survivor && this.props.survivor.name}'s {label}</LayerHeadline>
                 <Label>Perm</Label><Input type="number" defaultValue={permanent.toString()} name="permanent" onBlur={this.handleEditBlur} />
                 <Label>Gear</Label><Input type="number" defaultValue={gear.toString()} name="gear" onBlur={this.handleEditBlur} />
                 <Label>Token</Label><Input type="number" defaultValue={token.toString()} name="token" onBlur={this.handleEditBlur} />
