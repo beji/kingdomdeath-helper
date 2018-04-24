@@ -9,32 +9,35 @@ import { clone } from "../util";
 
 describe("The reducer", () => {
     it("should return the initial state if given no state", () => {
+        const state = clone(initialState);
         const dummyAction = setName("test");
         const result = reducer(undefined, dummyAction);
-        expect(result.name).to.equal(initialState.name);
-        expect(result.id).to.equal(initialState.id);
+        expect(result.name).to.equal(state.name);
+        expect(result.id).to.equal(state.id);
     });
     it("should remove a dead survivor from the hunt", () => {
-        const survivor = initialState.survivors[0];
+        const state = clone(initialState);
+        const survivor = state.survivors[0];
         survivor.hunting = true;
         survivor.alive = true;
         const killAction = killSurvivor(survivor.id);
-        const result = reducer(initialState, killAction);
+        const result = reducer(state, killAction);
         expect(result.survivors[0].hunting).to.equal(false);
         expect(result.survivors[0].alive).to.equal(false);
     });
 
     it("should not allow more than four survivors in a hunt", () => {
-        initialState.survivors = initialState.survivors.map((x) => {
+        const state = clone(initialState);
+        state.survivors = state.survivors.map((x) => {
             x.alive = true;
             return x;
         });
-        const notHunting = initialState.survivors.filter((x) => !x.hunting).map((x) => x.id);
+        const notHunting = state.survivors.filter((x) => !x.hunting).map((x) => x.id);
 
         const result = notHunting.reduce((acc, elem) => {
             const action = addToHunt(elem);
             return reducer(acc, action);
-        }, initialState);
+        }, state);
 
         const huntingAfter = result.survivors.filter((x) => x.hunting).length;
         expect(huntingAfter).to.equal(4);
