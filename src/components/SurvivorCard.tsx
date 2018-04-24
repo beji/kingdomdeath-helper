@@ -101,12 +101,15 @@ class SurvivorCard extends Component<ISurvivorCardProps, ISurvivorCardState> {
         const sortedBaseStats = ["movement", "accuracy", "strength", "evasion", "luck", "speed"];
         const sortedDefenceStats = ["brain", "head", "arms", "body", "waist", "legs"];
         if (survivor) {
-            const { name, id, gender, baseStats, defenceStats } = survivor;
+            const { name, id, gender, baseStats, defenceStats, survival } = survivor;
             return (
                 <StyledCard>
                     <NameSection>
                         <Label>Name</Label>
                         {!firstnameEdit ? <span onClick={this.toggleName}>{name}</span> : <input type="text" defaultValue={name} onChange={this.nameUpdate} onBlur={this.toggleName} />}
+                        <div>
+                            <Label>Survival</Label> {survival}
+                        </div>
                     </NameSection>
                     <section>
                         <Label>Gender</Label>
