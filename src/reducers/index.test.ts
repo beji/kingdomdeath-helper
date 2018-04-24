@@ -11,6 +11,7 @@ describe("The reducer", () => {
         const dummyAction = setName("test");
         const result = reducer(undefined, dummyAction);
         expect(result.name).to.equal(initialState.name);
+        expect(result.id).to.equal(initialState.id);
     });
     it("should remove a dead hunter from the hunt", () => {
         const survivor = initialState.survivors[0];
