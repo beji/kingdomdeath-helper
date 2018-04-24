@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import "mocha";
+import { addToHunt } from "../actions";
 import { setName } from "../actions/settlementActions";
 import { killSurvivor } from "../actions/survivorActions";
 import initialState from "../initialstate";
@@ -21,5 +22,21 @@ describe("The reducer", () => {
         const result = reducer(initialState, killAction);
         expect(result.survivors[0].hunting).to.equal(false);
         expect(result.survivors[0].alive).to.equal(false);
+    });
+
+    it("should not allow more than four survivors in a hunt", () => {
+        initialState.survivors = initialState.survivors.map((x) => {
+            x.alive = true;
+            return x;
+        });
+        const notHunting = initialState.survivors.filter((x) => !x.hunting).map((x) => x.id);
+
+        const result = notHunting.reduce((acc, elem) => {
+            const action = addToHunt(elem);
+            return reducer(acc, action);
+        }, initialState);
+
+        const huntingAfter = result.survivors.filter((x) => x.hunting).length;
+        expect(huntingAfter).to.equal(4);
     });
 });

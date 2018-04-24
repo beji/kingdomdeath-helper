@@ -26,7 +26,9 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
     switch (action.type) {
         case ActionTypes.ADD_TO_HUNT: {
             if (state.survivors.filter((survivor) => survivor.hunting).length >= 4) {
-                alert("You can not bring more than four survivors to a hunt!");
+                if (typeof window !== "undefined" && window.alert) {
+                    alert("You can not bring more than four survivors to a hunt!");
+                }
                 return state;
             } else {
                 return generateWithUpdatedSurvivors(state, (survivor) => {
