@@ -7,9 +7,11 @@ import { addToHunt, removeFromHunt } from "../actions";
 import { killSurvivor, reviveSurvivor, updateSurvivor } from "../actions/survivorActions";
 import { Gender, ID, ISettlement } from "../interfaces";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
-import { IStats, ISurvivor } from "../interfaces/survivor";
+import { IComplexStat, ISurvivor } from "../interfaces/survivor";
 import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
+
+import ComplexStat from "./ComplexStat";
 
 interface ISurvivorListItemProps {
     id: ID;
@@ -83,12 +85,12 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
                         {editGender && this.renderGenderSelect()}
                         {!editGender && <span onClick={this.handleGenderClick}>{gender}</span>}
                     </Cell>
-                    <Cell>{movement}</Cell>
-                    <Cell>{accuracy}</Cell>
-                    <Cell>{strength}</Cell>
-                    <Cell>{evasion}</Cell>
-                    <Cell>{luck}</Cell>
-                    <Cell>{speed}</Cell>
+                    <Cell><ComplexStat id={id} stat={movement}/></Cell>
+                    <Cell>{this.renderCombinedComplexStat(accuracy)}</Cell>
+                    <Cell>{this.renderCombinedComplexStat(strength)}</Cell>
+                    <Cell>{this.renderCombinedComplexStat(evasion)}</Cell>
+                    <Cell>{this.renderCombinedComplexStat(luck)}</Cell>
+                    <Cell>{this.renderCombinedComplexStat(speed)}</Cell>
                     <Cell>{alive && <input type="checkbox" checked={hunting} onChange={this.handleHuntBoxChange} />}</Cell>
                     <Cell>
                         {alive ? <button onClick={this.handleKillClick}>Kill</button> : <button onClick={this.handleReviveClick}>Revive</button>}
@@ -134,6 +136,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
             editGender: true,
         });
     }
+
     private handleGenderChange(e: SyntheticEvent<HTMLSelectElement>) {
         if (this.props.survivor) {
             const newGender = e.currentTarget.value === "M" ? Gender.Male : Gender.Female;
@@ -160,6 +163,10 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
             return "";
         }
 
+    }
+
+    private renderCombinedComplexStat(stat: IComplexStat) {
+        return stat.permanent + stat.gear + stat.token;
     }
 
     private handleKillClick(e: SyntheticEvent<HTMLButtonElement>) {
