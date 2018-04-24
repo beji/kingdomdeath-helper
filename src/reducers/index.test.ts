@@ -13,7 +13,7 @@ describe("The reducer", () => {
         expect(result.name).to.equal(initialState.name);
         expect(result.id).to.equal(initialState.id);
     });
-    it("should remove a dead hunter from the hunt", () => {
+    it("should remove a dead survivor from the hunt", () => {
         const survivor = initialState.survivors[0];
         survivor.hunting = true;
         survivor.alive = true;
