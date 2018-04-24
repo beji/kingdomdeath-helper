@@ -10,7 +10,6 @@ import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions
 import { IComplexStat, ISurvivor } from "../interfaces/survivor";
 import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
-
 import ComplexStat from "./ComplexStat";
 
 interface ISurvivorListItemProps {

@@ -1,9 +1,13 @@
 import React from "react";
 import { Component, MouseEvent, SyntheticEvent } from "react";
 import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import styled from "styled-components";
-import { ID, ISettlement, ISurvivor } from "../interfaces";
+import { updateSurvivor } from "../actions/survivorActions";
+import { IComplexStat, ID, IHitLocation, ISettlement, ISurvivor } from "../interfaces";
+import { UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
+import ComplexStat from "./ComplexStat";
 
 const StyledCard = styled.div`
     border: 1px solid #333;
@@ -29,11 +33,43 @@ const NameSection = styled.section`
     width: 33%;
 `;
 
+const StatSection = styled.section`
+    display:flex;
+    justify-content:space-between;
+    width:100%;
+`;
+
+const LightWound = styled.div`
+    border:1px solid #444;
+    cursor:pointer;
+    display: inline-block;
+    margin:0 .25vh;
+    width:1rem;
+    height:1rem;
+    &.active {
+        background: #888;
+    }
+`;
+const HeavyWound = LightWound.extend`
+    border-width:3px;
+`;
+
 interface ISurvivorCardProps {
     id: ID;
     survivor?: ISurvivor;
     firstnameEdit?: boolean;
+    updateSurvivor: (survivor: ISurvivor) => UpdateSurvivorAction;
 }
+
+interface ISurvivorCardState {
+    id: ID;
+    survivor?: ISurvivor;
+    firstnameEdit: boolean;
+}
+
+const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorAction>) => ({
+    updateSurvivor: (survivor: ISurvivor) => dispatch(updateSurvivor(survivor)),
+});
 
 const mapStateToProps = (state: ISettlement, ownProps: ISurvivorCardProps): ISurvivorCardProps => {
     const newSurvivor = state.survivors.find((v) => v.id === ownProps.id);
@@ -41,25 +77,31 @@ const mapStateToProps = (state: ISettlement, ownProps: ISurvivorCardProps): ISur
         firstnameEdit: false,
         id: ownProps.id,
         survivor: clone(newSurvivor),
+        updateSurvivor,
     };
 };
 
-class SurvivorCard extends Component<ISurvivorCardProps> {
+class SurvivorCard extends Component<ISurvivorCardProps, ISurvivorCardState> {
     public constructor(props: ISurvivorCardProps) {
         super(props);
 
         this.state = {
             firstnameEdit: false,
-            ...this.props,
+            id: props.id,
+            survivor: props.survivor,
         };
         this.nameUpdate = this.nameUpdate.bind(this);
         this.toggleName = this.toggleName.bind(this);
+        this.renderDefenceStat = this.renderDefenceStat.bind(this);
+        this.renderCombinedComplexStat = this.renderCombinedComplexStat.bind(this);
     }
 
     public render() {
         const { survivor, firstnameEdit } = this.props;
+        const sortedBaseStats = ["movement", "accuracy", "strength", "evasion", "luck", "speed"];
+        const sortedDefenceStats = ["brain", "head", "arms", "body", "waist", "legs"];
         if (survivor) {
-            const { name, id, gender } = survivor;
+            const { name, id, gender, baseStats, defenceStats } = survivor;
             return (
                 <StyledCard>
                     <NameSection>
@@ -70,10 +112,40 @@ class SurvivorCard extends Component<ISurvivorCardProps> {
                         <Label>Gender</Label>
                         {gender}
                     </section>
+                    <StatSection>
+                        {sortedBaseStats.map((v, i) => (<div key={i}>{baseStats[v].label}<ComplexStat id={id} stat={baseStats[v]} updateSurvivor={updateSurvivor} /></div>))}
+                    </StatSection>
+                    <StatSection>
+                        {sortedDefenceStats.map((v, i) => (this.renderDefenceStat(defenceStats[v], v, i)))}
+                    </StatSection>
                 </StyledCard>
             );
         } else {
             return <StyledCard />;
+        }
+    }
+    private renderDefenceStat(defStat: IHitLocation, locName: string, index: number) {
+        return (
+            <div key={index}>
+                {defStat.label}
+                <div>
+                    {defStat.armor}
+                    {!defStat.onlyHeavyWound && <LightWound onClick={this.toggleWound.bind(this, locName, "lightWound")} className={defStat.lightWound ? "active" : ""}/>}
+                    <HeavyWound onClick={this.toggleWound.bind(this, locName, "heavyWound")} className={defStat.heavyWound ? "active" : ""}/>
+                </div>
+            </div>
+        );
+    }
+    private renderCombinedComplexStat(stat: IComplexStat) {
+        return stat.permanent + stat.gear + stat.token;
+    }
+    private toggleWound(locName: string, woundType: string) {
+        if (this.props.survivor) {
+            this.props.survivor.defenceStats[locName] = {
+                ...this.props.survivor.defenceStats[locName],
+                [woundType]: !this.props.survivor.defenceStats[locName][woundType],
+            };
+            this.props.updateSurvivor(this.props.survivor);
         }
     }
     private nameUpdate(e: SyntheticEvent<HTMLInputElement>) {
@@ -90,4 +162,4 @@ class SurvivorCard extends Component<ISurvivorCardProps> {
     }
 }
 
-export default connect(mapStateToProps)(SurvivorCard);
+export default connect(mapStateToProps, mapDispatchToProps)(SurvivorCard);

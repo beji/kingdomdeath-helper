@@ -32,7 +32,15 @@ const Label = styled.div`
     margin:.5rem 0;
 `;
 
+const LayerHeadline = styled.div`
+    font-weight:bold;
+    padding:.5rem;
+    text-align:center;
+    width:100%;
+`;
+
 const StatElement = styled.div`
+    cursor:pointer;
     padding: .25rem;
     text-align:center;
 `;
@@ -64,7 +72,7 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorAction>) => ({
 const mapStateToProps = (state: ISettlement, ownProps: IComplexStatProps): IComplexStatProps => {
     const survivor = state.survivors.find((v) => v.id === ownProps.id);
     const statKey = survivor && Object.keys(survivor.baseStats).reduce((a, c) => {
-        return survivor.baseStats[c].label === ownProps.stat.label ? c : a;
+        return survivor.baseStats[c].id === ownProps.stat.id ? c : a;
     });
     const stat = survivor && statKey && survivor.baseStats[statKey];
 
@@ -103,13 +111,14 @@ class ComplexStat extends React.Component<IComplexStatProps, IComplexStatState> 
     }
 
     private renderEditState() {
-        const { permanent, gear, token } = this.props.stat;
+        const { permanent, gear, token, label } = this.props.stat;
         return (
             <StatLayer>
+                <LayerHeadline>{label}</LayerHeadline>
                 <Label>Perm</Label><Input type="number" defaultValue={permanent.toString()} name="permanent" onBlur={this.handleEditBlur} />
                 <Label>Gear</Label><Input type="number" defaultValue={gear.toString()} name="gear" onBlur={this.handleEditBlur} />
                 <Label>Token</Label><Input type="number" defaultValue={token.toString()} name="token" onBlur={this.handleEditBlur} />
-                <button onClick={this.handleEditConfirm}>Check</button>
+                <button onClick={this.handleEditConfirm}>Save &#x2713;</button>
             </StatLayer>
         );
     }

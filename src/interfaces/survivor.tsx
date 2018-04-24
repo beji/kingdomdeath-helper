@@ -14,14 +14,28 @@ const enum BaseStats {
     strength = "Strength",
 }
 
-type THitLocation = {
+const enum DefenceStats {
+    brain = "Brain",
+    head = "Head",
+    arms = "Arms",
+    body = "Body",
+    waist = "Waist",
+    legs = "Legs",
+}
+
+interface IHitLocation {
+    [key: string]: ID | string | number | boolean;
+    id: ID;
     armor: number;
+    label: string;
+    onlyHeavyWound: boolean;
     lightWound: boolean;
     heavyWound: boolean;
 }
 
 interface IComplexStat {
-    [key: string]: number | string,
+    [key: string]: number | string;
+    id: ID;
     gear: number;
     label: string;
     permanent: number;
@@ -39,14 +53,13 @@ interface IStats {
 }
 
 interface IDefence {
-    survival: number;
-    insanity: number;
-    brainWound: boolean;
-    head: THitLocation;
-    body: THitLocation;
-    arms: THitLocation;
-    waist: THitLocation;
-    legs: THitLocation;
+    [key: string]: IHitLocation;
+    brain: IHitLocation;
+    head: IHitLocation;
+    body: IHitLocation;
+    arms: IHitLocation;
+    waist: IHitLocation;
+    legs: IHitLocation;
 }
 
 interface ISurvivor {
@@ -56,6 +69,8 @@ interface ISurvivor {
     hunting: boolean;
     alive: boolean;
     baseStats: IStats;
+    defenceStats: IDefence;
+    survival: number;
 }
 
-export { BaseStats, Gender, ISurvivor, IStats, IComplexStat };
+export { BaseStats, DefenceStats, Gender, IDefence, IHitLocation, ISurvivor, IStats, IComplexStat };
