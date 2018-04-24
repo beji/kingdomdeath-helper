@@ -1,8 +1,8 @@
 import uuid from "uuid/v4";
 import { Gender, IComplexStat, ISettlement, ISurvivor } from "./interfaces";
-import { IStats } from "./interfaces/survivor";
+import { BaseStats, IStats } from "./interfaces/survivor";
 
-const getComplexStat = (label: string): IComplexStat => ({
+const getComplexStat = (label: BaseStats): IComplexStat => ({
     gear: 0,
     label,
     permanent: 0,
@@ -10,12 +10,12 @@ const getComplexStat = (label: string): IComplexStat => ({
 });
 
 const getBaseStats = (): IStats => ({
-    accuracy: getComplexStat("Accuracy"),
-    evasion: getComplexStat("Evasion"),
-    luck: getComplexStat("Luck"),
-    movement: getComplexStat("Movement"),
-    speed: getComplexStat("Speed"),
-    strength: getComplexStat("Strength"),
+    accuracy: getComplexStat(BaseStats.accuracy),
+    evasion: getComplexStat(BaseStats.evasion),
+    luck: getComplexStat(BaseStats.luck),
+    movement: getComplexStat(BaseStats.movement),
+    speed: getComplexStat(BaseStats.speed),
+    strength: getComplexStat(BaseStats.strength),
 });
 
 const survivors: ISurvivor[] = Array.apply(null, { length: 8 }).map(Number.call, Number).map((n: number) => {

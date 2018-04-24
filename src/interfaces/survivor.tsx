@@ -5,6 +5,15 @@ const enum Gender {
     Female = "F",
 }
 
+const enum BaseStats {
+    accuracy = "Accuracy",
+    evasion = "Evasion",
+    luck = "Luck",
+    movement = "Movement",
+    speed = "Speed",
+    strength = "Strength",
+}
+
 type THitLocation = {
     armor: number;
     lightWound: boolean;
@@ -12,6 +21,7 @@ type THitLocation = {
 }
 
 interface IComplexStat {
+    [key: string]: number | string,
     gear: number;
     label: string;
     permanent: number;
@@ -19,7 +29,7 @@ interface IComplexStat {
 }
 
 interface IStats {
-    [key:string]: IComplexStat;
+    [key: string]: IComplexStat;
     movement: IComplexStat;
     accuracy: IComplexStat;
     strength: IComplexStat;
@@ -48,4 +58,4 @@ interface ISurvivor {
     baseStats: IStats;
 }
 
-export { Gender, ISurvivor, IStats, IComplexStat };
+export { BaseStats, Gender, ISurvivor, IStats, IComplexStat };

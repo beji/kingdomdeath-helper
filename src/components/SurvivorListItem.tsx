@@ -85,12 +85,12 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
                         {editGender && this.renderGenderSelect()}
                         {!editGender && <span onClick={this.handleGenderClick}>{gender}</span>}
                     </Cell>
-                    <Cell><ComplexStat id={id} stat={movement}/></Cell>
-                    <Cell>{this.renderCombinedComplexStat(accuracy)}</Cell>
-                    <Cell>{this.renderCombinedComplexStat(strength)}</Cell>
-                    <Cell>{this.renderCombinedComplexStat(evasion)}</Cell>
-                    <Cell>{this.renderCombinedComplexStat(luck)}</Cell>
-                    <Cell>{this.renderCombinedComplexStat(speed)}</Cell>
+                    <Cell><ComplexStat id={id} stat={movement} updateSurvivor={updateSurvivor} /></Cell>
+                    <Cell><ComplexStat id={id} stat={accuracy} updateSurvivor={updateSurvivor} /></Cell>
+                    <Cell><ComplexStat id={id} stat={strength} updateSurvivor={updateSurvivor} /></Cell>
+                    <Cell><ComplexStat id={id} stat={evasion} updateSurvivor={updateSurvivor} /></Cell>
+                    <Cell><ComplexStat id={id} stat={luck} updateSurvivor={updateSurvivor} /></Cell>
+                    <Cell><ComplexStat id={id} stat={speed} updateSurvivor={updateSurvivor} /></Cell>
                     <Cell>{alive && <input type="checkbox" checked={hunting} onChange={this.handleHuntBoxChange} />}</Cell>
                     <Cell>
                         {alive ? <button onClick={this.handleKillClick}>Kill</button> : <button onClick={this.handleReviveClick}>Revive</button>}
@@ -140,11 +140,11 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
     private handleGenderChange(e: SyntheticEvent<HTMLSelectElement>) {
         if (this.props.survivor) {
             const newGender = e.currentTarget.value === "M" ? Gender.Male : Gender.Female;
-            const { name, id, gender, alive, hunting, baseStats } = this.props.survivor;
-            const updateData = {
-                alive, baseStats, gender: newGender, hunting, id, name,
-            } as ISurvivor;
-            this.props.updateSurvivor(updateData);
+
+            this.props.updateSurvivor({
+                ...this.props.survivor,
+                gender: newGender,
+            });
 
             this.setState({
                 editGender: false,

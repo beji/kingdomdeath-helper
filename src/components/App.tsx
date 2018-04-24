@@ -52,7 +52,7 @@ class App extends Component<IAppProps> {
                     {huntingSurvivors && huntingSurvivors.map((id, idx) => <SurvivorCard key={idx} id={id} />)}
                 </SurvivorCardsWrapper>
                 <div>
-                    Alive: {aliveCount ? aliveCount : 0}
+                    Population: {aliveCount ? aliveCount : 0}
                 </div>
                 <SurvivorList>
                     <thead>
