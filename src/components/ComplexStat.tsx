@@ -1,5 +1,5 @@
 import React from "react";
-import { Component, SyntheticEvent } from "react";
+import { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
@@ -21,8 +21,40 @@ interface IComplexStatState {
     editComplexStat: boolean;
     stat: IComplexStat;
 }
-const EditInput = styled.input`
-    width:25%;
+
+const Input = styled.input`
+    width:70%;
+    margin:.5rem 0;
+`;
+
+const Label = styled.div`
+    width:30%;
+    margin:.5rem 0;
+`;
+
+const StatElement = styled.div`
+    padding: .25rem;
+    text-align:center;
+`;
+
+const StatWrapper = styled.div`
+    position:relative;
+`;
+
+const StatLayer = styled.div`
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius: .5rem;
+    box-shadow:3px 3px 10px;
+    display:flex;
+    flex-wrap:wrap;
+    left:50%;
+    padding:.5rem;
+    position:absolute;
+    top:50%;
+    transform:translate3d(-50%, -50%, 0);
+    width:30vw;
+    z-index:10;
 `;
 
 const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorAction>) => ({
@@ -45,7 +77,7 @@ const mapStateToProps = (state: ISettlement, ownProps: IComplexStatProps): IComp
     };
 };
 
-class ComplexStat extends Component<IComplexStatProps, IComplexStatState> {
+class ComplexStat extends React.Component<IComplexStatProps, IComplexStatState> {
     public constructor(props: IComplexStatProps) {
         super(props);
         this.state = {
@@ -63,21 +95,22 @@ class ComplexStat extends Component<IComplexStatProps, IComplexStatState> {
         const { stat } = this.props;
 
         return (
-            <div>
+            <StatWrapper>
                 {editComplexStat && this.renderEditState()}
-                {!editComplexStat && <span onClick={this.handleEditClick}>{this.renderCombinedComplexStat(stat)}</span>}
-            </div>
+                {!editComplexStat && <StatElement onClick={this.handleEditClick}>{this.renderCombinedComplexStat(stat)}</StatElement>}
+            </StatWrapper>
         );
     }
 
     private renderEditState() {
+        const { permanent, gear, token } = this.props.stat;
         return (
-            <div>
-                P<EditInput type="number" defaultValue={this.props.stat.permanent.toString()} title="permanent" onBlur={this.handleEditBlur} />
-                G<EditInput type="number" defaultValue={this.props.stat.gear.toString()} title="gear" onBlur={this.handleEditBlur} />
-                T<EditInput type="number" defaultValue={this.props.stat.token.toString()} title="token" onBlur={this.handleEditBlur} />
+            <StatLayer>
+                <Label>Perm</Label><Input type="number" defaultValue={permanent.toString()} name="permanent" onBlur={this.handleEditBlur} />
+                <Label>Gear</Label><Input type="number" defaultValue={gear.toString()} name="gear" onBlur={this.handleEditBlur} />
+                <Label>Token</Label><Input type="number" defaultValue={token.toString()} name="token" onBlur={this.handleEditBlur} />
                 <button onClick={this.handleEditConfirm}>Check</button>
-            </div>
+            </StatLayer>
         );
     }
 
@@ -92,20 +125,18 @@ class ComplexStat extends Component<IComplexStatProps, IComplexStatState> {
     }
 
     private handleEditBlur(e: SyntheticEvent<HTMLInputElement>) {
-        const newState = this.state.stat;
-        newState[e.currentTarget.title] = parseInt(e.currentTarget.value, 10);
         this.setState({
-            stat: newState,
+            stat: {
+                ...this.state.stat,
+                [e.currentTarget.name]: parseInt(e.currentTarget.value, 10),
+            },
         });
     }
 
     private handleEditConfirm(e: SyntheticEvent<HTMLButtonElement>) {
         if (this.props.survivor && this.props.statKey) {
             this.props.survivor.baseStats[this.props.statKey] = {
-                ...this.props.survivor.baseStats[this.props.statKey],
-                gear: this.state.stat.gear,
-                permanent: this.state.stat.permanent,
-                token: this.state.stat.token,
+                ...this.state.stat,
             };
             this.props.updateSurvivor(this.props.survivor);
         }
