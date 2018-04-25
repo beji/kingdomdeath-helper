@@ -16,6 +16,7 @@ io.on('connection', function(socket){
         socket.join(data.room);
     });
     socket.on('state_update', (data) => {
+        console.log("state update for room", data.room);
         socket.broadcast.to(data.room).emit('state_update_received', data.payload);
     });
   });

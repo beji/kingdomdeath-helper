@@ -33,12 +33,14 @@ interface IAppProps {
     survivors?: string[];
     name?: string;
     aliveCount?: number;
+    id?: ID;
 }
 
 const mapStateToProps = (state: ISettlement): IAppProps => {
     return {
         aliveCount: state.survivors.filter((survivor) => survivor.alive).length,
         huntingSurvivors: state.survivors.filter((survivor) => survivor.hunting).map((survivor) => survivor.id),
+        id: state.id,
         name: state.name,
         survivors: state.survivors.map((survivor) => survivor.id),
     };

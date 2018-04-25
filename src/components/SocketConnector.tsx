@@ -2,7 +2,7 @@ import React from "react";
 import { connect, Dispatch } from "react-redux";
 import io from "socket.io-client";
 import { importSettlement } from "../actions/importAction";
-import { ISettlement } from "../interfaces";
+import { ID, ISettlement } from "../interfaces";
 import { ImportAction } from "../interfaces/importAction";
 import { clone } from "../util";
 import SettlementName from "./SettlementName";
@@ -14,8 +14,18 @@ interface ISocketConnectorProps {
     importSettlement: (imported: ISettlement) => ImportAction;
 }
 
+function getURLParam(urlFragment: string, name: string) {
+    return decodeURIComponent(
+        urlFragment.replace(
+            new RegExp(
+                "^(?:.*[&\\?\\#]" + encodeURI(name).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+}
+
 const mapStateToProps = (state: ISettlement, ownProps: ISocketConnectorProps): ISocketConnectorProps => {
-    socket.emit("state_update", { room: 1, payload: state });
+    const roomId = getURLParam(window.location.href, "id");
+    if (roomId !== "") {
+        socket.emit("state_update", { room: roomId, payload: state });
+    }
     return {
         ...ownProps,
         settlement: clone(state),
@@ -28,9 +38,17 @@ const mapDispatchToProps = (dispatch: Dispatch<ImportAction>) => ({
 class SocketConnector extends React.Component<ISocketConnectorProps> {
     constructor(props: any) {
         super(props);
+        this.state = {
+            roomId: getURLParam(window.location.href, "id"),
+        };
     }
     public componentDidMount() {
-        socket.emit("room", { room: "1" });
+
+        const roomId = getURLParam(window.location.href, "id");
+        if (roomId !== "") {
+            console.log("roomId", roomId);
+            socket.emit("room", { room: roomId });
+        }
         socket.on("state_update_received", (data: ISettlement) => {
             if (JSON.stringify(data) !== JSON.stringify(this.props.settlement)) {
                 console.log("new state", data);
