@@ -59,7 +59,6 @@ const geargrids: IGearGrid[] = Array.apply(null, { length: 4 }).map(Number.call,
         id: uuid(),
         slots: Array.apply(null, { length: 9 }).map(Number.call, Number).map((x: number) => {
             return {
-                content: null,
                 id: x,
             };
         }),

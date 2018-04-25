@@ -1,12 +1,10 @@
-import React, { SyntheticEvent } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
 import styled from "styled-components";
-import { updateGear } from "../actions/gearActions";
 import { updateSurvivor } from "../actions/survivorActions";
 import { ID, ISettlement } from "../interfaces";
 import { IGearGrid } from "../interfaces/gear";
-import { UpdateGearGridAction } from "../interfaces/gearActions";
+import GridSlot from "./GridSlot";
 import SurvivorCard from "./SurvivorCard";
 
 interface IGearGridState {
@@ -17,19 +15,11 @@ interface IGearGridStateProps {
     grid?: IGearGrid;
 }
 
-interface IGearGridDispatchProps {
-    updateGear: (gearGrid: IGearGrid) => UpdateGearGridAction;
-}
-
 interface IGearGridOwnProps {
     id: ID;
 }
 
-interface IGearGridProps extends IGearGridStateProps, IGearGridDispatchProps, IGearGridOwnProps { }
-
-const mapDispatchToProps = (dispatch: Dispatch<UpdateGearGridAction>): IGearGridDispatchProps => ({
-    updateGear: (grid: IGearGrid) => dispatch(updateGear(grid)),
-});
+interface IGearGridProps extends IGearGridStateProps, IGearGridOwnProps { }
 
 const mapStateToProps = (state: ISettlement, ownProps: IGearGridOwnProps): IGearGridStateProps => {
     const geargrid = state.geargrids.find((v) => v.id === ownProps.id);
@@ -60,42 +50,12 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
                 <PlayerCard>
                     <SurvivorCard key={activeGrid.id} id={activeGrid.survivorId} updateSurvivor={updateSurvivor} />
                     <StyledGrid>
-                        {Object.keys(activeGrid.slots).map((v, i) => this.renderGridElement(activeGrid, i))}
+                        {Object.keys(activeGrid.slots).map((v, i) => <GridSlot key={i} gridId={activeGrid.id} slotId={i} />)}
                     </StyledGrid>
                 </PlayerCard>
             );
         }
     }
-
-    private renderGridElement(grid: IGearGrid, i: number) {
-        const StyledElement = styled.div`
-            border:1px solid #444;
-            width:33.33333%;
-            height:7vh;
-        `;
-        return (
-            <StyledElement key={i} onDrop={this.handleGridDrop.bind(this, i)} onDragOver={this.handleDragOver}>{grid.slots[i].content}</StyledElement>
-        );
-    }
-
-    private handleGridDrop(index: number) {
-        if (this.props.grid) {
-            console.log("before", this.props.grid.slots[index]);
-            this.props.grid.slots[index] = {
-                ...this.props.grid.slots[index],
-                content: "dropped",
-            };
-            console.log("after", this.props.grid.slots[index]);
-            this.props.updateGear(this.props.grid);
-        }
-        this.setState({
-            grid: this.props.grid,
-        });
-    }
-
-    private handleDragOver(e: SyntheticEvent<HTMLDivElement>) {
-        e.preventDefault();
-    }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GearGrid);
+export default connect(mapStateToProps)(GearGrid);
