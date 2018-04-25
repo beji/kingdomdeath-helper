@@ -7,9 +7,10 @@ import { addToHunt, removeFromHunt } from "../actions";
 import { killSurvivor, reviveSurvivor, updateSurvivor } from "../actions/survivorActions";
 import { Gender, ID, ISettlement } from "../interfaces";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
-import { IComplexStat, ISurvivor } from "../interfaces/survivor";
+import { ISurvivor } from "../interfaces/survivor";
 import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
+
 import ComplexStat from "./ComplexStat";
 
 interface ISurvivorListItemProps {
@@ -162,10 +163,6 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
             return "";
         }
 
-    }
-
-    private renderCombinedComplexStat(stat: IComplexStat) {
-        return stat.permanent + stat.gear + stat.token;
     }
 
     private handleKillClick(e: SyntheticEvent<HTMLButtonElement>) {

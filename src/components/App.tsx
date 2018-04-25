@@ -3,6 +3,7 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions/";
+import { updateGear } from "../actions/gearActions";
 import { setName } from "../actions/settlementActions";
 import { killSurvivor, reviveSurvivor, updateSurvivor } from "../actions/survivorActions";
 import { ID, ISettlement } from "../interfaces";
@@ -57,7 +58,7 @@ class App extends Component<IAppProps> {
             <AppWrapper>
                 <SettlementName setName={setName} />
                 <SurvivorCardsWrapper>
-                    {geargrids && geargrids.map((id, idx) => <GearGrid key={idx} id={id} />)}
+                    {geargrids && geargrids.map((id, idx) => <GearGrid key={idx} id={id} updateGear={updateGear} />)}
                 </SurvivorCardsWrapper>
                 <div>
                     Population: {aliveCount ? aliveCount : 0}

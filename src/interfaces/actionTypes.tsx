@@ -6,6 +6,7 @@ const enum ActionTypes {
     UPDATE_SURVIVOR = "UPDATE_SURVIVOR",
     KILL_SURVIVOR = "KILL_SURVIVOR",
     REVIVE_SURVIVOR = "REVIVE_SURVIVOR",
+    UPDATE_GEARGRID = "UPDATE_GEARGRID",
 }
 
 export default ActionTypes;
