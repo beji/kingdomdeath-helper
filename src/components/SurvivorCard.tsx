@@ -115,7 +115,7 @@ class SurvivorCard extends Component<ISurvivorCardProps, ISurvivorCardState> {
                         {gender}
                     </section>
                     <StatSection>
-                        {sortedBaseStats.map((v, i) => (<div key={i}>{baseStats[v].label}<ComplexStat id={id} stat={baseStats[v]} updateSurvivor={updateSurvivor} /></div>))}
+                        {sortedBaseStats.map((v, i) => (<div key={i}>{baseStats[v].label}<ComplexStat id={id} stat={baseStats[v]} /></div>))}
                     </StatSection>
                     <StatSection>
                         {sortedDefenceStats.map((v, i) => (this.renderDefenceStat(defenceStats[v], v, i)))}

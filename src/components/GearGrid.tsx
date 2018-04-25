@@ -13,22 +13,28 @@ interface IGearGridState {
     grid?: IGearGrid;
 }
 
-interface IGearGridProps {
-    id: ID;
+interface IGearGridStateProps {
     grid?: IGearGrid;
+}
+
+interface IGearGridDispatchProps {
     updateGear: (gearGrid: IGearGrid) => UpdateGearGridAction;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<UpdateGearGridAction>) => ({
+interface IGearGridOwnProps {
+    id: ID;
+}
+
+interface IGearGridProps extends IGearGridStateProps, IGearGridDispatchProps, IGearGridOwnProps { }
+
+const mapDispatchToProps = (dispatch: Dispatch<UpdateGearGridAction>): IGearGridDispatchProps => ({
     updateGear: (grid: IGearGrid) => dispatch(updateGear(grid)),
 });
 
-const mapStateToProps = (state: ISettlement, ownProps: IGearGridProps): IGearGridProps => {
+const mapStateToProps = (state: ISettlement, ownProps: IGearGridOwnProps): IGearGridStateProps => {
     const geargrid = state.geargrids.find((v) => v.id === ownProps.id);
     return {
         grid: geargrid,
-        id: ownProps.id,
-        ...ownProps,
     };
 };
 

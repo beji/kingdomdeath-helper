@@ -10,18 +10,25 @@ import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions
 import { ISurvivor } from "../interfaces/survivor";
 import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
-
 import ComplexStat from "./ComplexStat";
 
-interface ISurvivorListItemProps {
-    id: ID;
+interface ISurvivorListItemStateProps {
     survivor?: ISurvivor;
+}
+
+interface ISurvivorListItemDispatchProps {
     addToHunt: (id: ID) => AddToHuntAction;
     removeFromHunt: (id: ID) => RemoveFromHuntAction;
     updateSurvivor: (survivor: ISurvivor) => UpdateSurvivorAction;
     killSurvivor: (id: ID) => KillSurvivorAction;
     reviveSurvivor: (id: ID) => ReviveSurvivorAction;
 }
+
+interface ISurvivorListItemOwnProps {
+    id: ID;
+}
+
+interface ISurvivorListItemProps extends ISurvivorListItemOwnProps, ISurvivorListItemStateProps, ISurvivorListItemDispatchProps { }
 
 interface ISurvivorListItemState {
     editName: boolean;
@@ -33,7 +40,7 @@ const Cell = styled.td`
     padding: 0.25vh 0.25vw;
 `;
 
-const mapDispatchToProps = (dispatch: Dispatch<AddToHuntAction | RemoveFromHuntAction | UpdateSurvivorAction | KillSurvivorAction | ReviveSurvivorAction>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<AddToHuntAction | RemoveFromHuntAction | UpdateSurvivorAction | KillSurvivorAction | ReviveSurvivorAction>): ISurvivorListItemDispatchProps => ({
     addToHunt: (id: ID) => dispatch(addToHunt(id)),
     killSurvivor: (id: ID) => dispatch(killSurvivor(id)),
     removeFromHunt: (id: ID) => dispatch(removeFromHunt(id)),
@@ -41,12 +48,10 @@ const mapDispatchToProps = (dispatch: Dispatch<AddToHuntAction | RemoveFromHuntA
     updateSurvivor: (survivor: ISurvivor) => dispatch(updateSurvivor(survivor)),
 });
 
-const mapStateToProps = (state: ISettlement, ownProps: ISurvivorListItemProps): ISurvivorListItemProps => {
+const mapStateToProps = (state: ISettlement, ownProps: ISurvivorListItemOwnProps): ISurvivorListItemStateProps => {
     const survivor = state.survivors.find((v) => v.id === ownProps.id);
     return {
-        id: ownProps.id,
         survivor: clone(survivor),
-        ...ownProps,
     };
 };
 
@@ -85,12 +90,12 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
                         {editGender && this.renderGenderSelect()}
                         {!editGender && <span onClick={this.handleGenderClick}>{gender}</span>}
                     </Cell>
-                    <Cell><ComplexStat id={id} stat={movement} updateSurvivor={updateSurvivor} /></Cell>
-                    <Cell><ComplexStat id={id} stat={accuracy} updateSurvivor={updateSurvivor} /></Cell>
-                    <Cell><ComplexStat id={id} stat={strength} updateSurvivor={updateSurvivor} /></Cell>
-                    <Cell><ComplexStat id={id} stat={evasion} updateSurvivor={updateSurvivor} /></Cell>
-                    <Cell><ComplexStat id={id} stat={luck} updateSurvivor={updateSurvivor} /></Cell>
-                    <Cell><ComplexStat id={id} stat={speed} updateSurvivor={updateSurvivor} /></Cell>
+                    <Cell><ComplexStat id={id} stat={movement} /></Cell>
+                    <Cell><ComplexStat id={id} stat={accuracy} /></Cell>
+                    <Cell><ComplexStat id={id} stat={strength} /></Cell>
+                    <Cell><ComplexStat id={id} stat={evasion} /></Cell>
+                    <Cell><ComplexStat id={id} stat={luck} /></Cell>
+                    <Cell><ComplexStat id={id} stat={speed} /></Cell>
                     <Cell>{alive && <input type="checkbox" checked={hunting} onChange={this.handleHuntBoxChange} />}</Cell>
                     <Cell>
                         {alive ? <button onClick={this.handleKillClick}>Kill</button> : <button onClick={this.handleReviveClick}>Revive</button>}

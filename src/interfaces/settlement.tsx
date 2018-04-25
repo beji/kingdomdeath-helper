@@ -1,6 +1,6 @@
+import { IGearGrid } from "./gear";
 import { ID } from "./generics";
 import { ISurvivor } from "./survivor";
-import { IGearGrid } from "./gear";
 
 interface ISettlement {
     id: ID;

@@ -1,18 +1,11 @@
 import React from "react";
-import { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { addToHunt, removeFromHunt } from "../actions/";
-import { updateGear } from "../actions/gearActions";
-import { importSettlement } from "../actions/importAction";
-import { setName } from "../actions/settlementActions";
-import { killSurvivor, reviveSurvivor, updateSurvivor } from "../actions/survivorActions";
 import { ID, ISettlement } from "../interfaces";
 import ExportForm from "./ExportForm";
 import GearGrid from "./GearGrid";
 import SettlementName from "./SettlementName";
 import SocketConnector from "./SocketConnector";
-import SurvivorCard from "./SurvivorCard";
 import SurvivorListItem from "./SurvivorListItem";
 
 const AppWrapper = styled.div`
@@ -56,14 +49,14 @@ const mapStateToProps = (state: ISettlement): IAppProps => {
     };
 };
 
-class App extends Component<IAppProps> {
+class App extends React.Component<IAppProps> {
     public render() {
         const { geargrids, survivors, aliveCount } = this.props;
         return (
             <AppWrapper>
-                <SettlementName setName={setName} />
+                <SettlementName />
                 <SurvivorCardsWrapper>
-                    {geargrids && geargrids.map((id, idx) => <GearGrid key={idx} id={id} updateGear={updateGear} />)}
+                    {geargrids && geargrids.map((id, idx) => <GearGrid key={idx} id={id} />)}
                 </SurvivorCardsWrapper>
                 <div>
                     Population: {aliveCount ? aliveCount : 0}
@@ -90,7 +83,7 @@ class App extends Component<IAppProps> {
                 </SurvivorList>
                 <ExportForm />
                 <GearCard draggable={true}>This a piece of Gear</GearCard>
-                <SocketConnector importSettlement={importSettlement} />
+                <SocketConnector />
             </AppWrapper>);
     }
 
@@ -99,11 +92,6 @@ class App extends Component<IAppProps> {
             <SurvivorListItem
                 key={idx}
                 id={id}
-                addToHunt={addToHunt}
-                removeFromHunt={removeFromHunt}
-                updateSurvivor={updateSurvivor}
-                killSurvivor={killSurvivor}
-                reviveSurvivor={reviveSurvivor}
             />);
     }
 }

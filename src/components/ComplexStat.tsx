@@ -9,13 +9,21 @@ import { IComplexStat } from "../interfaces/survivor";
 import { UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 
-interface IComplexStatProps {
-    id: ID;
-    stat: IComplexStat;
+interface IComplexStatStateProps {
     statKey?: string;
     survivor?: ISurvivor;
+}
+
+interface IComplexStatDispatchProps {
     updateSurvivor: (survivor: ISurvivor) => UpdateSurvivorAction;
 }
+
+interface IComplexStatOwnProps {
+    id: ID;
+    stat: IComplexStat;
+}
+
+interface IComplexStatProps extends IComplexStatStateProps, IComplexStatDispatchProps, IComplexStatOwnProps { }
 
 interface IComplexStatState {
     editComplexStat: boolean;
@@ -65,11 +73,11 @@ const StatLayer = styled.div`
     z-index:10;
 `;
 
-const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorAction>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorAction>): IComplexStatDispatchProps => ({
     updateSurvivor: (survivor: ISurvivor) => dispatch(updateSurvivor(survivor)),
 });
 
-const mapStateToProps = (state: ISettlement, ownProps: IComplexStatProps): IComplexStatProps => {
+const mapStateToProps = (state: ISettlement, ownProps: IComplexStatOwnProps): IComplexStatStateProps => {
     const survivor = state.survivors.find((v) => v.id === ownProps.id);
     const statKey = survivor && Object.keys(survivor.baseStats).reduce((a, c) => {
         return survivor.baseStats[c].id === ownProps.stat.id ? c : a;
@@ -77,11 +85,8 @@ const mapStateToProps = (state: ISettlement, ownProps: IComplexStatProps): IComp
     const stat = survivor && statKey && survivor.baseStats[statKey];
 
     return {
-        id: ownProps.id,
-        stat: clone(stat),
         statKey,
         survivor: clone(survivor),
-        ...ownProps,
     };
 };
 

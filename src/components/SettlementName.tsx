@@ -6,23 +6,27 @@ import { setName } from "../actions/settlementActions";
 import { ISettlement } from "../interfaces";
 import { SetNameAction } from "../interfaces/settlementActions";
 
-interface ISettlementNameProps {
-    name?: string;
+interface ISettlementNameDispatchProps {
     setName: (name: string) => SetNameAction;
 }
+
+interface ISettlementNameStateProps {
+    name?: string;
+}
+
+interface ISettlementNameProps extends ISettlementNameDispatchProps, ISettlementNameStateProps { }
 
 interface ISettlementNameState {
     editmode: boolean;
 }
 
-const mapStateToProps = (state: ISettlement, ownProps: ISettlementNameProps): ISettlementNameProps => {
+const mapStateToProps = (state: ISettlement, ownProps: ISettlementNameStateProps): ISettlementNameStateProps => {
     return {
         name: state.name,
-        ...ownProps,
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<SetNameAction>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<SetNameAction>): ISettlementNameDispatchProps => ({
     setName: (name: string) => dispatch(setName(name)),
 });
 

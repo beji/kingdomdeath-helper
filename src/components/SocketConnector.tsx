@@ -9,10 +9,14 @@ import SettlementName from "./SettlementName";
 
 const socket = io();
 
-interface ISocketConnectorProps {
+interface ISocketConnectorStateProps {
     settlement?: ISettlement;
+}
+interface ISocketConnectorDispatchProps {
     importSettlement: (imported: ISettlement) => ImportAction;
 }
+
+interface ISocketConnectorProps extends ISocketConnectorStateProps, ISocketConnectorDispatchProps { }
 
 function getURLParam(urlFragment: string, name: string) {
     return decodeURIComponent(
@@ -21,7 +25,7 @@ function getURLParam(urlFragment: string, name: string) {
                 "^(?:.*[&\\?\\#]" + encodeURI(name).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 }
 
-const mapStateToProps = (state: ISettlement, ownProps: ISocketConnectorProps): ISocketConnectorProps => {
+const mapStateToProps = (state: ISettlement, ownProps: ISocketConnectorStateProps): ISocketConnectorStateProps => {
     const roomId = getURLParam(window.location.href, "id");
     if (roomId !== "") {
         socket.emit("state_update", { room: roomId, payload: state });
@@ -31,7 +35,7 @@ const mapStateToProps = (state: ISettlement, ownProps: ISocketConnectorProps): I
         settlement: clone(state),
     };
 };
-const mapDispatchToProps = (dispatch: Dispatch<ImportAction>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<ImportAction>): ISocketConnectorDispatchProps => ({
     importSettlement: (imported: ISettlement) => dispatch(importSettlement(imported)),
 });
 
