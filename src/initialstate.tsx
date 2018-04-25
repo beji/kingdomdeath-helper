@@ -1,5 +1,6 @@
 import uuid from "uuid/v4";
 import { Gender, IComplexStat, ISettlement, ISurvivor } from "./interfaces";
+import { IGearGrid } from "./interfaces/gear";
 import { BaseStats, DefenceStats, IDefence, IHitLocation, IStats } from "./interfaces/survivor";
 
 const getComplexStat = (label: BaseStats): IComplexStat => ({
@@ -43,6 +44,7 @@ const survivors: ISurvivor[] = Array.apply(null, { length: 8 }).map(Number.call,
         baseStats: getBaseStats(),
         defenceStats: getDefence(),
         gender: n % 2 === 0 ? Gender.Male : Gender.Female,
+        gridId: n < 4 ? n : null,
         hunting: n < 4,
         id: uuid(),
         name: `Survivor ${n}`,
@@ -50,7 +52,19 @@ const survivors: ISurvivor[] = Array.apply(null, { length: 8 }).map(Number.call,
     };
 });
 
+const geargrids: IGearGrid[] = Array.apply(null, { length: 4 }).map(Number.call, Number).map((n: number) => {
+    return {
+        id: uuid(),
+        slots: Array.apply(null, { length: 9 }).map(Number.call, Number).map((x: number) => {
+            return {
+                content: null,
+                id: x,
+            };
+        }),
+    };
+});
 const initialState: ISettlement = {
+    geargrids,
     id: uuid(),
     name: "Everybody-will-die-town",
     survivors,

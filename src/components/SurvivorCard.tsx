@@ -8,6 +8,7 @@ import { IComplexStat, ID, IHitLocation, ISettlement, ISurvivor } from "../inter
 import { UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 import ComplexStat from "./ComplexStat";
+import GearGrid from "./GearGrid";
 
 const StyledCard = styled.div`
     border: 1px solid #333;

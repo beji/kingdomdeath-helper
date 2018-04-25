@@ -64,6 +64,7 @@ interface IDefence {
 
 interface ISurvivor {
     id: ID;
+    gridId: string | null;
     name: string;
     gender: Gender;
     hunting: boolean;
