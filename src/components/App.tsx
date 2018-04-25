@@ -1,8 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import uuid from "uuid/v4";
 import { ID, ISettlement } from "../interfaces";
 import ExportForm from "./ExportForm";
+import GearCard from "./GearCard";
 import GearGrid from "./GearGrid";
 import SettlementName from "./SettlementName";
 import SocketConnector from "./SocketConnector";
@@ -21,12 +23,6 @@ const SurvivorCardsWrapper = styled.div`
 
 const SurvivorList = styled.table`
     border-collapse: collapse;
-`;
-
-const GearCard = styled.div`
-    width:5vw;
-    height:5vw;
-    background:#aaa;
 `;
 
 interface IAppProps {
@@ -82,7 +78,7 @@ class App extends React.Component<IAppProps> {
                     </tbody>
                 </SurvivorList>
                 <ExportForm />
-                <GearCard draggable={true}>This a piece of Gear</GearCard>
+                <GearCard id={uuid()}/>
                 <SocketConnector />
             </AppWrapper>);
     }

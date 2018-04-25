@@ -44,9 +44,6 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
         this.state = {
             active: false,
         };
-        this.handleDragEnter.bind(this);
-        this.handleDragLeave.bind(this);
-        this.handleGridDrop.bind(this);
     }
 
     public render() {
@@ -61,18 +58,17 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
         return (
             <StyledElement
                 className={this.state.active ? "active" : ""}
-                onDrop={this.handleGridDrop}
+                onDrop={this.handleGridDrop.bind(this, this.props.slotId)}
                 onDragOver={this.handleDragOver}
-                onDragEnter={this.handleDragEnter}
-                onDragLeave={this.handleDragLeave}
+                onDragEnter={this.handleDragEnter.bind(this, this.props.slotId)}
+                onDragLeave={this.handleDragLeave.bind(this, this.props.slotId)}
             >
                 {this.state.grid && this.state.grid.slots[this.props.slotId].content}
             </StyledElement>
         );
     }
 
-    private handleGridDrop() {
-        const slotId = this.props.slotId;
+    private handleGridDrop(slotId: number) {
         if (this.props.grid) {
             this.props.grid.slots[slotId] = {
                 ...this.props.grid.slots[slotId],
