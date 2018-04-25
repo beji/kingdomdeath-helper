@@ -3,6 +3,24 @@ const path = require('path')
 const app = express()
 const webpack = require('webpack')
 const morgan = require("morgan");
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+io.on('connection', function(socket){
+    console.log('a user connected');
+    socket.on('disconnect', function(){
+      console.log('user disconnected');
+    });
+    socket.on('room', (data) => {
+        console.log("socket joining room", data.room);
+        socket.join(data.room);
+    });
+    socket.on('state_update', (data) => {
+        console.log("state update for room", data.room);
+        socket.broadcast.to(data.room).emit('state_update_received', data.payload);
+    });
+  });
+      
 
 app.use(morgan("combined"));
 
@@ -51,6 +69,6 @@ if (process.env.NODE_ENV !== 'production') {
     });    
 }
 
-app.listen(3000, () => {
+http.listen(3000, () => {
     console.log(`Server listening on http://localhost:3000`)
 })

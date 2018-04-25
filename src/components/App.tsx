@@ -4,12 +4,15 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions/";
 import { updateGear } from "../actions/gearActions";
+import { importSettlement } from "../actions/importAction";
 import { setName } from "../actions/settlementActions";
 import { killSurvivor, reviveSurvivor, updateSurvivor } from "../actions/survivorActions";
 import { ID, ISettlement } from "../interfaces";
 import ExportForm from "./ExportForm";
 import GearGrid from "./GearGrid";
 import SettlementName from "./SettlementName";
+import SocketConnector from "./SocketConnector";
+import SurvivorCard from "./SurvivorCard";
 import SurvivorListItem from "./SurvivorListItem";
 
 const AppWrapper = styled.div`
@@ -39,6 +42,7 @@ interface IAppProps {
     name?: string;
     aliveCount?: number;
     geargrids?: ID[];
+    id?: ID;
 }
 
 const mapStateToProps = (state: ISettlement): IAppProps => {
@@ -46,6 +50,7 @@ const mapStateToProps = (state: ISettlement): IAppProps => {
         aliveCount: state.survivors.filter((survivor) => survivor.alive).length,
         geargrids: state.geargrids.map((grid) => grid.id),
         huntingSurvivors: state.survivors.filter((survivor) => survivor.hunting).map((survivor) => survivor.id),
+        id: state.id,
         name: state.name,
         survivors: state.survivors.map((survivor) => survivor.id),
     };
@@ -85,6 +90,7 @@ class App extends Component<IAppProps> {
                 </SurvivorList>
                 <ExportForm />
                 <GearCard draggable={true}>This a piece of Gear</GearCard>
+                <SocketConnector importSettlement={importSettlement} />
             </AppWrapper>);
     }
 

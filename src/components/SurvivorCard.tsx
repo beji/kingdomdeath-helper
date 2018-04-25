@@ -136,8 +136,8 @@ class SurvivorCard extends Component<ISurvivorCardProps, ISurvivorCardState> {
                 {defStat.label}
                 <div>
                     {defStat.armor}
-                    {!defStat.onlyHeavyWound && <LightWound onClick={this.toggleWound.bind(this, locName, "lightWound")} className={defStat.lightWound ? "active" : ""}/>}
-                    <HeavyWound onClick={this.toggleWound.bind(this, locName, "heavyWound")} className={defStat.heavyWound ? "active" : ""}/>
+                    {!defStat.onlyHeavyWound && <LightWound onClick={this.toggleWound.bind(this, locName, "lightWound")} className={defStat.lightWound ? "active" : ""} />}
+                    <HeavyWound onClick={this.toggleWound.bind(this, locName, "heavyWound")} className={defStat.heavyWound ? "active" : ""} />
                 </div>
             </div>
         );
