@@ -6,6 +6,8 @@ const morgan = require("morgan");
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
+const statestore = {};
+
 io.on('connection', function(socket){
     console.log('a user connected');
     socket.on('disconnect', function(){
@@ -14,9 +16,11 @@ io.on('connection', function(socket){
     socket.on('room', (data) => {
         console.log("socket joining room", data.room);
         socket.join(data.room);
+        socket.emit("state_update_received", statestore[data.room]);
     });
     socket.on('state_update', (data) => {
         console.log("state update for room", data.room);
+        statestore[data.room] = data.payload;
         socket.broadcast.to(data.room).emit('state_update_received', data.payload);
     });
   });

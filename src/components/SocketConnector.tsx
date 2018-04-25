@@ -9,6 +9,8 @@ import SettlementName from "./SettlementName";
 
 const socket = io();
 
+const roomId = getURLParam(window.location.href, "id");
+
 interface ISocketConnectorStateProps {
     settlement?: ISettlement;
 }
@@ -26,12 +28,7 @@ function getURLParam(urlFragment: string, name: string) {
 }
 
 const mapStateToProps = (state: ISettlement, ownProps: ISocketConnectorStateProps): ISocketConnectorStateProps => {
-    const roomId = getURLParam(window.location.href, "id");
-    if (roomId !== "") {
-        socket.emit("state_update", { room: roomId, payload: state });
-    }
     return {
-        ...ownProps,
         settlement: clone(state),
     };
 };
@@ -42,28 +39,30 @@ const mapDispatchToProps = (dispatch: Dispatch<ImportAction>): ISocketConnectorD
 class SocketConnector extends React.Component<ISocketConnectorProps> {
     constructor(props: any) {
         super(props);
-        this.state = {
-            roomId: getURLParam(window.location.href, "id"),
-        };
     }
-    public componentDidMount() {
 
-        const roomId = getURLParam(window.location.href, "id");
+    // tslint:disable-next-line:member-ordering
+    public componentDidUpdate(prevProps: ISocketConnectorStateProps, prevState: any, snapshot: any) {
+        if (JSON.stringify(prevProps) !== JSON.stringify(this.props.settlement)) {
+            socket.emit("state_update", {room: roomId, payload: this.props.settlement});
+        }
+    }
+
+    public componentDidMount() {
         if (roomId !== "") {
             console.log("roomId", roomId);
-            socket.emit("room", { room: roomId });
         }
         socket.on("state_update_received", (data: ISettlement) => {
             if (JSON.stringify(data) !== JSON.stringify(this.props.settlement)) {
                 console.log("new state", data);
-                console.log(this.props.importSettlement);
                 this.props.importSettlement(data);
             }
         });
+        socket.emit("room", { room: roomId });
     }
 
     public render() {
-        return (<div>Connector!</div>);
+        return (<div>Connector {this.props.settlement && this.props.settlement.id}!</div>);
     }
 }
 
