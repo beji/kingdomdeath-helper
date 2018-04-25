@@ -49,16 +49,17 @@ class SocketConnector extends React.Component<ISocketConnectorProps> {
     }
 
     public componentDidMount() {
-        if (roomId !== "") {
-            console.log("roomId", roomId);
-        }
         socket.on("state_update_received", (data: ISettlement) => {
             if (data !== null && JSON.stringify(data) !== JSON.stringify(this.props.settlement)) {
                 console.log("new state", data);
                 this.props.importSettlement(data);
             }
+            socket.emit("room", { room: roomId });
         });
-        socket.emit("room", { room: roomId });
+        if (roomId !== "") {
+            console.log("roomId", roomId);
+        }
+
     }
 
     public render() {
