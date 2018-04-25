@@ -11,6 +11,13 @@ io.on('connection', function(socket){
     socket.on('disconnect', function(){
       console.log('user disconnected');
     });
+    socket.on('room', (data) => {
+        console.log("socket joining room", data.room);
+        socket.join(data.room);
+    });
+    socket.on('state_update', (data) => {
+        socket.broadcast.to(data.room).emit('state_update_received', data.payload);
+    });
   });
       
 
@@ -61,6 +68,6 @@ if (process.env.NODE_ENV !== 'production') {
     });    
 }
 
-app.listen(3000, () => {
+http.listen(3000, () => {
     console.log(`Server listening on http://localhost:3000`)
 })

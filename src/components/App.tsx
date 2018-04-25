@@ -3,11 +3,13 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions/";
+import { importSettlement } from "../actions/importAction";
 import { setName } from "../actions/settlementActions";
 import { killSurvivor, reviveSurvivor, updateSurvivor } from "../actions/survivorActions";
 import { ID, ISettlement } from "../interfaces";
 import ExportForm from "./ExportForm";
 import SettlementName from "./SettlementName";
+import SocketConnector from "./SocketConnector";
 import SurvivorCard from "./SurvivorCard";
 import SurvivorListItem from "./SurvivorListItem";
 
@@ -75,6 +77,7 @@ class App extends Component<IAppProps> {
                     </tbody>
                 </SurvivorList>
                 <ExportForm />
+                <SocketConnector importSettlement={importSettlement} />
             </AppWrapper>);
     }
 
