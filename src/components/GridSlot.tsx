@@ -51,10 +51,13 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
             border:1px solid #444;
             width:33.33333%;
             height:10vh;
+            text-align:center;
+            line-height:10vh;
             &.active {
                 background:#aaa;
             }
         `;
+        const content = this.state.grid && this.state.grid.slots[this.props.slotId].content;
         return (
             <StyledElement
                 className={this.state.active ? "active" : ""}
@@ -63,7 +66,8 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
                 onDragEnter={this.handleDragEnter.bind(this, this.props.slotId)}
                 onDragLeave={this.handleDragLeave.bind(this, this.props.slotId)}
             >
-                {this.state.grid && this.state.grid.slots[this.props.slotId].content}
+                {content && (content)}
+                {!content && <button>+</button>}
             </StyledElement>
         );
     }
