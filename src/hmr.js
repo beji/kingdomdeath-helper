@@ -3,6 +3,16 @@ const path = require('path')
 const app = express()
 const webpack = require('webpack')
 const morgan = require("morgan");
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+io.on('connection', function(socket){
+    console.log('a user connected');
+    socket.on('disconnect', function(){
+      console.log('user disconnected');
+    });
+  });
+      
 
 app.use(morgan("combined"));
 
