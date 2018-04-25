@@ -7,8 +7,8 @@ interface IGearGrid {
 }
 
 interface IGridSlot {
+    content?: string;
     id: ID;
-    content: string | null;
 }
 
 export { IGearGrid, IGridSlot };
