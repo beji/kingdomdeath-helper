@@ -25,6 +25,8 @@
     "@types/react-dom": "^16.0.4",
     "@types/react-redux": "^5.0.15",
     "@types/redux": "^3.6.0",
+    "@types/socket.io": "^1.4.33",
+    "@types/socket.io-client": "^1.4.32",
     "@types/uuid": "^3.4.3",
     "@types/webpack-env": "^1.13.5",
     "chai": "^4.1.2",
@@ -61,6 +63,7 @@
     "react-hot-loader": "^4.0.1",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
+    "socket.io": "^2.1.0",
     "styled-components": "^3.2.6",
     "uuid": "^3.2.1"
   }
