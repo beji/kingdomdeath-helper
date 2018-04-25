@@ -40,6 +40,11 @@ module.exports =
                 }
             ],
         },
+        optimization: {
+            splitChunks: {
+                chunks: "all"
+            }
+        },
         target: 'web',
         plugins: [
             new Visualizer(),

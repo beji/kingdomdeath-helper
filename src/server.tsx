@@ -7,7 +7,7 @@ const htmlhead = `<!doctype html>
 <body>
 <div id="content">`;
 
-const hmtlfoot = (bundlepath = "bundle.js") => `</div><script src="/assets/${bundlepath}"></script></body></html>`;
+const hmtlfoot = (bundlepaths = ["bundle.js"]) => `</div>${bundlepaths.map((bundlepath) => `<script src="/assets/${bundlepath}"></script>`)}</body></html>`;
 
 export default function serverRenderer(stats: any) {
     return (req: IncomingMessage, res: ServerResponse) => {
@@ -17,8 +17,8 @@ export default function serverRenderer(stats: any) {
         res.write(htmlhead);
 
         if (stats && stats.assetsByChunkName && stats.assetsByChunkName.main) {
-            const bundle = stats.assetsByChunkName.main;
-            return res.end(hmtlfoot(bundle));
+            const bundles = [stats.assetsByChunkName["vendors~main"], stats.assetsByChunkName.main];
+            return res.end(hmtlfoot(bundles));
         } else {
             return res.end(hmtlfoot());
         }
