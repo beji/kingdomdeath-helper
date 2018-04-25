@@ -5,4 +5,5 @@ RUN npm install -g yarn
 ADD . .
 RUN yarn install
 RUN yarn run build
+RUN yarn run test
 CMD ["yarn", "run", "prod"]
