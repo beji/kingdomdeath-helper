@@ -1,5 +1,5 @@
 import uuid from "uuid/v4";
-import { Gender, IComplexStat, ISettlement, ISurvivor } from "./interfaces";
+import { Gender, IComplexStat, ID, ISettlement, ISurvivor } from "./interfaces";
 import { IGearGrid } from "./interfaces/gear";
 import { BaseStats, DefenceStats, IDefence, IHitLocation, IStats } from "./interfaces/survivor";
 
@@ -52,6 +52,8 @@ const survivors: ISurvivor[] = Array.apply(null, { length: 8 }).map(Number.call,
     };
 });
 
+const huntingSurvivors: ID[] = survivors.filter((survivor) => survivor.hunting).map((survivor) => survivor.id);
+
 const geargrids: IGearGrid[] = Array.apply(null, { length: 4 }).map(Number.call, Number).map((n: number) => {
     return {
         id: uuid(),
@@ -61,6 +63,7 @@ const geargrids: IGearGrid[] = Array.apply(null, { length: 4 }).map(Number.call,
                 id: x,
             };
         }),
+        survivorId: huntingSurvivors[n],
     };
 });
 const initialState: ISettlement = {

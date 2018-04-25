@@ -13,9 +13,7 @@ import GearGrid from "./GearGrid";
 const StyledCard = styled.div`
     border: 1px solid #333;
     flex: 1 1 45%;
-    margin: 1vh 1vw;
     padding: 1vh 1vw;
-    max-width: 50%;
 `;
 
 const Label = styled.span`
@@ -56,14 +54,14 @@ const HeavyWound = LightWound.extend`
 `;
 
 interface ISurvivorCardProps {
-    id: ID;
+    id?: ID;
     survivor?: ISurvivor;
     firstnameEdit?: boolean;
     updateSurvivor: (survivor: ISurvivor) => UpdateSurvivorAction;
 }
 
 interface ISurvivorCardState {
-    id: ID;
+    id?: ID;
     survivor?: ISurvivor;
     firstnameEdit: boolean;
 }
@@ -125,7 +123,11 @@ class SurvivorCard extends Component<ISurvivorCardProps, ISurvivorCardState> {
                 </StyledCard>
             );
         } else {
-            return <StyledCard />;
+            return (
+                <StyledCard>
+                    No Survivor chosen!
+                </StyledCard>
+            );
         }
     }
     private renderDefenceStat(defStat: IHitLocation, locName: string, index: number) {
@@ -145,11 +147,14 @@ class SurvivorCard extends Component<ISurvivorCardProps, ISurvivorCardState> {
     }
     private toggleWound(locName: string, woundType: string) {
         if (this.props.survivor) {
-            this.props.survivor.defenceStats[locName] = {
-                ...this.props.survivor.defenceStats[locName],
-                [woundType]: !this.props.survivor.defenceStats[locName][woundType],
-            };
-            this.props.updateSurvivor(this.props.survivor);
+            const defStat = this.props.survivor.defenceStats[locName];
+            if (woundType === "lightWound" || (woundType === "heavyWound" && defStat.lightWound)) {
+                this.props.survivor.defenceStats[locName] = {
+                    ...defStat,
+                    [woundType]: !defStat[woundType],
+                };
+                this.props.updateSurvivor(this.props.survivor);
+            }
         }
     }
     private nameUpdate(e: SyntheticEvent<HTMLInputElement>) {

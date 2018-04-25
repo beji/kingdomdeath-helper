@@ -1,8 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
-import uuid from "uuid/v4";
-import { ID } from "../interfaces";
+import { updateSurvivor } from "../actions/survivorActions";
+import { ID, ISettlement } from "../interfaces";
 import { IGearGrid, IGridSlot } from "../interfaces/gear";
+import SurvivorCard from "./SurvivorCard";
 
 interface IGearGridState {
     grid: IGearGrid;
@@ -10,50 +12,51 @@ interface IGearGridState {
 
 interface IGearGridProps {
     id: ID;
+    grid?: IGearGrid;
 }
+
+const mapStateToProps = (state: ISettlement, ownProps: IGearGridProps): IGearGridProps => {
+    const geargrid = state.geargrids.find((v) => v.id === ownProps.id);
+    return {
+        grid: geargrid,
+        id: ownProps.id,
+        ...ownProps,
+    };
+};
 
 class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
     public constructor(props: IGearGridProps) {
         super(props);
-
-        const emptySlot: IGridSlot = {
-            content: null,
-            id: uuid(),
-        };
-
-        this.state = {
-            grid: {
-                id: props.id,
-                slots: [
-                    emptySlot,
-                    emptySlot,
-                    emptySlot,
-                    emptySlot,
-                    emptySlot,
-                    emptySlot,
-                    emptySlot,
-                    emptySlot,
-                    emptySlot,
-                ],
-            },
-        };
     }
 
     public render() {
+        const PlayerCard = styled.div`
+            width:47vw;
+            margin:1vh 1vw;
+        `;
         const StyledGrid = styled.div`
+            display:flex;
+            flex-wrap:wrap;
             width:100%;
+            margin: 1vh 0;
         `;
         const StyledElement = styled.div`
-            width:33%:
-            height:33%;
+            border:1px solid #444;
+            width:33.33333%;
+            height:7vh;
         `;
-
-        return (
-            <StyledGrid>
-                {Object.keys(this.state.grid.slots).map((v, i) => <StyledElement key={i}>{i}</StyledElement>)}
-            </StyledGrid>
-        );
+        if (this.props.grid) {
+            const activeGrid = this.props.grid;
+            return (
+                <PlayerCard>
+                    <SurvivorCard key={activeGrid.id} id={activeGrid.survivorId} updateSurvivor={updateSurvivor}/>
+                    <StyledGrid>
+                        {Object.keys(activeGrid.slots).map((v, i) => <StyledElement key={i}>{activeGrid.id} - {i}</StyledElement>)}
+                    </StyledGrid>
+                </PlayerCard>
+            );
+        }
     }
 }
 
-export default GearGrid;
+export default connect(mapStateToProps)(GearGrid);

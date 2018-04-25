@@ -7,8 +7,8 @@ import { setName } from "../actions/settlementActions";
 import { killSurvivor, reviveSurvivor, updateSurvivor } from "../actions/survivorActions";
 import { ID, ISettlement } from "../interfaces";
 import ExportForm from "./ExportForm";
+import GearGrid from "./GearGrid";
 import SettlementName from "./SettlementName";
-import SurvivorCard from "./SurvivorCard";
 import SurvivorListItem from "./SurvivorListItem";
 
 const AppWrapper = styled.div`
@@ -26,16 +26,24 @@ const SurvivorList = styled.table`
     border-collapse: collapse;
 `;
 
+const GearCard = styled.div`
+    width:5vw;
+    height:5vw;
+    background:#aaa;
+`;
+
 interface IAppProps {
     huntingSurvivors?: string[];
     survivors?: string[];
     name?: string;
     aliveCount?: number;
+    geargrids?: ID[];
 }
 
 const mapStateToProps = (state: ISettlement): IAppProps => {
     return {
         aliveCount: state.survivors.filter((survivor) => survivor.alive).length,
+        geargrids: state.geargrids.map((grid) => grid.id),
         huntingSurvivors: state.survivors.filter((survivor) => survivor.hunting).map((survivor) => survivor.id),
         name: state.name,
         survivors: state.survivors.map((survivor) => survivor.id),
@@ -44,12 +52,12 @@ const mapStateToProps = (state: ISettlement): IAppProps => {
 
 class App extends Component<IAppProps> {
     public render() {
-        const { huntingSurvivors, survivors, aliveCount } = this.props;
+        const { geargrids, survivors, aliveCount } = this.props;
         return (
             <AppWrapper>
                 <SettlementName setName={setName} />
                 <SurvivorCardsWrapper>
-                    {huntingSurvivors && huntingSurvivors.map((id, idx) => <SurvivorCard key={idx} id={id} updateSurvivor={updateSurvivor} />)}
+                    {geargrids && geargrids.map((id, idx) => <GearGrid key={idx} id={id} />)}
                 </SurvivorCardsWrapper>
                 <div>
                     Population: {aliveCount ? aliveCount : 0}
@@ -75,6 +83,7 @@ class App extends Component<IAppProps> {
                     </tbody>
                 </SurvivorList>
                 <ExportForm />
+                <GearCard draggable={true}>This a piece of Gear</GearCard>
             </AppWrapper>);
     }
 
