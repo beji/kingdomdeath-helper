@@ -1,11 +1,12 @@
 import React from "react";
+import { createRef, SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { updateSurvivorStat } from "../actions/survivorActions";
 import { ID, IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
-import { HeavyWound, LightWound, StatWrapper } from "./SurvivorStatElements";
+import { HeavyWound, Input, Label, LightWound, StatElement, StatLayer, StatLayerHeadline, StatWrapper } from "./SurvivorStatElements";
 
 interface ISurvivorDefenseStatStatStateProps {
     statKey?: string;
@@ -19,6 +20,10 @@ interface ISurvivorDefenseStatDispatchProps {
 interface ISurvivorDefenseStatOwnProps {
     id: ID;
     stat: IHitLocation;
+}
+
+interface ISurvivorDefenceStatState {
+    editSurvivorStat: boolean;
 }
 
 interface ISurvivorDefenseStatProps extends ISurvivorDefenseStatStatStateProps, ISurvivorDefenseStatOwnProps, ISurvivorDefenseStatDispatchProps { }
@@ -39,20 +44,52 @@ const mapStateToProps = (state: ISettlement, ownProps: ISurvivorDefenseStatOwnPr
     };
 };
 
-class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps> {
+class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISurvivorDefenceStatState> {
+    private armorfield: any;
+
+    public constructor(props: ISurvivorDefenseStatProps) {
+        super(props);
+        this.state = {
+            editSurvivorStat: false,
+        };
+        this.handleEditClick = this.handleEditClick.bind(this);
+        this.handleEditConfirm = this.handleEditConfirm.bind(this);
+        this.renderEditState = this.renderEditState.bind(this);
+
+        this.setupArmorRef = this.setupArmorRef.bind(this);
+
+        this.armorfield = createRef();
+    }
+
     public render() {
+        const { editSurvivorStat } = this.state;
         const { stat } = this.props;
         return (
             <StatWrapper>
-                {stat.armor}
+                <StatElement onClick={this.handleEditClick}>{stat.armor}</StatElement>
                 {!stat.onlyHeavyWound && <LightWound onClick={this.toggleWound.bind(this, "lightWound")} className={stat.lightWound ? "active" : ""} />}
                 <HeavyWound onClick={this.toggleWound.bind(this, "heavyWound")} className={stat.heavyWound ? "active" : ""} />
+                {editSurvivorStat && this.renderEditState()}
             </StatWrapper>
         );
     }
 
+    private renderEditState() {
+        const { armor, label } = this.props.stat;
+        return (
+            <StatLayer>
+                <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {label}</StatLayerHeadline>
+                <Label>Perm</Label><Input innerRef={this.setupArmorRef} type="number" defaultValue={armor.toString()} name="armor" />
+                <button onClick={this.handleEditConfirm}>Save &#x2713;</button>
+            </StatLayer>
+        );
+    }
+
+    private setupArmorRef(elem: any) {
+        this.armorfield = elem;
+    }
+
     private toggleWound(woundType: string) {
-        console.log("taggleWound");
         if (this.props && woundType === "lightWound" || (woundType === "heavyWound" && this.props.stat.lightWound)) {
             const newState = {
                 ...this.props.stat,
@@ -60,6 +97,26 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps> {
             };
             this.props.updateSurvivorStat(newState);
         }
+    }
+
+    private handleEditClick(e: SyntheticEvent<HTMLSpanElement>) {
+        console.log("clicki");
+        this.setState({
+            editSurvivorStat: true,
+        });
+    }
+
+    private handleEditConfirm(e: SyntheticEvent<HTMLButtonElement>) {
+        const nextStat = {
+            ...this.props.stat,
+            armor: parseInt(this.armorfield.value, 10),
+        };
+        if (this.props) {
+            this.props.updateSurvivorStat(nextStat);
+        }
+        this.setState({
+            editSurvivorStat: false,
+        });
     }
 }
 

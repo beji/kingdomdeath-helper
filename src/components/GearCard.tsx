@@ -1,4 +1,5 @@
-import React, { SyntheticEvent } from "react";
+import React from "react";
+import { SyntheticEvent } from "react";
 import styled from "styled-components";
 import { ID } from "../interfaces/generics";
 
@@ -12,7 +13,7 @@ class GearCard extends React.Component<IGearCardProps> {
         this.state = {
             dragging: false,
         };
-        this.handleDragStart.bind(this);
+        this.handleDragStart = this.handleDragStart.bind(this);
     }
 
     public render() {

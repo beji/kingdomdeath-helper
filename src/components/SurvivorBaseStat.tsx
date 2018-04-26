@@ -27,7 +27,7 @@ interface ISurvivorBaseStatOwnProps {
 interface ISurvivorBaseStatProps extends ISurvivorBaseStatStateProps, ISurvivorBaseStatDispatchProps, ISurvivorBaseStatOwnProps { }
 
 interface ISurvivorBaseStatState {
-    editSurvivorBaseStat: boolean;
+    editSurvivorStat: boolean;
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction>): ISurvivorBaseStatDispatchProps => ({
@@ -55,7 +55,7 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
     public constructor(props: ISurvivorBaseStatProps) {
         super(props);
         this.state = {
-            editSurvivorBaseStat: false,
+            editSurvivorStat: false,
         };
         this.handleEditClick = this.handleEditClick.bind(this);
         this.handleEditConfirm = this.handleEditConfirm.bind(this);
@@ -71,13 +71,13 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
     }
 
     public render() {
-        const { editSurvivorBaseStat } = this.state;
+        const { editSurvivorStat } = this.state;
         const { stat } = this.props;
 
         return (
             <StatWrapper>
                 <StatElement onClick={this.handleEditClick}>{stat.permanent + stat.gear + stat.token}</StatElement>
-                {editSurvivorBaseStat && this.renderEditState()}
+                {editSurvivorStat && this.renderEditState()}
             </StatWrapper>
         );
     }
@@ -97,7 +97,7 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
 
     private handleEditClick(e: SyntheticEvent<HTMLSpanElement>) {
         this.setState({
-            editSurvivorBaseStat: true,
+            editSurvivorStat: true,
         });
     }
 
@@ -124,7 +124,7 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
             this.props.updateSurvivorStat(nextStat);
         }
         this.setState({
-            editSurvivorBaseStat: false,
+            editSurvivorStat: false,
         });
     }
 }

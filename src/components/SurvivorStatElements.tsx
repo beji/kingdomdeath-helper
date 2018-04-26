@@ -7,7 +7,7 @@ const StatElement = styled.div`
 `;
 
 const StatWrapper = styled.div`
-    position:relative;
+    border:1px solid #eee;
 `;
 
 const StatLayer = styled.div`
