@@ -127,7 +127,8 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
         if (this.props.survivor) {
             const { name, id, gender, alive, hunting, baseStats } = this.props.survivor;
             const updateData = {
-                alive, baseStats, gender, hunting, id, name: e.currentTarget.value,
+                ...this.props.survivor,
+                name: e.currentTarget.value,
             } as ISurvivor;
             this.props.updateSurvivor(updateData);
             this.setState({
