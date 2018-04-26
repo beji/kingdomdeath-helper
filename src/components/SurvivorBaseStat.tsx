@@ -1,4 +1,5 @@
 import React from "react";
+import { createRef, RefObject } from "react";
 import { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
@@ -27,7 +28,6 @@ interface ISurvivorBaseStatProps extends ISurvivorBaseStatStateProps, ISurvivorB
 
 interface ISurvivorBaseStatState {
     editSurvivorBaseStat: boolean;
-    stat: ISurvivorBaseStat;
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction>): ISurvivorBaseStatDispatchProps => ({
@@ -47,16 +47,27 @@ const mapStateToProps = (state: ISettlement, ownProps: ISurvivorBaseStatOwnProps
 };
 
 class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivorBaseStatState> {
+
+    private permfield: any;
+    private gearfield: any;
+    private tokenfield: any;
+
     public constructor(props: ISurvivorBaseStatProps) {
         super(props);
         this.state = {
             editSurvivorBaseStat: false,
-            stat: props.stat,
         };
         this.handleEditClick = this.handleEditClick.bind(this);
-        this.handleEditBlur = this.handleEditBlur.bind(this);
         this.handleEditConfirm = this.handleEditConfirm.bind(this);
         this.renderEditState = this.renderEditState.bind(this);
+
+        this.setupPermRef = this.setupPermRef.bind(this);
+        this.setupGearRef = this.setupGearRef.bind(this);
+        this.setupTokenRef = this.setupTokenRef.bind(this);
+
+        this.permfield = createRef();
+        this.gearfield = createRef();
+        this.tokenfield = createRef();
     }
 
     public render() {
@@ -76,9 +87,9 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
         return (
             <StatLayer>
                 <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {label}</StatLayerHeadline>
-                <Label>Perm</Label><Input type="number" defaultValue={permanent.toString()} name="permanent" onBlur={this.handleEditBlur} />
-                <Label>Gear</Label><Input type="number" defaultValue={gear.toString()} name="gear" onBlur={this.handleEditBlur} />
-                <Label>Token</Label><Input type="number" defaultValue={token.toString()} name="token" onBlur={this.handleEditBlur} />
+                <Label>Perm</Label><Input innerRef={this.setupPermRef} type="number" defaultValue={permanent.toString()} name="permanent" />
+                <Label>Gear</Label><Input innerRef={this.setupGearRef} type="number" defaultValue={gear.toString()} name="gear" />
+                <Label>Token</Label><Input innerRef={this.setupTokenRef} type="number" defaultValue={token.toString()} name="token" />
                 <button onClick={this.handleEditConfirm}>Save &#x2713;</button>
             </StatLayer>
         );
@@ -90,18 +101,27 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
         });
     }
 
-    private handleEditBlur(e: SyntheticEvent<HTMLInputElement>) {
-        this.setState({
-            stat: {
-                ...this.state.stat,
-                [e.currentTarget.name]: parseInt(e.currentTarget.value, 10),
-            },
-        });
+    private setupPermRef(elem: any) {
+        this.permfield = elem;
+    }
+
+    private setupGearRef(elem: any) {
+        this.gearfield = elem;
+    }
+
+    private setupTokenRef(elem: any) {
+        this.tokenfield = elem;
     }
 
     private handleEditConfirm(e: SyntheticEvent<HTMLButtonElement>) {
+        const nextStat = {
+            ...this.props.stat,
+            gear: parseInt(this.gearfield.value, 10),
+            permanent: parseInt(this.permfield.value, 10),
+            token: parseInt(this.tokenfield.value, 10),
+        };
         if (this.props) {
-            this.props.updateSurvivorStat(this.state.stat);
+            this.props.updateSurvivorStat(nextStat);
         }
         this.setState({
             editSurvivorBaseStat: false,
