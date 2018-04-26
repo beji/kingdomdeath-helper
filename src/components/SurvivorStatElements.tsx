@@ -15,6 +15,16 @@ const StatElement = styled.div`
     padding: .25rem;
     position:relative;
     text-align:center;
+    &.gear:before {
+          content: "";
+          position: absolute;
+          top: 0%;
+          right: 0%;
+          width: 0px;
+          height: 0px;
+          border-top: 20px solid limegreen;
+          border-left: 20px solid transparent;
+    }
     &.token:after {
           content: "";
           position: absolute;
@@ -22,8 +32,8 @@ const StatElement = styled.div`
           right: 0%;
           width: 0px;
           height: 0px;
-          border-top: 15px solid limegreen;
-          border-left: 15px solid transparent;
+          border-top: 10px solid mediumvioletred;
+          border-left: 10px solid transparent;
     }
 `;
 const StatLabel = styled.span`

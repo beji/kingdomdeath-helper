@@ -72,10 +72,16 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
     public render() {
         const { editSurvivorStat } = this.state;
         const { stat } = this.props;
+        const classes = [
+            stat.gear > 0 ? "gear" : "",
+            stat.token > 0 ? "token" : "",
+        ];
 
         return (
             <StatWrapper>
-                <StatElement onClick={this.handleEditClick} className={stat.token > 0 ? "token" : ""}>{stat.permanent + stat.gear + stat.token}</StatElement>
+                <StatElement onClick={this.handleEditClick} className={classes.map((v) => v).join(" ")}>
+                    {stat.permanent + stat.gear + stat.token}
+                </StatElement>
                 {editSurvivorStat && this.renderEditState()}
             </StatWrapper>
         );
