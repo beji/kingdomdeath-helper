@@ -1,13 +1,25 @@
 import styled from "styled-components";
 
+const SurvivorStat = styled.div`
+    width:16%;
+    text-align:center;
+    margin-bottom:.5vh;
+    padding:.25rem;
+    border: 1px solid #aaa;
+`;
+
 const StatElement = styled.div`
+    border:1px solid #eee;
     cursor:pointer;
+    margin-bottom:.5vh;
     padding: .25rem;
     text-align:center;
 `;
+const StatLabel = styled.span`
+    font-weight:bold;
+`;
 
 const StatWrapper = styled.div`
-    border:1px solid #eee;
 `;
 
 const StatLayer = styled.div`
@@ -58,4 +70,4 @@ const HeavyWound = LightWound.extend`
     border-width:3px;
 `;
 
-export { HeavyWound, Input, Label, LightWound, StatElement, StatLayer, StatLayerHeadline, StatWrapper };
+export { HeavyWound, Input, Label, LightWound, StatElement, StatLabel, StatLayer, StatLayerHeadline, StatWrapper, SurvivorStat };

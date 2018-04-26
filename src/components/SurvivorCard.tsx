@@ -9,6 +9,7 @@ import { UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 import SurvivorBaseStat from "./SurvivorBaseStat";
 import SurvivorDefenseStat from "./SurvivorDefenseStat";
+import { StatLabel, SurvivorStat } from "./SurvivorStatElements";
 
 const StyledCard = styled.div`
     border: 1px solid #333;
@@ -36,6 +37,7 @@ const StatSection = styled.section`
     display:flex;
     justify-content:space-between;
     width:100%;
+    margin: .5rem 0;
 `;
 
 const LightWound = styled.div`
@@ -114,10 +116,10 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
                         {gender}
                     </section>
                     <StatSection>
-                        {sortedBaseStats.map((v, i) => (<div key={i}>{baseStats[v].label}<SurvivorBaseStat id={id} stat={baseStats[v]} /></div>))}
+                        {sortedBaseStats.map((v, i) => (<SurvivorStat key={i}><StatLabel>{baseStats[v].label}</StatLabel><SurvivorBaseStat id={id} stat={baseStats[v]} /></SurvivorStat>))}
                     </StatSection>
                     <StatSection>
-                        {sortedDefenceStats.map((v, i) => (<div key={i}>{defenseStats[v].label}{<SurvivorDefenseStat id={id} stat={defenseStats[v]} />}</div>))}
+                        {sortedDefenceStats.map((v, i) => (<SurvivorStat key={i}><StatLabel>{defenseStats[v].label}</StatLabel><SurvivorDefenseStat id={id} stat={defenseStats[v]} /></SurvivorStat>))}
                     </StatSection>
                 </StyledCard>
             );

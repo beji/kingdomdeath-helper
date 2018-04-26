@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions";
 import { killSurvivor, reviveSurvivor, updateSurvivor } from "../actions/survivorActions";
-import { Gender, ID, ISettlement } from "../interfaces";
+import {Gender, ID, IGearGrid, ISettlement} from "../interfaces";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
 import { ISurvivor } from "../interfaces/survivor";
 import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
@@ -14,6 +14,7 @@ import SurvivorBaseStat from "./SurvivorBaseStat";
 
 interface ISurvivorListItemStateProps {
     survivor?: ISurvivor;
+    geargrids: IGearGrid[];
 }
 
 interface ISurvivorListItemDispatchProps {
@@ -51,6 +52,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AddToHuntAction | RemoveFromHuntA
 const mapStateToProps = (state: ISettlement, ownProps: ISurvivorListItemOwnProps): ISurvivorListItemStateProps => {
     const survivor = state.survivors.find((v) => v.id === ownProps.id);
     return {
+        geargrids: state.geargrids,
         survivor: clone(survivor),
     };
 };
@@ -76,9 +78,14 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
 
     public render() {
         if (this.props.survivor) {
-            const { name, id, gender, alive, hunting } = this.props.survivor;
+            const { geargrids } = this.props;
+            const { name, id, gender, gridId, alive, hunting } = this.props.survivor;
             const { movement, accuracy, strength, evasion, luck, speed } = this.props.survivor.baseStats;
             const { editName, editGender } = this.state;
+            const huntSlots = geargrids.map((v, i) => {
+                return {gridId: i, survivorId: geargrids[i].survivorId};
+            });
+
             return (
                 <tr>
                     <Cell>{!alive && <Fragment>✝</Fragment>}</Cell>
@@ -96,7 +103,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
                     <Cell><SurvivorBaseStat id={id} stat={evasion} /></Cell>
                     <Cell><SurvivorBaseStat id={id} stat={luck} /></Cell>
                     <Cell><SurvivorBaseStat id={id} stat={speed} /></Cell>
-                    <Cell>{alive && <input type="checkbox" checked={hunting} onChange={this.handleHuntBoxChange} />}</Cell>
+                    <Cell>{alive && (<div><select defaultValue={gridId}>{huntSlots.map((v, i) => <option key={i} value={i}>{v.gridId + 1}</option>)}</select></div>)}</Cell>
                     <Cell>
                         {alive ? <button onClick={this.handleKillClick}>Kill</button> : <button onClick={this.handleReviveClick}>Revive</button>}
                     </Cell>
@@ -105,7 +112,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
         } else {
             return "";
         }
-
+        // <input type="checkbox" checked={hunting} onChange={this.handleHuntBoxChange} />
     }
 
     private handleHuntBoxChange(event: SyntheticEvent<HTMLInputElement>) {

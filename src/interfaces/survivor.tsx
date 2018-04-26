@@ -64,7 +64,7 @@ interface IDefenseStats {
 
 interface ISurvivor {
     id: ID;
-    gridId: string | null;
+    gridId: string | undefined;
     name: string;
     gender: Gender;
     hunting: boolean;
