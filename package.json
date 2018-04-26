@@ -7,12 +7,16 @@
   "private": true,
   "scripts": {
     "start": "yarn run dev",
-    "dev": "cross-env NODE_ENV=development ts-node ./src/hmr.ts",
+    "dev": "npm-run-all dev:*",
+    "dev:lint": "tslint -c tslint.json ./src/hmr.ts",
+    "dev:run": "cross-env NODE_ENV=development ts-node ./src/hmr.ts",
     "prod": "cross-env NODE_ENV=production ts-node ./src/hmr.ts",
     "build": "npm-run-all build:*",
     "build:client": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.client.prod.js",
     "build:server": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.server.prod.js",
-    "format": "tsfmt -r",
+    "format": "npm-run-all format:*",
+    "format:hmr": "tsfmt -r ./src/hmr.ts",
+    "format:code": "tsfmt -r",
     "test": "mocha -r ts-node/register src/**/*.test.ts"
   },
   "devDependencies": {
