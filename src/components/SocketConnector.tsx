@@ -54,9 +54,9 @@ class SocketConnector extends React.Component<ISocketConnectorProps> {
                 console.log("new state", data);
                 this.props.importSettlement(data);
             }
-            socket.emit("room", { room: roomId });
         });
         if (roomId !== "") {
+            socket.emit("room", { room: roomId });
             console.log("roomId", roomId);
         }
 
