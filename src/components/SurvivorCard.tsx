@@ -4,11 +4,10 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateSurvivor } from "../actions/survivorActions";
-import { IComplexStat, ID, IHitLocation, ISettlement, ISurvivor } from "../interfaces";
+import { ISurvivorBaseStat, ID, IHitLocation, ISettlement, ISurvivor } from "../interfaces";
 import { UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 import ComplexStat from "./ComplexStat";
-import GearGrid from "./GearGrid";
 
 const StyledCard = styled.div`
     border: 1px solid #333;
@@ -142,7 +141,7 @@ class SurvivorCard extends Component<ISurvivorCardProps, ISurvivorCardState> {
             </div>
         );
     }
-    private renderCombinedComplexStat(stat: IComplexStat) {
+    private renderCombinedComplexStat(stat: ISurvivorBaseStat) {
         return stat.permanent + stat.gear + stat.token;
     }
     private toggleWound(locName: string, woundType: string) {

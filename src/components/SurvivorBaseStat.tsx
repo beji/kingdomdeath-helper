@@ -8,25 +8,25 @@ import { ID, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
 import { UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 
-interface IComplexStatStateProps {
+interface ISurvivorBaseStatStateProps {
     statKey?: string;
     survivor?: ISurvivor;
 }
 
-interface IComplexStatDispatchProps {
+interface ISurvivorBaseStatDispatchProps {
     updateSurvivor: (survivor: ISurvivor) => UpdateSurvivorAction;
 }
 
-interface IComplexStatOwnProps {
+interface ISurvivorBaseStatOwnProps {
     id: ID;
-    stat: IComplexStat;
+    stat: ISurvivorBaseStat;
 }
 
-interface IComplexStatProps extends IComplexStatStateProps, IComplexStatDispatchProps, IComplexStatOwnProps { }
+interface ISurvivorBaseStatProps extends ISurvivorBaseStatStateProps, ISurvivorBaseStatDispatchProps, ISurvivorBaseStatOwnProps { }
 
-interface IComplexStatState {
-    editComplexStat: boolean;
-    stat: IComplexStat;
+interface ISurvivorBaseStatState {
+    editSurvivorBaseStat: boolean;
+    stat: ISurvivorBaseStat;
 }
 
 const Input = styled.input`
@@ -72,11 +72,11 @@ const StatLayer = styled.div`
     z-index:10;
 `;
 
-const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorAction>): IComplexStatDispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorAction>): ISurvivorBaseStatDispatchProps => ({
     updateSurvivor: (survivor: ISurvivor) => dispatch(updateSurvivor(survivor)),
 });
 
-const mapStateToProps = (state: ISettlement, ownProps: IComplexStatOwnProps): IComplexStatStateProps => {
+const mapStateToProps = (state: ISettlement, ownProps: ISurvivorBaseStatOwnProps): ISurvivorBaseStatStateProps => {
     const survivor = state.survivors.find((v) => v.id === ownProps.id);
     const statKey = survivor && Object.keys(survivor.baseStats).reduce((a, c) => {
         return survivor.baseStats[c].id === ownProps.stat.id ? c : a;
@@ -89,11 +89,11 @@ const mapStateToProps = (state: ISettlement, ownProps: IComplexStatOwnProps): IC
     };
 };
 
-class ComplexStat extends React.Component<IComplexStatProps, IComplexStatState> {
-    public constructor(props: IComplexStatProps) {
+class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivorBaseStatState> {
+    public constructor(props: ISurvivorBaseStatProps) {
         super(props);
         this.state = {
-            editComplexStat: false,
+            editSurvivorBaseStat: false,
             stat: props.stat,
         };
         this.handleEditClick = this.handleEditClick.bind(this);
@@ -103,13 +103,13 @@ class ComplexStat extends React.Component<IComplexStatProps, IComplexStatState> 
     }
 
     public render() {
-        const { editComplexStat } = this.state;
+        const { editSurvivorBaseStat } = this.state;
         const { stat } = this.props;
 
         return (
             <StatWrapper>
-                {editComplexStat && this.renderEditState()}
-                {!editComplexStat && <StatElement onClick={this.handleEditClick}>{this.renderCombinedComplexStat(stat)}</StatElement>}
+                {editSurvivorBaseStat && this.renderEditState()}
+                {!editSurvivorBaseStat && <StatElement onClick={this.handleEditClick}>{this.renderCombinedSurvivorBaseStat(stat)}</StatElement>}
             </StatWrapper>
         );
     }
@@ -127,13 +127,13 @@ class ComplexStat extends React.Component<IComplexStatProps, IComplexStatState> 
         );
     }
 
-    private renderCombinedComplexStat(stat: IComplexStat) {
+    private renderCombinedSurvivorBaseStat(stat: ISurvivorBaseStat) {
         return stat.permanent + stat.gear + stat.token;
     }
 
     private handleEditClick(e: SyntheticEvent<HTMLSpanElement>) {
         this.setState({
-            editComplexStat: true,
+            editSurvivorBaseStat: true,
         });
     }
 
@@ -154,9 +154,9 @@ class ComplexStat extends React.Component<IComplexStatProps, IComplexStatState> 
             this.props.updateSurvivor(this.props.survivor);
         }
         this.setState({
-            editComplexStat: false,
+            editSurvivorBaseStat: false,
         });
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ComplexStat);
+export default connect(mapStateToProps, mapDispatchToProps)(SurvivorBaseStat);

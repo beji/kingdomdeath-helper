@@ -33,7 +33,7 @@ interface IHitLocation {
     heavyWound: boolean;
 }
 
-interface IComplexStat {
+interface ISurvivorBaseStat {
     [key: string]: number | string;
     id: ID;
     gear: number;
@@ -43,13 +43,13 @@ interface IComplexStat {
 }
 
 interface IStats {
-    [key: string]: IComplexStat;
-    movement: IComplexStat;
-    accuracy: IComplexStat;
-    strength: IComplexStat;
-    evasion: IComplexStat;
-    luck: IComplexStat;
-    speed: IComplexStat;
+    [key: string]: ISurvivorBaseStat;
+    movement: ISurvivorBaseStat;
+    accuracy: ISurvivorBaseStat;
+    strength: ISurvivorBaseStat;
+    evasion: ISurvivorBaseStat;
+    luck: ISurvivorBaseStat;
+    speed: ISurvivorBaseStat;
 }
 
 interface IDefence {
@@ -74,4 +74,4 @@ interface ISurvivor {
     survival: number;
 }
 
-export { BaseStats, DefenceStats, Gender, IDefence, IHitLocation, ISurvivor, IStats, IComplexStat };
+export { BaseStats, DefenceStats, Gender, IDefence, IHitLocation, ISurvivor, IStats, ISurvivorBaseStat };
