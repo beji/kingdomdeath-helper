@@ -10,7 +10,7 @@ import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions
 import { ISurvivor } from "../interfaces/survivor";
 import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
-import ComplexStat from "./ComplexStat";
+import SurvivorBaseStat from "./SurvivorBaseStat";
 
 interface ISurvivorListItemStateProps {
     survivor?: ISurvivor;
@@ -90,12 +90,12 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
                         {editGender && this.renderGenderSelect()}
                         {!editGender && <span onClick={this.handleGenderClick}>{gender}</span>}
                     </Cell>
-                    <Cell><ComplexStat id={id} stat={movement} /></Cell>
-                    <Cell><ComplexStat id={id} stat={accuracy} /></Cell>
-                    <Cell><ComplexStat id={id} stat={strength} /></Cell>
-                    <Cell><ComplexStat id={id} stat={evasion} /></Cell>
-                    <Cell><ComplexStat id={id} stat={luck} /></Cell>
-                    <Cell><ComplexStat id={id} stat={speed} /></Cell>
+                    <Cell><SurvivorBaseStat id={id} stat={movement} /></Cell>
+                    <Cell><SurvivorBaseStat id={id} stat={accuracy} /></Cell>
+                    <Cell><SurvivorBaseStat id={id} stat={strength} /></Cell>
+                    <Cell><SurvivorBaseStat id={id} stat={evasion} /></Cell>
+                    <Cell><SurvivorBaseStat id={id} stat={luck} /></Cell>
+                    <Cell><SurvivorBaseStat id={id} stat={speed} /></Cell>
                     <Cell>{alive && <input type="checkbox" checked={hunting} onChange={this.handleHuntBoxChange} />}</Cell>
                     <Cell>
                         {alive ? <button onClick={this.handleKillClick}>Kill</button> : <button onClick={this.handleReviveClick}>Revive</button>}

@@ -14,7 +14,7 @@ const enum BaseStats {
     strength = "Strength",
 }
 
-const enum DefenceStats {
+const enum DefenseStats {
     brain = "Brain",
     head = "Head",
     arms = "Arms",
@@ -33,7 +33,7 @@ interface IHitLocation {
     heavyWound: boolean;
 }
 
-interface IComplexStat {
+interface ISurvivorBaseStat {
     [key: string]: number | string;
     id: ID;
     gear: number;
@@ -42,17 +42,17 @@ interface IComplexStat {
     token: number;
 }
 
-interface IStats {
-    [key: string]: IComplexStat;
-    movement: IComplexStat;
-    accuracy: IComplexStat;
-    strength: IComplexStat;
-    evasion: IComplexStat;
-    luck: IComplexStat;
-    speed: IComplexStat;
+interface IBaseStats {
+    [key: string]: ISurvivorBaseStat;
+    movement: ISurvivorBaseStat;
+    accuracy: ISurvivorBaseStat;
+    strength: ISurvivorBaseStat;
+    evasion: ISurvivorBaseStat;
+    luck: ISurvivorBaseStat;
+    speed: ISurvivorBaseStat;
 }
 
-interface IDefence {
+interface IDefenseStats {
     [key: string]: IHitLocation;
     brain: IHitLocation;
     head: IHitLocation;
@@ -69,9 +69,9 @@ interface ISurvivor {
     gender: Gender;
     hunting: boolean;
     alive: boolean;
-    baseStats: IStats;
-    defenceStats: IDefence;
+    baseStats: IBaseStats;
+    defenseStats: IDefenseStats;
     survival: number;
 }
 
-export { BaseStats, DefenceStats, Gender, IDefence, IHitLocation, ISurvivor, IStats, IComplexStat };
+export { BaseStats, DefenseStats, Gender, IDefenseStats, IHitLocation, ISurvivor, IBaseStats, ISurvivorBaseStat };
