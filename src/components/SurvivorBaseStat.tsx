@@ -3,9 +3,9 @@ import { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
-import { updateSurvivor } from "../actions/survivorActions";
-import { ID, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
-import { UpdateSurvivorAction } from "../interfaces/survivorActions";
+import { updateSurvivorStat } from "../actions/survivorActions";
+import {ID, IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat} from "../interfaces";
+import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 
 interface ISurvivorBaseStatStateProps {
@@ -14,7 +14,7 @@ interface ISurvivorBaseStatStateProps {
 }
 
 interface ISurvivorBaseStatDispatchProps {
-    updateSurvivor: (survivor: ISurvivor) => UpdateSurvivorAction;
+    updateSurvivorStat: (Stat: ISurvivorBaseStat | IHitLocation) => UpdateSurvivorStatAction;
 }
 
 interface ISurvivorBaseStatOwnProps {
@@ -72,8 +72,8 @@ const StatLayer = styled.div`
     z-index:10;
 `;
 
-const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorAction>): ISurvivorBaseStatDispatchProps => ({
-    updateSurvivor: (survivor: ISurvivor) => dispatch(updateSurvivor(survivor)),
+const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction>): ISurvivorBaseStatDispatchProps => ({
+    updateSurvivorStat: (stat: ISurvivorBaseStat | IHitLocation) => dispatch(updateSurvivorStat(stat)),
 });
 
 const mapStateToProps = (state: ISettlement, ownProps: ISurvivorBaseStatOwnProps): ISurvivorBaseStatStateProps => {
@@ -81,7 +81,6 @@ const mapStateToProps = (state: ISettlement, ownProps: ISurvivorBaseStatOwnProps
     const statKey = survivor && Object.keys(survivor.baseStats).reduce((a, c) => {
         return survivor.baseStats[c].id === ownProps.stat.id ? c : a;
     });
-    const stat = survivor && statKey && survivor.baseStats[statKey];
 
     return {
         statKey,
@@ -109,7 +108,7 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
         return (
             <StatWrapper>
                 {editSurvivorBaseStat && this.renderEditState()}
-                {!editSurvivorBaseStat && <StatElement onClick={this.handleEditClick}>{this.renderCombinedSurvivorBaseStat(stat)}</StatElement>}
+                {!editSurvivorBaseStat && <StatElement onClick={this.handleEditClick}>{stat.permanent + stat.gear + stat.token}</StatElement>}
             </StatWrapper>
         );
     }
@@ -125,10 +124,6 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
                 <button onClick={this.handleEditConfirm}>Save &#x2713;</button>
             </StatLayer>
         );
-    }
-
-    private renderCombinedSurvivorBaseStat(stat: ISurvivorBaseStat) {
-        return stat.permanent + stat.gear + stat.token;
     }
 
     private handleEditClick(e: SyntheticEvent<HTMLSpanElement>) {
@@ -147,11 +142,8 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
     }
 
     private handleEditConfirm(e: SyntheticEvent<HTMLButtonElement>) {
-        if (this.props.survivor && this.props.statKey) {
-            this.props.survivor.baseStats[this.props.statKey] = {
-                ...this.state.stat,
-            };
-            this.props.updateSurvivor(this.props.survivor);
+        if (this.props) {
+            this.props.updateSurvivorStat(this.state.stat);
         }
         this.setState({
             editSurvivorBaseStat: false,
