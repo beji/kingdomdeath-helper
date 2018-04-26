@@ -32,11 +32,17 @@ describe("The reducer", () => {
             x.alive = true;
             return x;
         });
-        const notHunting = state.survivors.filter((x) => !x.hunting).map((x) => x.id);
+        const notHunting = state.survivors.filter((x) => !x.hunting).map((x) => { return {
+            gridId: x.gridId,
+            id: x.id,
+        }; });
 
         const result = notHunting.reduce((acc, elem) => {
-            const action = addToHunt(elem);
-            return reducer(acc, action);
+            if (elem.gridId) {
+                const action = addToHunt(elem.id, parseInt(elem.gridId, 10));
+                return reducer(acc, action);
+            }
+            return acc;
         }, state);
 
         const huntingAfter = result.survivors.filter((x) => x.hunting).length;

@@ -15,10 +15,14 @@ import SurvivorBaseStat from "./SurvivorBaseStat";
 interface ISurvivorListItemStateProps {
     survivor?: ISurvivor;
     geargrids: IGearGrid[];
+    huntSlots: Array<{
+        gridId: number,
+        survivorId?: ID,
+    }>;
 }
 
 interface ISurvivorListItemDispatchProps {
-    addToHunt: (id: ID) => AddToHuntAction;
+    addToHunt: (id: ID, gridId: number) => AddToHuntAction;
     removeFromHunt: (id: ID) => RemoveFromHuntAction;
     updateSurvivor: (survivor: ISurvivor) => UpdateSurvivorAction;
     killSurvivor: (id: ID) => KillSurvivorAction;
@@ -42,7 +46,7 @@ const Cell = styled.td`
 `;
 
 const mapDispatchToProps = (dispatch: Dispatch<AddToHuntAction | RemoveFromHuntAction | UpdateSurvivorAction | KillSurvivorAction | ReviveSurvivorAction>): ISurvivorListItemDispatchProps => ({
-    addToHunt: (id: ID) => dispatch(addToHunt(id)),
+    addToHunt: (id: ID, gridId: number) => dispatch(addToHunt(id, gridId)),
     killSurvivor: (id: ID) => dispatch(killSurvivor(id)),
     removeFromHunt: (id: ID) => dispatch(removeFromHunt(id)),
     reviveSurvivor: (id: ID) => dispatch(reviveSurvivor(id)),
@@ -51,8 +55,12 @@ const mapDispatchToProps = (dispatch: Dispatch<AddToHuntAction | RemoveFromHuntA
 
 const mapStateToProps = (state: ISettlement, ownProps: ISurvivorListItemOwnProps): ISurvivorListItemStateProps => {
     const survivor = state.survivors.find((v) => v.id === ownProps.id);
+    const { geargrids } = state;
     return {
         geargrids: state.geargrids,
+        huntSlots: geargrids.map((v, i) => {
+            return {gridId: i, survivorId: geargrids[i].survivorId};
+        }),
         survivor: clone(survivor),
     };
 };
@@ -78,13 +86,10 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
 
     public render() {
         if (this.props.survivor) {
-            const { geargrids } = this.props;
+            const { geargrids, huntSlots } = this.props;
             const { name, id, gender, gridId, alive, hunting } = this.props.survivor;
             const { movement, accuracy, strength, evasion, luck, speed } = this.props.survivor.baseStats;
             const { editName, editGender } = this.state;
-            const huntSlots = geargrids.map((v, i) => {
-                return {gridId: i, survivorId: geargrids[i].survivorId};
-            });
 
             return (
                 <tr>
@@ -103,7 +108,9 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
                     <Cell><SurvivorBaseStat id={id} stat={evasion} /></Cell>
                     <Cell><SurvivorBaseStat id={id} stat={luck} /></Cell>
                     <Cell><SurvivorBaseStat id={id} stat={speed} /></Cell>
-                    <Cell>{alive && (<div><select defaultValue={gridId}>{huntSlots.map((v, i) => <option key={i} value={i}>{v.gridId + 1}</option>)}</select></div>)}</Cell>
+                    <Cell>
+                        {alive && (<div><select value={gridId} onChange={this.handleHuntBoxChange}><option value="remove">not hunting</option>{huntSlots.map((v, i) => <option key={i} value={i}>Hunter {v.gridId + 1}</option>)}</select></div>)}
+                    </Cell>
                     <Cell>
                         {alive ? <button onClick={this.handleKillClick}>Kill</button> : <button onClick={this.handleReviveClick}>Revive</button>}
                     </Cell>
@@ -115,10 +122,10 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
         // <input type="checkbox" checked={hunting} onChange={this.handleHuntBoxChange} />
     }
 
-    private handleHuntBoxChange(event: SyntheticEvent<HTMLInputElement>) {
+    private handleHuntBoxChange(event: SyntheticEvent<HTMLSelectElement>) {
         if (this.props.survivor) {
-            if (!this.props.survivor.hunting) {
-                this.props.addToHunt(this.props.id);
+            if (event.currentTarget.value !== "remove") {
+                this.props.addToHunt(this.props.id, parseInt(event.currentTarget.value, 10));
             } else {
                 this.props.removeFromHunt(this.props.id);
             }

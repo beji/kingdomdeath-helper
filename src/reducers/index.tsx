@@ -25,27 +25,35 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
 
     switch (action.type) {
         case ActionTypes.ADD_TO_HUNT: {
-            if (state.survivors.filter((survivor) => survivor.hunting).length >= 4) {
-                if (typeof window !== "undefined" && window.alert) {
-                    alert("You can not bring more than four survivors to a hunt!");
-                }
-                return state;
-            } else {
+            if (action.payload) {
+                const { survivorId } = state.geargrids[action.payload.gridId];
+                state.geargrids[action.payload.gridId].survivorId = action.payload.id;
+
                 return generateWithUpdatedSurvivors(state, (survivor) => {
-                    if (survivor.id === action.payload && survivor.alive) {
+                    if (action.payload && survivor.id === action.payload.id && survivor.alive) {
                         survivor.hunting = true;
+                        survivor.gridId = action.payload.gridId.toString();
+                    } else if (survivor.id === survivorId) {
+                        survivor.hunting = false;
+                        survivor.gridId = undefined;
                     }
                     return survivor;
                 });
             }
+            return state;
         }
         case ActionTypes.REMOVE_FROM_HUNT: {
-            return generateWithUpdatedSurvivors(state, (survivor) => {
-                if (survivor.id === action.payload) {
-                    survivor.hunting = false;
-                }
-                return survivor;
-            });
+            if (action.payload) {
+                return generateWithUpdatedSurvivors(state, (survivor) => {
+                    if (survivor.id === action.payload) {
+                        survivor.hunting = false;
+                        state.geargrids[parseInt(survivor.gridId as string, 10)].survivorId = undefined;
+                        survivor.gridId = undefined;
+                    }
+                    return survivor;
+                });
+            }
+            return state;
         }
         case ActionTypes.IMPORT: {
             return action.payload || state;
