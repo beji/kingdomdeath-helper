@@ -1,9 +1,9 @@
 import uuid from "uuid/v4";
-import { Gender, IComplexStat, ID, ISettlement, ISurvivor } from "./interfaces";
+import { Gender, ID, ISettlement, ISurvivor, ISurvivorBaseStat } from "./interfaces";
 import { IGearGrid } from "./interfaces/gear";
-import { BaseStats, DefenceStats, IDefence, IHitLocation, IStats } from "./interfaces/survivor";
+import { BaseStats, DefenseStats, IBaseStats, IDefenseStats, IHitLocation } from "./interfaces/survivor";
 
-const getComplexStat = (label: BaseStats): IComplexStat => ({
+const getSurvivorBaseStat = (label: BaseStats): ISurvivorBaseStat => ({
     gear: 0,
     id: uuid(),
     label,
@@ -11,16 +11,16 @@ const getComplexStat = (label: BaseStats): IComplexStat => ({
     token: 0,
 });
 
-const getBaseStats = (): IStats => ({
-    accuracy: getComplexStat(BaseStats.accuracy),
-    evasion: getComplexStat(BaseStats.evasion),
-    luck: getComplexStat(BaseStats.luck),
-    movement: getComplexStat(BaseStats.movement),
-    speed: getComplexStat(BaseStats.speed),
-    strength: getComplexStat(BaseStats.strength),
+const getBaseStats = (): IBaseStats => ({
+    accuracy: getSurvivorBaseStat(BaseStats.accuracy),
+    evasion: getSurvivorBaseStat(BaseStats.evasion),
+    luck: getSurvivorBaseStat(BaseStats.luck),
+    movement: getSurvivorBaseStat(BaseStats.movement),
+    speed: getSurvivorBaseStat(BaseStats.speed),
+    strength: getSurvivorBaseStat(BaseStats.strength),
 });
 
-const getHitLocation = (label: DefenceStats, onlyHeavyWound: boolean): IHitLocation => ({
+const getHitLocation = (label: DefenseStats, onlyHeavyWound: boolean): IHitLocation => ({
     armor: 0,
     heavyWound: false,
     id: uuid(),
@@ -29,20 +29,20 @@ const getHitLocation = (label: DefenceStats, onlyHeavyWound: boolean): IHitLocat
     onlyHeavyWound,
 });
 
-const getDefence = (): IDefence => ({
-    arms: getHitLocation(DefenceStats.arms, false),
-    body: getHitLocation(DefenceStats.body, false),
-    brain: getHitLocation(DefenceStats.brain, true),
-    head: getHitLocation(DefenceStats.head, false),
-    legs: getHitLocation(DefenceStats.legs, false),
-    waist: getHitLocation(DefenceStats.waist, false),
+const getDefense = (): IDefenseStats => ({
+    arms: getHitLocation(DefenseStats.arms, false),
+    body: getHitLocation(DefenseStats.body, false),
+    brain: getHitLocation(DefenseStats.brain, true),
+    head: getHitLocation(DefenseStats.head, false),
+    legs: getHitLocation(DefenseStats.legs, false),
+    waist: getHitLocation(DefenseStats.waist, false),
 });
 
 const survivors: ISurvivor[] = Array.apply(null, { length: 8 }).map(Number.call, Number).map((n: number) => {
     return {
         alive: n < 4 || n % 3 === 0,
         baseStats: getBaseStats(),
-        defenceStats: getDefence(),
+        defenseStats: getDefense(),
         gender: n % 2 === 0 ? Gender.Male : Gender.Female,
         gridId: n < 4 ? n : null,
         hunting: n < 4,

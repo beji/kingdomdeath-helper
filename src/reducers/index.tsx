@@ -1,14 +1,14 @@
 import { Reducer } from "redux";
 import initialState from "../initialstate";
-import { ISettlement, ISurvivor } from "../interfaces";
+import { IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
 import { ImportAction } from "../interfaces/importAction";
 import { SetNameAction } from "../interfaces/settlementActions";
-import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
+import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 
-type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | UpdateSurvivorAction | KillSurvivorAction | ReviveSurvivorAction;
+type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | UpdateSurvivorAction | UpdateSurvivorStatAction | KillSurvivorAction | ReviveSurvivorAction;
 
 function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
     const updatedSurvivors = state.survivors.map(mapfunc);
@@ -68,6 +68,26 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     return survivor;
                 });
                 return nextState;
+            }
+            return state;
+        }
+        case ActionTypes.UPDATE_SURVIVOR_STAT: {
+            if (action.payload) {
+                const newStat = action.payload;
+                return generateWithUpdatedSurvivors(state, (survivor) => {
+                    const statSurvivor = clone(survivor);
+                    Object.keys(statSurvivor.baseStats).map((statKey) => {
+                        if (statSurvivor.baseStats[statKey].id === newStat.id) {
+                            statSurvivor.baseStats[statKey] = newStat as ISurvivorBaseStat;
+                        }
+                    });
+                    Object.keys(statSurvivor.defenseStats).map((statKey) => {
+                        if (statSurvivor.defenseStats[statKey].id === newStat.id) {
+                            statSurvivor.defenseStats[statKey] = newStat as IHitLocation;
+                        }
+                    });
+                    return statSurvivor;
+                });
             }
             return state;
         }
