@@ -1,4 +1,4 @@
-import {ID, IHitLocation, ISurvivor, ISurvivorBaseStat} from "../interfaces";
+import { ID, IHitLocation, ISurvivor, ISurvivorBaseStat } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 
