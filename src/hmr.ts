@@ -11,7 +11,7 @@ import { IRoomMessage, IStatusUpdateMessage } from "./interfaces/socketMessages"
 const app = express();
 const server = new http.Server(app);
 
-const io = socketIo(http);
+const io = socketIo(server);
 
 const statestore: any = {};
 

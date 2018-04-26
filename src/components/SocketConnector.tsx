@@ -9,7 +9,7 @@ import { clone } from "../util";
 
 const socket = io();
 
-const roomId = getURLParam(window.location.href, "id");
+// const roomId = getURLParam(window.location.href, "id");
 
 interface ISocketConnectorStateProps {
     settlement?: ISettlement;
@@ -44,6 +44,7 @@ class SocketConnector extends React.Component<ISocketConnectorProps> {
     // tslint:disable-next-line:member-ordering
     public componentDidUpdate(prevProps: ISocketConnectorStateProps) {
         if (JSON.stringify(prevProps) !== JSON.stringify(this.props.settlement)) {
+            const roomId = getURLParam(window.location.href, "id");
             socket.emit("state_update", { room: roomId, payload: this.props.settlement } as IStatusUpdateMessage);
         }
     }
@@ -55,9 +56,16 @@ class SocketConnector extends React.Component<ISocketConnectorProps> {
                 this.props.importSettlement(data);
             }
         });
+
+        const roomId = getURLParam(window.location.href, "id");
+
         if (roomId !== "") {
             socket.emit("room", { room: roomId } as IRoomMessage);
             console.log("roomId", roomId);
+        } else if (this.props.settlement) {
+            window.history.pushState({}, "Kingdom Death", `/?id=${this.props.settlement.id}`);
+            socket.emit("room", { room: this.props.settlement.id } as IRoomMessage);
+            console.log("roomId", this.props.settlement.id);
         }
 
     }
