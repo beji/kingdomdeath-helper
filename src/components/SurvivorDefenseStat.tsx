@@ -100,7 +100,6 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
     }
 
     private handleEditClick(e: SyntheticEvent<HTMLSpanElement>) {
-        console.log("clicki");
         this.setState({
             editSurvivorStat: true,
         });
