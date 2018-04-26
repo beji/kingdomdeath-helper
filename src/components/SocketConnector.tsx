@@ -1,11 +1,11 @@
 import React from "react";
-import { connect, Dispatch } from "react-redux";
+import { Dispatch, connect } from "react-redux";
 import io from "socket.io-client";
 import { importSettlement } from "../actions/importAction";
-import { ID, ISettlement } from "../interfaces";
+import { ISettlement } from "../interfaces";
 import { ImportAction } from "../interfaces/importAction";
 import { clone } from "../util";
-import SettlementName from "./SettlementName";
+import { RoomMessage, StatusUpdateMessage } from "../interfaces/socketMessages";
 
 const socket = io();
 
@@ -37,14 +37,14 @@ const mapDispatchToProps = (dispatch: Dispatch<ImportAction>): ISocketConnectorD
 });
 
 class SocketConnector extends React.Component<ISocketConnectorProps> {
-    constructor(props: any) {
+    constructor(props: ISocketConnectorProps) {
         super(props);
     }
 
     // tslint:disable-next-line:member-ordering
-    public componentDidUpdate(prevProps: ISocketConnectorStateProps, prevState: any, snapshot: any) {
+    public componentDidUpdate(prevProps: ISocketConnectorStateProps) {
         if (JSON.stringify(prevProps) !== JSON.stringify(this.props.settlement)) {
-            socket.emit("state_update", {room: roomId, payload: this.props.settlement});
+            socket.emit("state_update", {room: roomId, payload: this.props.settlement} as StatusUpdateMessage);
         }
     }
 
@@ -56,7 +56,7 @@ class SocketConnector extends React.Component<ISocketConnectorProps> {
             }
         });
         if (roomId !== "") {
-            socket.emit("room", { room: roomId });
+            socket.emit("room", { room: roomId } as RoomMessage);
             console.log("roomId", roomId);
         }
 
