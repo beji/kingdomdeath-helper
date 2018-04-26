@@ -7,10 +7,6 @@ import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 import { HeavyWound, LightWound, StatWrapper } from "./SurvivorStatElements";
 
-interface ISurvivorDefenseStatStatState {
-    stat: IHitLocation;
-}
-
 interface ISurvivorDefenseStatStatStateProps {
     statKey?: string;
     survivor?: ISurvivor;
@@ -43,17 +39,9 @@ const mapStateToProps = (state: ISettlement, ownProps: ISurvivorDefenseStatOwnPr
     };
 };
 
-class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISurvivorDefenseStatStatState> {
-
-    public constructor(props: ISurvivorDefenseStatProps) {
-        super(props);
-        this.state = {
-            stat: props.stat,
-        };
-    }
-
+class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps> {
     public render() {
-        const { stat } = this.state;
+        const { stat } = this.props;
         return (
             <StatWrapper>
                 {stat.armor}
@@ -67,13 +55,10 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
         console.log("taggleWound");
         if (this.props && woundType === "lightWound" || (woundType === "heavyWound" && this.props.stat.lightWound)) {
             const newState = {
-                stat: {
-                    ...this.state.stat,
-                    [woundType]: !this.props.stat[woundType],
-                },
+                ...this.props.stat,
+                [woundType]: !this.props.stat[woundType],
             };
-            this.setState(newState);
-            this.props.updateSurvivorStat(newState.stat);
+            this.props.updateSurvivorStat(newState);
         }
     }
 }
