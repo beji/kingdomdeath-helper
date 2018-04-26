@@ -8,6 +8,7 @@ import { ID, IHitLocation, ISettlement, ISurvivor } from "../interfaces";
 import { UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 import SurvivorBaseStat from "./SurvivorBaseStat";
+import SurvivorDefenseStat from "./SurvivorDefenseStat";
 
 const StyledCard = styled.div`
     border: 1px solid #333;
@@ -116,7 +117,7 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
                         {sortedBaseStats.map((v, i) => (<div key={i}>{baseStats[v].label}<SurvivorBaseStat id={id} stat={baseStats[v]} /></div>))}
                     </StatSection>
                     <StatSection>
-                        {sortedDefenceStats.map((v, i) => (this.renderDefenceStat(defenseStats[v], v, i)))}
+                        {sortedDefenceStats.map((v, i) => (<div key={i}>{defenseStats[v].label}{<SurvivorDefenseStat id={id} stat={defenseStats[v]} />}</div>))}
                     </StatSection>
                 </StyledCard>
             );

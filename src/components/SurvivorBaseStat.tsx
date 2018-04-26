@@ -4,9 +4,10 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateSurvivorStat } from "../actions/survivorActions";
-import {ID, IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat} from "../interfaces";
+import { ID, IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
+import { Input, Label, StatElement, StatLayer, StatLayerHeadline, StatWrapper } from "./SurvivorStatElements";
 
 interface ISurvivorBaseStatStateProps {
     statKey?: string;
@@ -28,49 +29,6 @@ interface ISurvivorBaseStatState {
     editSurvivorBaseStat: boolean;
     stat: ISurvivorBaseStat;
 }
-
-const Input = styled.input`
-    width:70%;
-    margin:.5rem 0;
-`;
-
-const Label = styled.div`
-    width:30%;
-    margin:.5rem 0;
-`;
-
-const LayerHeadline = styled.div`
-    font-weight:bold;
-    padding:.5rem;
-    text-align:center;
-    width:100%;
-`;
-
-const StatElement = styled.div`
-    cursor:pointer;
-    padding: .25rem;
-    text-align:center;
-`;
-
-const StatWrapper = styled.div`
-    position:relative;
-`;
-
-const StatLayer = styled.div`
-    background:#fff;
-    border:1px solid #ddd;
-    border-radius: .5rem;
-    box-shadow:3px 3px 10px;
-    display:flex;
-    flex-wrap:wrap;
-    left:50%;
-    padding:.5rem;
-    position:absolute;
-    top:50%;
-    transform:translate3d(-50%, -50%, 0);
-    width:30vw;
-    z-index:10;
-`;
 
 const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction>): ISurvivorBaseStatDispatchProps => ({
     updateSurvivorStat: (stat: ISurvivorBaseStat | IHitLocation) => dispatch(updateSurvivorStat(stat)),
@@ -107,8 +65,8 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
 
         return (
             <StatWrapper>
+                <StatElement onClick={this.handleEditClick}>{stat.permanent + stat.gear + stat.token}</StatElement>
                 {editSurvivorBaseStat && this.renderEditState()}
-                {!editSurvivorBaseStat && <StatElement onClick={this.handleEditClick}>{stat.permanent + stat.gear + stat.token}</StatElement>}
             </StatWrapper>
         );
     }
@@ -117,7 +75,7 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
         const { permanent, gear, token, label } = this.props.stat;
         return (
             <StatLayer>
-                <LayerHeadline>{this.props.survivor && this.props.survivor.name}'s {label}</LayerHeadline>
+                <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {label}</StatLayerHeadline>
                 <Label>Perm</Label><Input type="number" defaultValue={permanent.toString()} name="permanent" onBlur={this.handleEditBlur} />
                 <Label>Gear</Label><Input type="number" defaultValue={gear.toString()} name="gear" onBlur={this.handleEditBlur} />
                 <Label>Token</Label><Input type="number" defaultValue={token.toString()} name="token" onBlur={this.handleEditBlur} />
