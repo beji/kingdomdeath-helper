@@ -13,7 +13,18 @@ const StatElement = styled.div`
     cursor:pointer;
     margin-bottom:.5vh;
     padding: .25rem;
+    position:relative;
     text-align:center;
+    &.token:after {
+          content: "";
+          position: absolute;
+          top: 0%;
+          right: 0%;
+          width: 0px;
+          height: 0px;
+          border-top: 15px solid limegreen;
+          border-left: 15px solid transparent;
+    }
 `;
 const StatLabel = styled.span`
     font-weight:bold;
@@ -31,7 +42,7 @@ const StatLayer = styled.div`
     flex-wrap:wrap;
     left:50%;
     padding:.5rem;
-    position:absolute;
+    position:fixed;
     top:50%;
     transform:translate3d(-50%, -50%, 0);
     width:30vw;

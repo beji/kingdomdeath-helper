@@ -37,6 +37,9 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
         const PlayerCard = styled.div`
             width:47vw;
             margin:1vh 1vw;
+            @media (max-width:900px) {
+                width: 98vh;
+            }
         `;
         const StyledGrid = styled.div`
             display:flex;
