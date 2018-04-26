@@ -1,9 +1,8 @@
 import React from "react";
-import { createRef, RefObject } from "react";
+import { createRef } from "react";
 import { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import styled from "styled-components";
 import { updateSurvivorStat } from "../actions/survivorActions";
 import { ID, IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
