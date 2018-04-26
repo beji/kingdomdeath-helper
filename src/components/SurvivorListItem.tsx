@@ -86,8 +86,8 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
 
     public render() {
         if (this.props.survivor) {
-            const { geargrids, huntSlots } = this.props;
-            const { name, id, gender, gridId, alive, hunting } = this.props.survivor;
+            const { huntSlots } = this.props;
+            const { name, id, gender, gridId, alive } = this.props.survivor;
             const { movement, accuracy, strength, evasion, luck, speed } = this.props.survivor.baseStats;
             const { editName, editGender } = this.state;
 
@@ -119,7 +119,6 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
         } else {
             return "";
         }
-        // <input type="checkbox" checked={hunting} onChange={this.handleHuntBoxChange} />
     }
 
     private handleHuntBoxChange(event: SyntheticEvent<HTMLSelectElement>) {
@@ -139,7 +138,6 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
     }
     private handleNameBlur(e: SyntheticEvent<HTMLInputElement>) {
         if (this.props.survivor) {
-            const { name, id, gender, alive, hunting, baseStats } = this.props.survivor;
             const updateData = {
                 ...this.props.survivor,
                 name: e.currentTarget.value,
