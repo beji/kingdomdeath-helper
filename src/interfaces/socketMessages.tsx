@@ -1,10 +1,10 @@
 import { ISettlement } from "./settlement";
 
-export interface RoomMessage {
+export interface IRoomMessage {
     room: string;
 }
 
-export interface StatusUpdateMessage {
-    room: string, 
+export interface IStatusUpdateMessage {
+    room: string,
     payload: ISettlement;
 }

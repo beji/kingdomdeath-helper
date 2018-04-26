@@ -78,7 +78,7 @@ class App extends React.Component<IAppProps> {
                     </tbody>
                 </SurvivorList>
                 <ExportForm />
-                <GearCard id={uuid()}/>
+                <GearCard id={uuid()} />
                 <SocketConnector />
             </AppWrapper>);
     }

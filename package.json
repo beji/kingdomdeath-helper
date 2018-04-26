@@ -7,8 +7,8 @@
   "private": true,
   "scripts": {
     "start": "yarn run dev",
-    "dev": "cross-env NODE_ENV=development node ./src/hmr.js",
-    "prod": "cross-env NODE_ENV=production node ./src/hmr.js",
+    "dev": "cross-env NODE_ENV=development ts-node ./src/hmr.ts",
+    "prod": "cross-env NODE_ENV=production ts-node ./src/hmr.ts",
     "build": "npm-run-all build:*",
     "build:client": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.client.prod.js",
     "build:server": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.server.prod.js",
@@ -28,6 +28,7 @@
     "@types/socket.io": "^1.4.33",
     "@types/socket.io-client": "^1.4.32",
     "@types/uuid": "^3.4.3",
+    "@types/webpack": "^4.1.4",
     "@types/webpack-env": "^1.13.5",
     "chai": "^4.1.2",
     "cross-env": "^5.1.4",
