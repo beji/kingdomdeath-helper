@@ -132,12 +132,12 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
         const data = JSON.parse(event.dataTransfer.getData("ids"));
 
         if (this.props.grid) {
-            const newGrid = this.props.grid;
+            const newGrid = clone(this.props.grid);
             newGrid.slots[slotId].content = data.id;
             if (data.slotId) {
                 newGrid.slots[data.slotId].content = undefined;
             }
-            this.props.updateGear(clone(newGrid));
+            this.props.updateGear(newGrid);
 
             this.setState({
                 active: false,
