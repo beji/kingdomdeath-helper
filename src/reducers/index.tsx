@@ -101,13 +101,24 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         }
         case ActionTypes.KILL_SURVIVOR: {
             if (action.payload) {
-                return generateWithUpdatedSurvivors(state, (survivor) => {
+                const gridElement = state.geargrids.find((grid) => grid.survivorId === action.payload);
+                const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
                     if (survivor.id === action.payload) {
                         survivor.alive = false;
                         survivor.hunting = false;
+                        survivor.gridId = undefined;
                     }
                     return survivor;
                 });
+                if (gridElement) {
+                    nextState.geargrids = nextState.geargrids.map((geargrid) => {
+                        if (geargrid.id === gridElement.id) {
+                            geargrid.survivorId = undefined;
+                        }
+                        return geargrid;
+                    });
+                }
+                return nextState;
             }
         }
         case ActionTypes.REVIVE_SURVIVOR: {
