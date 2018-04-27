@@ -11,7 +11,7 @@ interface IGearListState {
 }
 
 interface IGearListStateProps {
-    items: IItem[];
+    items: ReadonlyArray<IItem>;
 }
 interface IGearListOwnProps {
     onItemSelect?: any;

@@ -13,8 +13,10 @@ type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAc
 
 function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
     const updatedSurvivors = state.survivors.map(mapfunc);
-    const nextState = clone(state);
-    nextState.survivors = updatedSurvivors;
+    const nextState = {
+        ...state,
+        survivors: updatedSurvivors,
+    };
     return nextState;
 }
 
@@ -38,19 +40,27 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
 
                 const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
                     if (action.payload && survivor.id === action.payload.id && survivor.alive) {
-                        survivor.hunting = true;
-                        survivor.gridId = action.payload.gridId.toString();
+                        const newState = {
+                            ...survivor,
+                            gridId: action.payload.gridId.toString(),
+                            hunting: true,
+                        };
                         if (Object.keys(oldStats).length > 0) {
                             Object.keys(survivor.baseStats).forEach((key) => {
-                                survivor.baseStats[key].gear = oldStats[key].gear;
+                                newState.baseStats[key].gear = oldStats[key].gear;
                             });
                         }
+                        return newState;
                     } else if (survivor.id === survivorId) {
-                        survivor.hunting = false;
-                        survivor.gridId = undefined;
+                        const newState = {
+                            ...survivor,
+                            gridId: undefined,
+                            hunting: false,
+                        };
                         Object.keys(survivor.baseStats).forEach((key) => {
-                            survivor.baseStats[key].gear = 0;
+                            newState.baseStats[key].gear = 0;
                         });
+                        return newState;
                     }
                     return survivor;
                 });
@@ -63,9 +73,12 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             if (action.payload) {
                 return generateWithUpdatedSurvivors(state, (survivor) => {
                     if (survivor.id === action.payload) {
-                        survivor.hunting = false;
+                        const nextState = {
+                            ...survivor,
+                            gridId: undefined,
+                            hunting: false,
+                        };
                         state.geargrids[parseInt(survivor.gridId as string, 10)].survivorId = undefined;
-                        survivor.gridId = undefined;
                     }
                     return survivor;
                 });
@@ -77,8 +90,10 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         }
         case ActionTypes.SET_NAME: {
             if (action.payload && action.payload !== "") {
-                const nextState = clone(state);
-                nextState.name = action.payload;
+                const nextState = {
+                    ...state,
+                    name: action.payload,
+                };
                 return nextState;
             }
             return state;
@@ -123,9 +138,12 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                 const gridElement = state.geargrids.find((grid) => grid.survivorId === action.payload);
                 const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
                     if (survivor.id === action.payload) {
-                        survivor.alive = false;
-                        survivor.hunting = false;
-                        survivor.gridId = undefined;
+                        return {
+                            ...survivor,
+                            alive: false,
+                            gridId: undefined,
+                            hunting: false,
+                        };
                     }
                     return survivor;
                 });
@@ -145,7 +163,10 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             if (action.payload) {
                 return generateWithUpdatedSurvivors(state, (survivor) => {
                     if (survivor.id === action.payload) {
-                        survivor.alive = true;
+                        return {
+                            ...survivor,
+                            alive: true,
+                        };
                     }
                     return survivor;
                 });
@@ -154,21 +175,27 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         }
         case ActionTypes.CREATE_SURVIVOR: {
             if (action.payload) {
-                const nextState = clone(state);
-                nextState.survivors.push(action.payload);
+                const nextState = {
+                    ...state,
+                    survivors: state.survivors.concat(action.payload),
+                };
                 return nextState;
             }
             return state;
         }
         case ActionTypes.UPDATE_GEARGRID: {
             if (action.payload) {
-                const newState = clone(state);
-                newState.geargrids = state.geargrids.map((grid) => {
-                    if (action.payload && grid.id === action.payload.id) {
-                        return action.payload;
-                    }
-                    return grid;
-                });
+
+                const newState = {
+                    ...state,
+                    geargrids: state.geargrids.map((grid) => {
+                        if (action.payload && grid.id === action.payload.id) {
+                            return action.payload;
+                        }
+                        return grid;
+                    }),
+                };
+
                 return newState;
             }
             return state;

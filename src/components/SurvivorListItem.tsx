@@ -15,7 +15,7 @@ import SurvivorBaseStat from "./SurvivorBaseStat";
 
 interface ISurvivorListItemStateProps {
     survivor?: ISurvivor;
-    geargrids: IGearGrid[];
+    geargrids: ReadonlyArray<IGearGrid>;
     huntSlots: Array<{
         gridId: number,
         survivorId?: ID,

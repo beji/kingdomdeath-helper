@@ -4,6 +4,7 @@ import { addToHunt } from "../actions";
 import { setName } from "../actions/settlementActions";
 import { killSurvivor, updateSurvivor } from "../actions/survivorActions";
 import initialState, { newSurvivor } from "../initialstate";
+import { ISettlement } from "../interfaces";
 import reducer from "../reducers";
 import { clone } from "../util";
 
@@ -17,9 +18,13 @@ describe("The reducer", () => {
     });
     it("should remove a dead survivor from the hunt", () => {
         const state = clone(initialState);
-        const survivor = state.survivors[0];
-        survivor.hunting = true;
-        survivor.alive = true;
+
+        const survivor = {
+            ...state.survivors[0],
+            alive: true,
+            hunting: true,
+        };
+
         const killAction = killSurvivor(survivor.id);
         const result = reducer(state, killAction);
         expect(result.survivors[0].hunting).to.equal(false);
@@ -27,34 +32,43 @@ describe("The reducer", () => {
     });
 
     it("should give one free survival on the first rename", () => {
-        const state = clone(initialState);
         const survivor = newSurvivor();
-        state.survivors = [survivor];
+        const state =  {...initialState, survivors: [survivor]};
+
         expect(state.survivors[0].defenseStats.survival.armor).to.equal(0);
-        const update = clone(survivor);
-        update.name = "New Name";
+        const update = {
+            ...survivor,
+            name: "New Name",
+        };
         const result = reducer(state, updateSurvivor(update));
         expect(result.survivors[0].defenseStats.survival.armor).to.equal(1);
     });
 
     it("should give not give free survival on renames that are not the first", () => {
-        const state = clone(initialState);
-        const survivor = newSurvivor();
-        survivor.name = "Rudolf";
-        state.survivors = [survivor];
+        const survivor = {
+            ...newSurvivor(),
+            name: "Rudolf",
+        };
+        const state = {...initialState, survivors: [survivor]};
         expect(state.survivors[0].defenseStats.survival.armor).to.equal(0);
-        const update = clone(survivor);
-        update.name = "New Name";
+        const update = {
+            ...survivor,
+            name: "New Name",
+        };
         const result = reducer(state, updateSurvivor(update));
         expect(result.survivors[0].defenseStats.survival.armor).to.equal(0);
     });
 
     it("should not allow more than four survivors in a hunt", () => {
-        const state = clone(initialState);
-        state.survivors = state.survivors.map((x) => {
-            x.alive = true;
-            return x;
-        });
+        const state: ISettlement = {
+            ...initialState,
+            survivors: initialState.survivors.map((x) => {
+                return {
+                    ...x,
+                    alive: true,
+                };
+            }),
+        };
         const notHunting = state.survivors.filter((x) => !x.hunting).map((x) => {
             return {
                 gridId: x.gridId,
