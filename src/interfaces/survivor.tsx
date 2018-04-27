@@ -66,14 +66,14 @@ interface IDefenseStats {
 }
 
 interface ISurvivor {
-    id: ID;
-    gridId: string | undefined;
-    name: string;
-    gender: Gender;
-    hunting: boolean;
-    alive: boolean;
-    baseStats: IBaseStats;
-    defenseStats: IDefenseStats;
+    readonly id: ID;
+    readonly gridId: string | undefined;
+    readonly name: string;
+    readonly gender: Gender;
+    readonly hunting: boolean;
+    readonly alive: boolean;
+    readonly baseStats: IBaseStats;
+    readonly defenseStats: IDefenseStats;
 }
 
 export { BaseStats, DefenseStats, Gender, IDefenseStats, IHitLocation, ISurvivor, IBaseStats, ISurvivorBaseStat };

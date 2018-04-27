@@ -18,9 +18,13 @@ describe("The reducer", () => {
     });
     it("should remove a dead survivor from the hunt", () => {
         const state = clone(initialState);
-        const survivor = state.survivors[0];
-        survivor.hunting = true;
-        survivor.alive = true;
+
+        const survivor = {
+            ...state.survivors[0],
+            alive: true,
+            hunting: true,
+        };
+
         const killAction = killSurvivor(survivor.id);
         const result = reducer(state, killAction);
         expect(result.survivors[0].hunting).to.equal(false);
@@ -32,19 +36,25 @@ describe("The reducer", () => {
         const state =  {...initialState, survivors: [survivor]};
 
         expect(state.survivors[0].defenseStats.survival.armor).to.equal(0);
-        const update = clone(survivor);
-        update.name = "New Name";
+        const update = {
+            ...survivor,
+            name: "New Name",
+        };
         const result = reducer(state, updateSurvivor(update));
         expect(result.survivors[0].defenseStats.survival.armor).to.equal(1);
     });
 
     it("should give not give free survival on renames that are not the first", () => {
-        const survivor = newSurvivor();
-        survivor.name = "Rudolf";
+        const survivor = {
+            ...newSurvivor(),
+            name: "Rudolf",
+        };
         const state = {...initialState, survivors: [survivor]};
         expect(state.survivors[0].defenseStats.survival.armor).to.equal(0);
-        const update = clone(survivor);
-        update.name = "New Name";
+        const update = {
+            ...survivor,
+            name: "New Name",
+        };
         const result = reducer(state, updateSurvivor(update));
         expect(result.survivors[0].defenseStats.survival.armor).to.equal(0);
     });
@@ -53,8 +63,10 @@ describe("The reducer", () => {
         const state: ISettlement = {
             ...initialState,
             survivors: initialState.survivors.map((x) => {
-                x.alive = true;
-                return x;
+                return {
+                    ...x,
+                    alive: true,
+                };
             }),
         };
         const notHunting = state.survivors.filter((x) => !x.hunting).map((x) => {
