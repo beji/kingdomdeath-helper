@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import uuid from "uuid/v4";
 import { ID, ISettlement } from "../interfaces";
 import CreateSurvivor from "./CreateSurvivor";
 import ExportForm from "./ExportForm";

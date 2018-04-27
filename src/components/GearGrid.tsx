@@ -60,7 +60,7 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
                     <PlayerCardHeadline>Huntslot {id}</PlayerCardHeadline>
                     {grid.survivorId && <SurvivorCard key={grid.id} id={grid.survivorId} updateSurvivor={updateSurvivor} />}
                     <StyledGrid>
-                        {Object.keys(grid.slots).map((v, i) => <GridSlot key={i} gridId={grid.id} slotId={i} />)}
+                        {Object.keys(grid.slots).map((v, i, slots) => <GridSlot key={i} gridId={grid.id} slotId={grid.slots[i].id} />)}
                     </StyledGrid>
                 </PlayerCard>
             );

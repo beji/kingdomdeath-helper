@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colorMagentaLachs } from "./StyledComponents";
 
 const SurvivorStat = styled.div`
     width:16%;
@@ -22,7 +23,7 @@ const StatElement = styled.div`
           right: 0%;
           width: 0px;
           height: 0px;
-          border-top: 20px solid #A12D6A;
+          border-top: 20px solid ${colorMagentaLachs};
           border-left: 20px solid transparent;
     }
     &.token:after {

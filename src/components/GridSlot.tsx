@@ -9,13 +9,16 @@ import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { clone } from "../util";
 import FancyButton from "./FancyButton";
 import GearCard from "./GearCard";
+import GearList from "./GearList";
 
 interface IGridSlotState {
     active: boolean;
+    showGearList: boolean;
 }
 
 interface IGridSlotStateProps {
     grid?: IGearGrid;
+    slotKey?: number;
 }
 
 interface IGridSlotDispatchProps {
@@ -24,7 +27,7 @@ interface IGridSlotDispatchProps {
 
 interface IGridSlotOwnProps {
     gridId: ID;
-    slotId: number;
+    slotId: ID;
 }
 
 interface IGridSlotProps extends IGridSlotStateProps, IGridSlotOwnProps, IGridSlotDispatchProps { }
@@ -35,8 +38,17 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateGearGridAction>): IGridSlot
 
 const mapStateToProps = (state: ISettlement, ownProps: IGridSlotOwnProps): IGridSlotStateProps => {
     const geargrid = state.geargrids.find((v) => v.id === ownProps.gridId);
+    let slotKey;
+    if (geargrid) {
+        geargrid.slots.forEach((v, i) => {
+            if (v.id === ownProps.slotId) {
+                slotKey = i;
+            }
+        });
+    }
     return {
         grid: geargrid,
+        slotKey,
     };
 };
 
@@ -45,9 +57,12 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
         super(props);
         this.state = {
             active: false,
+            showGearList: false,
         };
 
         this.handleGridDrop = this.handleGridDrop.bind(this);
+        this.handleButtonClick = this.handleButtonClick.bind(this);
+        this.handleItemSelect = this.handleItemSelect.bind(this);
     }
 
     public render() {
@@ -61,23 +76,55 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
                 background:#aaa;
             }
         `;
-        const { slotId, grid } = this.props;
-        const content = grid && grid.slots[this.props.slotId].content;
+        const { slotId, grid, slotKey } = this.props;
+        const { active, showGearList } = this.state;
+        const content = grid && grid.slots[this.props.slotKey as number].content;
         return (
             <StyledElement
-                className={this.state.active ? "active" : ""}
-                onDrop={this.generateHandler(slotId, this.handleGridDrop)}
+                className={active ? "active" : ""}
+                onDrop={this.generateHandler(slotKey, this.handleGridDrop)}
                 onDragOver={this.handleDragOver}
-                onDragEnter={this.handleDragEnter.bind(this, slotId)}
-                onDragLeave={this.handleDragLeave.bind(this, slotId)}
+                onDragEnter={this.handleDragEnter.bind(this, slotKey)}
+                onDragLeave={this.handleDragLeave.bind(this, slotKey)}
             >
-                {content && <GearCard id={content} slotId={slotId} />}
-                {!content && <FancyButton>+</FancyButton>}
+                {content && <GearCard id={content} slotId={slotId}/>}
+                {!content && <FancyButton onClick={this.handleButtonClick}>+</FancyButton>}
+                {showGearList && <GearList onItemSelect={this.handleItemSelect}/>}
             </StyledElement>
         );
     }
 
     private generateHandler = (value: any, method: any) => (...e: Array<SyntheticEvent<HTMLDivElement>>) => method(value, ...e);
+
+    private handleItemSelect(itemId: ID) {
+        if (this.props.grid) {
+            const {grid, slotId} = this.props;
+            const newGrid = {
+                ...grid,
+                slots: grid.slots.map((v) => {
+                    if (v.id === slotId) {
+                        return {
+                            ...v,
+                            content: itemId,
+                        };
+                    }
+                    return v;
+                }),
+            };
+            console.log(newGrid);
+            this.props.updateGear(clone(newGrid));
+        }
+
+        this.setState({
+            showGearList: false,
+        });
+    }
+
+    private handleButtonClick() {
+        this.setState({
+            showGearList: true,
+        });
+    }
 
     private handleGridDrop(slotId: number, e: SyntheticEvent<HTMLDivElement>) {
         const event = e.nativeEvent as Event & { dataTransfer: DataTransfer };
