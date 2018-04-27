@@ -22,7 +22,7 @@ const StatElement = styled.div`
           right: 0%;
           width: 0px;
           height: 0px;
-          border-top: 20px solid limegreen;
+          border-top: 20px solid #A12D6A;
           border-left: 20px solid transparent;
     }
     &.token:after {
@@ -32,7 +32,7 @@ const StatElement = styled.div`
           right: 0%;
           width: 0px;
           height: 0px;
-          border-top: 10px solid mediumvioletred;
+          border-top: 10px solid limegreen;
           border-left: 10px solid transparent;
     }
 `;
