@@ -25,14 +25,14 @@ const enum DefenseStats {
 }
 
 interface IHitLocation {
-    [key: string]: ID | string | number | boolean;
-    id: ID;
-    armor: number;
-    label: string;
-    onlyHeavyWound: boolean;
-    noWounds: boolean;
-    lightWound: boolean;
-    heavyWound: boolean;
+    readonly [key: string]: ID | string | number | boolean;
+    readonly id: ID;
+    readonly armor: number;
+    readonly label: string;
+    readonly onlyHeavyWound: boolean;
+    readonly noWounds: boolean;
+    readonly lightWound: boolean;
+    readonly heavyWound: boolean;
 }
 
 interface ISurvivorBaseStat {

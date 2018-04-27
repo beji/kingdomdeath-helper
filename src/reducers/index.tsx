@@ -122,7 +122,16 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                 const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
                     if (survivor.id === newSurvivor.id && newSurvivor.name !== "") {
                         if (survivor.name === DEFAULT_SURVIVOR_NAME && newSurvivor.name !== DEFAULT_SURVIVOR_NAME) {
-                            newSurvivor.defenseStats.survival.armor += 1;
+                            return {
+                                ...newSurvivor,
+                                defenseStats: {
+                                    ...newSurvivor.defenseStats,
+                                    survival: {
+                                        ...newSurvivor.defenseStats.survival,
+                                        armor: newSurvivor.defenseStats.survival.armor + 1,
+                                    },
+                                },
+                            };
                         }
                         return clone(newSurvivor);
                     }
