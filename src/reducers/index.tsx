@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
 import initialState, { DEFAULT_SURVIVOR_NAME } from "../initialstate";
-import { IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
+import { IBaseStats, IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
@@ -46,20 +46,38 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                             hunting: true,
                         };
                         if (Object.keys(oldStats).length > 0) {
-                            Object.keys(survivor.baseStats).forEach((key) => {
-                                newState.baseStats[key].gear = oldStats[key].gear;
-                            });
+
+                            const newBaseStats = Object.keys(survivor.baseStats).reduce((acc, key) => {
+                                return {
+                                    ...acc,
+                                    [key]: {
+                                        ...newState.baseStats[key],
+                                        gear: oldStats[key].gear,
+                                    },
+                                };
+                            }, {}) as IBaseStats;
+
+                            return {
+                                ...newState,
+                                baseStats: newBaseStats,
+                            };
                         }
                         return newState;
                     } else if (survivor.id === survivorId) {
-                        const newState = {
+                        const newState: ISurvivor = {
                             ...survivor,
+                            baseStats: Object.keys(survivor.baseStats).reduce((acc, key) => {
+                                return {
+                                    ...acc,
+                                    [key]: {
+                                        ...survivor.baseStats[key],
+                                        gear: 0,
+                                    },
+                                };
+                            }, {}) as IBaseStats,
                             gridId: undefined,
                             hunting: false,
                         };
-                        Object.keys(survivor.baseStats).forEach((key) => {
-                            newState.baseStats[key].gear = 0;
-                        });
                         return newState;
                     }
                     return survivor;

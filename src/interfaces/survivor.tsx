@@ -36,12 +36,12 @@ interface IHitLocation {
 }
 
 interface ISurvivorBaseStat {
-    [key: string]: number | string;
-    id: ID;
-    gear: number;
-    label: string;
-    permanent: number;
-    token: number;
+    readonly [key: string]: number | string;
+    readonly id: ID;
+    readonly gear: number;
+    readonly label: string;
+    readonly permanent: number;
+    readonly token: number;
 }
 
 interface IBaseStats {
