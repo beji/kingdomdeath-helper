@@ -1,6 +1,6 @@
 import { ID, IHitLocation, ISurvivor, ISurvivorBaseStat } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
-import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorStatAction } from "../interfaces/survivorActions";
+import { CreateSurvivorAction, KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 
 export const updateSurvivor = (survivor: ISurvivor): UpdateSurvivorAction => ({
     payload: survivor,
@@ -20,4 +20,9 @@ export const killSurvivor = (id: ID): KillSurvivorAction => ({
 export const reviveSurvivor = (id: ID): ReviveSurvivorAction => ({
     payload: id,
     type: ActionTypes.REVIVE_SURVIVOR,
+});
+
+export const createSurvivor = (survivor: ISurvivor): CreateSurvivorAction => ({
+    payload: survivor,
+    type: ActionTypes.CREATE_SURVIVOR,
 });

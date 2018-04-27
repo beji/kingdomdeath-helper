@@ -1,14 +1,14 @@
 import { Reducer } from "redux";
-import initialState from "../initialstate";
+import initialState, { DEFAULT_SURVIVOR_NAME } from "../initialstate";
 import { IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
 import { ImportAction } from "../interfaces/importAction";
 import { SetNameAction } from "../interfaces/settlementActions";
-import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorStatAction } from "../interfaces/survivorActions";
+import { CreateSurvivorAction, KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 
-type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | UpdateSurvivorAction | UpdateSurvivorStatAction | KillSurvivorAction | ReviveSurvivorAction;
+type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | UpdateSurvivorAction | UpdateSurvivorStatAction | KillSurvivorAction | ReviveSurvivorAction | CreateSurvivorAction;
 
 function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
     const updatedSurvivors = state.survivors.map(mapfunc);
@@ -87,6 +87,9 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                 const newSurvivor = action.payload as ISurvivor;
                 const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
                     if (survivor.id === newSurvivor.id && newSurvivor.name !== "") {
+                        if (survivor.name === DEFAULT_SURVIVOR_NAME && newSurvivor.name !== DEFAULT_SURVIVOR_NAME) {
+                            newSurvivor.defenseStats.survival.armor += 1;
+                        }
                         return clone(newSurvivor);
                     }
                     return survivor;
@@ -135,6 +138,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                 }
                 return nextState;
             }
+            return state;
         }
         case ActionTypes.REVIVE_SURVIVOR: {
             if (action.payload) {
@@ -145,6 +149,15 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     return survivor;
                 });
             }
+            return state;
+        }
+        case ActionTypes.CREATE_SURVIVOR: {
+            if (action.payload) {
+                const nextState = clone(state);
+                nextState.survivors.push(action.payload);
+                return nextState;
+            }
+            return state;
         }
         default: return state;
     }

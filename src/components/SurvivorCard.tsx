@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateSurvivor } from "../actions/survivorActions";
-import {DefenseStats, ID, IHitLocation, ISettlement, ISurvivor} from "../interfaces";
+import { DefenseStats, ID, IHitLocation, ISettlement, ISurvivor } from "../interfaces";
 import { UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 import SurvivorBaseStat from "./SurvivorBaseStat";

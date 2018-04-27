@@ -3,6 +3,8 @@ import { Gender, ID, ISettlement, ISurvivor, ISurvivorBaseStat } from "./interfa
 import { IGearGrid } from "./interfaces/gear";
 import { BaseStats, DefenseStats, IBaseStats, IDefenseStats, IHitLocation } from "./interfaces/survivor";
 
+export const DEFAULT_SURVIVOR_NAME = "Rename me to get +1 Survival";
+
 const getSurvivorBaseStat = (label: BaseStats): ISurvivorBaseStat => ({
     gear: 0,
     id: uuid(),
@@ -20,7 +22,7 @@ const getBaseStats = (): IBaseStats => ({
     strength: getSurvivorBaseStat(BaseStats.strength),
 });
 
-const getHitLocation = (label: DefenseStats, onlyHeavyWound: boolean, noWounds: boolean = false ): IHitLocation => ({
+const getHitLocation = (label: DefenseStats, onlyHeavyWound: boolean, noWounds: boolean = false): IHitLocation => ({
     armor: 0,
     heavyWound: false,
     id: uuid(),
@@ -72,5 +74,18 @@ const initialState: ISettlement = {
     name: "Everybody-will-die-town",
     survivors,
 };
+
+export function newSurvivor(): ISurvivor {
+    return {
+        alive: true,
+        baseStats: getBaseStats(),
+        defenseStats: getDefense(),
+        gender: Gender.Male,
+        gridId: undefined,
+        hunting: false,
+        id: uuid(),
+        name: DEFAULT_SURVIVOR_NAME,
+    };
+}
 
 export default initialState;
