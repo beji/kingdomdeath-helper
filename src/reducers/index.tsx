@@ -13,8 +13,10 @@ type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAc
 
 function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
     const updatedSurvivors = state.survivors.map(mapfunc);
-    const nextState = clone(state);
-    nextState.survivors = updatedSurvivors;
+    const nextState = {
+        ...state,
+        survivors: updatedSurvivors,
+    };
     return nextState;
 }
 
@@ -77,8 +79,10 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         }
         case ActionTypes.SET_NAME: {
             if (action.payload && action.payload !== "") {
-                const nextState = clone(state);
-                nextState.name = action.payload;
+                const nextState = {
+                    ...state,
+                    name: action.payload,
+                };
                 return nextState;
             }
             return state;
@@ -154,21 +158,27 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         }
         case ActionTypes.CREATE_SURVIVOR: {
             if (action.payload) {
-                const nextState = clone(state);
-                nextState.survivors.push(action.payload);
+                const nextState = {
+                    ...state,
+                    survivors: state.survivors.concat(action.payload),
+                };
                 return nextState;
             }
             return state;
         }
         case ActionTypes.UPDATE_GEARGRID: {
             if (action.payload) {
-                const newState = clone(state);
-                newState.geargrids = state.geargrids.map((grid) => {
-                    if (action.payload && grid.id === action.payload.id) {
-                        return action.payload;
-                    }
-                    return grid;
-                });
+
+                const newState = {
+                    ...state,
+                    geargrids: state.geargrids.map((grid) => {
+                        if (action.payload && grid.id === action.payload.id) {
+                            return action.payload;
+                        }
+                        return grid;
+                    }),
+                };
+
                 return newState;
             }
             return state;

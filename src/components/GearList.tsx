@@ -6,7 +6,7 @@ import { IItem } from "../interfaces/gear";
 import { colorMagentaLachs } from "./StyledComponents";
 
 interface IGearListStateProps {
-    items: IItem[];
+    items: ReadonlyArray<IItem>;
 }
 interface IGearListOwnProps {
     onItemSelect?: any;

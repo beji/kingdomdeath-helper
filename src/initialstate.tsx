@@ -42,7 +42,7 @@ const getDefense = (): IDefenseStats => ({
     waist: getHitLocation(DefenseStats.waist, false),
 });
 
-const survivors: ISurvivor[] = Array.apply(null, { length: 8 }).map(Number.call, Number).map((n: number) => {
+const survivors: ReadonlyArray<ISurvivor> = Array.apply(null, { length: 8 }).map(Number.call, Number).map((n: number) => {
     return {
         alive: n < 4 || n % 3 === 0,
         baseStats: getBaseStats(),
@@ -57,7 +57,7 @@ const survivors: ISurvivor[] = Array.apply(null, { length: 8 }).map(Number.call,
 
 const huntingSurvivors: ID[] = survivors.filter((survivor) => survivor.hunting).map((survivor) => survivor.id);
 
-const geargrids: IGearGrid[] = Array.apply(null, { length: 4 }).map(Number.call, Number).map((n: number) => {
+const geargrids: ReadonlyArray<IGearGrid> = Array.apply(null, { length: 4 }).map(Number.call, Number).map((n: number) => {
     return {
         id: uuid(),
         slots: Array.apply(null, { length: 9 }).map(() => {
@@ -68,7 +68,7 @@ const geargrids: IGearGrid[] = Array.apply(null, { length: 4 }).map(Number.call,
         survivorId: huntingSurvivors[n],
     };
 });
-const items: IItem[] = [
+const items: ReadonlyArray<IItem> = [
     {
         desc: "Fancy Sword that breaks",
         id: uuid(),
