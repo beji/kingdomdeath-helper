@@ -91,11 +91,11 @@ class GearCard extends React.Component<IGearCardProps> {
     }
 
     public render() {
-        const { item } = this.props;
+        const { item, slotId } = this.props;
 
         return (
             <StyledCard onDragStart={this.handleDragStart} draggable={true}>
-                <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>
+                {slotId && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
                 <CardHeadline>{item && item.name}</CardHeadline>
                 <CardDescription>{item && item.desc}</CardDescription>
             </StyledCard>
