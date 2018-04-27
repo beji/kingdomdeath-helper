@@ -87,9 +87,9 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
                 onDragEnter={this.handleDragEnter.bind(this, slotKey)}
                 onDragLeave={this.handleDragLeave.bind(this, slotKey)}
             >
-                {content && <GearCard id={content} slotId={slotId}/>}
+                {content && <GearCard id={content} slotId={slotId} />}
                 {!content && <FancyButton onClick={this.handleButtonClick}>+</FancyButton>}
-                {showGearList && <GearList onItemSelect={this.handleItemSelect}/>}
+                {showGearList && <GearList onItemSelect={this.handleItemSelect} />}
             </StyledElement>
         );
     }
@@ -98,7 +98,7 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
 
     private handleItemSelect(itemId: ID) {
         if (this.props.grid) {
-            const {grid, slotId} = this.props;
+            const { grid, slotId } = this.props;
             const newGrid = {
                 ...grid,
                 slots: grid.slots.map((v) => {

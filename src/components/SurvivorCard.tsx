@@ -148,11 +148,17 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
         if (this.props.survivor) {
             const defStat = this.props.survivor.defenseStats[locName];
             if (woundType === "lightWound" || (woundType === "heavyWound" && defStat.lightWound)) {
-                this.props.survivor.defenseStats[locName] = {
-                    ...defStat,
-                    [woundType]: !defStat[woundType],
+                const next = {
+                    ...this.props.survivor,
+                    defenseStats: {
+                        ...this.props.survivor.defenseStats,
+                        [locName]: {
+                            ...defStat,
+                            [woundType]: !defStat[woundType],
+                        },
+                    },
                 };
-                this.props.updateSurvivor(this.props.survivor);
+                this.props.updateSurvivor(next);
             }
         }
     }
