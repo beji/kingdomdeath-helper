@@ -1,6 +1,6 @@
 import uuid from "uuid/v4";
 import { Gender, ID, ISettlement, ISurvivor, ISurvivorBaseStat } from "./interfaces";
-import { IGearGrid } from "./interfaces/gear";
+import { IGearGrid, IItem } from "./interfaces/gear";
 import { BaseStats, DefenseStats, IBaseStats, IDefenseStats, IHitLocation } from "./interfaces/survivor";
 
 const getSurvivorBaseStat = (label: BaseStats): ISurvivorBaseStat => ({
@@ -66,9 +66,28 @@ const geargrids: IGearGrid[] = Array.apply(null, { length: 4 }).map(Number.call,
         survivorId: huntingSurvivors[n],
     };
 });
+const items: IItem[] = [
+    {
+        desc: "Fancy Sword that breaks",
+        id: uuid(),
+        name: "Bone Sword",
+    },
+    {
+        desc: "Survivor Lendenschurz",
+        id: uuid(),
+        name: "Cloth",
+    },
+    {
+        desc: "Throw to win",
+        id: uuid(),
+        name: "Founding Stone",
+    },
+];
+
 const initialState: ISettlement = {
     geargrids,
     id: uuid(),
+    items,
     name: "Everybody-will-die-town",
     survivors,
 };

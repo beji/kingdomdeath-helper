@@ -32,6 +32,7 @@ interface IAppProps {
     aliveCount?: number;
     geargrids?: ID[];
     id?: ID;
+    items: ID[];
 }
 
 const mapStateToProps = (state: ISettlement): IAppProps => {
@@ -40,6 +41,7 @@ const mapStateToProps = (state: ISettlement): IAppProps => {
         geargrids: state.geargrids.map((grid) => grid.id),
         huntingSurvivors: state.survivors.filter((survivor) => survivor.hunting).map((survivor) => survivor.id),
         id: state.id,
+        items: state.items.map((item) => item.id),
         name: state.name,
         survivors: state.survivors.map((survivor) => survivor.id),
     };
@@ -47,12 +49,7 @@ const mapStateToProps = (state: ISettlement): IAppProps => {
 
 class App extends React.Component<IAppProps> {
     public render() {
-        const { geargrids, survivors, aliveCount } = this.props;
-        const item = {
-            desc: "Fancy weapon that breaks",
-            id: uuid(),
-            name: "Bone Sword",
-        };
+        const { geargrids, survivors, aliveCount, items } = this.props;
 
         return (
             <AppWrapper>
@@ -84,7 +81,7 @@ class App extends React.Component<IAppProps> {
                     </tbody>
                 </SurvivorList>
                 <ExportForm />
-                <GearCard id={uuid()} item={item} />
+                <GearCard id={items[0]} />
                 <SocketConnector />
             </AppWrapper>);
     }

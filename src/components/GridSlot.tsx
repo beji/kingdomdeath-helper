@@ -6,10 +6,11 @@ import { updateGear } from "../actions/gearActions";
 import { ID, ISettlement } from "../interfaces";
 import { IGearGrid } from "../interfaces/gear";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
+import { clone } from "../util";
+import GearCard from "./GearCard";
 
 interface IGridSlotState {
     active: boolean;
-    grid?: IGearGrid;
 }
 
 interface IGridSlotStateProps {
@@ -44,6 +45,8 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
         this.state = {
             active: false,
         };
+
+        this.handleGridDrop = this.handleGridDrop.bind(this);
     }
 
     public render() {
@@ -57,33 +60,41 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
                 background:#aaa;
             }
         `;
-        const content = this.state.grid && this.state.grid.slots[this.props.slotId].content;
+        const { slotId, grid } = this.props;
+        const content = grid && grid.slots[this.props.slotId].content;
         return (
             <StyledElement
                 className={this.state.active ? "active" : ""}
-                onDrop={this.handleGridDrop.bind(this, this.props.slotId)}
+                onDrop={this.generateHandler(slotId, this.handleGridDrop)}
                 onDragOver={this.handleDragOver}
-                onDragEnter={this.handleDragEnter.bind(this, this.props.slotId)}
-                onDragLeave={this.handleDragLeave.bind(this, this.props.slotId)}
+                onDragEnter={this.handleDragEnter.bind(this, slotId)}
+                onDragLeave={this.handleDragLeave.bind(this, slotId)}
             >
-                {content && (content)}
+                {content && <GearCard id={content} slotId={slotId}/>}
                 {!content && <button>+</button>}
             </StyledElement>
         );
     }
 
-    private handleGridDrop(slotId: number) {
+    private generateHandler = (value: any, method: any) => (...e: Array<SyntheticEvent<HTMLDivElement>>) => method(value, ...e);
+
+    private handleGridDrop(slotId: number, e: SyntheticEvent<HTMLDivElement>) {
+        const event = e.nativeEvent as Event & { dataTransfer: DataTransfer };
+        console.log(event.dataTransfer.getData("ids"));
+        const data = JSON.parse(event.dataTransfer.getData("ids"));
+
         if (this.props.grid) {
-            this.props.grid.slots[slotId] = {
-                ...this.props.grid.slots[slotId],
-                content: "dropped",
-            };
-            this.props.updateGear(this.props.grid);
+            const newGrid = this.props.grid;
+            newGrid.slots[slotId].content = data.id;
+            if (data.slotId) {
+                newGrid.slots[data.slotId].content = undefined;
+            }
+            this.props.updateGear(clone(newGrid));
+
+            this.setState({
+                active: false,
+            });
         }
-        this.setState({
-            active: false,
-            grid: this.props.grid,
-        });
     }
 
     private handleDragEnter() {

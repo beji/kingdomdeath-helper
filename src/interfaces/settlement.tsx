@@ -1,4 +1,4 @@
-import { IGearGrid } from "./gear";
+import { IGearGrid, IItem } from "./gear";
 import { ID } from "./generics";
 import { ISurvivor } from "./survivor";
 
@@ -7,6 +7,7 @@ interface ISettlement {
     name: string;
     survivors: ISurvivor[];
     geargrids: IGearGrid[];
+    items: IItem[];
 }
 
 export { ISettlement };
