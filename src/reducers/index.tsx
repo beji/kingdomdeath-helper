@@ -39,8 +39,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     if (action.payload && survivor.id === action.payload.id && survivor.alive) {
                         survivor.hunting = true;
                         survivor.gridId = action.payload.gridId.toString();
-                        console.log("oldStats", oldStats);
-                        if (oldStats !== {}) {
+                        if (Object.keys(oldStats).length > 0) {
                             Object.keys(survivor.baseStats).forEach((key) => {
                                 survivor.baseStats[key].gear = oldStats[key].gear;
                             });

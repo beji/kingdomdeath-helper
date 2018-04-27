@@ -32,10 +32,12 @@ describe("The reducer", () => {
             x.alive = true;
             return x;
         });
-        const notHunting = state.survivors.filter((x) => !x.hunting).map((x) => { return {
-            gridId: x.gridId,
-            id: x.id,
-        }; });
+        const notHunting = state.survivors.filter((x) => !x.hunting).map((x) => {
+            return {
+                gridId: x.gridId,
+                id: x.id,
+            };
+        });
 
         const result = notHunting.reduce((acc, elem) => {
             if (elem.gridId) {

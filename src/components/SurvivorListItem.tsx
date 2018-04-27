@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions";
 import { killSurvivor, reviveSurvivor, updateSurvivor } from "../actions/survivorActions";
-import {Gender, ID, IGearGrid, ISettlement} from "../interfaces";
+import { Gender, ID, IGearGrid, ISettlement } from "../interfaces";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
 import { ISurvivor } from "../interfaces/survivor";
 import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
@@ -59,7 +59,7 @@ const mapStateToProps = (state: ISettlement, ownProps: ISurvivorListItemOwnProps
     return {
         geargrids: state.geargrids,
         huntSlots: geargrids.map((v, i) => {
-            return {gridId: i, survivorId: geargrids[i].survivorId};
+            return { gridId: i, survivorId: geargrids[i].survivorId };
         }),
         survivor: clone(survivor),
     };
