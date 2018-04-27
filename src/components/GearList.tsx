@@ -53,6 +53,8 @@ const CloseIcon = styled.div`
     border:1px solid #444;
     border-radius:50%;
     cursor:pointer;
+    font-family:arial;
+    font-size:1rem;
     height:2rem;
     line-height:2rem;
     position:absolute;
@@ -75,7 +77,7 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
     constructor(props: IGearListProps) {
         super(props);
         this.state = {
-            items: props.items,
+            items: props.items as IItem[],
         };
         this.handleCloseIconClick = this.handleCloseIconClick.bind(this);
         this.handleFilter = this.handleFilter.bind(this);
@@ -84,7 +86,7 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
     public render() {
         return (
             <StyledList>
-                {this.props.onCancel && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
+                {this.props.onCancel && <CloseIcon onClick={this.handleCloseIconClick}>X</CloseIcon>}
                 <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter}/>
                 {this.state.items.map((v, i) => <ListElement key={i} onClick={this.handleItemSelect.bind(this, v.id)}>{v.name}</ListElement>)}
             </StyledList>
