@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import uuid from "uuid/v4";
 import { ID, ISettlement } from "../interfaces";
+import CreateSurvivor from "./CreateSurvivor";
 import ExportForm from "./ExportForm";
 import GearCard from "./GearCard";
 import GearGrid from "./GearGrid";
@@ -80,6 +81,7 @@ class App extends React.Component<IAppProps> {
                         {survivors && survivors.map((id, idx) => this.renderSurvivorListItem(idx, id))}
                     </tbody>
                 </SurvivorList>
+                <CreateSurvivor />
                 <ExportForm />
                 <GearCard id={items[0]} />
                 <SocketConnector />

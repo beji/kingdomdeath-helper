@@ -10,3 +10,5 @@ export type UpdateSurvivorStatAction = IAction<ActionTypes.UPDATE_SURVIVOR_STAT,
 export type KillSurvivorAction = IAction<ActionTypes.KILL_SURVIVOR, ID>;
 
 export type ReviveSurvivorAction = IAction<ActionTypes.REVIVE_SURVIVOR, ID>;
+
+export type CreateSurvivorAction = IAction<ActionTypes.CREATE_SURVIVOR, ISurvivor>;
