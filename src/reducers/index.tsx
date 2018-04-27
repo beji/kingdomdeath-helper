@@ -118,22 +118,31 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             if (action.payload) {
                 const newStat = action.payload;
                 return generateWithUpdatedSurvivors(state, (survivor) => {
-                    Object.keys(survivor.baseStats).map((statKey) => {
-                        if (survivor.baseStats[statKey].id === newStat.id) {
-                            survivor.baseStats[statKey] = newStat as ISurvivorBaseStat;
-                        }
+
+                    const statKeyForBaseStat = Object.keys(survivor.baseStats).find((statKey) => {
+                        return survivor.baseStats[statKey].id === newStat.id;
                     });
 
-                    const statKeyToUpdate = Object.keys(survivor.defenseStats).find((statKey) => {
+                    if (statKeyForBaseStat) {
+                        return {
+                            ...survivor,
+                            baseStats: {
+                                ...survivor.baseStats,
+                                [statKeyForBaseStat]: newStat as ISurvivorBaseStat,
+                            },
+                        };
+                    }
+
+                    const statKeyForHitLocation = Object.keys(survivor.defenseStats).find((statKey) => {
                         return survivor.defenseStats[statKey].id === newStat.id;
                     });
 
-                    if (statKeyToUpdate) {
+                    if (statKeyForHitLocation) {
                         return {
                             ...survivor,
                             defenseStats: {
                                 ...survivor.defenseStats,
-                                [statKeyToUpdate]: newStat as IHitLocation,
+                                [statKeyForHitLocation]: newStat as IHitLocation,
                             },
                         };
                     }

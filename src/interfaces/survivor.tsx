@@ -45,13 +45,13 @@ interface ISurvivorBaseStat {
 }
 
 interface IBaseStats {
-    [key: string]: ISurvivorBaseStat;
-    movement: ISurvivorBaseStat;
-    accuracy: ISurvivorBaseStat;
-    strength: ISurvivorBaseStat;
-    evasion: ISurvivorBaseStat;
-    luck: ISurvivorBaseStat;
-    speed: ISurvivorBaseStat;
+    readonly [key: string]: ISurvivorBaseStat;
+    readonly movement: ISurvivorBaseStat;
+    readonly accuracy: ISurvivorBaseStat;
+    readonly strength: ISurvivorBaseStat;
+    readonly evasion: ISurvivorBaseStat;
+    readonly luck: ISurvivorBaseStat;
+    readonly speed: ISurvivorBaseStat;
 }
 
 interface IDefenseStats {

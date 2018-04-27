@@ -7,7 +7,7 @@ import { IItem } from "../interfaces/gear";
 import { colorMagentaLachs } from "./StyledComponents";
 
 interface IGearListState {
-    items: IItem[];
+    items: ReadonlyArray<IItem>;
 }
 
 interface IGearListStateProps {
@@ -85,7 +85,7 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
         return (
             <StyledList>
                 {this.props.onCancel && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
-                <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter}/>
+                <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} />
                 {this.state.items.map((v, i) => <ListElement key={i} onClick={this.handleItemSelect.bind(this, v.id)}>{v.name}</ListElement>)}
             </StyledList>
         );
@@ -102,7 +102,7 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
     private handleFilter(event: SyntheticEvent<HTMLInputElement>) {
         const { items } = this.props;
         this.setState({
-            items : items.filter((item) => {
+            items: items.filter((item) => {
                 return item.name.toLowerCase().search(
                     event.currentTarget.value.toLowerCase()) !== -1;
             }),
