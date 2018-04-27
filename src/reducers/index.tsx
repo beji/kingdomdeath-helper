@@ -27,9 +27,8 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         case ActionTypes.ADD_TO_HUNT: {
             if (action.payload) {
                 const { survivorId } = state.geargrids[action.payload.gridId];
-                state.geargrids[action.payload.gridId].survivorId = action.payload.id;
 
-                return generateWithUpdatedSurvivors(state, (survivor) => {
+                const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
                     if (action.payload && survivor.id === action.payload.id && survivor.alive) {
                         survivor.hunting = true;
                         survivor.gridId = action.payload.gridId.toString();
@@ -39,6 +38,8 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     }
                     return survivor;
                 });
+                nextState.geargrids[action.payload.gridId].survivorId = action.payload.id;
+                return nextState;
             }
             return state;
         }
