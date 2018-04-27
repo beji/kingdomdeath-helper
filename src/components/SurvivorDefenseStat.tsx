@@ -67,8 +67,8 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
         return (
             <StatWrapper>
                 <StatElement onClick={this.handleEditClick}>{stat.armor}</StatElement>
-                {!stat.onlyHeavyWound && <LightWound onClick={this.toggleWound.bind(this, "lightWound")} className={stat.lightWound ? "active" : ""} />}
-                <HeavyWound onClick={this.toggleWound.bind(this, "heavyWound")} className={stat.heavyWound ? "active" : ""} />
+                {!stat.noWounds && !stat.onlyHeavyWound && <LightWound onClick={this.toggleWound.bind(this, "lightWound")} className={stat.lightWound ? "active" : ""} />}
+                {!stat.noWounds && <HeavyWound onClick={this.toggleWound.bind(this, "heavyWound")} className={stat.heavyWound ? "active" : ""} />}
                 {editSurvivorStat && this.renderEditState()}
             </StatWrapper>
         );

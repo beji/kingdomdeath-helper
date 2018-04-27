@@ -21,6 +21,7 @@ const enum DefenseStats {
     body = "Body",
     waist = "Waist",
     legs = "Legs",
+    survival = "Survival",
 }
 
 interface IHitLocation {
@@ -29,6 +30,7 @@ interface IHitLocation {
     armor: number;
     label: string;
     onlyHeavyWound: boolean;
+    noWounds: boolean;
     lightWound: boolean;
     heavyWound: boolean;
 }
@@ -60,6 +62,7 @@ interface IDefenseStats {
     arms: IHitLocation;
     waist: IHitLocation;
     legs: IHitLocation;
+    survival: IHitLocation;
 }
 
 interface ISurvivor {
@@ -71,7 +74,6 @@ interface ISurvivor {
     alive: boolean;
     baseStats: IBaseStats;
     defenseStats: IDefenseStats;
-    survival: number;
 }
 
 export { BaseStats, DefenseStats, Gender, IDefenseStats, IHitLocation, ISurvivor, IBaseStats, ISurvivorBaseStat };

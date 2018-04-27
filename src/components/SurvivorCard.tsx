@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateSurvivor } from "../actions/survivorActions";
-import { ID, IHitLocation, ISettlement, ISurvivor } from "../interfaces";
+import {DefenseStats, ID, IHitLocation, ISettlement, ISurvivor} from "../interfaces";
 import { UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 import SurvivorBaseStat from "./SurvivorBaseStat";
@@ -30,7 +30,6 @@ const NameSection = styled.section`
     margin-bottom: 0.5vh;
     padding-bottom: 0.5vh;
     display: block;
-    width: 33%;
 `;
 
 const StatSection = styled.section`
@@ -101,25 +100,27 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
         const sortedBaseStats = ["movement", "accuracy", "strength", "evasion", "luck", "speed"];
         const sortedDefenceStats = ["brain", "head", "arms", "body", "waist", "legs"];
         if (survivor) {
-            const { name, id, gender, baseStats, defenseStats, survival } = survivor;
+            const { name, id, gender, baseStats, defenseStats } = survivor;
             return (
                 <StyledCard>
                     <NameSection>
-                        <Label>Name</Label>
-                        {!firstnameEdit ? <span onClick={this.toggleName}>{name}</span> : <input type="text" defaultValue={name} onChange={this.nameUpdate} onBlur={this.toggleName} />}
-                        <div>
-                            <Label>Survival</Label> {survival}
-                        </div>
+                        <section>
+                            <Label>Name</Label>
+                            {!firstnameEdit ? <span onClick={this.toggleName}>{name}</span> : <input type="text" defaultValue={name} onChange={this.nameUpdate} onBlur={this.toggleName} />}
+                        </section>
+                        <section>
+                            <Label>Gender</Label>
+                            {gender}
+                        </section>
+                        <section>
+                            <SurvivorStat><StatLabel>{defenseStats.survival.label}</StatLabel><SurvivorDefenseStat id={id} stat={defenseStats.survival} /></SurvivorStat>
+                        </section>
                     </NameSection>
-                    <section>
-                        <Label>Gender</Label>
-                        {gender}
-                    </section>
                     <StatSection>
                         {sortedBaseStats.map((v, i) => (<SurvivorStat key={i}><StatLabel>{baseStats[v].label}</StatLabel><SurvivorBaseStat id={id} stat={baseStats[v]} /></SurvivorStat>))}
                     </StatSection>
                     <StatSection>
-                        {sortedDefenceStats.map((v, i) => (<SurvivorStat key={i}><StatLabel>{defenseStats[v].label}</StatLabel><SurvivorDefenseStat id={id} stat={defenseStats[v]} /></SurvivorStat>))}
+                        {sortedDefenceStats.map((v, i) => (defenseStats[v].label !== DefenseStats.survival && <SurvivorStat key={i}><StatLabel>{defenseStats[v].label}</StatLabel><SurvivorDefenseStat id={id} stat={defenseStats[v]} /></SurvivorStat>))}
                     </StatSection>
                 </StyledCard>
             );

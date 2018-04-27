@@ -20,12 +20,13 @@ const getBaseStats = (): IBaseStats => ({
     strength: getSurvivorBaseStat(BaseStats.strength),
 });
 
-const getHitLocation = (label: DefenseStats, onlyHeavyWound: boolean): IHitLocation => ({
+const getHitLocation = (label: DefenseStats, onlyHeavyWound: boolean, noWounds: boolean = false ): IHitLocation => ({
     armor: 0,
     heavyWound: false,
     id: uuid(),
     label,
     lightWound: false,
+    noWounds,
     onlyHeavyWound,
 });
 
@@ -35,6 +36,7 @@ const getDefense = (): IDefenseStats => ({
     brain: getHitLocation(DefenseStats.brain, true),
     head: getHitLocation(DefenseStats.head, false),
     legs: getHitLocation(DefenseStats.legs, false),
+    survival: getHitLocation(DefenseStats.survival, false, true),
     waist: getHitLocation(DefenseStats.waist, false),
 });
 
@@ -48,7 +50,6 @@ const survivors: ISurvivor[] = Array.apply(null, { length: 8 }).map(Number.call,
         hunting: n < 4,
         id: uuid(),
         name: `Survivor ${n}`,
-        survival: 0,
     };
 });
 
