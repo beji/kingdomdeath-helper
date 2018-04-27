@@ -10,6 +10,7 @@ interface IGearListStateProps {
 }
 interface IGearListOwnProps {
     onItemSelect?: any;
+    onCancel?: any;
 }
 
 interface IGearListProps extends IGearListStateProps, IGearListOwnProps { }
@@ -42,18 +43,45 @@ const ListElement = styled.div`
         border-color:${colorMagentaLachs}
     }
 `;
+const CloseIcon = styled.div`
+    background:#ccc;
+    border:1px solid #444;
+    border-radius:50%;
+    cursor:pointer;
+    height:2rem;
+    line-height:2rem;
+    position:absolute;
+    right:-1rem;
+    text-align:center;
+    top:-1rem;
+    width:2rem;
+    &:hover {
+        background:${colorMagentaLachs}
+    }
+`;
 
 class GearList extends React.Component<IGearListProps> {
+    constructor(props: IGearListProps) {
+        super(props);
+        this.handleCloseIconClick = this.handleCloseIconClick.bind(this);
+    }
+
     public render() {
+        const { items, onCancel } = this.props;
         return (
             <StyledList>
-                {this.props.items.map((v, i) => <ListElement key={i} onClick={this.handleItemSelect.bind(this, v.id)}>{v.name}</ListElement>)}
+                {onCancel && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
+                {items.map((v, i) => <ListElement key={i} onClick={this.handleItemSelect.bind(this, v.id)}>{v.name}</ListElement>)}
             </StyledList>
         );
     }
 
     private handleItemSelect(itemId: ID) {
         this.props.onItemSelect(itemId);
+    }
+
+    private handleCloseIconClick() {
+        this.props.onCancel();
     }
 }
 

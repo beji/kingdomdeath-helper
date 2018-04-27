@@ -68,13 +68,13 @@ const CloseIcon = styled.div`
     border:1px solid #444;
     border-radius:50%;
     cursor:pointer;
-    height:2rem;
-    line-height:2rem;
+    height:1.25rem;
+    line-height:1.25rem;
     position:absolute;
-    right:-1rem;
+    right:-.5rem;
     text-align:center;
-    top:-1rem;
-    width:2rem;
+    top:-.5rem;
+    width:1.25rem;
     &:hover {
         background:${colorMagentaLachs}
     }

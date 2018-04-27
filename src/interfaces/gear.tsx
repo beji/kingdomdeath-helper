@@ -7,6 +7,14 @@ enum Affinity {
     blue = "blue",
 }
 
+enum ItemType {
+    armor,
+    generic,
+    rawhide,
+    set,
+    weapon,
+}
+
 interface IGearGrid {
     id: ID;
     survivorId?: ID;
@@ -22,17 +30,23 @@ interface IItem {
     id: ID;
     name: string;
     desc: string;
+    types?: ItemType[];
     stats?: Array<{
         amount: number,
-        type: DefenseStats | BaseStats;
         showOnCard: boolean;
+        type: DefenseStats | BaseStats;
     }>;
     affinity?: {
         top?: Affinity;
         right?: Affinity;
         bottom?: Affinity;
         left?: Affinity;
+        bonus?: {
+            desc: string;
+            affOwn?: Affinity[];
+            affGrid?: Affinity[];
+        }
     };
 }
 
-export { IGearGrid, IGridSlot, IItem };
+export { Affinity, IGearGrid, IGridSlot, IItem, ItemType };
