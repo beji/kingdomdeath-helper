@@ -1,15 +1,21 @@
 import React from "react";
+import { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { ID, ISettlement } from "../interfaces";
 import { IItem } from "../interfaces/gear";
 import { colorMagentaLachs } from "./StyledComponents";
 
+interface IGearListState {
+    items: IItem[];
+}
+
 interface IGearListStateProps {
     items: ReadonlyArray<IItem>;
 }
 interface IGearListOwnProps {
     onItemSelect?: any;
+    onCancel?: any;
 }
 
 interface IGearListProps extends IGearListStateProps, IGearListOwnProps { }
@@ -42,18 +48,65 @@ const ListElement = styled.div`
         border-color:${colorMagentaLachs}
     }
 `;
+const CloseIcon = styled.div`
+    background:#ccc;
+    border:1px solid #444;
+    border-radius:50%;
+    cursor:pointer;
+    height:2rem;
+    line-height:2rem;
+    position:absolute;
+    right:-1rem;
+    text-align:center;
+    top:-1rem;
+    width:2rem;
+    &:hover {
+        background:${colorMagentaLachs}
+    }
+`;
+const FilterInput = styled.input`
+    border: 2px solid #aaa;
+    font-size:1rem;
+    padding:.25rem;
+    width: 80%;
+`;
 
-class GearList extends React.Component<IGearListProps> {
+class GearList extends React.Component<IGearListProps, IGearListState> {
+    constructor(props: IGearListProps) {
+        super(props);
+        this.state = {
+            items: props.items,
+        };
+        this.handleCloseIconClick = this.handleCloseIconClick.bind(this);
+        this.handleFilter = this.handleFilter.bind(this);
+    }
+
     public render() {
         return (
             <StyledList>
-                {this.props.items.map((v, i) => <ListElement key={i} onClick={this.handleItemSelect.bind(this, v.id)}>{v.name}</ListElement>)}
+                {this.props.onCancel && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
+                <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter}/>
+                {this.state.items.map((v, i) => <ListElement key={i} onClick={this.handleItemSelect.bind(this, v.id)}>{v.name}</ListElement>)}
             </StyledList>
         );
     }
 
     private handleItemSelect(itemId: ID) {
         this.props.onItemSelect(itemId);
+    }
+
+    private handleCloseIconClick() {
+        this.props.onCancel();
+    }
+
+    private handleFilter(event: SyntheticEvent<HTMLInputElement>) {
+        const { items } = this.props;
+        this.setState({
+            items : items.filter((item) => {
+                return item.name.toLowerCase().search(
+                    event.currentTarget.value.toLowerCase()) !== -1;
+            }),
+        });
     }
 }
 

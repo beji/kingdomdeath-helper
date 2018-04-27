@@ -1,6 +1,20 @@
 import { ID } from "./generics";
 import { BaseStats, DefenseStats } from "./survivor";
 
+enum Affinity {
+    red = "red",
+    green = "green",
+    blue = "blue",
+}
+
+enum ItemType {
+    armor,
+    generic,
+    rawhide,
+    set,
+    weapon,
+}
+
 interface IGearGrid {
     id: ID;
     survivorId?: ID;
@@ -16,10 +30,23 @@ interface IItem {
     id: ID;
     name: string;
     desc: string;
-    stats?: {
+    types?: ItemType[];
+    stats?: Array<{
         amount: number,
-        type: BaseStats | DefenseStats;
+        showOnCard: boolean;
+        type: DefenseStats | BaseStats;
+    }>;
+    affinity?: {
+        top?: Affinity;
+        right?: Affinity;
+        bottom?: Affinity;
+        left?: Affinity;
+        bonus?: {
+            desc: string;
+            affOwn?: Affinity[];
+            affGrid?: Affinity[];
+        }
     };
 }
 
-export { IGearGrid, IGridSlot, IItem };
+export { Affinity, IGearGrid, IGridSlot, IItem, ItemType };

@@ -1,6 +1,6 @@
 import uuid from "uuid/v4";
 import { Gender, ID, ISettlement, ISurvivor, ISurvivorBaseStat } from "./interfaces";
-import { IGearGrid, IItem } from "./interfaces/gear";
+import { Affinity, IGearGrid, IItem, ItemType } from "./interfaces/gear";
 import { BaseStats, DefenseStats, IBaseStats, IDefenseStats, IHitLocation } from "./interfaces/survivor";
 
 export const DEFAULT_SURVIVOR_NAME = "Rename me to get +1 Survival";
@@ -73,6 +73,9 @@ const items: ReadonlyArray<IItem> = [
         desc: "Fancy Sword that breaks",
         id: uuid(),
         name: "Bone Sword",
+        types: [
+            ItemType.weapon,
+        ],
     },
     {
         desc: "Survivor Lendenschurz",
@@ -83,6 +86,101 @@ const items: ReadonlyArray<IItem> = [
         desc: "Throw to win",
         id: uuid(),
         name: "Founding Stone",
+    },
+    {
+        affinity: {
+            bottom: Affinity.blue,
+        },
+        desc: "",
+        id: uuid(),
+        name: "Rawhide Headband",
+        stats: [
+            {
+                amount: 1,
+                showOnCard: true,
+                type: DefenseStats.head,
+            },
+        ],
+        types: [
+            ItemType.armor,
+            ItemType.set,
+            ItemType.rawhide,
+        ],
+    },
+    {
+        affinity: {
+            right: Affinity.red,
+            top: Affinity.blue,
+        },
+        desc: "",
+        id: uuid(),
+        name: "Rawhide Vest",
+        stats: [
+            {
+                amount: 1,
+                showOnCard: true,
+                type: DefenseStats.body,
+            },
+        ],
+        types: [
+            ItemType.armor,
+            ItemType.set,
+            ItemType.rawhide,
+        ],
+    },
+    {
+        affinity: {
+            left: Affinity.red,
+        },
+        desc: "When you depart, gain +1 survival",
+        id: uuid(),
+        name: "Rawhide Gloves",
+        stats: [
+            {
+                amount: 1,
+                showOnCard: true,
+                type: DefenseStats.arms,
+            },
+        ],
+        types: [
+            ItemType.armor,
+            ItemType.set,
+            ItemType.rawhide,
+        ],
+    },
+    {
+        desc: "",
+        id: uuid(),
+        name: "Rawhide Pants",
+        stats: [
+            {
+                amount: 1,
+                showOnCard: true,
+                type: DefenseStats.waist,
+            },
+        ],
+        types: [
+            ItemType.armor,
+            ItemType.set,
+            ItemType.rawhide,
+        ],
+    },
+    {
+        desc: "When you depart, gain +1 survival",
+        id: uuid(),
+        name: "Rawhide Boots",
+        stats: [
+            {
+                amount: 1,
+                showOnCard: true,
+                type: DefenseStats.legs,
+            },
+        ],
+        types: [
+            ItemType.armor,
+            ItemType.set,
+            ItemType.rawhide,
+        ],
     },
 ];
 

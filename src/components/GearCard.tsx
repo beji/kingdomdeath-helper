@@ -68,13 +68,13 @@ const CloseIcon = styled.div`
     border:1px solid #444;
     border-radius:50%;
     cursor:pointer;
-    height:2rem;
-    line-height:2rem;
+    height:1.25rem;
+    line-height:1.25rem;
     position:absolute;
-    right:-1rem;
+    right:-.5rem;
     text-align:center;
-    top:-1rem;
-    width:2rem;
+    top:-.5rem;
+    width:1.25rem;
     &:hover {
         background:${colorMagentaLachs}
     }
@@ -91,11 +91,11 @@ class GearCard extends React.Component<IGearCardProps> {
     }
 
     public render() {
-        const { item } = this.props;
+        const { item, slotId } = this.props;
 
         return (
             <StyledCard onDragStart={this.handleDragStart} draggable={true}>
-                <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>
+                {slotId && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
                 <CardHeadline>{item && item.name}</CardHeadline>
                 <CardDescription>{item && item.desc}</CardDescription>
             </StyledCard>

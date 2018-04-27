@@ -61,15 +61,16 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
         };
 
         this.handleGridDrop = this.handleGridDrop.bind(this);
-        this.handleButtonClick = this.handleButtonClick.bind(this);
-        this.handleItemSelect = this.handleItemSelect.bind(this);
+        this.handleGearListOpen = this.handleGearListOpen.bind(this);
+        this.handleGearListCancel = this.handleGearListCancel.bind(this);
+        this.handleGearListItemSelect = this.handleGearListItemSelect.bind(this);
     }
 
     public render() {
         const StyledElement = styled.div`
             border:1px solid #444;
             width:33.33333%;
-            height:10vh;
+            min-height:10vh;
             text-align:center;
             line-height:10vh;
             &.active {
@@ -87,16 +88,16 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
                 onDragEnter={this.handleDragEnter.bind(this, slotKey)}
                 onDragLeave={this.handleDragLeave.bind(this, slotKey)}
             >
-                {content && <GearCard id={content} slotId={slotId} />}
-                {!content && <FancyButton onClick={this.handleButtonClick}>+</FancyButton>}
-                {showGearList && <GearList onItemSelect={this.handleItemSelect} />}
+                {content && <GearCard id={content} slotId={slotId}/>}
+                {!content && <FancyButton onClick={this.handleGearListOpen}>+</FancyButton>}
+                {showGearList && <GearList onItemSelect={this.handleGearListItemSelect} onCancel={this.handleGearListCancel}/>}
             </StyledElement>
         );
     }
 
     private generateHandler = (value: any, method: any) => (...e: Array<SyntheticEvent<HTMLDivElement>>) => method(value, ...e);
 
-    private handleItemSelect(itemId: ID) {
+    private handleGearListItemSelect(itemId: ID) {
         if (this.props.grid) {
             const { grid, slotId } = this.props;
             const newGrid = {
@@ -120,9 +121,15 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
         });
     }
 
-    private handleButtonClick() {
+    private handleGearListOpen() {
         this.setState({
             showGearList: true,
+        });
+    }
+
+    private handleGearListCancel() {
+        this.setState({
+            showGearList: false,
         });
     }
 
