@@ -123,11 +123,20 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                             survivor.baseStats[statKey] = newStat as ISurvivorBaseStat;
                         }
                     });
-                    Object.keys(survivor.defenseStats).map((statKey) => {
-                        if (survivor.defenseStats[statKey].id === newStat.id) {
-                            survivor.defenseStats[statKey] = newStat as IHitLocation;
-                        }
+
+                    const statKeyToUpdate = Object.keys(survivor.defenseStats).find((statKey) => {
+                        return survivor.defenseStats[statKey].id === newStat.id;
                     });
+
+                    if (statKeyToUpdate) {
+                        return {
+                            ...survivor,
+                            defenseStats: {
+                                ...survivor.defenseStats,
+                                [statKeyToUpdate]: newStat as IHitLocation,
+                            },
+                        };
+                    }
                     return survivor;
                 });
             }

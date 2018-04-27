@@ -99,7 +99,7 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
 
     private handleGearListItemSelect(itemId: ID) {
         if (this.props.grid) {
-            const {grid, slotId} = this.props;
+            const { grid, slotId } = this.props;
             const newGrid = {
                 ...grid,
                 slots: grid.slots.map((v) => {

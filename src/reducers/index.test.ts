@@ -33,7 +33,7 @@ describe("The reducer", () => {
 
     it("should give one free survival on the first rename", () => {
         const survivor = newSurvivor();
-        const state =  {...initialState, survivors: [survivor]};
+        const state = { ...initialState, survivors: [survivor] };
 
         expect(state.survivors[0].defenseStats.survival.armor).to.equal(0);
         const update = {
@@ -49,7 +49,7 @@ describe("The reducer", () => {
             ...newSurvivor(),
             name: "Rudolf",
         };
-        const state = {...initialState, survivors: [survivor]};
+        const state = { ...initialState, survivors: [survivor] };
         expect(state.survivors[0].defenseStats.survival.armor).to.equal(0);
         const update = {
             ...survivor,

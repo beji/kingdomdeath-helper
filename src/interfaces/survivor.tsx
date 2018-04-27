@@ -55,14 +55,14 @@ interface IBaseStats {
 }
 
 interface IDefenseStats {
-    [key: string]: IHitLocation;
-    brain: IHitLocation;
-    head: IHitLocation;
-    body: IHitLocation;
-    arms: IHitLocation;
-    waist: IHitLocation;
-    legs: IHitLocation;
-    survival: IHitLocation;
+    readonly [key: string]: IHitLocation;
+    readonly brain: IHitLocation;
+    readonly head: IHitLocation;
+    readonly body: IHitLocation;
+    readonly arms: IHitLocation;
+    readonly waist: IHitLocation;
+    readonly legs: IHitLocation;
+    readonly survival: IHitLocation;
 }
 
 interface ISurvivor {
