@@ -87,7 +87,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
     public render() {
         if (this.props.survivor) {
             const { huntSlots } = this.props;
-            const { name, id, gender, gridId, alive } = this.props.survivor;
+            const { name, id, gender, gridId, alive, hunting } = this.props.survivor;
             const { movement, accuracy, strength, evasion, luck, speed } = this.props.survivor.baseStats;
             const { editName, editGender } = this.state;
 
@@ -109,7 +109,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
                     <Cell><SurvivorBaseStat id={id} stat={luck} /></Cell>
                     <Cell><SurvivorBaseStat id={id} stat={speed} /></Cell>
                     <Cell>
-                        {alive && (<div><select value={gridId} onChange={this.handleHuntBoxChange}><option value="remove">not hunting</option>{huntSlots.map((v, i) => <option key={i} value={i}>Hunter {v.gridId + 1}</option>)}</select></div>)}
+                        {alive && (<div><select value={hunting ? gridId : "remove"} onChange={this.handleHuntBoxChange}><option value="remove">not hunting</option>{huntSlots.map((v, i) => <option key={i} value={i}>Hunter {v.gridId + 1}</option>)}</select></div>)}
                     </Cell>
                     <Cell>
                         {alive ? <button onClick={this.handleKillClick}>Kill</button> : <button onClick={this.handleReviveClick}>Revive</button>}
