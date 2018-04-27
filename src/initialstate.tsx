@@ -60,9 +60,9 @@ const huntingSurvivors: ID[] = survivors.filter((survivor) => survivor.hunting).
 const geargrids: IGearGrid[] = Array.apply(null, { length: 4 }).map(Number.call, Number).map((n: number) => {
     return {
         id: uuid(),
-        slots: Array.apply(null, { length: 9 }).map(Number.call, Number).map((x: number) => {
+        slots: Array.apply(null, { length: 9 }).map(() => {
             return {
-                id: x,
+                id: uuid(),
             };
         }),
         survivorId: huntingSurvivors[n],

@@ -2,13 +2,14 @@ import { Reducer } from "redux";
 import initialState, { DEFAULT_SURVIVOR_NAME } from "../initialstate";
 import { IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
+import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
 import { ImportAction } from "../interfaces/importAction";
 import { SetNameAction } from "../interfaces/settlementActions";
 import { CreateSurvivorAction, KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 
-type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | UpdateSurvivorAction | UpdateSurvivorStatAction | KillSurvivorAction | ReviveSurvivorAction | CreateSurvivorAction;
+type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | UpdateSurvivorAction | UpdateSurvivorStatAction | KillSurvivorAction | ReviveSurvivorAction | CreateSurvivorAction | UpdateGearGridAction;
 
 function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
     const updatedSurvivors = state.survivors.map(mapfunc);
@@ -156,6 +157,19 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                 const nextState = clone(state);
                 nextState.survivors.push(action.payload);
                 return nextState;
+            }
+            return state;
+        }
+        case ActionTypes.UPDATE_GEARGRID: {
+            if (action.payload) {
+                const newState = clone(state);
+                newState.geargrids = state.geargrids.map((grid) => {
+                    if (action.payload && grid.id === action.payload.id) {
+                        return action.payload;
+                    }
+                    return grid;
+                });
+                return newState;
             }
             return state;
         }

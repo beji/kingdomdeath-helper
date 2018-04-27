@@ -7,6 +7,7 @@ import { ISettlement } from "../interfaces";
 import { IGearGrid, IItem } from "../interfaces/gear";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { ID } from "../interfaces/generics";
+import { clone } from "../util";
 import { colorMagentaLachs } from "./StyledComponents";
 
 interface IGearCardDispatchProps {
@@ -104,8 +105,10 @@ class GearCard extends React.Component<IGearCardProps> {
     private handleCloseIconClick() {
         if (this.props.grid) {
             const { grid, slotKey } = this.props;
-            grid.slots[slotKey as number].content = undefined;
-            this.props.updateGear(grid);
+            const newGrid = clone(grid);
+            newGrid.slots[slotKey as number].content = undefined;
+            console.log();
+            this.props.updateGear(newGrid);
 
             this.setState({
                 active: false,
