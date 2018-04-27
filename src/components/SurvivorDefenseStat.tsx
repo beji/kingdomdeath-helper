@@ -79,7 +79,7 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
         return (
             <StatLayer>
                 <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {label}</StatLayerHeadline>
-                <Label>Perm</Label><Input innerRef={this.setupArmorRef} type="number" defaultValue={armor.toString()} name="armor" />
+                <Label>Stat</Label><Input innerRef={this.setupArmorRef} type="number" defaultValue={armor.toString()} name="armor" />
                 <button onClick={this.handleEditConfirm}>Save &#x2713;</button>
             </StatLayer>
         );

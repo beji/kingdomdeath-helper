@@ -1,4 +1,5 @@
 import { ID } from "./generics";
+import { BaseStats, DefenseStats } from "./survivor";
 
 interface IGearGrid {
     id: ID;
@@ -11,4 +12,14 @@ interface IGridSlot {
     id: ID;
 }
 
-export { IGearGrid, IGridSlot };
+interface IItem {
+    id: ID;
+    name: string;
+    desc: string;
+    stats?: {
+        amount: number,
+        type: BaseStats | DefenseStats;
+    };
+}
+
+export { IGearGrid, IGridSlot, IItem };

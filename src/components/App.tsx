@@ -48,6 +48,12 @@ const mapStateToProps = (state: ISettlement): IAppProps => {
 class App extends React.Component<IAppProps> {
     public render() {
         const { geargrids, survivors, aliveCount } = this.props;
+        const item = {
+            desc: "Fancy weapon that breaks",
+            id: uuid(),
+            name: "Bone Sword",
+        };
+
         return (
             <AppWrapper>
                 <SettlementName />
@@ -78,7 +84,7 @@ class App extends React.Component<IAppProps> {
                     </tbody>
                 </SurvivorList>
                 <ExportForm />
-                <GearCard id={uuid()} />
+                <GearCard id={uuid()} item={item} />
                 <SocketConnector />
             </AppWrapper>);
     }

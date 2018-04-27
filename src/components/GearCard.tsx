@@ -1,10 +1,12 @@
 import React from "react";
 import { SyntheticEvent } from "react";
 import styled from "styled-components";
+import { IItem } from "../interfaces/gear";
 import { ID } from "../interfaces/generics";
 
 interface IGearCardProps {
     id: ID;
+    item?: IItem;
 }
 
 class GearCard extends React.Component<IGearCardProps> {
@@ -18,13 +20,17 @@ class GearCard extends React.Component<IGearCardProps> {
 
     public render() {
         const StyledCard = styled.div`
-            width:5vw;
-            height:5vw;
+            whidth: 10vh;
             background:#aaa;
         `;
 
+        const { item } = this.props;
+
         return (
-            <StyledCard onDragStart={this.handleDragStart} draggable={true}>Fancy Sword</StyledCard>
+            <StyledCard onDragStart={this.handleDragStart} draggable={true}>
+                <section>{item && item.name}</section>
+                <section>{item && item.desc}</section>
+            </StyledCard>
         );
     }
 
