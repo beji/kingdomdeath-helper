@@ -54,7 +54,7 @@ class GearCard extends React.Component<IGearCardProps> {
         );
     }
 
-    private handleDragStart = (e: SyntheticEvent<HTMLDivElement> ) => {
+    private handleDragStart = (e: SyntheticEvent<HTMLDivElement>) => {
         const event = e.nativeEvent as Event & { dataTransfer: DataTransfer };
         if (event.dataTransfer) {
             event.dataTransfer.effectAllowed = "move";

@@ -7,6 +7,7 @@ import { ID, ISettlement } from "../interfaces";
 import { IGearGrid } from "../interfaces/gear";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { clone } from "../util";
+import FancyButton from "./FancyButton";
 import GearCard from "./GearCard";
 
 interface IGridSlotState {
@@ -70,8 +71,8 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
                 onDragEnter={this.handleDragEnter.bind(this, slotId)}
                 onDragLeave={this.handleDragLeave.bind(this, slotId)}
             >
-                {content && <GearCard id={content} slotId={slotId}/>}
-                {!content && <button>+</button>}
+                {content && <GearCard id={content} slotId={slotId} />}
+                {!content && <FancyButton>+</FancyButton>}
             </StyledElement>
         );
     }

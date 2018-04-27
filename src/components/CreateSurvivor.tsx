@@ -6,6 +6,7 @@ import { createSurvivor } from "../actions/survivorActions";
 import { newSurvivor } from "../initialstate";
 import { ISurvivor } from "../interfaces";
 import { CreateSurvivorAction } from "../interfaces/survivorActions";
+import FancyButton from "./FancyButton";
 
 interface ICreateSurvivorDispatchProps {
     createSurvivor: (survivor: ISurvivor) => CreateSurvivorAction;
@@ -23,7 +24,7 @@ class CreateSurvivor extends React.Component<ICreateSurvivorDispatchProps> {
     }
     public render() {
         return (
-            <button onClick={this.handleClick}>Create Survivor</button>
+            <FancyButton onClick={this.handleClick}>Create Survivor</FancyButton>
         );
     }
 

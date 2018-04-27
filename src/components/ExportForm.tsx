@@ -6,6 +6,7 @@ import { importSettlement } from "../actions/importAction";
 import { ISettlement } from "../interfaces";
 import { ImportAction } from "../interfaces/importAction";
 import { clone } from "../util";
+import FancyButton from "./FancyButton";
 
 interface IExportFormProps extends ISettlement {
     importSettlement: (settlement: ISettlement) => ImportAction;
@@ -41,8 +42,8 @@ class ExportForm extends Component<IExportFormProps, IExportFormState> {
             <form>
                 <textarea ref={this.textfield} defaultValue="" readOnly={false} onChange={this.handleChange} />
                 <div>
-                    <button onClick={this.handleImport}>Import</button>
-                    <button onClick={this.handleExport}>Export</button>
+                    <FancyButton onClick={this.handleImport}>Import</FancyButton>
+                    <FancyButton onClick={this.handleExport}>Export</FancyButton>
                 </div>
             </form>);
     }

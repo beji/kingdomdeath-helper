@@ -1,12 +1,13 @@
 import React from "react";
-import { createRef } from "react";
 import { SyntheticEvent } from "react";
+import { createRef } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { updateSurvivorStat } from "../actions/survivorActions";
 import { ID, IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
+import FancyButton from "./FancyButton";
 import { Input, Label, StatElement, StatLayer, StatLayerHeadline, StatWrapper } from "./SurvivorStatElements";
 
 interface ISurvivorBaseStatStateProps {
@@ -95,7 +96,7 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
                 <Label>Perm</Label><Input innerRef={this.setupPermRef} type="number" defaultValue={permanent.toString()} name="permanent" />
                 <Label>Gear</Label><Input innerRef={this.setupGearRef} type="number" defaultValue={gear.toString()} name="gear" />
                 <Label>Token</Label><Input innerRef={this.setupTokenRef} type="number" defaultValue={token.toString()} name="token" />
-                <button onClick={this.handleEditConfirm}>Save &#x2713;</button>
+                <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
             </StatLayer>
         );
     }

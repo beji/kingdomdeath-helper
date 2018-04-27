@@ -10,6 +10,7 @@ import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions
 import { ISurvivor } from "../interfaces/survivor";
 import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
+import FancyButton from "./FancyButton";
 import SurvivorBaseStat from "./SurvivorBaseStat";
 
 interface ISurvivorListItemStateProps {
@@ -112,7 +113,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
                         {alive && (<div><select value={hunting ? gridId : "remove"} onChange={this.handleHuntBoxChange}><option value="remove">not hunting</option>{huntSlots.map((v, i) => <option key={i} value={i}>Hunter {v.gridId + 1}</option>)}</select></div>)}
                     </Cell>
                     <Cell>
-                        {alive ? <button onClick={this.handleKillClick}>Kill</button> : <button onClick={this.handleReviveClick}>Revive</button>}
+                        {alive ? <FancyButton onClick={this.handleKillClick}>Kill</FancyButton> : <FancyButton onClick={this.handleReviveClick}>Revive</FancyButton>}
                     </Cell>
                 </tr>
             );
