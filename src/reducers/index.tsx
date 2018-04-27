@@ -28,13 +28,29 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             if (action.payload) {
                 const { survivorId } = state.geargrids[action.payload.gridId];
 
+                const oldSurvivor = state.survivors.find((survivor) => survivor.id === survivorId);
+                let oldStats: any = {};
+
+                if (oldSurvivor) {
+                    oldStats = clone(oldSurvivor.baseStats);
+                }
+
                 const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
                     if (action.payload && survivor.id === action.payload.id && survivor.alive) {
                         survivor.hunting = true;
                         survivor.gridId = action.payload.gridId.toString();
+                        console.log("oldStats", oldStats);
+                        if (oldStats !== {}) {
+                            Object.keys(survivor.baseStats).forEach((key) => {
+                                survivor.baseStats[key].gear = oldStats[key].gear;
+                            });
+                        }
                     } else if (survivor.id === survivorId) {
                         survivor.hunting = false;
                         survivor.gridId = undefined;
+                        Object.keys(survivor.baseStats).forEach((key) => {
+                            survivor.baseStats[key].gear = 0;
+                        });
                     }
                     return survivor;
                 });
