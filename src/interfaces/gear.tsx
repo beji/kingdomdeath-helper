@@ -27,24 +27,24 @@ interface IGridSlot {
 }
 
 interface IItem {
-    id: ID;
-    name: string;
-    desc: string;
-    types?: ItemType[];
-    stats?: Array<{
-        amount: number,
-        showOnCard: boolean;
-        type: DefenseStats | BaseStats;
+    readonly id: ID;
+    readonly name: string;
+    readonly desc: string;
+    readonly types?: ReadonlyArray<ItemType>;
+    readonly stats?: ReadonlyArray<{
+        readonly amount: number,
+        readonly showOnCard: boolean;
+        readonly type: DefenseStats | BaseStats;
     }>;
-    affinity?: {
-        top?: Affinity;
-        right?: Affinity;
-        bottom?: Affinity;
-        left?: Affinity;
-        bonus?: {
-            desc: string;
-            affOwn?: Affinity[];
-            affGrid?: Affinity[];
+    readonly affinity?: {
+        readonly top?: Affinity;
+        readonly right?: Affinity;
+        readonly bottom?: Affinity;
+        readonly left?: Affinity;
+        readonly bonus?: {
+            readonly desc: string;
+            readonly affOwn?: ReadonlyArray<Affinity>;
+            readonly affGrid?: ReadonlyArray<Affinity>;
         }
     };
 }
