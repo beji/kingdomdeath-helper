@@ -82,24 +82,53 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     }
                     return survivor;
                 });
-                nextState.geargrids[action.payload.gridId].survivorId = action.payload.id;
-                return nextState;
+                const updatedGearGrids = nextState.geargrids.map((geargrid, idx) => {
+                    if (action.payload && idx === action.payload.gridId) {
+                        return {
+                            ...geargrid,
+                            survivorId: action.payload.id,
+                        };
+                    }
+                    return geargrid;
+                });
+
+                return {
+                    ...nextState,
+                    geargrids: updatedGearGrids,
+                };
             }
             return state;
         }
         case ActionTypes.REMOVE_FROM_HUNT: {
             if (action.payload) {
-                return generateWithUpdatedSurvivors(state, (survivor) => {
+                let idxToUpdate = -1;
+                const stateWithUpdatedSurvivor = generateWithUpdatedSurvivors(state, (survivor) => {
                     if (survivor.id === action.payload) {
-                        const nextState = {
+                        idxToUpdate = parseInt(survivor.gridId as string, 10);
+                        return {
                             ...survivor,
                             gridId: undefined,
                             hunting: false,
                         };
-                        state.geargrids[parseInt(survivor.gridId as string, 10)].survivorId = undefined;
                     }
                     return survivor;
                 });
+                if (idxToUpdate !== -1) {
+                    return {
+                        ...stateWithUpdatedSurvivor,
+                        geargrids: state.geargrids.map((geargrid, idx) => {
+                            if (idx === idxToUpdate) {
+                                return {
+                                    ...geargrid,
+                                    survivorId: undefined,
+                                };
+                            }
+                            return geargrid;
+                        }),
+                    };
+                }
+                return stateWithUpdatedSurvivor;
+
             }
             return state;
         }
@@ -193,12 +222,19 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     return survivor;
                 });
                 if (gridElement) {
-                    nextState.geargrids = nextState.geargrids.map((geargrid) => {
-                        if (geargrid.id === gridElement.id) {
-                            geargrid.survivorId = undefined;
-                        }
-                        return geargrid;
-                    });
+                    const nextStateWithGrids = {
+                        ...nextState,
+                        geargrids: nextState.geargrids.map((geargrid) => {
+                            if (geargrid.id === gridElement.id) {
+                                return {
+                                    ...geargrid,
+                                    survivorId: undefined,
+                                };
+                            }
+                            return geargrid;
+                        }),
+                    };
+                    return nextStateWithGrids;
                 }
                 return nextState;
             }

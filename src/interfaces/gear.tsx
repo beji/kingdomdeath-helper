@@ -16,9 +16,9 @@ enum ItemType {
 }
 
 interface IGearGrid {
-    id: ID;
-    survivorId?: ID;
-    slots: IGridSlot[];
+    readonly id: ID;
+    readonly survivorId?: ID;
+    readonly slots: ReadonlyArray<IGridSlot>;
 }
 
 interface IGridSlot {
