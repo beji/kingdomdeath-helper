@@ -5,6 +5,6 @@ export interface IRoomMessage {
 }
 
 export interface IStatusUpdateMessage {
-    room: string,
+    room: string;
     payload: ISettlement;
 }
