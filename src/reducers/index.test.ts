@@ -94,46 +94,50 @@ describe("The reducer", () => {
         });
     });
 
-    it("should remove a dead survivor from the hunt", () => {
-        const state = clone(initialState);
+    describe("KillSurvivorAction", () => {
+        it("should remove a dead survivor from the hunt", () => {
+            const state = clone(initialState);
 
-        const survivor = {
-            ...state.survivors[0],
-            alive: true,
-            hunting: true,
-        };
+            const survivor = {
+                ...state.survivors[0],
+                alive: true,
+                hunting: true,
+            };
 
-        const killAction = killSurvivor(survivor.id);
-        const result = reducer(state, killAction);
-        expect(result.survivors[0].hunting).to.equal(false);
-        expect(result.survivors[0].alive).to.equal(false);
+            const killAction = killSurvivor(survivor.id);
+            const result = reducer(state, killAction);
+            expect(result.survivors[0].hunting).to.equal(false);
+            expect(result.survivors[0].alive).to.equal(false);
+        });
     });
 
-    it("should give one free survival on the first rename", () => {
-        const survivor = newSurvivor();
-        const state = { ...initialState, survivors: [survivor] };
+    describe("UpdateSurvivorAction", () => {
+        it("should give one free survival on the first rename", () => {
+            const survivor = newSurvivor();
+            const state = { ...initialState, survivors: [survivor] };
 
-        expect(state.survivors[0].defenseStats.survival.armor).to.equal(0);
-        const update = {
-            ...survivor,
-            name: "New Name",
-        };
-        const result = reducer(state, updateSurvivor(update));
-        expect(result.survivors[0].defenseStats.survival.armor).to.equal(1);
-    });
+            expect(state.survivors[0].defenseStats.survival.armor).to.equal(0);
+            const update = {
+                ...survivor,
+                name: "New Name",
+            };
+            const result = reducer(state, updateSurvivor(update));
+            expect(result.survivors[0].defenseStats.survival.armor).to.equal(1);
+        });
 
-    it("should give not give free survival on renames that are not the first", () => {
-        const survivor = {
-            ...newSurvivor(),
-            name: "Rudolf",
-        };
-        const state = { ...initialState, survivors: [survivor] };
-        expect(state.survivors[0].defenseStats.survival.armor).to.equal(0);
-        const update = {
-            ...survivor,
-            name: "New Name",
-        };
-        const result = reducer(state, updateSurvivor(update));
-        expect(result.survivors[0].defenseStats.survival.armor).to.equal(0);
+        it("should give not give free survival on renames that are not the first", () => {
+            const survivor = {
+                ...newSurvivor(),
+                name: "Rudolf",
+            };
+            const state = { ...initialState, survivors: [survivor] };
+            expect(state.survivors[0].defenseStats.survival.armor).to.equal(0);
+            const update = {
+                ...survivor,
+                name: "New Name",
+            };
+            const result = reducer(state, updateSurvivor(update));
+            expect(result.survivors[0].defenseStats.survival.armor).to.equal(0);
+        });
     });
 });
