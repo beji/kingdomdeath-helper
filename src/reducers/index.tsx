@@ -1,4 +1,5 @@
 import { Reducer } from "redux";
+import { removeFromHunt } from "../actions";
 import initialState, { DEFAULT_SURVIVOR_NAME } from "../initialstate";
 import { IBaseStats, IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
@@ -28,7 +29,6 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
 
     switch (action.type) {
         // Set a survivor to the specified hunting slot, this will also migrate any stats gained from gear in the current slot to the survivor and remove the current hunter from the slot
-        // TODO: Maybe we could "fake" a RemoveFromHuntAction to remove the old survivor to prevent code duplication?
         case ActionTypes.ADD_TO_HUNT: {
             if (action.payload) {
                 // The slot might be occupied by a survivor, that survivor will loose their stat bonuses gained by the gear
@@ -41,7 +41,10 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     oldStats = clone(oldSurvivor.baseStats);
                 }
 
-                const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
+                // Remove the old survivor by abusing the reducer
+                const baseState = oldSurvivor ? reducer(state, removeFromHunt(oldSurvivor.id)) : state;
+
+                const nextState = generateWithUpdatedSurvivors(baseState, (survivor) => {
                     // mark the new survivor as hunting and move the gear stats from the old survivor to the new one
                     if (action.payload && survivor.id === action.payload.id && survivor.alive) {
                         const newState = {
@@ -67,24 +70,6 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                             };
                         }
                         return newState;
-                    // remove the gear stats from the old hunter and mark him/her as not hunting
-                    } else if (survivor.id === survivorId) {
-                        const newState: ISurvivor = {
-                            ...survivor,
-                            // The non-gear baseStats stay the same
-                            baseStats: Object.keys(survivor.baseStats).reduce((acc, key) => {
-                                return {
-                                    ...acc,
-                                    [key]: {
-                                        ...survivor.baseStats[key],
-                                        gear: 0,
-                                    },
-                                };
-                            }, {}) as IBaseStats,
-                            gridId: undefined,
-                            hunting: false,
-                        };
-                        return newState;
                     }
                     return survivor;
                 });
@@ -107,7 +92,6 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             return state;
         }
         // Remove a survivor from the hunt
-        // FIXME: This doesn't properly update the gear stats I think?
         case ActionTypes.REMOVE_FROM_HUNT: {
             if (action.payload) {
                 let idxToUpdate = -1;
@@ -118,8 +102,19 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                         idxToUpdate = parseInt(survivor.gridId as string, 10);
                         return {
                             ...survivor,
+                            // The non-gear baseStats stay the same
+                            baseStats: Object.keys(survivor.baseStats).reduce((acc, key) => {
+                                return {
+                                    ...acc,
+                                    [key]: {
+                                        ...survivor.baseStats[key],
+                                        gear: 0,
+                                    },
+                                };
+                            }, {}) as IBaseStats,
                             gridId: undefined,
                             hunting: false,
+
                         };
                     }
                     return survivor;
