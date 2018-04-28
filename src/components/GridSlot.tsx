@@ -133,16 +133,15 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
         });
     }
 
-    private handleGridDrop(slotId: number, e: SyntheticEvent<HTMLDivElement>) {
+    private handleGridDrop(slotKey: number, e: SyntheticEvent<HTMLDivElement>) {
         const event = e.nativeEvent as Event & { dataTransfer: DataTransfer };
-        console.log(event.dataTransfer.getData("ids"));
         const data = JSON.parse(event.dataTransfer.getData("ids"));
 
         if (this.props.grid) {
             const newGrid = clone(this.props.grid);
-            newGrid.slots[slotId].content = data.id;
-            if (data.slotId) {
-                newGrid.slots[data.slotId].content = undefined;
+            newGrid.slots[slotKey].content = data.id;
+            if (data.slotKey) {
+                newGrid.slots[data.slotKey].content = undefined;
             }
             this.props.updateGear(newGrid);
 

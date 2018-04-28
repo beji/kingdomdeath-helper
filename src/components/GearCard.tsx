@@ -122,7 +122,7 @@ class GearCard extends React.Component<IGearCardProps> {
             event.dataTransfer.effectAllowed = "move";
             event.dataTransfer.setData("ids", JSON.stringify({
                 id: this.props.id,
-                slotId: this.props.slotId,
+                slotKey: this.props.slotKey,
             }));
         }
     }
