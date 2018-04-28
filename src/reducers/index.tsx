@@ -27,8 +27,11 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
     }
 
     switch (action.type) {
+        // Set a survivor to the specified hunting slot, this will also migrate any stats gained from gear in the current slot to the survivor and remove the current hunter from the slot
+        // TODO: Maybe we could "fake" a RemoveFromHuntAction to remove the old survivor to prevent code duplication?
         case ActionTypes.ADD_TO_HUNT: {
             if (action.payload) {
+                // The slot might be occupied by a survivor, that survivor will loose their stat bonuses gained by the gear
                 const { survivorId } = state.geargrids[action.payload.gridId];
 
                 const oldSurvivor = state.survivors.find((survivor) => survivor.id === survivorId);
@@ -39,6 +42,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                 }
 
                 const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
+                    // mark the new survivor as hunting and move the gear stats from the old survivor to the new one
                     if (action.payload && survivor.id === action.payload.id && survivor.alive) {
                         const newState = {
                             ...survivor,
@@ -46,7 +50,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                             hunting: true,
                         };
                         if (Object.keys(oldStats).length > 0) {
-
+                            // The non-gear baseStats stay the same
                             const newBaseStats = Object.keys(survivor.baseStats).reduce((acc, key) => {
                                 return {
                                     ...acc,
@@ -63,9 +67,11 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                             };
                         }
                         return newState;
+                    // remove the gear stats from the old hunter and mark him/her as not hunting
                     } else if (survivor.id === survivorId) {
                         const newState: ISurvivor = {
                             ...survivor,
+                            // The non-gear baseStats stay the same
                             baseStats: Object.keys(survivor.baseStats).reduce((acc, key) => {
                                 return {
                                     ...acc,
@@ -82,6 +88,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     }
                     return survivor;
                 });
+                // Now the grid has to reference the new survivor
                 const updatedGearGrids = nextState.geargrids.map((geargrid, idx) => {
                     if (action.payload && idx === action.payload.gridId) {
                         return {
@@ -99,9 +106,13 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             }
             return state;
         }
+        // Remove a survivor from the hunt
+        // FIXME: This doesn't properly update the gear stats I think?
         case ActionTypes.REMOVE_FROM_HUNT: {
             if (action.payload) {
                 let idxToUpdate = -1;
+
+                // Set the survivor to not hunting and also remove the reference to the gear grid, it only applies to hunters
                 const stateWithUpdatedSurvivor = generateWithUpdatedSurvivors(state, (survivor) => {
                     if (survivor.id === action.payload) {
                         idxToUpdate = parseInt(survivor.gridId as string, 10);
@@ -113,6 +124,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     }
                     return survivor;
                 });
+                // Update the gear grid to no longer reference the survivor
                 if (idxToUpdate !== -1) {
                     return {
                         ...stateWithUpdatedSurvivor,
@@ -135,6 +147,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         case ActionTypes.IMPORT: {
             return action.payload || state;
         }
+        // Updates the settlement name
         case ActionTypes.SET_NAME: {
             if (action.payload && action.payload !== "") {
                 const nextState = {
@@ -145,10 +158,14 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             }
             return state;
         }
+        // Updates
+        // a) The name of a survivor
+        // b) The gender of a survivor
         case ActionTypes.UPDATE_SURVIVOR: {
             if (action.payload) {
                 const newSurvivor = action.payload as ISurvivor;
                 const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
+                    // Survivors gain one free survival on the first rename (faked by checking for the DEFAULT_SURVIVOR_NAME, could be cheated)
                     if (survivor.id === newSurvivor.id && newSurvivor.name !== "") {
                         if (survivor.name === DEFAULT_SURVIVOR_NAME && newSurvivor.name !== DEFAULT_SURVIVOR_NAME) {
                             return {
@@ -170,15 +187,19 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             }
             return state;
         }
+        // Updates the survivor base- and defenseStats
         case ActionTypes.UPDATE_SURVIVOR_STAT: {
             if (action.payload) {
                 const newStat = action.payload;
                 return generateWithUpdatedSurvivors(state, (survivor) => {
 
+                    // At this point the update could be for a baseStat or a hitLocation, we don't know yet
+
+                    // We try to find a baseStat that maps to the given id
                     const statKeyForBaseStat = Object.keys(survivor.baseStats).find((statKey) => {
                         return survivor.baseStats[statKey].id === newStat.id;
                     });
-
+                    // We found a baseStat, so this update is for a baseStat
                     if (statKeyForBaseStat) {
                         return {
                             ...survivor,
@@ -189,6 +210,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                         };
                     }
 
+                    // If we get here then we didn't find a baseStat, so the update propably is a hitLocation
                     const statKeyForHitLocation = Object.keys(survivor.defenseStats).find((statKey) => {
                         return survivor.defenseStats[statKey].id === newStat.id;
                     });
@@ -207,9 +229,13 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             }
             return state;
         }
+        // Kill a survivor. This should remove him/her from the hunt and update the gear grid accordingly
+        // FIXME: This doesn't seem to update the survivors stats, which it should?
         case ActionTypes.KILL_SURVIVOR: {
             if (action.payload) {
                 const gridElement = state.geargrids.find((grid) => grid.survivorId === action.payload);
+
+                // Mark the survivor as dead (or not alive, to be more correct)
                 const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
                     if (survivor.id === action.payload) {
                         return {
@@ -221,6 +247,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     }
                     return survivor;
                 });
+                // If the survivor was a hunter we need to remove the reference in the gear grid
                 if (gridElement) {
                     const nextStateWithGrids = {
                         ...nextState,
@@ -240,6 +267,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             }
             return state;
         }
+        // Revives a dead survivor
         case ActionTypes.REVIVE_SURVIVOR: {
             if (action.payload) {
                 return generateWithUpdatedSurvivors(state, (survivor) => {
@@ -254,6 +282,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             }
             return state;
         }
+        // Creates a new survivor
         case ActionTypes.CREATE_SURVIVOR: {
             if (action.payload) {
                 const nextState = {
@@ -264,6 +293,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             }
             return state;
         }
+        // FIXME: @uller82, add a description
         case ActionTypes.UPDATE_GEARGRID: {
             if (action.payload) {
 
