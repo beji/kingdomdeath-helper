@@ -105,11 +105,19 @@ class GearCard extends React.Component<IGearCardProps> {
     private handleCloseIconClick() {
         if (this.props.grid) {
             const { grid, slotKey } = this.props;
-            const newGrid = clone(grid);
-            newGrid.slots[slotKey as number].content = undefined;
-            console.log();
+            const newGrid = {
+                ...grid,
+                slots: grid.slots.map((slot, idx) => {
+                    if (idx === slotKey as number) {
+                        return {
+                            ...slot,
+                            content: undefined,
+                        };
+                    }
+                    return slot;
+                }),
+            };
             this.props.updateGear(newGrid);
-
             this.setState({
                 active: false,
             });

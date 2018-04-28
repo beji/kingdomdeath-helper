@@ -22,8 +22,8 @@ interface IGearGrid {
 }
 
 interface IGridSlot {
-    content?: string;
-    id: ID;
+    readonly content?: string;
+    readonly id: ID;
 }
 
 interface IItem {
