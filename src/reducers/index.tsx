@@ -225,13 +225,12 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             return state;
         }
         // Kill a survivor. This should remove him/her from the hunt and update the gear grid accordingly
-        // FIXME: This doesn't seem to update the survivors stats, which it should?
         case ActionTypes.KILL_SURVIVOR: {
             if (action.payload) {
                 const gridElement = state.geargrids.find((grid) => grid.survivorId === action.payload);
-
+                const baseState = reducer(state, removeFromHunt(action.payload));
                 // Mark the survivor as dead (or not alive, to be more correct)
-                const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
+                return generateWithUpdatedSurvivors(baseState, (survivor) => {
                     if (survivor.id === action.payload) {
                         return {
                             ...survivor,
@@ -242,23 +241,6 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     }
                     return survivor;
                 });
-                // If the survivor was a hunter we need to remove the reference in the gear grid
-                if (gridElement) {
-                    const nextStateWithGrids = {
-                        ...nextState,
-                        geargrids: nextState.geargrids.map((geargrid) => {
-                            if (geargrid.id === gridElement.id) {
-                                return {
-                                    ...geargrid,
-                                    survivorId: undefined,
-                                };
-                            }
-                            return geargrid;
-                        }),
-                    };
-                    return nextStateWithGrids;
-                }
-                return nextState;
             }
             return state;
         }
