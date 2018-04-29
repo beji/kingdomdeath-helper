@@ -63,6 +63,41 @@ const CardHeadline = styled.div`
 const CardDescription = styled.div`
     background:#aaa;
 `;
+const CardTypes = styled.div`
+    font-size:.625rem;
+`;
+const CardDefStat = styled.div`
+    position:absolute;
+    top: -.5rem;
+    left: -.5rem;
+`;
+const Shield = styled.div`
+    background: black;
+    color:white;
+    font-size:.825rem;
+    padding: .25rem;
+    position:relative;
+    width:2rem;
+    &:before, &:after {
+        content:"";
+        border-radius: 0;
+        border-top-right-radius: 100% 100%;
+        border-bottom-right-radius: 125% 100%;
+        width: 1.25rem;
+        height: 1rem;
+        transform-origin: bottom left;
+        transform: scale(1,1) translateX(5em) rotate(-20deg);
+        position:absolute;
+        bottom:-42.5%;
+        background:black;
+    }
+    &:after {
+        transform: scale(-1,1) translateX(-5em) rotate(-20deg);
+    }
+`;
+const CardDefStatType = styled.div`
+    font-size:.5rem;
+`;
 const CloseIcon = styled.div`
     background:#ccc;
     border:1px solid #444;
@@ -99,9 +134,9 @@ class GearCard extends React.Component<IGearCardProps> {
                 <StyledCard onDragStart={this.handleDragStart} draggable={true}>
                     {slotId && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
                     <CardHeadline>{item.name}</CardHeadline>
-                    <div>{item.types && item.types.map((type, idx) => <span key={idx}>{type} </span>)}</div>
+                    <CardTypes>{item.types && item.types.map((type, idx) => <span key={idx}>{type} </span>)}</CardTypes>
                     <CardDescription>{item.desc}</CardDescription>
-                    {armorStat && <div>{armorStat.amount} {armorStat.type}</div>}
+                    {armorStat && <CardDefStat><Shield>{armorStat.amount} <CardDefStatType>{armorStat.type}</CardDefStatType></Shield></CardDefStat>}
                 </StyledCard>
             );
         } else {
