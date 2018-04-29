@@ -7,7 +7,7 @@ enum Affinity {
     blue = "blue",
 }
 
-enum ItemType {
+const enum ItemType {
     armor = "armor",
     generic = "generic",
     rawhide = "rawhide",
