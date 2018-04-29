@@ -99,7 +99,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
                     </Cell>
                     <Cell>
                         {editGender && this.renderGenderSelect()}
-                        {!editGender && <span onClick={this.handleGenderClick}>{gender}</span>}
+                        {!editGender && <span onClick={this.handleGenderClick}>{Gender[gender]}</span>}
                     </Cell>
                     <Cell><SurvivorBaseStat id={id} stat={movement} /></Cell>
                     <Cell><SurvivorBaseStat id={id} stat={accuracy} /></Cell>
@@ -148,8 +148,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
 
     private handleGenderChange(e: SyntheticEvent<HTMLSelectElement>) {
         if (this.props.survivor) {
-            const newGender = e.currentTarget.value === "M" ? Gender.Male : Gender.Female;
-
+            const newGender = parseInt(e.currentTarget.value, 10) as Gender;
             this.props.updateSurvivor({
                 ...this.props.survivor,
                 gender: newGender,
@@ -164,9 +163,12 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
     private renderGenderSelect() {
         if (this.props.survivor) {
             return (
-                <select onChange={this.handleGenderChange} defaultValue={this.props.survivor.gender}>
-                    <option value={Gender.Male}>M</option>
-                    <option value={Gender.Female}>F</option>
+                <select
+                    onChange={this.handleGenderChange}
+                    defaultValue={this.props.survivor.gender.toString()}
+                >
+                    <option value={Gender.Male}>{Gender[Gender.Male]}</option>
+                    <option value={Gender.Female}>{Gender[Gender.Female]}</option>
                 </select>);
         } else {
             return "";
