@@ -93,7 +93,8 @@ class GearCard extends React.Component<IGearCardProps> {
     public render() {
         if (this.props.item) {
             const {item, slotId} = this.props;
-            const armorStat = item.stats && item.stats.find((stat) => stat.type in DefenseStats);
+            // WTF: is there a better way to get stat of enum DefenseStat?
+            const armorStat = item.stats && item.stats.find((stat) => Object.keys(DefenseStats).find((ds) => DefenseStats[ds as any] === stat.type) !== undefined);
             return (
                 <StyledCard onDragStart={this.handleDragStart} draggable={true}>
                     {slotId && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
