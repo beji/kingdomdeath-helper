@@ -8,6 +8,12 @@ const StyledInput = styled.input`
     line-height: 1.5rem;
     padding: 0;
     vertical-align: middle;
+    padding-right: 1.5rem;
+`;
+
+const FancyButtonRight = FancyButton.extend`
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 `;
 
 interface INameEditProps {
@@ -39,7 +45,7 @@ export default class NameEdit extends React.Component<INameEditProps, INameEditS
             return (
                 <Fragment>
                     <StyledInput type="text" innerRef={this.setupTextRef} defaultValue={name} />
-                    <FancyButton onClick={this.handleNameBlur}>✓</FancyButton>
+                    <FancyButtonRight onClick={this.handleNameBlur}>✓</FancyButtonRight>
                 </Fragment>
             );
         } else {

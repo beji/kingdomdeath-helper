@@ -1,4 +1,4 @@
-FROM node:9.11-alpine
+FROM node:10.0-alpine
 EXPOSE 3000
 WORKDIR /usr/src/app
 RUN npm install -g yarn
