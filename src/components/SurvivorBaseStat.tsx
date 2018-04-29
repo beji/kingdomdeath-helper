@@ -1,6 +1,4 @@
-import React from "react";
-import { SyntheticEvent } from "react";
-import { createRef } from "react";
+import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { updateSurvivorStat } from "../actions/survivorActions";
@@ -8,7 +6,8 @@ import { ID, IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat } from "../
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 import FancyButton from "./FancyButton";
-import { Input, Label, StatElement, StatLayer, StatLayerHeadline, StatWrapper } from "./SurvivorStatElements";
+import NumberEdit from "./NumberEdit";
+import { Label, StatEdit, StatElement, StatLayer, StatLayerHeadline, StatWrapper } from "./SurvivorStatElements";
 
 interface ISurvivorBaseStatStateProps {
     statKey?: string;
@@ -90,9 +89,15 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
         return (
             <StatLayer>
                 <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {label}</StatLayerHeadline>
-                <Label>Perm</Label><Input innerRef={this.setupPermRef} type="number" defaultValue={permanent.toString()} name="permanent" />
-                <Label>Gear</Label><Input innerRef={this.setupGearRef} type="number" defaultValue={gear.toString()} name="gear" />
-                <Label>Token</Label><Input innerRef={this.setupTokenRef} type="number" defaultValue={token.toString()} name="token" />
+                <StatEdit>
+                    <Label>Permanent</Label><NumberEdit value={permanent} innerRef={this.setupPermRef}/>
+                </StatEdit>
+                <StatEdit>
+                    <Label>Gear</Label><NumberEdit value={gear} innerRef={this.setupGearRef}/>
+                </StatEdit>
+                <StatEdit>
+                    <Label>Token</Label><NumberEdit value={token} innerRef={this.setupTokenRef}/>
+                </StatEdit>
                 <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
             </StatLayer>
         );
