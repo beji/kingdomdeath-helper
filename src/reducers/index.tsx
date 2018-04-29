@@ -224,7 +224,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             }
             return state;
         }
-        // Kill a survivor. This should remove him/her from the hunt and update the gear grid accordingly
+        // Kill a survivor. This should remove them from the hunt and update the gear grid accordingly
         case ActionTypes.KILL_SURVIVOR: {
             if (action.payload) {
                 const gridElement = state.geargrids.find((grid) => grid.survivorId === action.payload);
@@ -270,7 +270,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             }
             return state;
         }
-        // FIXME: @uller82, add a description
+        // Updates geargrid with updated grid from payload
         case ActionTypes.UPDATE_GEARGRID: {
             if (action.payload) {
 
