@@ -47,6 +47,11 @@ interface IItem {
             readonly affGrid?: ReadonlyArray<Affinity>;
         }
     };
+    readonly set?: {
+        readonly bonus?: {
+            readonly desc: string;
+        };
+    };
 }
 
 export { Affinity, IGearGrid, IGridSlot, IItem, ItemType };

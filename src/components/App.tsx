@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { ID, ISettlement } from "../interfaces";
 import CreateSurvivor from "./CreateSurvivor";
 import ExportForm from "./ExportForm";
-import GearCard from "./GearCard";
 import GearGrid from "./GearGrid";
 import SettlementName from "./SettlementName";
 import SocketConnector from "./SocketConnector";

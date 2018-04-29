@@ -1,5 +1,4 @@
-import React from "react";
-import { SyntheticEvent } from "react";
+import React, { SyntheticEvent } from "react";
 import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
@@ -96,6 +95,38 @@ const CardDefStatType = styled.div`
     font-size:.5rem;
     line-height:.5rem;
 `;
+
+const AffinityOwnIcon = styled.div`
+    background:red;
+    border-radius:2px;
+    display:inline-block;
+    width:1rem;
+    height:1rem;
+    position:relative;
+    &:before {
+        background:inherit;
+        border-radius:50%;
+        content:"";
+        height:30%;
+        position:absolute;
+        right:95%;
+        top:50%;
+        transform:translateY(-50%);
+        width:30%;
+    }
+    &:after {
+        background:#fff;
+        border-radius:50%;
+        bottom:-5%;
+        content:"";
+        height:30%;
+        left:50%;
+        position:absolute;
+        transform:translateX(-50%);
+        width:30%;
+    }
+`;
+
 const CloseIcon = styled.div`
     background:#ccc;
     border:1px solid #444;
@@ -126,7 +157,7 @@ class GearCard extends React.Component<IGearCardProps> {
     public render() {
         if (this.props.item) {
             const { item, slotId } = this.props;
-            // WTF: is there a better way to get stat of enum DefenseStat?
+            // FIXME: is there a better way to get stat of enum DefenseStat?
             const armorStat = item.stats && item.stats.find((stat) => Object.keys(DefenseStats).find((ds) => DefenseStats[ds as any] === stat.type) !== undefined);
             return (
                 <StyledCard onDragStart={this.handleDragStart} draggable={true}>
@@ -135,6 +166,7 @@ class GearCard extends React.Component<IGearCardProps> {
                     <CardTypes>{item.types && item.types.map((type, idx) => <span key={idx}>{type} </span>)}</CardTypes>
                     <CardDescription>{item.desc}</CardDescription>
                     {armorStat && <CardDefStat><Shield>{armorStat.amount} <CardDefStatType>{armorStat.type}</CardDefStatType></Shield></CardDefStat>}
+                    <AffinityOwnIcon title="Affinity on this card"/>
                 </StyledCard>
             );
         } else {
