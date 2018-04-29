@@ -11,6 +11,7 @@ import { ISurvivor } from "../interfaces/survivor";
 import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 import FancyButton from "./FancyButton";
+import NameEdit from "./NameEdit";
 import SurvivorBaseStat from "./SurvivorBaseStat";
 
 interface ISurvivorListItemStateProps {
@@ -74,15 +75,13 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
             editGender: false,
             editName: false,
         };
-        this.handleNameBlur = this.handleNameBlur.bind(this);
-        this.handleNameClick = this.handleNameClick.bind(this);
 
         this.handleGenderChange = this.handleGenderChange.bind(this);
         this.handleGenderClick = this.handleGenderClick.bind(this);
 
         this.handleKillClick = this.handleKillClick.bind(this);
         this.handleReviveClick = this.handleReviveClick.bind(this);
-
+        this.handleNameUpdate = this.handleNameUpdate.bind(this);
     }
 
     public render() {
@@ -96,8 +95,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
                 <tr>
                     <Cell>{!alive && <Fragment>✝</Fragment>}</Cell>
                     <Cell>
-                        {editName && <input type="text" defaultValue={name} onBlur={this.handleNameBlur} />}
-                        {!editName && <span onClick={this.handleNameClick}>{name}</span>}
+                        <NameEdit name={name} updateFunc={this.handleNameUpdate} />
                     </Cell>
                     <Cell>
                         {editGender && this.renderGenderSelect()}
@@ -122,6 +120,16 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
         }
     }
 
+    private handleNameUpdate(newName: string) {
+        if (this.props.survivor) {
+            const updateData = {
+                ...this.props.survivor,
+                name: newName,
+            } as ISurvivor;
+            this.props.updateSurvivor(updateData);
+        }
+    }
+
     private handleHuntBoxChange(event: SyntheticEvent<HTMLSelectElement>) {
         if (this.props.survivor) {
             if (event.currentTarget.value !== "remove") {
@@ -129,24 +137,6 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
             } else {
                 this.props.removeFromHunt(this.props.id);
             }
-        }
-    }
-
-    private handleNameClick(e: SyntheticEvent<HTMLSpanElement>) {
-        this.setState({
-            editName: true,
-        });
-    }
-    private handleNameBlur(e: SyntheticEvent<HTMLInputElement>) {
-        if (this.props.survivor) {
-            const updateData = {
-                ...this.props.survivor,
-                name: e.currentTarget.value,
-            } as ISurvivor;
-            this.props.updateSurvivor(updateData);
-            this.setState({
-                editName: false,
-            });
         }
     }
 

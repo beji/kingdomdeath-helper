@@ -2,9 +2,11 @@ import React from "react";
 import { Component, SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
+import styled from "styled-components";
 import { setName } from "../actions/settlementActions";
 import { ISettlement } from "../interfaces";
 import { SetNameAction } from "../interfaces/settlementActions";
+import NameEdit from "./NameEdit";
 
 interface ISettlementNameDispatchProps {
     setName: (name: string) => SetNameAction;
@@ -14,11 +16,16 @@ interface ISettlementNameStateProps {
     name?: string;
 }
 
-interface ISettlementNameProps extends ISettlementNameDispatchProps, ISettlementNameStateProps { }
+const StyledName = styled.div`
+    span {
+        font-weight: bold;
+        font-size: 2rem;
+        margin-bottom: 1.5vh;
+        display: inline-block;
+    }
+`;
 
-interface ISettlementNameState {
-    editmode: boolean;
-}
+interface ISettlementNameProps extends ISettlementNameDispatchProps, ISettlementNameStateProps { }
 
 const mapStateToProps = (state: ISettlement, ownProps: ISettlementNameStateProps): ISettlementNameStateProps => {
     return {
@@ -30,33 +37,25 @@ const mapDispatchToProps = (dispatch: Dispatch<SetNameAction>): ISettlementNameD
     setName: (name: string) => dispatch(setName(name)),
 });
 
-class SettlementName extends Component<ISettlementNameProps, ISettlementNameState> {
+class SettlementName extends Component<ISettlementNameProps> {
     public constructor(props: ISettlementNameProps) {
         super(props);
-        this.handleHeadlineClick = this.handleHeadlineClick.bind(this);
-        this.handleBlur = this.handleBlur.bind(this);
+        this.handleNameUpdate = this.handleNameUpdate.bind(this);
+        this.renderName = this.renderName.bind(this);
         this.state = {
             editmode: false,
         };
     }
     public render() {
-        if (this.state.editmode) {
-            return (<input type="text" defaultValue={this.props.name} onBlur={this.handleBlur} />);
-        } else {
-            return (<h1 onClick={this.handleHeadlineClick}>{this.props.name}</h1>);
-        }
+        return (<StyledName><NameEdit name={this.props.name || "The town with no name"} updateFunc={this.handleNameUpdate} /></StyledName>);
     }
 
-    private handleHeadlineClick(e: SyntheticEvent<HTMLHeadingElement>) {
-        this.setState({
-            editmode: true,
-        });
+    private handleNameUpdate(newName: string) {
+        this.props.setName(newName);
     }
-    private handleBlur(e: SyntheticEvent<HTMLInputElement>) {
-        this.props.setName(e.currentTarget.value);
-        this.setState({
-            editmode: false,
-        });
+
+    private renderName(name: string) {
+        return (<h1>{name}</h1>);
     }
 }
 

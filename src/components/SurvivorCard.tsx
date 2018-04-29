@@ -7,6 +7,7 @@ import { updateSurvivor } from "../actions/survivorActions";
 import { DefenseStats, ID, IHitLocation, ISettlement, ISurvivor } from "../interfaces";
 import { UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
+import NameEdit from "./NameEdit";
 import SurvivorBaseStat from "./SurvivorBaseStat";
 import SurvivorDefenseStat from "./SurvivorDefenseStat";
 import { StatLabel, SurvivorStat } from "./SurvivorStatElements";
@@ -91,7 +92,6 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
             survivor: props.survivor,
         };
         this.nameUpdate = this.nameUpdate.bind(this);
-        this.toggleName = this.toggleName.bind(this);
         this.renderDefenceStat = this.renderDefenceStat.bind(this);
     }
 
@@ -106,7 +106,7 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
                     <NameSection>
                         <section>
                             <Label>Name</Label>
-                            {!firstnameEdit ? <span onClick={this.toggleName}>{name}</span> : <input type="text" defaultValue={name} onChange={this.nameUpdate} onBlur={this.toggleName} />}
+                            <NameEdit name={name} updateFunc={this.nameUpdate} />
                         </section>
                         <section>
                             <Label>Gender</Label>
@@ -162,17 +162,14 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
             }
         }
     }
-    private nameUpdate(e: SyntheticEvent<HTMLInputElement>) {
-        /*const newState = {
-            name: e.currentTarget.value,
-        };
-        this.setState(newState);*/
-    }
-    private toggleName(e: MouseEvent<HTMLSpanElement> | SyntheticEvent<HTMLInputElement>) {
-        /*const newState = {
-            firstnameEdit: !this.state.firstnameEdit,
-        };
-        this.setState(newState);*/
+    private nameUpdate(newName: string) {
+        if (this.props.survivor) {
+            const updateData = {
+                ...this.props.survivor,
+                name: newName,
+            } as ISurvivor;
+            this.props.updateSurvivor(updateData);
+        }
     }
 }
 
