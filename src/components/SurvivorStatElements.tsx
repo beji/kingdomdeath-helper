@@ -41,6 +41,11 @@ const StatLabel = styled.span`
     font-weight:bold;
 `;
 
+const StatEdit = styled.div`
+    width:33.33333%;
+    margin-bottom:1rem;
+`;
+
 const StatWrapper = styled.div`
 `;
 
@@ -92,4 +97,4 @@ const HeavyWound = LightWound.extend`
     border-width:3px;
 `;
 
-export { HeavyWound, Input, Label, LightWound, StatElement, StatLabel, StatLayer, StatLayerHeadline, StatWrapper, SurvivorStat };
+export { HeavyWound, Input, Label, LightWound, StatEdit, StatElement, StatLabel, StatLayer, StatLayerHeadline, StatWrapper, SurvivorStat };

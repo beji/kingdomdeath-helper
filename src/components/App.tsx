@@ -82,7 +82,6 @@ class App extends React.Component<IAppProps> {
                 </SurvivorList>
                 <CreateSurvivor />
                 <ExportForm />
-                <GearCard id={items[0]} />
                 <SocketConnector />
             </AppWrapper>);
     }
