@@ -58,6 +58,7 @@ const StyledCard = styled.div`
 `;
 const CardHeadline = styled.div`
     font-weight:bold;
+    padding-left:1rem;
     text-align:center;
 `;
 const CardDescription = styled.div`
@@ -65,6 +66,7 @@ const CardDescription = styled.div`
 `;
 const CardTypes = styled.div`
     font-size:.625rem;
+    padding-left:1rem;
 `;
 const CardDefStat = styled.div`
     position:absolute;
@@ -75,24 +77,19 @@ const Shield = styled.div`
     background: black;
     color:white;
     font-size:.825rem;
-    padding: .25rem;
+    padding: .25rem .25rem 0;
     position:relative;
-    width:2rem;
-    &:before, &:after {
-        content:"";
-        border-radius: 0;
-        border-top-right-radius: 100% 100%;
-        border-bottom-right-radius: 125% 100%;
-        width: 1.25rem;
-        height: 1rem;
-        transform-origin: bottom left;
-        transform: scale(1,1) translateX(5em) rotate(-20deg);
-        position:absolute;
-        bottom:-42.5%;
-        background:black;
-    }
+    width:1.75rem;
     &:after {
-        transform: scale(-1,1) translateX(-5em) rotate(-20deg);
+      content:" ";
+      width: 0;
+      height: 0;
+      border-top: 1rem solid black;
+      border-right: .875rem solid transparent;
+      border-left: .875rem solid transparent;
+      position:absolute;
+      top:100%;
+      left:0;
     }
 `;
 const CardDefStatType = styled.div`
