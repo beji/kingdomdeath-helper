@@ -36,6 +36,7 @@ const StyledList = styled.div`
     top:50%;
     transform:translate3d(-50%, -50%, 0);
     width:30vw;
+    height: 50vh;
     z-index:10;
 `;
 const ListElement = styled.div`
@@ -53,7 +54,7 @@ const CloseIcon = styled.div`
     border:1px solid #444;
     border-radius:50%;
     cursor:pointer;
-    font-family:arial;
+    font-family: Arial, Helvetica, sans-serif;
     font-size:1rem;
     height:2rem;
     line-height:2rem;

@@ -94,6 +94,7 @@ const Shield = styled.div`
 `;
 const CardDefStatType = styled.div`
     font-size:.5rem;
+    line-height:.5rem;
 `;
 const CloseIcon = styled.div`
     background:#ccc;
