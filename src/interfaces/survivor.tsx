@@ -5,7 +5,7 @@ const enum Gender {
     Female = "F",
 }
 
-const enum BaseStats {
+enum BaseStats {
     accuracy = "Accuracy",
     evasion = "Evasion",
     luck = "Luck",
@@ -14,7 +14,7 @@ const enum BaseStats {
     strength = "Strength",
 }
 
-const enum DefenseStats {
+enum DefenseStats {
     brain = "Brain",
     head = "Head",
     arms = "Arms",

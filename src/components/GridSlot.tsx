@@ -102,17 +102,16 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
             const { grid, slotId } = this.props;
             const newGrid = {
                 ...grid,
-                slots: grid.slots.map((v) => {
-                    if (v.id === slotId) {
+                slots: grid.slots.map((slot) => {
+                    if (slot.id === slotId) {
                         return {
-                            ...v,
+                            ...slot,
                             content: itemId,
                         };
                     }
-                    return v;
+                    return slot;
                 }),
             };
-            console.log(newGrid);
             this.props.updateGear(clone(newGrid));
         }
 

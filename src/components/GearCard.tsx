@@ -7,7 +7,7 @@ import { ISettlement } from "../interfaces";
 import { IGearGrid, IItem } from "../interfaces/gear";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { ID } from "../interfaces/generics";
-import { clone } from "../util";
+import { DefenseStats } from "../interfaces/survivor";
 import { colorMagentaLachs } from "./StyledComponents";
 
 interface IGearCardDispatchProps {
@@ -91,15 +91,21 @@ class GearCard extends React.Component<IGearCardProps> {
     }
 
     public render() {
-        const { item, slotId } = this.props;
-
-        return (
-            <StyledCard onDragStart={this.handleDragStart} draggable={true}>
-                {slotId && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
-                <CardHeadline>{item && item.name}</CardHeadline>
-                <CardDescription>{item && item.desc}</CardDescription>
-            </StyledCard>
-        );
+        if (this.props.item) {
+            const {item, slotId} = this.props;
+            const armorStat = item.stats && item.stats.find((stat) => stat.type in DefenseStats);
+            return (
+                <StyledCard onDragStart={this.handleDragStart} draggable={true}>
+                    {slotId && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
+                    <CardHeadline>{item.name}</CardHeadline>
+                    <div>{item.types && item.types.map((type, idx) => <span key={idx}>{type} </span>)}</div>
+                    <CardDescription>{item.desc}</CardDescription>
+                    {armorStat && <div>{armorStat.amount} {armorStat.type}</div>}
+                </StyledCard>
+            );
+        } else {
+            return "";
+        }
     }
 
     private handleCloseIconClick() {

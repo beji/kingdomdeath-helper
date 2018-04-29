@@ -8,11 +8,11 @@ enum Affinity {
 }
 
 enum ItemType {
-    armor,
-    generic,
-    rawhide,
-    set,
-    weapon,
+    armor = "armor",
+    generic = "generic",
+    rawhide = "rawhide",
+    set = "set",
+    weapon = "weapon",
 }
 
 interface IGearGrid {
@@ -32,7 +32,7 @@ interface IItem {
     readonly desc: string;
     readonly types?: ReadonlyArray<ItemType>;
     readonly stats?: ReadonlyArray<{
-        readonly amount: number,
+        readonly amount: number;
         readonly showOnCard: boolean;
         readonly type: DefenseStats | BaseStats;
     }>;
