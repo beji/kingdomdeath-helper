@@ -3,11 +3,11 @@ import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
 import { ISettlement } from "../interfaces";
-import { Affinity, IGearGrid, IItem } from "../interfaces/gear";
+import { Affinity, AffinityTypes, IGearGrid, IItem } from "../interfaces/gear";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { ID } from "../interfaces/generics";
 import { DefenseStats } from "../interfaces/survivor";
-import StyledAffinityIcon from "./AffinityIcon";
+import AffinityIcon from "./AffinityIcon";
 import { colorMagentaLachs } from "./StyledComponents";
 
 interface IGearCardDispatchProps {
@@ -151,11 +151,13 @@ class GearCard extends React.Component<IGearCardProps> {
 
     private renderAffinity(item: IItem) {
         const {affinity} = item;
+        const directions: string[] = ["top", "left", "bottom", "right"];
         if (affinity) {
             return (
                 <AffinityWrapper>
-                    {affinity.bonus && affinity.bonus.affOwn && affinity.bonus.affOwn.map((aff: Affinity, idx: number) => <StyledAffinityIcon affinity={aff} key={idx} />)}
+                    {affinity.bonus && affinity.bonus.affOwn && affinity.bonus.affOwn.map((aff: Affinity, idx: number) => <AffinityIcon key={idx} type={AffinityTypes.connect} affinity={aff} />)}
                     {affinity.bonus && affinity.bonus.desc}
+                    {directions.map((direction: string, idx) => affinity[direction] && <AffinityIcon key={idx} affinity={affinity[direction]} type={AffinityTypes.card} direction={direction} />)}
                 </AffinityWrapper>
             );
         }

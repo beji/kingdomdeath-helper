@@ -70,6 +70,7 @@
     "redux": "^4.0.0",
     "socket.io": "^2.1.0",
     "styled-components": "^3.2.6",
+    "styled-components-ts": "^0.0.14",
     "uuid": "^3.2.1"
   }
 }

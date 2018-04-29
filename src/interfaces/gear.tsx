@@ -7,6 +7,12 @@ enum Affinity {
     blue = "blue",
 }
 
+const enum AffinityTypes {
+    card,
+    grid,
+    connect,
+}
+
 const enum ItemType {
     armor = "armor",
     generic = "generic",
@@ -37,6 +43,7 @@ interface IItem {
         readonly type: DefenseStats | BaseStats;
     }>;
     readonly affinity?: {
+        readonly [key: string]: Affinity | any;
         readonly top?: Affinity;
         readonly right?: Affinity;
         readonly bottom?: Affinity;
@@ -54,4 +61,4 @@ interface IItem {
     };
 }
 
-export { Affinity, IGearGrid, IGridSlot, IItem, ItemType };
+export { Affinity, AffinityTypes, IGearGrid, IGridSlot, IItem, ItemType };
