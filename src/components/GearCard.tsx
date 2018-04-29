@@ -3,10 +3,11 @@ import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
 import { ISettlement } from "../interfaces";
-import { IGearGrid, IItem } from "../interfaces/gear";
+import { Affinity, IGearGrid, IItem } from "../interfaces/gear";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { ID } from "../interfaces/generics";
 import { DefenseStats } from "../interfaces/survivor";
+import StyledAffinityIcon from "./AffinityIcon";
 import { colorMagentaLachs } from "./StyledComponents";
 
 interface IGearCardDispatchProps {
@@ -96,35 +97,9 @@ const CardDefStatType = styled.div`
     line-height:.5rem;
 `;
 
-const AffinityOwnIcon = styled.div`
-    background:red;
-    border-radius:2px;
-    display:inline-block;
-    width:1rem;
-    height:1rem;
-    position:relative;
-    &:before {
-        background:inherit;
-        border-radius:50%;
-        content:"";
-        height:30%;
-        position:absolute;
-        right:95%;
-        top:50%;
-        transform:translateY(-50%);
-        width:30%;
-    }
-    &:after {
-        background:#fff;
-        border-radius:50%;
-        bottom:-5%;
-        content:"";
-        height:30%;
-        left:50%;
-        position:absolute;
-        transform:translateX(-50%);
-        width:30%;
-    }
+const AffinityWrapper = styled.div`
+    font-size:.875rem;
+    text-align:left;
 `;
 
 const CloseIcon = styled.div`
@@ -166,12 +141,25 @@ class GearCard extends React.Component<IGearCardProps> {
                     <CardTypes>{item.types && item.types.map((type, idx) => <span key={idx}>{type} </span>)}</CardTypes>
                     <CardDescription>{item.desc}</CardDescription>
                     {armorStat && <CardDefStat><Shield>{armorStat.amount} <CardDefStatType>{armorStat.type}</CardDefStatType></Shield></CardDefStat>}
-                    <AffinityOwnIcon title="Affinity on this card"/>
+                    {this.renderAffinity(item)}
                 </StyledCard>
             );
         } else {
             return "";
         }
+    }
+
+    private renderAffinity(item: IItem) {
+        const {affinity} = item;
+        if (affinity) {
+            return (
+                <AffinityWrapper>
+                    {affinity.bonus && affinity.bonus.affOwn && affinity.bonus.affOwn.map((aff: Affinity, idx: number) => <StyledAffinityIcon affinity={aff} key={idx} />)}
+                    {affinity.bonus && affinity.bonus.desc}
+                </AffinityWrapper>
+            );
+        }
+        return "";
     }
 
     private handleCloseIconClick() {

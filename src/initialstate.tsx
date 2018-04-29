@@ -116,6 +116,13 @@ const items: ReadonlyArray<IItem> = [
     },
     {
         affinity: {
+            bonus: {
+                affOwn: [
+                    Affinity.blue,
+                    Affinity.red,
+                ],
+                desc: "+1 Evasion",
+            },
             right: Affinity.red,
             top: Affinity.blue,
         },
