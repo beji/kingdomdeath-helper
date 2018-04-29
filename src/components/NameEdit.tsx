@@ -1,6 +1,14 @@
 import React from "react";
 import { createRef, Fragment, RefObject, SyntheticEvent } from "react";
+import styled from "styled-components";
 import FancyButton from "./FancyButton";
+
+const StyledInput = styled.input`
+    font-size: 1rem;
+    line-height: 1.5rem;
+    padding: 0;
+    vertical-align: middle;
+`;
 
 interface INameEditProps {
     name: string;
@@ -30,7 +38,7 @@ export default class NameEdit extends React.Component<INameEditProps, INameEditS
         if (editName) {
             return (
                 <Fragment>
-                    <input type="text" ref={this.textfield} defaultValue={name} />
+                    <StyledInput type="text" ref={this.textfield} defaultValue={name} />
                     <FancyButton onClick={this.handleNameBlur}>✓</FancyButton>
                 </Fragment>
             );
