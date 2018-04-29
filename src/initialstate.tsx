@@ -81,6 +81,13 @@ const items: ReadonlyArray<IItem> = [
         desc: "Survivor Lendenschurz",
         id: uuid(),
         name: "Cloth",
+        stats: [
+            {
+                amount: 1,
+                showOnCard: true,
+                type: DefenseStats.waist,
+            },
+        ],
     },
     {
         desc: "Throw to win",
