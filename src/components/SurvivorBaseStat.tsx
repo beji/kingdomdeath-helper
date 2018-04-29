@@ -48,9 +48,9 @@ const mapStateToProps = (state: ISettlement, ownProps: ISurvivorBaseStatOwnProps
 
 class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivorBaseStatState> {
 
-    private permfield: any;
-    private gearfield: any;
-    private tokenfield: any;
+    private permfield?: HTMLInputElement;
+    private gearfield?: HTMLInputElement;
+    private tokenfield?: HTMLInputElement;
 
     public constructor(props: ISurvivorBaseStatProps) {
         super(props);
@@ -65,9 +65,6 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
         this.setupGearRef = this.setupGearRef.bind(this);
         this.setupTokenRef = this.setupTokenRef.bind(this);
 
-        this.permfield = createRef();
-        this.gearfield = createRef();
-        this.tokenfield = createRef();
     }
 
     public render() {
@@ -107,27 +104,29 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
         });
     }
 
-    private setupPermRef(elem: any) {
+    private setupPermRef(elem: HTMLInputElement) {
         this.permfield = elem;
     }
 
-    private setupGearRef(elem: any) {
+    private setupGearRef(elem: HTMLInputElement) {
         this.gearfield = elem;
     }
 
-    private setupTokenRef(elem: any) {
+    private setupTokenRef(elem: HTMLInputElement) {
         this.tokenfield = elem;
     }
 
     private handleEditConfirm(e: SyntheticEvent<HTMLButtonElement>) {
-        const nextStat = {
-            ...this.props.stat,
-            gear: parseInt(this.gearfield.value, 10),
-            permanent: parseInt(this.permfield.value, 10),
-            token: parseInt(this.tokenfield.value, 10),
-        };
-        if (this.props) {
-            this.props.updateSurvivorStat(nextStat);
+        if (this.gearfield && this.permfield && this.tokenfield) {
+            const nextStat = {
+                ...this.props.stat,
+                gear: parseInt(this.gearfield.value, 10),
+                permanent: parseInt(this.permfield.value, 10),
+                token: parseInt(this.tokenfield.value, 10),
+            };
+            if (this.props) {
+                this.props.updateSurvivorStat(nextStat);
+            }
         }
         this.setState({
             editSurvivorStat: false,

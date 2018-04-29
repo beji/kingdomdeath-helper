@@ -46,7 +46,7 @@ const mapStateToProps = (state: ISettlement, ownProps: ISurvivorDefenseStatOwnPr
 };
 
 class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISurvivorDefenceStatState> {
-    private armorfield: any;
+    private armorfield?: HTMLInputElement;
 
     public constructor(props: ISurvivorDefenseStatProps) {
         super(props);
@@ -58,8 +58,6 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
         this.renderEditState = this.renderEditState.bind(this);
 
         this.setupArmorRef = this.setupArmorRef.bind(this);
-
-        this.armorfield = createRef();
     }
 
     public render() {
@@ -86,7 +84,7 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
         );
     }
 
-    private setupArmorRef(elem: any) {
+    private setupArmorRef(elem: HTMLInputElement) {
         this.armorfield = elem;
     }
 
@@ -107,12 +105,14 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
     }
 
     private handleEditConfirm(e: SyntheticEvent<HTMLButtonElement>) {
-        const nextStat = {
-            ...this.props.stat,
-            armor: parseInt(this.armorfield.value, 10),
-        };
-        if (this.props) {
-            this.props.updateSurvivorStat(nextStat);
+        if (this.armorfield) {
+            const nextStat = {
+                ...this.props.stat,
+                armor: parseInt(this.armorfield.value, 10),
+            };
+            if (this.props) {
+                this.props.updateSurvivorStat(nextStat);
+            }
         }
         this.setState({
             editSurvivorStat: false,

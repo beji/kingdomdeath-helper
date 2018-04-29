@@ -21,7 +21,7 @@ interface INameEditState {
 
 export default class NameEdit extends React.Component<INameEditProps, INameEditState> {
 
-    private textfield: any;
+    private textfield?: HTMLInputElement;
 
     public constructor(props: INameEditProps) {
         super(props);
@@ -31,7 +31,6 @@ export default class NameEdit extends React.Component<INameEditProps, INameEditS
         this.handleNameBlur = this.handleNameBlur.bind(this);
         this.handleNameClick = this.handleNameClick.bind(this);
         this.setupTextRef = this.setupTextRef.bind(this);
-        this.textfield = createRef();
     }
     public render() {
         const { editName } = this.state;
@@ -50,7 +49,7 @@ export default class NameEdit extends React.Component<INameEditProps, INameEditS
         }
     }
 
-    private setupTextRef(elem: any) {
+    private setupTextRef(elem: HTMLInputElement) {
         this.textfield = elem;
     }
 
@@ -60,11 +59,13 @@ export default class NameEdit extends React.Component<INameEditProps, INameEditS
         });
     }
     private handleNameBlur(e: SyntheticEvent<HTMLButtonElement>) {
-        const newName = this.textfield.value;
-        this.props.updateFunc(newName);
-        this.setState({
-            editName: false,
-        });
+        if (this.textfield && this.textfield.value) {
+            const newName = this.textfield.value;
+            this.props.updateFunc(newName);
+            this.setState({
+                editName: false,
+            });
+        }
     }
 
 }

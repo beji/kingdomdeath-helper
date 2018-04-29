@@ -124,7 +124,7 @@ class GearCard extends React.Component<IGearCardProps> {
 
     public render() {
         if (this.props.item) {
-            const {item, slotId} = this.props;
+            const { item, slotId } = this.props;
             // WTF: is there a better way to get stat of enum DefenseStat?
             const armorStat = item.stats && item.stats.find((stat) => Object.keys(DefenseStats).find((ds) => DefenseStats[ds as any] === stat.type) !== undefined);
             return (
