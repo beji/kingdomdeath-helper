@@ -1,5 +1,4 @@
-import React from "react";
-import { createRef, SyntheticEvent } from "react";
+import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { updateSurvivorStat } from "../actions/survivorActions";
@@ -7,7 +6,8 @@ import { ID, IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat } from "../
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 import FancyButton from "./FancyButton";
-import { HeavyWound, Input, Label, LightWound, StatElement, StatLayer, StatLayerHeadline, StatWrapper } from "./SurvivorStatElements";
+import NumberEdit from "./NumberEdit";
+import { HeavyWound, Label, LightWound, StatEdit, StatElement, StatLayer, StatLayerHeadline, StatWrapper } from "./SurvivorStatElements";
 
 interface ISurvivorDefenseStatStatStateProps {
     statKey?: string;
@@ -78,7 +78,9 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
         return (
             <StatLayer>
                 <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {label}</StatLayerHeadline>
-                <Label>Stat</Label><Input innerRef={this.setupArmorRef} type="number" defaultValue={armor.toString()} name="armor" />
+                <StatEdit>
+                    <Label>Stat</Label><NumberEdit value={armor} innerRef={this.setupArmorRef}/>
+                </StatEdit>
                 <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
             </StatLayer>
         );
