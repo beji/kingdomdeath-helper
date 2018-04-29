@@ -120,7 +120,7 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
                         {sortedBaseStats.map((statKey, idx) => (<SurvivorStat key={idx}><StatLabel>{baseStats[statKey].label}</StatLabel><SurvivorBaseStat id={id} stat={baseStats[statKey]} /></SurvivorStat>))}
                     </StatSection>
                     <StatSection>
-                        {sortedDefenceStats.map((statKey, idx) => (defenseStats[statKey].label !== DefenseStats.survival && <SurvivorStat key={idx}><StatLabel>{defenseStats[statKey].label}</StatLabel><SurvivorDefenseStat id={id} stat={defenseStats[statKey]} /></SurvivorStat>))}
+                        {sortedDefenceStats.map((statKey, idx) => (defenseStats[statKey].label !== DefenseStats[DefenseStats.survival] && <SurvivorStat key={idx}><StatLabel>{defenseStats[statKey].label}</StatLabel><SurvivorDefenseStat id={id} stat={defenseStats[statKey]} /></SurvivorStat>))}
                     </StatSection>
                 </StyledCard>
             );

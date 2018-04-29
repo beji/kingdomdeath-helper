@@ -15,13 +15,13 @@ enum BaseStats {
 }
 
 enum DefenseStats {
-    brain = "Brain",
-    head = "Head",
-    arms = "Arms",
-    body = "Body",
-    waist = "Waist",
-    legs = "Legs",
-    survival = "Survival",
+    brain,
+    head,
+    arms,
+    body,
+    waist,
+    legs,
+    survival,
 }
 
 interface IHitLocation {

@@ -157,15 +157,14 @@ class GearCard extends React.Component<IGearCardProps> {
     public render() {
         if (this.props.item) {
             const { item, slotId } = this.props;
-            // FIXME: is there a better way to get stat of enum DefenseStat?
-            const armorStat = item.stats && item.stats.find((stat) => Object.keys(DefenseStats).find((ds) => DefenseStats[ds as any] === stat.type) !== undefined);
+            const armorStat = item.stats && item.stats.find((stat) => stat.type in DefenseStats);
             return (
                 <StyledCard onDragStart={this.handleDragStart} draggable={true}>
                     {slotId && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
                     <CardHeadline>{item.name}</CardHeadline>
                     <CardTypes>{item.types && item.types.map((type, idx) => <span key={idx}>{type} </span>)}</CardTypes>
                     <CardDescription>{item.desc}</CardDescription>
-                    {armorStat && <CardDefStat><Shield>{armorStat.amount} <CardDefStatType>{armorStat.type}</CardDefStatType></Shield></CardDefStat>}
+                    {armorStat && <CardDefStat><Shield>{armorStat.amount} <CardDefStatType>{DefenseStats[armorStat.type as any]}</CardDefStatType></Shield></CardDefStat>}
                     <AffinityOwnIcon title="Affinity on this card"/>
                 </StyledCard>
             );

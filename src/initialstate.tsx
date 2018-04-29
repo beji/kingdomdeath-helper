@@ -26,7 +26,7 @@ const getHitLocation = (label: DefenseStats, onlyHeavyWound: boolean, noWounds: 
     armor: 0,
     heavyWound: false,
     id: uuid(),
-    label,
+    label: DefenseStats[label],
     lightWound: false,
     noWounds,
     onlyHeavyWound,
