@@ -2,8 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { updateSurvivor } from "../actions/survivorActions";
-import { ID, ISettlement } from "../interfaces";
-import { IGearGrid } from "../interfaces/gear";
+import { ID, IGearGrid, ISettlement } from "../interfaces";
 import GridSlot from "./GridSlot";
 import SurvivorCard from "./SurvivorCard";
 

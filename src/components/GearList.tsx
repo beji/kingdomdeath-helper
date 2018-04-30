@@ -2,8 +2,7 @@ import React from "react";
 import { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { ID, ISettlement } from "../interfaces";
-import { IItem } from "../interfaces/gear";
+import { ID, IItem, ISettlement } from "../interfaces";
 import { colorMagentaLachs } from "./StyledComponents";
 
 interface IGearListState {
