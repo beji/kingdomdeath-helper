@@ -1,0 +1,36 @@
+1 - Returning Survivors / The Approaching Storm (Gorm)
+2 - Endless Screams (Screaming Antelope) / Gorm Climate (Gorm-see below)
+3 - Young Rivals (Spidicules) / Gorm Climate (Gorm-see below)
+4 - Nemesis Encounter – Butcher / A Uninvited Guest (Lion Knight) / Gorm Climate (Gorm-see below)
+5 - Hands of Heat / A Crone's Tale (Flower Knight) / Gorm Climate (Gorm-see below)
+6 - The Hanged Man (Manhunter) / Nemesis Encounter – Lion Knight / Gorm Climate (Gorm-see below)
+7 - Phoenix Feather / Armored Strangers / Gorm Climate (Gorm-see below)
+8 - Rumbling in the Dark (Dung Beetle Knight) / Gorm Climate (Gorm-see below)
+9 - Glowing Crater (Dragon King) / It's already here (Slenderman) / Gorm Climate (Gorm-see below)
+10 - Nemesis Encounter – King’s Man / Promise Under the Sun (Sunstalker) / Gorm Climate (Gorm-see below)
+11 - Regal Visit / Gorm Climate (Gorm-see below)
+12 - Nemesis Encounter – Manhunter / Principle: Conviction / Gorm Climate (Gorm-see below)
+13 - The Silver City (Lion God) / Gorm Climate (Gorm-see below)
+14 - Nemesis Encounter – Lion Knight / Gorm Climate (Gorm-see below)
+15 - Nemesis Encounter – Butcher / Gorm Climate (Gorm-see below)
+16 - / Gorm Climate (Gorm-see below)
+17 - Nemesis Encounter – Manhunter / Gorm Climate (Gorm-see below)
+18 - Nemesis Encounter – Lion Knight / Gorm Climate (Gorm-see below)
+19 - / Gorm Climate (Gorm-see below)
+20 - Watched / Nemesis Encounter / Gorm Climate (Gorm-see below)
+21 - Nemesis Encounter – Man-Hunter / Gorm Climate (Gorm-see below)
+22 / Gorm Climate (Gorm-see below)
+23- Nemesis Encounter – Level 3 / Gorm Climate (Gorm-see below)
+24 - / Gorm Climate (Gorm-see below)
+25 -Nemesis Encounter - Watcher / Gorm Climate (Gorm-see below)
+
+Gorm Climate:	Roll 1d10:
+1:	Lose all resources in the settlement storage. Spend an innovation you previously learned to avoid this.
+2:	Lose 4 resources from the settlement storage. Spend an innovation you previously learned to avoid this.
+3:	Lose 1 resource from settlement storage.
+4-7:	Does settlement have Hovel?
+Yes=Survivors huddle inside as razor winds and sickening lightning pummel the settlement. +2 to Endeavor results at Home innovations this lantern year.
+No=The echoing cries on the wind wear out the returning survivors. Reduce their insanity to 0. They must skip the next hunt to recover from their journey home.
+8-10:	Does the settlement have Storytelling?
+Yes=Huddled together in the howling storm, the settlement recalls stories of worse hardships they have triumphed over. Nominate a survivor with 0 Hunt XP. They grow from the experience of their elders and gain +1 understanding.
+No=The settlement struggles against the quaking ground, linking arms to brace themselves against the storm. Nominate a survivor with 0 Hunt XP. They draw strength from the settlement's determination and gain +1 courage.

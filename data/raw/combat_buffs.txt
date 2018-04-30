@@ -1,0 +1,19 @@
+Acid Palms: Add 1d10 strength to your wound attempts when attacking with Fist & Tooth. 
+Burnt Nerves: An ability. You are immune to bash. 
+Caratosis: An ability. For each red affinity you have. 1 of your attack rolls hits automatically each attack. 
+Deadly: A gear special rule. Gain +1 luck while attacking with this weapon. This increases the odds of inflicting critical wounds. 
+Devastating X: A gear special rule. when a devastating weapon wounds a monster. it will inflict X additional wounds. 
+Doomed: The indicated survivor may not spend survival until this card is resolved. 
+Field of View: A survivor is in a monster's ﬁeld of view unless they are in the monster's blind spot or the monster's line of sight is blocked by terrain with the Obstacle rule. 
+Frenzy: A brain trauma result. A survivor who suffers this is Frenzied until the end of the Showdown Phase. Gain +1 strength token. +1 speed token. and 1d5 insanity. Ignore the "slow" special rule on melee weapons. A frenzied survivor may not spend survival or use fighting arts, weapon specialization. or weapon mastery. A survivor may be Frenzied multiple times. 
+Impervious: A type of monster hit location. lmpervious hit locations cannot be wounded. even with a Lantern 10 wound roll. Wound attempts will never remove Al cards. However. critical effects may stlll occur. 
+Iron Will: An ability. You cannot be knocked down. Reduce all knockback you suffer to knockback 1. 
+Iridescent Hide: Gain +1 armor at all hit locations for each different-colored affinity in your gear grid. 
+Knocked Down (Monster): While a monster is knocked down attack rolls hit on 3+ (in place of normal accuracy). Cancel all reactions, including reactions that might be beneﬁcial to survivors. This does not cancel critical wounds effects (since they are not reactions). If the monster is knocked down during a flow. cancel any remaining actions on its card. A knocked down monster stands when: it draws an AI card, or at the start of the next turn. 
+Outfit: If any armor has the "outfit" keyword in the description, it may be used to complete any set of armor (e.g. by replacing whatever armor would have been in the spot being used). 
+Pristine: When you suffer a dismembered severe injury, ignore it and gain 1 bleeding token instead. 
+Savage: A gear special rule. After the first critical wound in an attack, savage weapons cause 1 additional wound. This rule does not trigger on lmpervious hit locations. 
+Sharp: A gear special rule. Add 1d10 strength to each wound attempt using this gear. This d10 is not a wound roll, and cannot cause critical wounds. 
+Slam: A gear special rule. Spend 0 and full move fonrvard in a straight line. If you move 4+ spaces and stop adjacent to a monster, it suffers knockback 1 and -1 toughness until the end of the round. 
+Super-dense: A type of hit location. This hit location is unusually hard. If a survivor attempts to wound one of these locations with a frail weapon, it is destroyed and archived at the end of the attack. 
+Survival Opportunity: The only times that survivors may dash or surge. Survival opportunities exist at the following times: during flows on monster Al cards: between actions on the survivors’ turn; before performing reactions; after critical wound effects: or when a monster is knocked down.

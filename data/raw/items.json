@@ -1,0 +1,1626 @@
+[
+  {
+    "#": 0,
+    "name": "???",
+    "desc": "organ, bone, hide, consumable resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 1,
+    "name": "1,000 Year Sunspot",
+    "desc": "bone,organ. When you craft with this, nominate a survivor. They suffer the Blind severe injury from working with this resource.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 2,
+    "name": "3,000 Year Sunspot",
+    "desc": "bone,organ,scrap. When you craft with this, nominate a survivor and roll 1d10. On a 5+, they get a terrible headache and die.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 3,
+    "name": "Acid Gland",
+    "desc": "organ",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 4,
+    "name": "Almanac",
+    "desc": "When you depart, gain +2 insanity. You cannot gain disorders.",
+    "obtained": "Barber Surgeon",
+    "material": "pictograph, 2x leather"
+  },
+  {
+    "#": 5,
+    "name": "Ancient Lion Claws",
+    "desc": "item,fur,heavy. Accessory. Armor 2 on hands. -1 evasion. +2 strength while attacking with daggers or katars. You may move up to 2 additional spaces when you pounce.",
+    "obtained": "Death Reading event",
+    "material": "Lion God. Non-craftable."
+  },
+  {
+    "#": 6,
+    "name": "Arachnid Heart",
+    "desc": "organ. Cold to the touch, even when freshly removed.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 7,
+    "name": "Armor Spikes",
+    "desc": "item,bone,heavy. If adjacent to the monster when you suffer a severe body injury, the monster suffers a wound. Limit 1x/round.",
+    "obtained": "Gormery",
+    "material": "1x stout vertebrae, 1x scrap"
+  },
+  {
+    "#": 8,
+    "name": "Bandages",
+    "desc": "Spend action to remove up to 2 bleeding tokens from yourself or adjacent survivor.",
+    "obtained": "Skinnery",
+    "material": "1x hide"
+  },
+  {
+    "#": 9,
+    "name": "Beast Steak",
+    "desc": "Organ, consumable resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 10,
+    "name": "Beetle Horn",
+    "desc": "bone. If settlement has Scarification, spend one endeaver to perform Horn Ceremony (1d10 = 1-2 Your brain in punctured and you die / 3-4 Nothing happens / 5+ Brain Stimulation. Gain benefits of Age 1 and Age 2 without gaining Hunt XP. This ignores any \"once a lifetime\" rules.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 11,
+    "name": "Belt of Gender Swap",
+    "desc": "Cursed: while in your gear grid, change to the opposite sex.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 12,
+    "name": "Bird Beak",
+    "desc": "Bone resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 13,
+    "name": "Bird Bread",
+    "desc": "Spend move to consume (1/showdown) - add 1 armor to all hit locations. Gain Priority Target token. Roll 1d10 = on 1 reduce survival to 0.",
+    "obtained": "Plumery",
+    "material": "1x pustules, 3x hide"
+  },
+  {
+    "#": 14,
+    "name": "Black Lens",
+    "desc": "organ",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 15,
+    "name": "Black Skull",
+    "desc": "Iron, skull, bone resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 16,
+    "name": "Bladder",
+    "desc": "Organ, consumable resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 17,
+    "name": "Blistering Plasma Fruit",
+    "desc": "organ, consumable. You may consume and archive this to gain the following ability: Nightmare Blood: Whenever you gain a bleeding token, add 1 to all hit locations.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 18,
+    "name": "Blood Paint",
+    "desc": "Spend action to activate weapon gear to right and left of card. These are 2 separate attacks. Cannot be used with 2H weapons.",
+    "obtained": "Stone Circle",
+    "material": "paint, 1x bladder, 1x organ"
+  },
+  {
+    "#": 19,
+    "name": "Blood Sheath",
+    "desc": "Block 1. When Rainbow Katana is left of blood sheath, it loses Frail and gains Sharp (add 1d10 strength to each wound attempt).",
+    "obtained": "Weapon Crafter",
+    "material": "5x organ, 1x hollow wing bone, 1x muculent droppings"
+  },
+  {
+    "#": 20,
+    "name": "Bloom Sphere",
+    "desc": "0.5-aff-green/0.5-aff-blue = when you are picked as target, roll 1d10. On 6+ monster must pick a new target if possible.",
+    "obtained": "Plumery",
+    "material": "1x small hand parasites, 3x bone"
+  },
+  {
+    "#": 21,
+    "name": "Blue Charm",
+    "desc": "5-aff-blue = Unshakeable: When you draw a Trap, roll 1d10. On 6+ discard the Trap and reshuffle the deck. Grants 1x-aff-blue on its own.",
+    "obtained": "Stone Circle",
+    "material": "3x organ"
+  },
+  {
+    "#": 22,
+    "name": "Blue Power Core",
+    "desc": "item,jewelry. All nuclear gear cards in your gear grid gain Deadly 2.",
+    "obtained": "Dragon Armory",
+    "material": "1x shining liver, 1x iron"
+  },
+  {
+    "#": 23,
+    "name": "Blue Ring",
+    "desc": "jewelry, amber, accessory. Armor 2 on hands. 3x 0.5-aff-blue = If you are monster controller, on monster's turn, draw 2 AI cards and play the one of your choice. Discard the other.",
+    "obtained": "Silk Mill",
+    "material": "legless ball, 3x eyeballs, 2x stomach"
+  },
+  {
+    "#": 24,
+    "name": "Bone Earrings",
+    "desc": "At start of showdown, gain +2 speed and +2 strength tokens if insane and all gear in your grid has bone keyword.",
+    "obtained": "Stone Circle",
+    "material": "1x shank bone, 1x bone"
+  },
+  {
+    "#": 25,
+    "name": "Bone Witch Mehndi",
+    "desc": "item,soluble,symbol,other. At the start of your act, you may spend 3 insanity to gain 1 survival, or 1 survival to gain 3 insanity.",
+    "obtained": "Death Reading",
+    "material": "Lion God. Non-craftable."
+  },
+  {
+    "#": 26,
+    "name": "Boss Mehndi",
+    "desc": "Boss is brave. While adjacent to you, insane survivors gain +1 speed.",
+    "obtained": "Stone Circle",
+    "material": "1x golden whiskers, 1x bone"
+  },
+  {
+    "#": 27,
+    "name": "Brain Mint",
+    "desc": "Consume to remove all your tokens and stand up. You may use this while knocked down. Use 1x/showdown.",
+    "obtained": "Barber Surgeon",
+    "material": "1x screaming brain"
+  },
+  {
+    "#": 28,
+    "name": "Brain Root",
+    "desc": "organ",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 29,
+    "name": "Broken Lantern",
+    "desc": "scrap resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 30,
+    "name": "Bug Trap",
+    "desc": "At start of showdown, roll 1d10. On 3+ add a Bug Patch terrain piece to board.",
+    "obtained": "Barber Surgeon",
+    "material": "1x muscly gums, 2x bone"
+  },
+  {
+    "#": 31,
+    "name": "Bugfish",
+    "desc": "fish,organ. Consume: Gain +2 survival. There is something in its belly! Gain 1 random vermin and consume it immediately. Archive this card.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 32,
+    "name": "Butcher's Blood",
+    "desc": "item,soluble,symbol,other. Gives 1 full blue AFF. 2x 1-aff-blue = For every 10 insanity you have, gain +1 speed and +1 strength.",
+    "obtained": "Death Reading",
+    "material": "Lion God. Non-craftable."
+  },
+  {
+    "#": 33,
+    "name": "Calcified Greaves",
+    "desc": "item,bone,heavy. -1 movement. Add 3 to all hit locations. 1x 1-aff-blue = Add +2 to Ripple Pattern rolls.",
+    "obtained": "Underground Sow Event",
+    "material": "1x Century Greaves"
+  },
+  {
+    "#": 34,
+    "name": "Calcified Shoulder Pads",
+    "desc": "item,bone,heavy. Add 3 to all hit locations. 1x 1-aff-green = Ripple Pattern: when you are attacked, roll 1d10. On a 10+, ignore 1 hit.",
+    "obtained": "Underground Sow Event",
+    "material": "1x Century Shoulder Pads"
+  },
+  {
+    "#": 35,
+    "name": "Canopic Jar",
+    "desc": "organ,scrap. When you gain this, remove 2 bleeding tokens. During the settlement phase, you may archive this to perform story event Death Reading (Lion God).",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 36,
+    "name": "Cat Eye Circlet",
+    "desc": "Spend action to reveal the next 3 monster hit locations and put them back in any order.",
+    "obtained": "Catarium",
+    "material": "1x eye of cat"
+  },
+  {
+    "#": 37,
+    "name": "Century Fingernails",
+    "desc": "bone",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 38,
+    "name": "Century Greaves",
+    "desc": "item,bine,mineral,heavy. -1 movement. Add 1 to all hit locations. 1x 1-aff-blue = Add +1 to Ripple Pattern roll results.",
+    "obtained": "Wet Resin Crafter",
+    "material": "nightmare corn (reqd), 1x scarab shell, 1x beetle horn, 2x iron"
+  },
+  {
+    "#": 39,
+    "name": "Century Shell",
+    "desc": "hide,iron. This ancient and mineral-rich armor plate is covered with razor wind scratches. You may spend this as if it were a Scarab Shell resource.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 40,
+    "name": "Century Shoulder Pads",
+    "desc": "item,bone,mineral,heavy. Ad 1 to all hit locations. 1x 1-aff-green = Ripple Pattern: when you are attacked, roll 1d10. On 10+, ignore 1 hit.",
+    "obtained": "Wet Resin Crafter",
+    "material": "1x scarab shell, 3x leather, 1x iron"
+  },
+  {
+    "#": 41,
+    "name": "Chitin",
+    "desc": "hide",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 42,
+    "name": "Cola Bottle Lantern",
+    "desc": "+1 Accuracy. Spend action: All survivors gain +1 Accuracy until the end of the round. Use once per round.",
+    "obtained": "Candy and Cola Scenario",
+    "material": "non-craftable."
+  },
+  {
+    "#": 43,
+    "name": "Compound Eye",
+    "desc": "organ,consumable. A cluster of differently colored eyes, each filled with a creamy, tangy syrup. If you have 3+ courage, you may consume it and archive to gain +3d10 insanity.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 44,
+    "name": "Crab Spider",
+    "desc": "hide, vermin, consumable resource. Consume: archive and gain +3 survival",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 45,
+    "name": "Crest Crown",
+    "desc": "Spend action (only if insane) to reshuffle hit location deck. 0.5-aff-red/2x 0.5-aff-blue = when you depart, gain +1 insanity and +1 survival for each full aff-blue you have.",
+    "obtained": "Plumery",
+    "material": "1x phoenix crest, 6x organ"
+  },
+  {
+    "#": 46,
+    "name": "Crimson Vial",
+    "desc": "iron, consumable. You may consume and archive this to remove all bleeding tokens and any severe injury of your choice.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 47,
+    "name": "Crystal Sword Mold",
+    "desc": "scrap, iron",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 48,
+    "name": "Curious Hand",
+    "desc": "hide. When you gain this, a random survivor gains +1 insanity.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 49,
+    "name": "Cycloid Scales",
+    "desc": "hide",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 50,
+    "name": "Cyclops Fly",
+    "desc": "Consume: archive and roll d10 (1-3=fly's eye explodes, you die/4-5 citrus flavor, no effect, 6+ gain permanent +1 accuracy)",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 51,
+    "name": "Dark Water",
+    "desc": "other",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 52,
+    "name": "Dark Water Vial",
+    "desc": "item, consumable, gloomy, fragile. Spend endeavor to consume: You are knocked down and cannot gain bleeding tokens until the end of the round. Use once per showdown.",
+    "obtained": "Light-Forging event",
+    "material": "Slenderman, requires Dark Water Research I. 1x organ, 1x dark water"
+  },
+  {
+    "#": 53,
+    "name": "DBK Errant Badge",
+    "desc": "item,jewelry,knight. Add 1 to all hit locations. At the start of the shwodown, draw 1 tactics card.",
+    "obtained": "Wet Resin Crafter",
+    "material": "1x organ, 1x bone"
+  },
+  {
+    "#": 54,
+    "name": "Death Mehndi",
+    "desc": "item,soluble,symbol,other. Gives 1 of each color AFF. On a perfect hit, gain 1d10 insanity. -4 to all brain trauma rolls.",
+    "obtained": "Death Reading",
+    "material": "Lion God. Non-craftable."
+  },
+  {
+    "#": 55,
+    "name": "Deathpact (gun)",
+    "desc": "item, metal, fragile. At the start of your act, gain +1 survival. Once per campaign, you may fire the gun to automatically hit and inflict a critical wound.",
+    "obtained": "Defeat Manhunter",
+    "material": "Level 4 Manhunter. Non-craftable."
+  },
+  {
+    "#": 56,
+    "name": "Dense Bone",
+    "desc": "bone",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 57,
+    "name": "Dragon Vestments",
+    "desc": "item,silk,other. Add 1 to all hit locations. When you gain a random fighting art, select a Dragon Trait one instead.",
+    "obtained": "Midnights Children event",
+    "material": "Dragon King."
+  },
+  {
+    "#": 58,
+    "name": "Dried Acanthus",
+    "desc": "When you depart, gain +2 survival. When you suffer a severe injury, ignore it and archive this card instead.",
+    "obtained": "Organ Grinder",
+    "material": "1x fresh acanthus"
+  },
+  {
+    "#": 59,
+    "name": "Drifting Dream Fruit",
+    "desc": "consumable. You may consume and archive this to select a Dream on the Birth of a Savior story event and gain all associated abilities.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 60,
+    "name": "Dying Lantern",
+    "desc": "+1 evasion. you may archive this to gain 1 skull basic resource and +3 insanity.",
+    "obtained": "Lantern Hoard",
+    "material": "4x broken lantern"
+  },
+  {
+    "#": 61,
+    "name": "Elastic Harness (Rubber Bone Harness)",
+    "desc": "item, bone, leather. 1x/showdown you may convert all of your negative attribute tokens to positive tokens of the same type.",
+    "obtained": "Wet Resin Crafter",
+    "material": "vampiric artichoke (reqd), 1x underplate fungus, 1x century fingernails, 2x leather"
+  },
+  {
+    "#": 62,
+    "name": "Elder Cat Teeth",
+    "desc": "bone resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 63,
+    "name": "Elder Earrings",
+    "desc": "At start of showdown, gain +2 survival and +1 Hunt XP after the showdown.",
+    "obtained": "Barber Surgeon",
+    "material": "1x scrap, 1x shank bone"
+  },
+  {
+    "#": 64,
+    "name": "Elytra",
+    "desc": "bone,hide,organ. A survivor may archive this to give all of their attacks in the next showdown Sharp.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 65,
+    "name": "Exoskeleton",
+    "desc": "hide.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 66,
+    "name": "Eye of Cat",
+    "desc": "Organ, consumable resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 67,
+    "name": "Eye Patch",
+    "desc": "While you wear this, you are Blind in one eye (-1 accuracy). If you are already blind, gain +2 strength for being a badass instead.",
+    "obtained": "Edged Tonometry event",
+    "material": "Sunstalker"
+  },
+  {
+    "#": 68,
+    "name": "Eyeballs",
+    "desc": "organ",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 69,
+    "name": "Fairy Bottle",
+    "desc": "item, fragile, other. When you would die for any reason, instead restore all lost armor points and health levels, remove all bleeding tokens, and archive this item.",
+    "obtained": "Sense Memory event",
+    "material": "Flower Knight. 5x flower (any type). Also obtained from The Messenger of Courage encounter."
+  },
+  {
+    "#": 70,
+    "name": "Feather Mantle",
+    "desc": "When you suffer knockback, you may ignore collision with other survivors and reduce the movement by up to 3 spaces.",
+    "obtained": "Plumery",
+    "material": "2x tail feather, 1x scrap"
+  },
+  {
+    "#": 71,
+    "name": "Fecal Salve",
+    "desc": "When you depart, gain +1 survival. Spend action: You are not a threat until you attack. If you have the priority target token, remove it.",
+    "obtained": "Organ Grinder",
+    "material": "1x organ"
+  },
+  {
+    "#": 72,
+    "name": "Fertility Tentacle",
+    "desc": "organ",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 73,
+    "name": "First Aid Kit",
+    "desc": "At the start of the showdown, all survivors gain +3 survival. You ignore the disemboweled severe injury.",
+    "obtained": "Barber Surgeon",
+    "material": "1x leather, 2x bone"
+  },
+  {
+    "#": 74,
+    "name": "Flower Knight Badge",
+    "desc": "item,jewelry,badge. At the start of the showdown, draw 1 tactics card and gain +1 evasion token.",
+    "obtained": "Kill Flower Knight",
+    "material": "Flower Knight. Non-craftable."
+  },
+  {
+    "#": 75,
+    "name": "Frenzy Drink",
+    "desc": "Spend action to consume = suffer Frenzy brain trauma. Can be used 1x/showdown.",
+    "obtained": "Catarium",
+    "material": "1x lion testes"
+  },
+  {
+    "#": 76,
+    "name": "Fresh Acanthus",
+    "desc": "herb resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 77,
+    "name": "Gloom Bracelets",
+    "desc": "item, jewelry, gloomy, fragile, heavy. Accessory. When you depart, gain +2 insanity. When you suffer a severe arm injury, archive this card.",
+    "obtained": "Light-Forging event",
+    "material": "Slenderman, requires Dark Research I. 1x bone, 1x lion tail, 1x scrap, 1x dark water"
+  },
+  {
+    "#": 78,
+    "name": "Gloom Cream",
+    "desc": "item, consumable, balm, gloomy, stinky, other. 2x 0.5-aff-red / 2x 1-aff-blue = When you depart, gain -3 Hunt XP, -1 understanding. If you have no understanding, die instantly.",
+    "obtained": "Light-Forging event",
+    "material": "Slenderman, requires Dark Research II. 1x love juice, 1x hide, 2x dark water"
+  },
+  {
+    "#": 79,
+    "name": "Gloom Mehndi",
+    "desc": "item, gloomy, soluble. When you depart, gain 1 armor to all hit locations. When you gain the Crystal Skin ability, gain the Crystal Sword Mold strange resource",
+    "obtained": "Light-Forging event",
+    "material": "Slenderman, requires Dark Research I. 3x organ, 1x dark water"
+  },
+  {
+    "#": 80,
+    "name": "Gloom Sheath",
+    "desc": "item, gloomy, other. Block 1. 1x 0.5-aff-red / 1x 1-aff-blue = At the start of your action, gain +1 insanity.",
+    "obtained": "Light-Forging event",
+    "material": "Slenderman, requires Dark Research III. 1x shank bone, 2x organ, 2x dark water"
+  },
+  {
+    "#": 81,
+    "name": "Glyph of Solitude",
+    "desc": "item,soluble,symbol,other. Gives 1 full red AFF. 2x 1-aff-red = +2 accuracy. You are deaf. You cannot encourage.",
+    "obtained": "Death Reading",
+    "material": "Lion God. Non-craftable."
+  },
+  {
+    "#": 82,
+    "name": "God's String",
+    "desc": "When a bow is below God's String, it gains Sharp and its range is increased by 1.",
+    "obtained": "Final Gift",
+    "material": "Sunstalker. Non-craftable."
+  },
+  {
+    "#": 83,
+    "name": "Golden Plate",
+    "desc": "item,metal,heavy. -1 evasion. 4x 1-aff-red = When you depart, gain +2 armor to all locations wearing fur armor.",
+    "obtained": "Kill L2 Lion God",
+    "material": "Lion God. Non-craftable."
+  },
+  {
+    "#": 84,
+    "name": "Golden Whiskers",
+    "desc": "organ resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 85,
+    "name": "Gorm Brain",
+    "desc": "organ",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 86,
+    "name": "Gormite",
+    "desc": "resource",
+    "obtained": "Gormchymist",
+    "material": "2x organs and awesome roll"
+  },
+  {
+    "#": 87,
+    "name": "Gorn",
+    "desc": "item,instrument,gormskin. Spend action: all non-deaf knocked down survivors stand and gain +1 armor to all hit locations. Use once per showdown.",
+    "obtained": "Gormery",
+    "material": "1x stout heart, 3x bone"
+  },
+  {
+    "#": 88,
+    "name": "Great Cat Bones",
+    "desc": "bone resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 89,
+    "name": "Green Charm",
+    "desc": "5-aff-green = undeathable. If you would die, then roll 1d10. On 6+ you inexplicably survive. Grants 1x 1-aff-green on its own.",
+    "obtained": "Stone Circle",
+    "material": "3x organ"
+  },
+  {
+    "#": 90,
+    "name": "Green Ring",
+    "desc": "jewelry, amber, accessory. Armor 2 on hands. 3x 0.5-aff-green = The first time you are attacked each round, gain 3 to ALL armor locations if you are attacked.",
+    "obtained": "Silk Mill",
+    "material": "legless ball, 3x unlaid eggs, 2x spinnerets"
+  },
+  {
+    "#": 91,
+    "name": "Hagfish",
+    "desc": "fish,bone,hide. Consume: Your hair turns gray and you gain +1 Hunt XP. Archive this card.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 92,
+    "name": "Handed Skull",
+    "desc": "bone",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 93,
+    "name": "Healing Potion",
+    "desc": "item,consumable,fragile. At the end of the showdown, if you suffered any permanent injuries, you may archive this card and remove one of your choice.",
+    "obtained": "Gormchymist",
+    "material": "2x organs and random roll"
+  },
+  {
+    "#": 94,
+    "name": "Hidden Crimson Jewel",
+    "desc": "item,jewelry,other. Once per game phase, you may reroll one 1d10.",
+    "obtained": "Spelunking of Death event",
+    "material": "Dung Beetle Knight, Trial of Wits."
+  },
+  {
+    "#": 95,
+    "name": "Hideous Disguise",
+    "desc": "item, mask, bone, other. Head Armor +2. Accessory, cursed. Gain +2 Strength. At the start of the showdown, if you are fighting the lion knight, choose your Role card.",
+    "obtained": "Defeat Lion Knight",
+    "material": "Lion Knight. Non-craftable."
+  },
+  {
+    "#": 96,
+    "name": "Hissing Cockroach",
+    "desc": "vermin, consumable resource. Consume: archive, lose all survival, gain 2d10 insanity. If you are insane you must consume this.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 97,
+    "name": "Hollow Wing Bones",
+    "desc": "bone resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 98,
+    "name": "Hours Ring",
+    "desc": "Unique, selfish. Do not gain tokens for any reason. Do not gain Hunt XP or weapon proficiency. Retired wearers can depart.",
+    "obtained": "Plumery",
+    "material": "1x shimmering halo, 5x organ"
+  },
+  {
+    "#": 99,
+    "name": "Huge Sunteeth",
+    "desc": "bone",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 100,
+    "name": "Hunter's Heart",
+    "desc": "item, consumable, metal, heavy. If you die, the heart crawls back to the settlement. Roll 1d10: on 7+ it regrows you. During settlement phase you may archive this to do story event Bleeding Heart.",
+    "obtained": "Kill Manhunter",
+    "material": "Manhunter. Non-craftable."
+  },
+  {
+    "#": 101,
+    "name": "Husk of Destiny",
+    "desc": "Your destiny is fulfilled. You are always insane.",
+    "obtained": "Glowing Crater event",
+    "material": "Dragon King. Non-craftable."
+  },
+  {
+    "#": 102,
+    "name": "Inner Shadow Skin",
+    "desc": "hide",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 103,
+    "name": "Iron",
+    "desc": "scrap resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 104,
+    "name": "Jagged Marrow Fruit",
+    "desc": "bone, scrap, consumable. You may consume and archive this to gain the following ability. Nightmare Spurs: Once per showdown, you may spend all your survival (at least 1) to lose all your +1 strength tokens and gain that many +1 luck tokens.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 105,
+    "name": "Jiggling Lard",
+    "desc": "organ,hide",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 106,
+    "name": "Jowls",
+    "desc": "fish,iron. If you have Jowls, Hagfish, and Bugfish, you are inspired! You may archive all 3 to gain the Filleting Table innovation.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 107,
+    "name": "Lantern Bloom",
+    "desc": "flower,hide. Perishable. You may consume and archive this during the showdown to gain +3 luck tokens, -1 permanent luck, and the Flower Addiction disorder.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 108,
+    "name": "Lantern Bud",
+    "desc": "flower,scrap. Perishable. You may consume this and archive during the settlement phase to gain +3 endeavors. Skip the next hunt, and gain the Flower Addiction disorder.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 109,
+    "name": "Lantern Mehndi",
+    "desc": "item,soluble,symbol,other. Gives 1 full red AFF. 2x 1-aff-red = You may start the showdown in any unoccupied board space.",
+    "obtained": "Death Reading event",
+    "material": "Lion God. Non-craftable."
+  },
+  {
+    "#": 110,
+    "name": "Large Appendage",
+    "desc": "bone",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 111,
+    "name": "Large Appendage (Spidi hand)",
+    "desc": "bone.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 112,
+    "name": "Large Flat Tooth",
+    "desc": "Bone resource. When you gain this, a survivor of your choice gains +1 insanity.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 113,
+    "name": "Leather",
+    "desc": "hide resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 114,
+    "name": "Life Elixir",
+    "desc": "item,consumable,stinky. Each showdown, the first time you would die from a severe injury, ignore that injury.",
+    "obtained": "Gormchymist",
+    "material": "2x organs and random roll"
+  },
+  {
+    "#": 115,
+    "name": "Lion Claw",
+    "desc": "bone resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 116,
+    "name": "Lion Knight Badge",
+    "desc": "item, jewelry, knight. Gain +1 accuracy. At the start of the showdown, draw 1 Tactics card.",
+    "obtained": "Defeat Lion Knight",
+    "material": "non-craftable"
+  },
+  {
+    "#": 117,
+    "name": "Lion Tail",
+    "desc": "hide resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 118,
+    "name": "Lion Testes",
+    "desc": "Organ, consumable resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 119,
+    "name": "Lonely Ant",
+    "desc": "vermin, consumable resource. Consume to swap insanity and survival values.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 120,
+    "name": "Lonely Fruit",
+    "desc": "consumable. During the settlement phase, you may consume and archive this to perform story event Lonely Lady (from Lonely Tree).",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 121,
+    "name": "Love Juice",
+    "desc": "organ, consumable resource. During settlement phase you may archive this to invoke Intimacy.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 122,
+    "name": "Lucky Charm",
+    "desc": "2x 1-aff-blue = +1 luck",
+    "obtained": "Organ Grinder",
+    "material": "1x organ"
+  },
+  {
+    "#": 123,
+    "name": "Mammoth Hand",
+    "desc": "bone,hide,organ",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 124,
+    "name": "Manhunter's Hat",
+    "desc": "item, rawhide, leather. Head Armor +2. Accessory. 1x 0.5-aff-blue / 1x 1-aff-red = Ignore the first severe head injury you suffer each showdown.",
+    "obtained": "Kill Manhunter",
+    "material": "Non-craftable"
+  },
+  {
+    "#": 125,
+    "name": "Meaty Rib",
+    "desc": "bone,organ",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 126,
+    "name": "Milky Eye",
+    "desc": "organ. When this resource is gained, select a survivor to gain +3 insanity.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 127,
+    "name": "Monster Bone",
+    "desc": "bone resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 128,
+    "name": "Monster Grease",
+    "desc": "Gain +1 evasion. 3x 1-aff-green = +1 evasion (again)",
+    "obtained": "Organ Grinder",
+    "material": "1x organ"
+  },
+  {
+    "#": 129,
+    "name": "Monster Hide",
+    "desc": "hide resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 130,
+    "name": "Monster Organ",
+    "desc": "organ, consumable resource. If consumed, archive and roll d10. On 6+ you contract a parasite - archive all consumable gear in your grid now.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 131,
+    "name": "Monster Tooth Necklace",
+    "desc": "Gain +1 strength. 2x 1-aff-red = +1 strength (again)",
+    "obtained": "Organ Grinder",
+    "material": "heat, 1x scrap, 1x bone"
+  },
+  {
+    "#": 132,
+    "name": "Muculent Droppings",
+    "desc": "organ resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 133,
+    "name": "Muscly Gums",
+    "desc": "organ, consumable resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 134,
+    "name": "Musk Bomb",
+    "desc": "If adjacent to monster when it draws AI, you may spend 2 survival and archive Musk Bomb to roll 1d10. On 3+ discard AI without playing it.",
+    "obtained": "Barber Surgeon",
+    "material": "pottery, 7x resources"
+  },
+  {
+    "#": 135,
+    "name": "Necromancer's Eye",
+    "desc": "item,set,jewelry,other. Armor 2 on head. Accessory. Ignore the effects of blind. Spend action to reveal the next 4 monster hit locations. Put them back in any order.",
+    "obtained": "Death Reading",
+    "material": "Lion God. Non-craftable."
+  },
+  {
+    "#": 136,
+    "name": "Nightmare Tick",
+    "desc": "vermin, consumable. Consume to archive and d10. 1-3 you die/4-5 no effect/6+ permanent +1 evasion",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 137,
+    "name": "Old Blue Box",
+    "desc": "scrap. During the settlement phase, you may archive this to perform story event Death Reading (Lion God).",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 138,
+    "name": "Osseous Bloom",
+    "desc": "flower,bone. Perishable. You may consume and archive this during the showdown to remove all your bleeding and negative attribute tokens and gain the Flower Addiction disorder.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 139,
+    "name": "Pelt",
+    "desc": "hide resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 140,
+    "name": "Perfect Crucible",
+    "desc": "iron resource. When you craft with this, suffer -1d10 population and archive this.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 141,
+    "name": "Petal Lantern",
+    "desc": "After rolling on the severe injury table, spend (your choice) of survival to add to the roll result.",
+    "obtained": "Kill Flower Knight",
+    "material": "2x flower (any), 2x broken lantern"
+  },
+  {
+    "#": 142,
+    "name": "Phoenix Crest",
+    "desc": "organ resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 143,
+    "name": "Phoenix Eye",
+    "desc": "organ, scrap resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 144,
+    "name": "Phoenix Finger",
+    "desc": "bone resource When you gain this, a survivor of your choice gains +3 insanity.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 145,
+    "name": "Phoenix Whisker",
+    "desc": "hide resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 146,
+    "name": "Porous Flesh Fruit",
+    "desc": "hide, consumable. You may consume and archive this to gain the following ability: Nightmare Membrane: You may spend an action or movement to exchange any 1 of your tokens for a +1 strength token.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 147,
+    "name": "Power Potion",
+    "desc": "item,consumable. Spend action to consume: Once per showdown, gain +1 strength token for each green affinity you have.",
+    "obtained": "Gormchymist",
+    "material": "2x organs and random roll"
+  },
+  {
+    "#": 148,
+    "name": "Preserved Caustic Dung",
+    "desc": "organ,consumable,dung",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 149,
+    "name": "Prismatic Gills",
+    "desc": "organ. When you gain this, gain the Emotionless disorder.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 150,
+    "name": "Prismatic Lantern",
+    "desc": "+1 Luck. All four sides have a miscellaneous affinity (they match against any color).",
+    "obtained": "Lantern Hoard",
+    "material": "4x broken lantern"
+  },
+  {
+    "#": 151,
+    "name": "Pulse Lantern",
+    "desc": "Spend action: 1x/showdown = roll 1d10. On a 4+, the monster is knocked down and all survivors gain -1 accuracy token.",
+    "obtained": "Gormery",
+    "material": "1x pure bulb, 2x broken lantern"
+  },
+  {
+    "#": 152,
+    "name": "Pustules",
+    "desc": "organ, consumable resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 153,
+    "name": "Rainbow Droppings",
+    "desc": "organ, consumable resource. Consume to archive and d10. On 1-6 die instantly, 7+ gain +1 permanent speed.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 154,
+    "name": "Rainbow Wing Belt",
+    "desc": "item,flammable. 2x 1-aff-red / 1x 1-aff-blue / 1x 1-aff-green = When any of your attack rolls are 1, you may reroll them. Limit, once per attack.",
+    "obtained": "Wet Resin Crafter",
+    "material": "1x scarab wing, 1x organ, 1x hide"
+  },
+  {
+    "#": 155,
+    "name": "Raptor Worm Collar",
+    "desc": "item, jewelry, gloomy. You may encourage without spending survival. When you encourage a survivor, they suffer 2 brain damage.",
+    "obtained": "Light-Forging event",
+    "material": "Slenderman, requires Dark Water Research II. 1x organ, 1x scrap, 1x dark water"
+  },
+  {
+    "#": 156,
+    "name": "Rawhide Drum",
+    "desc": "When you depart, gain +1 insanity. When a monster performs an Intimidate action, roll 1d10. On 5+ cancel the effects for you and any adjacent non-deaf survivors.",
+    "obtained": "Skinnery",
+    "material": "drums, 1x bone, 1x hide"
+  },
+  {
+    "#": 157,
+    "name": "Red Charm",
+    "desc": "5x 1-aff-red = unstoppable: when you attempt to wound, instead roll 1d10. On 1-5 fail, on 6-10 wound. Grants 1x 1-aff-red by itself.",
+    "obtained": "Stone Circle",
+    "material": "3x organ"
+  },
+  {
+    "#": 158,
+    "name": "Red Power Core",
+    "desc": "item,jewelry. All nuclear gear cards in your gear grid gain Sharp.",
+    "obtained": "Dragon Armory",
+    "material": "1x pituitary gland, 1x iron"
+  },
+  {
+    "#": 159,
+    "name": "Red Ring",
+    "desc": "jewelry, amber, accessory. Armor 2 on hands. 3x 0.5-aff-red = If you gain a bleeding token while monster controller, monster sufers 1 wound. Limit 2x/round.",
+    "obtained": "Silk Mill",
+    "material": "legless ball, 3x venom sac, 2x arachnid heart"
+  },
+  {
+    "#": 160,
+    "name": "Red Vial",
+    "desc": "consumable. You may consume and archive this to remove 2 bleeding tokens and gain +1 survival.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 161,
+    "name": "Regenerating Blade",
+    "desc": "item,mineral,other. During the Settlement Phase, you may archive this to remove the Dismembered Arm or Dismembered Leg permanent injury from one survivor.",
+    "obtained": "Crit DBK Filthy Resin Sword HL",
+    "material": "Dung Beetle Knight. Crit the hit location."
+  },
+  {
+    "#": 162,
+    "name": "Reverberating Lantern",
+    "desc": "item, tool, lantern. At the start of any hunt turn, before an event is revealed, you may do the story event Sonorous Rest. Limit 1x/hunt.",
+    "obtained": "Kill Manhunter",
+    "material": "Non-craftable"
+  },
+  {
+    "#": 163,
+    "name": "Rubber Bone Harness",
+    "desc": "Once per showdown, you may convert all of your negative attribute tokens to positive attribute tokens of the same type.",
+    "obtained": "Wet Resin Crafter",
+    "material": "vampiric artichoke (reqd), 1x underplate fungus, 1x century fingernails, 2x leather"
+  },
+  {
+    "#": 164,
+    "name": "Salt",
+    "desc": "You may add this to any cooking recipe to gain +1 permanent strength in addition to the recipe's listed benefits.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 165,
+    "name": "Sarcophagus",
+    "desc": "iron. During the settlement phase, you may archive this to perform story event Death Reading (Lion God).",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 166,
+    "name": "Scarab Circlet",
+    "desc": "jewelry,bone,other. Add 1 to all hit locations. During the showdown, when your survival is reduced to 0, gain +1 strength token.",
+    "obtained": "Wet Resin Crafter",
+    "material": "nightmare corn (reqd), 1x compound eye, 1x hide, 1x bone"
+  },
+  {
+    "#": 167,
+    "name": "Scarab Wing",
+    "desc": "organ",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 168,
+    "name": "Scavenger Kit",
+    "desc": "Unique. When you defeat a monster, gain either 1 random basic resource or 1 random monster resource from that monster's resource deck.",
+    "obtained": "Barber Surgeon",
+    "material": "1x scrap, 1x pelt"
+  },
+  {
+    "#": 169,
+    "name": "Scell",
+    "desc": "organ,consumable. Can be used during Black Harvest to calcify objects.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 170,
+    "name": "Screaming Brain",
+    "desc": "organ, consumable resource. Consume to archive and gain survival up to the current limit.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 171,
+    "name": "Seasoned Monster Meat",
+    "desc": "item,consumable. When you depart, gain +3 survival. Spend action to consume: Gain +3 survival and +1 strength token. Limit, once per showdown.",
+    "obtained": "Wet Resin Crafter",
+    "material": "1x underplate fungus, 2x organ"
+  },
+  {
+    "#": 172,
+    "name": "Second Heart",
+    "desc": "organ, bone resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 173,
+    "name": "Serrated Fangs",
+    "desc": "bone. If settlement has Nightmare Training, then a survivor may spend an endeavor to roll 1d10: 1-3 gain a random disorder. 4+ gain +1 permanent strength and archive this card.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 174,
+    "name": "Shadow Ink Gland",
+    "desc": "organ",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 175,
+    "name": "Shadow Saliva Shawl",
+    "desc": "item, balm, stinky, other. +2 Evasion. Cannot wear if you have heavy, soluble, or shield gear, or any gear with 3 armor points (on the base gear) printed on it. 2x 1-aff-green = +1 Evasion. All weapons gain Slow.",
+    "obtained": "Skyreef Sanctuary",
+    "material": "1x shadow ink gland, 1x salt, 1x stink lung, 1x shark tongue"
+  },
+  {
+    "#": 176,
+    "name": "Shadow Tentacles",
+    "desc": "organ,hide. When you gain this, if any survivors in the group are blind, return it to the resource deck and draw again.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 177,
+    "name": "Shank Bone",
+    "desc": "bone resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 178,
+    "name": "Shark Tongue",
+    "desc": "organ",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 179,
+    "name": "Shielded Quiver",
+    "desc": "You may activate and gain the benefits of each arrow gear in your grid one additional time each showdown.",
+    "obtained": "Dragon Armory",
+    "material": "1x cabled vein, 2x veined wing, 2x leather"
+  },
+  {
+    "#": 180,
+    "name": "Shimmering Halo",
+    "desc": "organ resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 181,
+    "name": "Shimmering Mane",
+    "desc": "hide resource. Archive this to gain 2 basic hide resources.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 182,
+    "name": "Sighing Bloom",
+    "desc": "flower,organ. Perishable. You may consume and archive this during the showdown to gain 3 survival, 3 insanity, and the Flower Addiction disorder.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 183,
+    "name": "Silk Body Suit",
+    "desc": "Reduce damage from every hit suffered by 2, to a minimum of 1. You may not have any heavy or metal armor in your gear grid.",
+    "obtained": "Silk Mill",
+    "material": "5x silk, 2x hide, 1x spinnerets"
+  },
+  {
+    "#": 184,
+    "name": "Silk Bomb",
+    "desc": "item, thrown, silk, amber, fragile. Spend action: Until the end of the round, all survivors ignore knockback and bash. Archive after use.",
+    "obtained": "Silk Mill",
+    "material": "2x resources, 2x silk"
+  },
+  {
+    "#": 185,
+    "name": "Silken Nervous System",
+    "desc": "organ.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 186,
+    "name": "Silver Urn",
+    "desc": "bone,scrap. scrap. During the settlement phase, you may archive this to perform story event Death Reading (Lion God).",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 187,
+    "name": "Sinew",
+    "desc": "organ resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 188,
+    "name": "Skull",
+    "desc": "Bone resource. When you gain this, a survivor of your choice gains +1 insanity.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 189,
+    "name": "Sleeping Virus Flower",
+    "desc": "item, flammable. +1 Luck, Cursed. When you die, a flower blooms from your corpse. Add [A Warm Virus] to the timeline next year. You are the guest.",
+    "obtained": "Kill Flower Knight",
+    "material": "Flower Knight"
+  },
+  {
+    "#": 190,
+    "name": "Slender Ovule",
+    "desc": "item, jewelry, gloomy, other. When you depart, gain +3 insanity. 1x 0.5-aff-blue / 1x 0.5-aff-green Monsters and survivors adjacent to you have -1 luck.",
+    "obtained": "Light-Forging event",
+    "material": "Slenderman, requires Dark Water Research III. 1x phoenix eye, 4x dark water"
+  },
+  {
+    "#": 191,
+    "name": "Small Appendages (Spidi small hand)",
+    "desc": "hide.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 192,
+    "name": "Small Feathers",
+    "desc": "hide resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 193,
+    "name": "Small Hand Parasites",
+    "desc": "organ resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 194,
+    "name": "Small Sunteeth",
+    "desc": "bone",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 195,
+    "name": "Speed Powder",
+    "desc": "Spend action to suffer 2 brain damage. Gain +1 speed token. Usable 1x/showdown.",
+    "obtained": "Barber Surgeon",
+    "material": "1x second heart, 2x organ"
+  },
+  {
+    "#": 196,
+    "name": "Spinnerets",
+    "desc": "organ, scrap.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 197,
+    "name": "Spiral Horn",
+    "desc": "bone resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 198,
+    "name": "Steadfast Potion",
+    "desc": "item,conumable,heavy. When you ignore a hit with Block, gain +1 strength token. When you are knocked down, lose all your +1 strength tokens.",
+    "obtained": "Gormchymist",
+    "material": "2x organs and random roll"
+  },
+  {
+    "#": 199,
+    "name": "Stink Lung",
+    "desc": "organ",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 200,
+    "name": "Stomach of Spidi",
+    "desc": "organ. Consume: archive this card to gain +1 Hunt XP",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 201,
+    "name": "Stone Arm",
+    "desc": "item, stone, heavy. Block 1, Ignore 1 dismembered arm permanent injury.",
+    "obtained": "The Messenger of Humanity encounter",
+    "material": "non-craftable"
+  },
+  {
+    "#": 202,
+    "name": "Stout Heart",
+    "desc": "organ",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 203,
+    "name": "Stout Hide",
+    "desc": "hide",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 204,
+    "name": "Stout Kidney",
+    "desc": "organ",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 205,
+    "name": "Stout Vertebrae",
+    "desc": "bone",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 206,
+    "name": "Sun Lure and Hook",
+    "desc": "When you depart, gain +1 survival. After Hunt Phase setup, place the Sky Fishing event on any hunt space.",
+    "obtained": "Skyreef Sanctuary",
+    "material": "1x sunshark blubber, 1x scrap"
+  },
+  {
+    "#": 207,
+    "name": "Sun Vestments",
+    "desc": "item, silk, flammable. Ignore Cumbersome. 2x 1-aff-red = When you have any +1 strength tokens, increase the range of your Perfect Hits by 1.",
+    "obtained": "Sacred Pool",
+    "material": "6x hide, 1x golden whiskers, 2x pustules"
+  },
+  {
+    "#": 208,
+    "name": "Sunshark Blubber",
+    "desc": "organ",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 209,
+    "name": "Sunshark Bone",
+    "desc": "bone",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 210,
+    "name": "Sunshark Fin",
+    "desc": "bone,hide",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 211,
+    "name": "Sunspot Lantern",
+    "desc": "+1 Accuracy. You cast a 1-space shadow directly away from the monster. If the shadow could be cast in 2 spaces, decide which space has it until you move.",
+    "obtained": "Skyreef Sanctuary",
+    "material": "2x sunstones, 1x scrap, 1x salt"
+  },
+  {
+    "#": 212,
+    "name": "Sunstones",
+    "desc": "bone.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 213,
+    "name": "Sword Beetle",
+    "desc": "vermin, consumable resource. Consume - archive and d10. 1-3 you die/4-5 no effect/6+ gain permanent +1 strength.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 214,
+    "name": "The Beetle Bomb",
+    "desc": "item,thrown,fragile. Spend action: If adjacent to the monster, roll 1d10. On 6+, the monster gains -1 accuracy and -1 evasion tokens. Limit, once per showdown.",
+    "obtained": "Wet Resin Crafter",
+    "material": "Vampiric artichoke (reqd), 2x scarab shell, 2x preserved caustic dung, 5x resources"
+  },
+  {
+    "#": 215,
+    "name": "The Knowledge Worm",
+    "desc": "other. At the start of each settlement phase, add 1 scrap to settlement storage. Departing survivors gain +3 survival and +3 insanity. If any of those survivors have 10+ insanity, perform story event A Gracious Host (Lion God).",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 216,
+    "name": "Thick Web Silk",
+    "desc": "silk, hide.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 217,
+    "name": "Tool Belt",
+    "desc": "item, metal, fragile. If you have no weapons in your gear grid, gain +3 evasion. Tools in your gear grid lose frail. Tools with attack profiles gain +1 speed, +3 accuracy, and sharp.",
+    "obtained": "Tools of War event",
+    "material": "Kill Manhunter."
+  },
+  {
+    "#": 218,
+    "name": "Trash Crown",
+    "desc": "jewelry,fragile,other. Armor 4 on head. Spend action to reveal the next 4 hit location cards and discard up to 3 that are not traps. Place remaining cards on top of deck in any order.",
+    "obtained": "Black Harvest event",
+    "material": "Dung Beetle Knight"
+  },
+  {
+    "#": 219,
+    "name": "Triptych",
+    "desc": "hide,scrap. When you gain this, gain +3 insanity. scrap. During the settlement phase, you may archive this to perform story event Death Reading (Lion God).",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 220,
+    "name": "Underplate Fungus",
+    "desc": "herb,hide,consumable",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 221,
+    "name": "Unlaid Eggs",
+    "desc": "organ, consumable. During settlement phase, you may consume and archive these delicious eggs to gain 10 survival.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 222,
+    "name": "Venom Sac",
+    "desc": "organ, consumable. Consume: Archive this card and roll 1d10. On 1-5, you die instantly. On 6+, gain Death Touch secret fighting art.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 223,
+    "name": "Vespertine Cello",
+    "desc": "item,instrument,noisy,other. At start of showdown, all other survivors with an instrument in their gear grid gain +1 luck token.",
+    "obtained": "Sense Memory (kill Flower Knight)",
+    "material": "1x lantern bud, 2x flowers"
+  },
+  {
+    "#": 224,
+    "name": "Vespertine Satchel",
+    "desc": "item, heavy, stinky. You may depart with one resource card. If that resource if Perishable, it is not destroyed.",
+    "obtained": "Sense Memory (kill Flower Knight)",
+    "material": "1x lantern bloom, 1x leather"
+  },
+  {
+    "#": 225,
+    "name": "Vibrant Lantern",
+    "desc": "+1 Accuracy. You may archive this to gain 1 Broken Lantern basic resource and 1 survival.",
+    "obtained": "Lantern Hoard",
+    "material": "3x broken lantern"
+  },
+  {
+    "#": 226,
+    "name": "Warbling Bloom",
+    "desc": "flower,hide. Perishable. You may plant this during the settlement phase to archive it and gain +1 population. The survivor is born with the Flower Addiction disorder and a face just like the Warbling Bloom's.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 227,
+    "name": "Web Silk",
+    "desc": "silk.",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 228,
+    "name": "Whisker Harp",
+    "desc": "Spend action to roll 1d10 to strum. On 7+ (3+ vs white lion), discard 1 mood currently in play.",
+    "obtained": "Catarium",
+    "material": "1x golden whiskers, 1x bone"
+  },
+  {
+    "#": 229,
+    "name": "White Fur",
+    "desc": "hide resource",
+    "obtained": "",
+    "material": ""
+  },
+  {
+    "#": 230,
+    "name": "Wisdom Potion",
+    "desc": "item,consumable,other. 1x 1-aff-blue = Play the entire showdown with the top card of the hit location deck revealed.",
+    "obtained": "Gormchymist",
+    "material": "2x organs and random roll"
+  },
+  {
+    "#": 231,
+    "name": "Wishbone",
+    "desc": "bone resource",
+    "obtained": "",
+    "material": ""
+  }
+]

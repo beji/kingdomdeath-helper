@@ -1,0 +1,123 @@
+** Note: If any armor has the "outfit" keyword in the description, it may be used to complete any set of armor (e.g. by replacing whatever armor would have been in the spot being used). 
+Dancer Armor (3 armor/location override. Free use of Tumble fighting art while wearing it. At end of your act, gain 1 full move and spend it immediately):
+Phoenix Helm If insane at the start of the showdown, gain + 1 evasion token
+Screaming Bracers When you slam. you may pass through other survivors without causing collision (you cannot end movement in a survivor-occupied space).
+Rawhide Vest 1x 0.5-aff-blue/1x 0.5-aff-red = +1 evasion
+Leather Skirt No specials.
+Leather Boots 2x 0.5-aff-green = At the end of your act, you may move l space.
+
+Brawler Armor (4 armor/location override. Skull helm cannot be destroyed. +2 accuracy when attacking with Fist & Tooth. When you are knocked down, gain +1 strength token):
+Skull Helm No specials in this set.
+White Lion Gauntlets When you Pounce, gain +1 accuracy for your next attack this turn.
+Lion Skin Cloak Reduce damage from every hit suffered by 1, to a minimum of 1.
+Phoenix Faulds When you depart. gain +1 insanity.
+Phoenix Greaves If insane, gain +2 movement
+
+Warlord Armor (5 armor/location override. +1 speed and +1 luck when attacking with axes. When you critically wound, all other non-deaf survivors gain +1 survival and +2 strength until the end of the round):
+Screaming Horns Spend action to Scream. Non-deaf insane survivors gain + 1 movement until end of round. All other survivors gain +1 insanity.
+Leather Bracers When you depart, gain +2 survival.
+Phoenix Plackart If insane, ignore the first hit each round and suffer l brain damage instead.
+Lantern Mail No specials.
+Lantern Greaves 2x 0.5-aff-red/1 0.5-aff-blue = +2 Movement.
+
+Phoenix/Lantern Set (no set bonus, but all pieces are metal):
+Phoenix Helm 4 armor. If insane at start of showdown, gain +1 evasion token
+Lantern Gauntlets 5 armor. +2 accuracy with club weapons
+Lantern Cuirass 5 armor. -2 movement. When you depart, add 3 armor to all hit locations with metal armor.
+Lantern Mail 5 armor. No specials.
+Phoenix Greaves 4 armor. If insane, gain +2 movement. (another option is to use Lantern Greaves if the affinities work out)
+
+NOTE: Full lantern armor - all clubs in gear grid gain Sharp (+1d10 to each wound roll). Can skip your roll on the Overwhelming Darkness event if desired, or add 2 to each roll.
+Lantern Helm 5 armor. Ear Plugs - you are deaf. -1 accuracy.
+Lantern Gauntlets 5 armor. +2 accuracy with club weapons.
+Lantern Cuirass 5 armor. -2 movement. When you depart, add 3 armor to all hit locations with metal armor.
+Lantern Mail 5 armor. No specials.
+Lantern Greaves 5 armor. +2 movement.
+
+Cycloid Scale Armor Set - add 1 to all hit locations. Prismatic: Your complete affinities and incomplete affinity halves count as all colors.
+Cycloid Scale Hood 2 armor. Whenever you spend movement, the scales' color shift. Gain +1 evasion until your next act.
+Cycloid Scale Jacket 2 armor. When you spend movement, you Shadow Walk and may move through occupied spaces without causing collision. 1x 0.5-aff-blue / 2x 1-aff-red = +1 accuracy
+Cycloid Scale Shoes 2 armor. 1x 0.5-aff-blue / 1x 0.5-aff-green = Spend movement: You are not a threat until you attack. If you have the priority target token, gain 2 survival and remove it.
+Cycloid Scale Skirt 2 armor. 1x 0.5-aff-green / 3x 1-aff-blue = When you depart, gain survival equal to the number of blue affinities you have.
+Cycloid Scale Sleeves 2 armor. When you Shadow Walk and attack a monster from its blind spot, your weapon gains +1 accuracy and Sharp for that attack.
+
+Rolling Armor - add 2 to all hit locations. When you would be knocked down, instead suffer knockback 5. Limit 1x/round.
+Century or Calcified Shoulder Pads 1 armor to all locations (or 3 armor to all locations). Ripple Pattern: When you are attacked, roll 1d10. On a 10+, ignore 1 hit.
+Century or Calcified Greaves Add 1 (or 3) armor to all locations. 1x 1-aff-blue = Add +1 (or +2) to Ripple Pattern roll results. 
+Rubber Bone Harness Once per showdown, you may convert all of your negative attribute tokens to positive tokens of the same type.
+Scarab Circlet Add 1 to all hit locations. During the showdown, when your survival is reduced to 0, gain +1 strength token.
+Rainbow Wing Belt 2x 1-aff-red / 1x 1-aff-blue / 1x 1-aff-green = When any of your attack rolls are 1, you may reroll them. Limit, once per attack.
+
+Gorment Armor - add 1 to all hit locations. When you suffer more than one severe injury from an attack, ignore the second severe injury.
+Gorment Boots 2 armor. Other survivors may move through but not end movement in a space you occupy.
+Gorment Mask 2 armor. 1x 0.5-aff-blue / 1x 0.5-aff-green = If your courage is higher than the monster level, ignore Intimidate actions.
+Gorment Sleeves 2 armor. 2x 1-aff-green = You may Guard without spending survival (see Gorment Suit for Guard).
+Gorment Suit 2 armor in both chest and waist. 1x 1-aff-blue / 1x 0.5-aff-green / 1x 1-aff-green = Guard: at the end of your attack, if you are standing and have a shield, spend 1 survival to move 3 spaces directly away from monster and Block 1 for free.
+Regeneration Suit (not required for suit, but if added to the above, add another 1 armor to all locations) 2x 1-aff-green / 1x 0.5-aff-green = At the end of the showdown, remove any permanent injuries you suffered this showdown.
+
+Green Armor - add 5 to all hit locations. Knight's Charge: spend move and an action to full move in a straight line. At the end of the
+movement, activate Griswaldo and attack. If you moved more than 5 spaces, this attack gains Devastating 2.
+Green Boots 5 armor. You may use the Tumble fighting art (even if you don't know it). You successfully tumble on 2+ instead of 6+.
+Green Faulds 5 armor. +1 evasion. After drawing hit locations from an attack, you may discard First Strike hit location card.
+Green Gloves 5 armor. +2 strength. +6 luck when attempting to wound Parry locations.
+Green Helm 5 armor. +1 luck. When a monster attacks you, you may elect to take a hit on the head and roll 1d10. On 6+, ignore the hit. 
+If adjacent, monster suffers 1 wound.
+Green Plate 5 armor. At the start of the showdown, draw 3 tactics cards. When you attack, the extra weight grants leverage. Your weapon 
+gains the club keyword.
+
+Rawhide Armor - add 1 to all hit locations. When you perform a survival action roll 1d10. On a result of 6+, gain +1 survival.
+Rawhide Boots 1 armor. When you depart, gain +1 survival.
+Rawhide Gloves 1 armor. When you depart, gain +1 survival.
+Rawhide Headband 1 armor. 0.5-aff-blue = spend action to reveal the top 2 AI cards. Place them back on top in any order.
+Pirahna Helm may be used instead of Rawhide Headband. 2 armor. You may spend survival while Frenzied.
+Rawhide Pants 1 armor.
+Rawhide Vest 1 armor. 0.5-aff-blue/0.5-aff-red = +1 evasion
+
+Phoenix Armor - add 1 to all hit locations. Charge: Spend move+action, full move in a straight line. At the end of the movement, 
+activate a melee weapon, and attack. Add the number of spaces you moved to your strength for this attack.
+Phoenix Faulds 4 armor. When you depart, gain +1 insanity.
+Phoenix Gauntlet 4 armor. When you depart, gain +1 insanity.
+Phoenix Greaves 4 armor. If insane, gain +2 movement
+Phoenix Helm 4 armor. 0.5-aff-blue/1-aff-green/1-aff-red = if insane at start of showdown, gain +1 evasion token.
+Phoenix Plackart 4 armor. 0.5-aff-green/0.5-aff-blue/0.5-aff-red = if insane, ignore the first hit each round and suffer 1 brain damage instead.
+
+Screaming Armor - when you depart, if insane, add 2 armor to all locations. After you Slam, you may move 1 space
+and gain +2 strength until end of turn.
+Scream Leg Warmers 2 armor. When you depart, gain +1 insanity.
+Screaming Bracers 2 armor. When you Slam, you may pass through other survivors without causing collision.
+Screaming Coat 2 armor. Slam: Spend move to move forward in a straight line. If you move 4+ and stop adjacent to monster, then move it back 1 space.
+It gains -1 toughness until end of round.
+Screaming Horns 3 armor. Spend action to Scream: non-deaf insane survivors gain +1 movement until end of round. All other survivors gain +1 insanity.
+Screaming Skirt 2 armor.
+
+Leather Armor - add 1 to all hit locations. You ignore Bash.
+Leather Boots 3 armor. 2x 0.5-aff-green = at end of your act, you may move 1 space.
+Leather Bracers 3 armor. When you depart, gain +2 survival.
+Leather Cuirass 3 armor.
+Leather Mask 3 armor. When you depart, gain +2 insanity.
+Scout's Tunic may replace both Leather Cuirass & Leather Mask in set. 2 armor (both head and chest).
+Leather Skirt 3 armor. 
+
+White Lion Armor - add 1 to all hit locations. Your weapons are your claws! Gain +1 speed and +2 strength when
+attacking with daggers or katars.
+White Lion Boots 2 armor. 2x 0.5-aff-red = +1 movement
+White Lion Coat 2 armor. Pounce: spend move+action to move 3 spaces in straight line. If you moved 3 spaces, activate a melee weapon with +1 strength.
+White Lion Gauntlet 2 armor. When you Pounce, gain +1 accuracy for your next attack (all rolls).
+White Lion Helm 2 armor. Spend action and 1 survival to Roar: Non-deaf insane survivors gain +2 strength until end of round. All other survivors gain +1 insanity.
+White Lion Mask 2 armor. Unique, Irreplaceable, Accessory (not armor). 2x 1-aff-green = spend action to lose all your survival and gain that many +1 strength tokens.
+
+Silk Armor - add 1 to all hit locations. Whenever you are attacked, after hit locations are rolled, 
+you may change 1 hit location die to the result of your choice.
+Silk Boots 3 armor. 2x 0.5-aff-green = +1 movement. Once per round, you may spend 1 survival to gain 2 insanity.
+Silk Robes 3 armor. When you depart, gain 1 survival. 2x 0.5-aff-red / 1x 0.5-aff-blue = Spend action to add 1 to all hit locations. Use 1x/showdown.
+Silk Sash 3 armor. When you depart, gain 1 survival. 2x 0.5-aff-green = Spend action to add 1 to all hit locations. Use once per showdown.
+Silk Turban 3 armor. 1x 0.5-aff-green / 1x 0.5-aff-blue = Spend action to turn the monster to face away from you. Use only during the survivor's turn.
+Silk Wraps 3 armor. 
+
+Dragon Armor - Add 1 armor to all hit locations. Leap: Spend 1 move and 1 activation. You leap into the air! Place your survivor on an unoccupied 
+space exactly 5 spaces away in a straight line, then activate a melee weapon and attack with +2 accuracy and +5 strength.
+Dragon Belt 4 armor. You are not knocked down from suffering a heavy injury.
+Dragon Boots 4 armor. Gain +2 movement during your act.
+Dragon Gloves 4 armor. 
+Dragon Mantle 4 armor. At the start of the showdown, you beat your chest mightily and gain survival up to the survival limit.
+Dragonskull Helm 4 armor. Gain +1 to all severe heady injury roll results. Ignore shattered jaw severe injury result.
