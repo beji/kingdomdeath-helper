@@ -79,7 +79,7 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
             <StatLayer>
                 <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {label}</StatLayerHeadline>
                 <StatEdit>
-                    <Label>Stat</Label><NumberEdit value={armor} innerRef={this.setupArmorRef}/>
+                    <Label>Stat</Label><NumberEdit value={armor} innerRef={this.setupArmorRef} />
                 </StatEdit>
                 <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
             </StatLayer>

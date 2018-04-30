@@ -150,7 +150,7 @@ class GearCard extends React.Component<IGearCardProps> {
     }
 
     private renderAffinity(item: IItem) {
-        const {affinity} = item;
+        const { affinity } = item;
         const directions: string[] = ["top", "left", "bottom", "right"];
         if (affinity) {
             return (
