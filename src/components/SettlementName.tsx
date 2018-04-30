@@ -1,5 +1,5 @@
 import React from "react";
-import { Component, SyntheticEvent } from "react";
+import { Component } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
@@ -27,7 +27,7 @@ const StyledName = styled.div`
 
 interface ISettlementNameProps extends ISettlementNameDispatchProps, ISettlementNameStateProps { }
 
-const mapStateToProps = (state: ISettlement, ownProps: ISettlementNameStateProps): ISettlementNameStateProps => {
+const mapStateToProps = (state: ISettlement): ISettlementNameStateProps => {
     return {
         name: state.name,
     };
