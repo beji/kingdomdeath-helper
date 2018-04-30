@@ -58,6 +58,8 @@ interface IItem {
     readonly desc: string;
     readonly types?: ReadonlyArray<ItemType>;
     readonly stats?: ReadonlyArray<IItemStat>;
+    readonly obtained?: string;
+    readonly material?: string; // maybe later: ReadonlyArray<{ materialType: sting, amount: number }>
     readonly affinity?: {
         readonly [key: string]: Affinity | any;
         readonly top?: Affinity;
