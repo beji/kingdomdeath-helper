@@ -29,7 +29,7 @@ enum DefenseStats {
     survival,
 }
 
-interface IHitLocation {
+interface IDefenseStat {
     readonly [key: string]: ID | string | number | boolean;
     readonly armor: number;
     readonly modifier: number;
@@ -41,7 +41,7 @@ interface IHitLocation {
     readonly stat: DefenseStats;
 }
 
-interface ISurvivorBaseStat {
+interface IBaseStat {
     readonly [key: string]: number | string;
     readonly gear: number;
     readonly permanent: number;
@@ -57,8 +57,8 @@ interface ISurvivor {
     readonly gender: Gender;
     readonly hunting: boolean;
     readonly alive: boolean;
-    readonly baseStats: ReadonlyArray<ISurvivorBaseStat>;
-    readonly defenseStats: ReadonlyArray<IHitLocation>;
+    readonly baseStats: ReadonlyArray<IBaseStat>;
+    readonly defenseStats: ReadonlyArray<IDefenseStat>;
 }
 
-export { BaseStats, DefenseStats, Gender, IHitLocation, ISurvivor, ISurvivorBaseStat, StatType };
+export { BaseStats, DefenseStats, Gender, IDefenseStat, ISurvivor, IBaseStat, StatType };

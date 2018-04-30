@@ -22,7 +22,7 @@ const enum ItemType {
 }
 
 const enum Item {
-    rawhide_gloves,
+    rawhide_gloves = 1, // starting at 0 renders no card for rawhide_gloves
     rawhide_vest,
     rawhide_headband,
     rawhide_pants,
@@ -41,6 +41,15 @@ interface IGearGrid {
 interface IGridSlot {
     readonly content?: Item;
     readonly id: ID;
+    readonly affinityActive: boolean;
+    readonly setActive: boolean;
+}
+
+interface IItemStat {
+    readonly amount: number;
+    readonly showOnCard: boolean;
+    readonly type: StatType;
+    readonly stat: DefenseStats | BaseStats;
 }
 
 interface IItem {
@@ -48,12 +57,7 @@ interface IItem {
     readonly name: string;
     readonly desc: string;
     readonly types?: ReadonlyArray<ItemType>;
-    readonly stats?: ReadonlyArray<{
-        readonly amount: number;
-        readonly showOnCard: boolean;
-        readonly type: StatType;
-        readonly stat: DefenseStats | BaseStats;
-    }>;
+    readonly stats?: ReadonlyArray<IItemStat>;
     readonly affinity?: {
         readonly [key: string]: Affinity | any;
         readonly top?: Affinity;
@@ -64,11 +68,13 @@ interface IItem {
             readonly desc: string;
             readonly affOwn?: ReadonlyArray<Affinity>;
             readonly affGrid?: ReadonlyArray<Affinity>;
+            readonly stats?: ReadonlyArray<IItemStat>;
         }
     };
     readonly set?: {
         readonly bonus?: {
             readonly desc: string;
+            readonly stats?: ReadonlyArray<IItemStat>;
         };
     };
 }

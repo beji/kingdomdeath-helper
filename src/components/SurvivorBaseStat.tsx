@@ -2,37 +2,37 @@ import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { updateSurvivorStat } from "../actions/survivorActions";
-import { ID, IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
+import { IBaseStat, ID, IDefenseStat, ISettlement, ISurvivor } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { baseStatToString, clone } from "../util";
 import FancyButton from "./FancyButton";
 import NumberEdit from "./NumberEdit";
 import { Label, StatEdit, StatElement, StatLayer, StatLayerHeadline, StatWrapper } from "./SurvivorStatElements";
 
-interface ISurvivorBaseStatStateProps {
+interface IBaseStatStateProps {
     survivor?: ISurvivor;
 }
 
-interface ISurvivorBaseStatDispatchProps {
-    updateSurvivorStat: (stat: ISurvivorBaseStat | IHitLocation, survivorId: ID) => UpdateSurvivorStatAction;
+interface IBaseStatDispatchProps {
+    updateSurvivorStat: (stat: IBaseStat | IDefenseStat, survivorId: ID) => UpdateSurvivorStatAction;
 }
 
-interface ISurvivorBaseStatOwnProps {
+interface IBaseStatOwnProps {
     id: ID;
-    stat: ISurvivorBaseStat;
+    stat: IBaseStat;
 }
 
-interface ISurvivorBaseStatProps extends ISurvivorBaseStatStateProps, ISurvivorBaseStatDispatchProps, ISurvivorBaseStatOwnProps { }
+interface IBaseStatProps extends IBaseStatStateProps, IBaseStatDispatchProps, IBaseStatOwnProps { }
 
-interface ISurvivorBaseStatState {
+interface IBaseStatState {
     editSurvivorStat: boolean;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction>): ISurvivorBaseStatDispatchProps => ({
-    updateSurvivorStat: (stat: ISurvivorBaseStat | IHitLocation, survivorId: ID) => dispatch(updateSurvivorStat(stat, survivorId)),
+const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction>): IBaseStatDispatchProps => ({
+    updateSurvivorStat: (stat: IBaseStat | IDefenseStat, survivorId: ID) => dispatch(updateSurvivorStat(stat, survivorId)),
 });
 
-const mapStateToProps = (state: ISettlement, ownProps: ISurvivorBaseStatOwnProps): ISurvivorBaseStatStateProps => {
+const mapStateToProps = (state: ISettlement, ownProps: IBaseStatOwnProps): IBaseStatStateProps => {
     const survivor = state.survivors.find((v) => v.id === ownProps.id);
 
     return {
@@ -40,13 +40,13 @@ const mapStateToProps = (state: ISettlement, ownProps: ISurvivorBaseStatOwnProps
     };
 };
 
-class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivorBaseStatState> {
+class SurvivorBaseStat extends React.Component<IBaseStatProps, IBaseStatState> {
 
     private permfield?: HTMLInputElement;
     private gearfield?: HTMLInputElement;
     private tokenfield?: HTMLInputElement;
 
-    public constructor(props: ISurvivorBaseStatProps) {
+    public constructor(props: IBaseStatProps) {
         super(props);
         this.state = {
             editSurvivorStat: false,

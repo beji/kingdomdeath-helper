@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions";
 import { killSurvivor, reviveSurvivor, updateSurvivor } from "../actions/survivorActions";
-import { ID, IGearGrid, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
+import { IBaseStat, ID, IGearGrid, ISettlement, ISurvivor } from "../interfaces";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
 import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
@@ -100,7 +100,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
         }
     }
 
-    private renderBaseStats(baseStats: ReadonlyArray<ISurvivorBaseStat>, id: ID) {
+    private renderBaseStats(baseStats: ReadonlyArray<IBaseStat>, id: ID) {
         return baseStats.map((basestat, idx) => {
             return (
                 <Cell key={idx}><SurvivorBaseStat id={id} stat={basestat} /></Cell>);

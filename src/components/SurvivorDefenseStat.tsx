@@ -2,7 +2,7 @@ import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { updateSurvivorStat } from "../actions/survivorActions";
-import { ID, IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
+import { IBaseStat, ID, IDefenseStat, ISettlement, ISurvivor } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { clone, defenseStatToString } from "../util";
 import FancyButton from "./FancyButton";
@@ -14,12 +14,12 @@ interface ISurvivorDefenseStatStatStateProps {
 }
 
 interface ISurvivorDefenseStatDispatchProps {
-    updateSurvivorStat: (stat: ISurvivorBaseStat | IHitLocation, survivorId: ID) => UpdateSurvivorStatAction;
+    updateSurvivorStat: (stat: IBaseStat | IDefenseStat, survivorId: ID) => UpdateSurvivorStatAction;
 }
 
 interface ISurvivorDefenseStatOwnProps {
     id: ID;
-    stat: IHitLocation;
+    stat: IDefenseStat;
 }
 
 interface ISurvivorDefenceStatState {
@@ -29,7 +29,7 @@ interface ISurvivorDefenceStatState {
 interface ISurvivorDefenseStatProps extends ISurvivorDefenseStatStatStateProps, ISurvivorDefenseStatOwnProps, ISurvivorDefenseStatDispatchProps { }
 
 const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction>): ISurvivorDefenseStatDispatchProps => ({
-    updateSurvivorStat: (stat: ISurvivorBaseStat | IHitLocation, survivorId: ID) => dispatch(updateSurvivorStat(stat, survivorId)),
+    updateSurvivorStat: (stat: IBaseStat | IDefenseStat, survivorId: ID) => dispatch(updateSurvivorStat(stat, survivorId)),
 });
 
 const mapStateToProps = (state: ISettlement, ownProps: ISurvivorDefenseStatOwnProps): ISurvivorDefenseStatStatStateProps => {

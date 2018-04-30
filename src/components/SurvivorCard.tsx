@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateSurvivor } from "../actions/survivorActions";
-import { DefenseStats, ID, IHitLocation, ISettlement, ISurvivor } from "../interfaces";
+import { DefenseStats, ID, ISettlement, ISurvivor } from "../interfaces";
 import { UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { baseStatToString, clone, defenseStatToString } from "../util";
 import GenderEdit from "./GenderEdit";
@@ -95,10 +95,10 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
     }
 
     public render() {
-        const { survivor, firstnameEdit } = this.props;
+        const { survivor } = this.props;
         const sortedDefenceStats = ["brain", "head", "arms", "body", "waist", "legs"];
         if (survivor) {
-            const { name, id, gender, baseStats, defenseStats } = survivor;
+            const { name, id, defenseStats } = survivor;
             const survival = defenseStats.find((stat) => stat.stat === DefenseStats.survival);
             return (
                 <StyledCard>

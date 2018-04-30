@@ -1,7 +1,7 @@
 import { Reducer } from "redux";
 import { removeFromHunt, updateSurvivor } from "../actions";
 import initialState, { DEFAULT_SURVIVOR_NAME } from "../initialstate";
-import { DefenseStats, IGearGrid, IHitLocation, IItem, ISettlement, ISurvivor, ISurvivorBaseStat, StatType } from "../interfaces";
+import { DefenseStats, IBaseStat, IDefenseStat, IGearGrid, IItem, ISettlement, ISurvivor, StatType } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
@@ -290,7 +290,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                         return {
                             ...defensestat,
                             armor: gearAmount,
-                        } as IHitLocation;
+                        } as IDefenseStat;
                     });
                     const newSurvivor = {
                         ...survivor,

@@ -1,9 +1,9 @@
 import uuid from "uuid/v4";
-import { Affinity, BaseStats, DefenseStats, Gender, ID, IGearGrid, IHitLocation, IItem, ISettlement, ISurvivor, ISurvivorBaseStat, Item, ItemType, StatType } from "./interfaces";
+import { Affinity, BaseStats, DefenseStats, Gender, IBaseStat, ID, IDefenseStat, IGearGrid, IItem, ISettlement, ISurvivor, Item, ItemType, StatType } from "./interfaces";
 
 export const DEFAULT_SURVIVOR_NAME = "Rename me to get +1 Survival";
 
-const getSurvivorBaseStat = (stat: BaseStats): ISurvivorBaseStat => ({
+const getSurvivorBaseStat = (stat: BaseStats): IBaseStat => ({
     gear: 0,
     permanent: 0,
     stat,
@@ -11,7 +11,7 @@ const getSurvivorBaseStat = (stat: BaseStats): ISurvivorBaseStat => ({
     type: StatType.base,
 });
 
-const getBaseStats = (): ISurvivorBaseStat[] => ([
+const getBaseStats = (): IBaseStat[] => ([
     getSurvivorBaseStat(BaseStats.accuracy),
     getSurvivorBaseStat(BaseStats.evasion),
     getSurvivorBaseStat(BaseStats.luck),
@@ -20,7 +20,7 @@ const getBaseStats = (): ISurvivorBaseStat[] => ([
     getSurvivorBaseStat(BaseStats.strength),
 ]);
 
-const getHitLocation = (stat: DefenseStats, onlyHeavyWound: boolean, noWounds: boolean = false): IHitLocation => ({
+const getHitLocation = (stat: DefenseStats, onlyHeavyWound: boolean, noWounds: boolean = false): IDefenseStat => ({
     armor: 0,
     heavyWound: false,
     lightWound: false,
@@ -31,7 +31,7 @@ const getHitLocation = (stat: DefenseStats, onlyHeavyWound: boolean, noWounds: b
     type: StatType.defense,
 });
 
-const getDefense = (): IHitLocation[] => ([
+const getDefense = (): IDefenseStat[] => ([
     getHitLocation(DefenseStats.arms, false),
     getHitLocation(DefenseStats.body, false),
     getHitLocation(DefenseStats.brain, true),
