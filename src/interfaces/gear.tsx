@@ -52,14 +52,21 @@ interface IItemStat {
     readonly stat: DefenseStats | BaseStats;
 }
 
+interface IWeapon {
+    readonly speed: number;
+    readonly accuracy: number;
+    readonly strength: number;
+}
+
 interface IItem {
     readonly id: Item;
     readonly name: string;
     readonly desc: string;
-    readonly types?: ReadonlyArray<ItemType>;
-    readonly stats?: ReadonlyArray<IItemStat>;
-    readonly obtained?: string;
     readonly material?: string; // maybe later: ReadonlyArray<{ materialType: sting, amount: number }>
+    readonly obtained?: string;
+    readonly stats?: ReadonlyArray<IItemStat>;
+    readonly types?: ReadonlyArray<ItemType>;
+    readonly weapon?: IWeapon;
     readonly affinity?: {
         readonly [key: string]: Affinity | any;
         readonly top?: Affinity;
