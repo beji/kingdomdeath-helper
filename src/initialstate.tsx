@@ -1,6 +1,5 @@
 import uuid from "uuid/v4";
-import { Affinity, Gender, ID, IGearGrid, IItem, ISettlement, ISurvivor, ISurvivorBaseStat, Item, ItemType, StatType } from "./interfaces";
-import { BaseStats, DefenseStats, IHitLocation } from "./interfaces/survivor";
+import { Affinity, BaseStats, DefenseStats, Gender, ID, IGearGrid, IHitLocation, IItem, ISettlement, ISurvivor, ISurvivorBaseStat, Item, ItemType, StatType } from "./interfaces";
 
 export const DEFAULT_SURVIVOR_NAME = "Rename me to get +1 Survival";
 

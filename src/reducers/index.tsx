@@ -275,18 +275,18 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     const defenseStats = survivor.defenseStats.map((defensestat) => {
 
                         const gearAmount = slots.filter((slot) => slot.content).map((slot) => items.find((itm) => itm.id === slot.content) as IItem)
-                        .map((item) => {
-                            if (item.stats) {
-                                return item.stats
-                                .filter((stat) => stat.stat === defensestat.stat)
-                                .map((stat) => stat.amount)
-                                .reduce((acc: number, stat) => {
-                                    return acc + stat;
-                                }, 0);
-                            }
-                            return 0;
-                        })
-                        .reduce((acc, stat) => (acc + stat), 0);
+                            .map((item) => {
+                                if (item.stats) {
+                                    return item.stats
+                                        .filter((stat) => stat.stat === defensestat.stat)
+                                        .map((stat) => stat.amount)
+                                        .reduce((acc: number, stat) => {
+                                            return acc + stat;
+                                        }, 0);
+                                }
+                                return 0;
+                            })
+                            .reduce((acc, stat) => (acc + stat), 0);
                         return {
                             ...defensestat,
                             armor: gearAmount,
