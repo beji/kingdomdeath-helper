@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { updateSurvivor } from "../actions/survivorActions";
 import { DefenseStats, ID, IHitLocation, ISettlement, ISurvivor } from "../interfaces";
 import { UpdateSurvivorAction } from "../interfaces/survivorActions";
-import { clone } from "../util";
+import { clone, genderToString } from "../util";
 import NameEdit from "./NameEdit";
 import SurvivorBaseStat from "./SurvivorBaseStat";
 import SurvivorDefenseStat from "./SurvivorDefenseStat";
@@ -110,7 +110,7 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
                         </section>
                         <section>
                             <Label>Gender</Label>
-                            {gender}
+                            {genderToString(gender)}
                         </section>
                         <section>
                             <SurvivorStat><StatLabel>{defenseStats.survival.label}</StatLabel><SurvivorDefenseStat id={id} stat={defenseStats.survival} /></SurvivorStat>

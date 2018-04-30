@@ -9,7 +9,7 @@ import { Gender, ID, IGearGrid, ISettlement } from "../interfaces";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
 import { ISurvivor } from "../interfaces/survivor";
 import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
-import { clone } from "../util";
+import { clone, genderToString } from "../util";
 import FancyButton from "./FancyButton";
 import NameEdit from "./NameEdit";
 import SurvivorBaseStat from "./SurvivorBaseStat";
@@ -99,7 +99,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
                     </Cell>
                     <Cell>
                         {editGender && this.renderGenderSelect()}
-                        {!editGender && <span onClick={this.handleGenderClick}>{gender}</span>}
+                        {!editGender && <span onClick={this.handleGenderClick}>{genderToString(gender)}</span>}
                     </Cell>
                     <Cell><SurvivorBaseStat id={id} stat={movement} /></Cell>
                     <Cell><SurvivorBaseStat id={id} stat={accuracy} /></Cell>
@@ -148,7 +148,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
 
     private handleGenderChange(e: SyntheticEvent<HTMLSelectElement>) {
         if (this.props.survivor) {
-            const newGender = e.currentTarget.value === "M" ? Gender.Male : Gender.Female;
+            const newGender = parseInt(e.currentTarget.value, 10) as Gender;
 
             this.props.updateSurvivor({
                 ...this.props.survivor,
@@ -164,9 +164,9 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
     private renderGenderSelect() {
         if (this.props.survivor) {
             return (
-                <select onChange={this.handleGenderChange} defaultValue={this.props.survivor.gender}>
-                    <option value={Gender.Male}>M</option>
-                    <option value={Gender.Female}>F</option>
+                <select onChange={this.handleGenderChange} defaultValue={this.props.survivor.gender.toString()}>
+                    <option value={Gender.male}>{genderToString(Gender.male)}</option>
+                    <option value={Gender.female}>{genderToString(Gender.female)}</option>
                 </select>);
         } else {
             return "";
