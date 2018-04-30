@@ -7,8 +7,11 @@ export const updateSurvivor = (survivor: ISurvivor): UpdateSurvivorAction => ({
     type: ActionTypes.UPDATE_SURVIVOR,
 });
 
-export const updateSurvivorStat = (Stat: ISurvivorBaseStat | IHitLocation): UpdateSurvivorStatAction => ({
-    payload: Stat,
+export const updateSurvivorStat = (stat: ISurvivorBaseStat | IHitLocation, survivorId: ID): UpdateSurvivorStatAction => ({
+    payload: {
+        stat,
+        survivorId,
+    },
     type: ActionTypes.UPDATE_SURVIVOR_STAT,
 });
 

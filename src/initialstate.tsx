@@ -1,15 +1,15 @@
 import uuid from "uuid/v4";
-import { Affinity, Gender, ID, IGearGrid, IItem, ISettlement, ISurvivor, ISurvivorBaseStat, Item, ItemType } from "./interfaces";
+import { Affinity, Gender, ID, IGearGrid, IItem, ISettlement, ISurvivor, ISurvivorBaseStat, Item, ItemType, StatType } from "./interfaces";
 import { BaseStats, DefenseStats, IBaseStats, IDefenseStats, IHitLocation } from "./interfaces/survivor";
 
 export const DEFAULT_SURVIVOR_NAME = "Rename me to get +1 Survival";
 
 const getSurvivorBaseStat = (label: BaseStats): ISurvivorBaseStat => ({
     gear: 0,
-    id: uuid(),
     label,
     permanent: 0,
     token: 0,
+    type: StatType.base,
 });
 
 const getBaseStats = (): IBaseStats => ({
@@ -24,11 +24,11 @@ const getBaseStats = (): IBaseStats => ({
 const getHitLocation = (label: DefenseStats, onlyHeavyWound: boolean, noWounds: boolean = false): IHitLocation => ({
     armor: 0,
     heavyWound: false,
-    id: uuid(),
     label,
     lightWound: false,
     noWounds,
     onlyHeavyWound,
+    type: StatType.defense,
 });
 
 const getDefense = (): IDefenseStats => ({

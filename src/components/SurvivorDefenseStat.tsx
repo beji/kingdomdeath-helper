@@ -15,7 +15,7 @@ interface ISurvivorDefenseStatStatStateProps {
 }
 
 interface ISurvivorDefenseStatDispatchProps {
-    updateSurvivorStat: (Stat: ISurvivorBaseStat | IHitLocation) => UpdateSurvivorStatAction;
+    updateSurvivorStat: (stat: ISurvivorBaseStat | IHitLocation, survivorId: ID) => UpdateSurvivorStatAction;
 }
 
 interface ISurvivorDefenseStatOwnProps {
@@ -30,7 +30,7 @@ interface ISurvivorDefenceStatState {
 interface ISurvivorDefenseStatProps extends ISurvivorDefenseStatStatStateProps, ISurvivorDefenseStatOwnProps, ISurvivorDefenseStatDispatchProps { }
 
 const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction>): ISurvivorDefenseStatDispatchProps => ({
-    updateSurvivorStat: (stat: ISurvivorBaseStat | IHitLocation) => dispatch(updateSurvivorStat(stat)),
+    updateSurvivorStat: (stat: ISurvivorBaseStat | IHitLocation, survivorId: ID) => dispatch(updateSurvivorStat(stat, survivorId)),
 });
 
 const mapStateToProps = (state: ISettlement, ownProps: ISurvivorDefenseStatOwnProps): ISurvivorDefenseStatStatStateProps => {
@@ -96,7 +96,9 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
                 ...this.props.stat,
                 [woundType]: !this.props.stat[woundType],
             };
-            this.props.updateSurvivorStat(newState);
+            if (this.props.survivor) {
+                this.props.updateSurvivorStat(newState, this.props.survivor.id);
+            }
         }
     }
 
@@ -112,8 +114,8 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
                 ...this.props.stat,
                 armor: parseInt(this.armorfield.value, 10),
             };
-            if (this.props) {
-                this.props.updateSurvivorStat(nextStat);
+            if (this.props.survivor) {
+                this.props.updateSurvivorStat(nextStat, this.props.survivor.id);
             }
         }
         this.setState({

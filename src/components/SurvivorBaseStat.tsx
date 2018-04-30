@@ -15,7 +15,7 @@ interface ISurvivorBaseStatStateProps {
 }
 
 interface ISurvivorBaseStatDispatchProps {
-    updateSurvivorStat: (Stat: ISurvivorBaseStat | IHitLocation) => UpdateSurvivorStatAction;
+    updateSurvivorStat: (stat: ISurvivorBaseStat | IHitLocation, survivorId: ID) => UpdateSurvivorStatAction;
 }
 
 interface ISurvivorBaseStatOwnProps {
@@ -30,7 +30,7 @@ interface ISurvivorBaseStatState {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction>): ISurvivorBaseStatDispatchProps => ({
-    updateSurvivorStat: (stat: ISurvivorBaseStat | IHitLocation) => dispatch(updateSurvivorStat(stat)),
+    updateSurvivorStat: (stat: ISurvivorBaseStat | IHitLocation, survivorId: ID) => dispatch(updateSurvivorStat(stat, survivorId)),
 });
 
 const mapStateToProps = (state: ISettlement, ownProps: ISurvivorBaseStatOwnProps): ISurvivorBaseStatStateProps => {
@@ -129,8 +129,8 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
                 permanent: parseInt(this.permfield.value, 10),
                 token: parseInt(this.tokenfield.value, 10),
             };
-            if (this.props) {
-                this.props.updateSurvivorStat(nextStat);
+            if (this.props && this.props.survivor) {
+                this.props.updateSurvivorStat(nextStat, this.props.survivor.id);
             }
         }
         this.setState({

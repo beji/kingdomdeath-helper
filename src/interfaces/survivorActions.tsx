@@ -5,7 +5,7 @@ import { IHitLocation, ISurvivor, ISurvivorBaseStat } from "./survivor";
 
 export type UpdateSurvivorAction = IAction<ActionTypes.UPDATE_SURVIVOR, ISurvivor>;
 
-export type UpdateSurvivorStatAction = IAction<ActionTypes.UPDATE_SURVIVOR_STAT, ISurvivorBaseStat | IHitLocation>;
+export type UpdateSurvivorStatAction = IAction<ActionTypes.UPDATE_SURVIVOR_STAT, { stat: ISurvivorBaseStat | IHitLocation, survivorId: ID }>;
 
 export type KillSurvivorAction = IAction<ActionTypes.KILL_SURVIVOR, ID>;
 

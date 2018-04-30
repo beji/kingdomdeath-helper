@@ -5,6 +5,11 @@ enum Gender {
     female,
 }
 
+enum StatType {
+    defense,
+    base,
+}
+
 enum BaseStats {
     accuracy = "Accuracy",
     evasion = "Evasion",
@@ -26,22 +31,24 @@ enum DefenseStats {
 
 interface IHitLocation {
     readonly [key: string]: ID | string | number | boolean;
-    readonly id: ID;
     readonly armor: number;
     readonly label: string;
     readonly onlyHeavyWound: boolean;
     readonly noWounds: boolean;
     readonly lightWound: boolean;
     readonly heavyWound: boolean;
+    readonly type: StatType.defense;
+    readonly stat: DefenseStats;
 }
 
 interface ISurvivorBaseStat {
     readonly [key: string]: number | string;
-    readonly id: ID;
     readonly gear: number;
     readonly label: string;
     readonly permanent: number;
     readonly token: number;
+    readonly type: StatType.base;
+    readonly stat: BaseStats;
 }
 
 interface IBaseStats {
@@ -76,4 +83,4 @@ interface ISurvivor {
     readonly defenseStats: IDefenseStats;
 }
 
-export { BaseStats, DefenseStats, Gender, IDefenseStats, IHitLocation, ISurvivor, IBaseStats, ISurvivorBaseStat };
+export { BaseStats, DefenseStats, Gender, IDefenseStats, IHitLocation, ISurvivor, IBaseStats, ISurvivorBaseStat, StatType };

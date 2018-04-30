@@ -192,11 +192,18 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                 const newStat = action.payload;
                 return generateWithUpdatedSurvivors(state, (survivor) => {
 
+                    const {stat, survivorId} = newStat;
                     // At this point the update could be for a baseStat or a hitLocation, we don't know yet
 
                     // We try to find a baseStat that maps to the given id
+                    const statType = stat.type;
+                    if (survivor.id === survivorId) {
+                        if (statType === StatType.base) {
+                            // FIXME: Hier weitermachen...
+                        }
+                    }
                     const statKeyForBaseStat = Object.keys(survivor.baseStats).find((statKey) => {
-                        return survivor.baseStats[statKey].id === newStat.id;
+                        return survivor.baseStats[statKey].type === stat.type;
                     });
                     // We found a baseStat, so this update is for a baseStat
                     if (statKeyForBaseStat) {
