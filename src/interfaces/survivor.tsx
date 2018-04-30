@@ -32,6 +32,7 @@ enum DefenseStats {
 interface IHitLocation {
     readonly [key: string]: ID | string | number | boolean;
     readonly armor: number;
+    readonly modifier: number;
     readonly onlyHeavyWound: boolean;
     readonly noWounds: boolean;
     readonly lightWound: boolean;

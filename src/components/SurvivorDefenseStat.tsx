@@ -4,7 +4,7 @@ import { Dispatch } from "redux";
 import { updateSurvivorStat } from "../actions/survivorActions";
 import { ID, IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
-import { clone } from "../util";
+import { clone, defenseStatToString } from "../util";
 import FancyButton from "./FancyButton";
 import NumberEdit from "./NumberEdit";
 import { HeavyWound, Label, LightWound, StatEdit, StatElement, StatLayer, StatLayerHeadline, StatWrapper } from "./SurvivorStatElements";
@@ -42,6 +42,7 @@ const mapStateToProps = (state: ISettlement, ownProps: ISurvivorDefenseStatOwnPr
 
 class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISurvivorDefenceStatState> {
     private armorfield?: HTMLInputElement;
+    private modifierfield?: HTMLInputElement;
 
     public constructor(props: ISurvivorDefenseStatProps) {
         super(props);
@@ -53,6 +54,7 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
         this.renderEditState = this.renderEditState.bind(this);
 
         this.setupArmorRef = this.setupArmorRef.bind(this);
+        this.setupModifierRef = this.setupModifierRef.bind(this);
     }
 
     public render() {
@@ -60,7 +62,7 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
         const { stat } = this.props;
         return (
             <StatWrapper>
-                <StatElement onClick={this.handleEditClick}>{stat.armor}</StatElement>
+                <StatElement onClick={this.handleEditClick}>{stat.armor + stat.modifier}</StatElement>
                 {!stat.noWounds && !stat.onlyHeavyWound && <LightWound onClick={this.toggleWound.bind(this, "lightWound")} className={stat.lightWound ? "active" : ""} />}
                 {!stat.noWounds && <HeavyWound onClick={this.toggleWound.bind(this, "heavyWound")} className={stat.heavyWound ? "active" : ""} />}
                 {editSurvivorStat && this.renderEditState()}
@@ -69,16 +71,23 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
     }
 
     private renderEditState() {
-        const { armor, label } = this.props.stat;
+        const { armor, stat, modifier } = this.props.stat;
         return (
             <StatLayer>
-                <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {label}</StatLayerHeadline>
+                <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {defenseStatToString(stat)}</StatLayerHeadline>
                 <StatEdit>
                     <Label>Stat</Label><NumberEdit value={armor} innerRef={this.setupArmorRef} />
+                </StatEdit>
+                <StatEdit>
+                    <Label>Modifier</Label><NumberEdit value={modifier} innerRef={this.setupModifierRef} />
                 </StatEdit>
                 <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
             </StatLayer>
         );
+    }
+
+    private setupModifierRef(elem: HTMLInputElement) {
+        this.modifierfield = elem;
     }
 
     private setupArmorRef(elem: HTMLInputElement) {
@@ -104,10 +113,11 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
     }
 
     private handleEditConfirm(e: SyntheticEvent<HTMLButtonElement>) {
-        if (this.armorfield) {
+        if (this.armorfield && this.modifierfield) {
             const nextStat = {
                 ...this.props.stat,
                 armor: parseInt(this.armorfield.value, 10),
+                modifier: parseInt(this.modifierfield.value, 10),
             };
             if (this.props.survivor) {
                 this.props.updateSurvivorStat(nextStat, this.props.survivor.id);
