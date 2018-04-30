@@ -303,15 +303,14 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                                                 ...survivor.defenseStats[statKey],
                                                 armor: survivor.defenseStats[statKey].armor + stat.amount,
                                             };
-                                        } else {
-                                            newStats[statKey] = survivor.defenseStats[statKey];
                                         }
                                     });
-                                } else {
-                                    newStats[statKey] = survivor.defenseStats[statKey];
                                 }
                             }
                         });
+                        if (!newStats[statKey]) {
+                            newStats[statKey] = survivor.defenseStats[statKey];
+                        }
                     });
 
                     const newSurvivor = {

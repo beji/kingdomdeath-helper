@@ -21,6 +21,17 @@ const enum ItemType {
     weapon = "weapon",
 }
 
+const enum Item {
+    rawhide_gloves,
+    rawhide_vest,
+    rawhide_headband,
+    rawhide_pants,
+    rawhide_boots,
+    bone_sword,
+    founding_stone,
+    cloth,
+}
+
 interface IGearGrid {
     readonly id: ID;
     readonly survivorId?: ID;
@@ -33,7 +44,7 @@ interface IGridSlot {
 }
 
 interface IItem {
-    readonly id: ID;
+    readonly id: Item;
     readonly name: string;
     readonly desc: string;
     readonly types?: ReadonlyArray<ItemType>;
@@ -61,4 +72,4 @@ interface IItem {
     };
 }
 
-export { Affinity, AffinityTypes, IGearGrid, IGridSlot, IItem, ItemType };
+export { Affinity, AffinityTypes, IGearGrid, IGridSlot, IItem, Item, ItemType };

@@ -1,6 +1,5 @@
 import uuid from "uuid/v4";
-import { Gender, ID, ISettlement, ISurvivor, ISurvivorBaseStat } from "./interfaces";
-import { Affinity, IGearGrid, IItem, ItemType } from "./interfaces/gear";
+import { Affinity, Gender, ID, IGearGrid, IItem, ISettlement, ISurvivor, ISurvivorBaseStat, Item, ItemType } from "./interfaces";
 import { BaseStats, DefenseStats, IBaseStats, IDefenseStats, IHitLocation } from "./interfaces/survivor";
 
 export const DEFAULT_SURVIVOR_NAME = "Rename me to get +1 Survival";
@@ -71,7 +70,7 @@ const geargrids: ReadonlyArray<IGearGrid> = Array.apply(null, { length: 4 }).map
 const items: ReadonlyArray<IItem> = [
     {
         desc: "Fancy Sword that breaks",
-        id: uuid(),
+        id: Item.bone_sword,
         name: "Bone Sword",
         types: [
             ItemType.weapon,
@@ -79,7 +78,7 @@ const items: ReadonlyArray<IItem> = [
     },
     {
         desc: "Survivor Lendenschurz",
-        id: uuid(),
+        id: Item.cloth,
         name: "Cloth",
         stats: [
             {
@@ -91,7 +90,7 @@ const items: ReadonlyArray<IItem> = [
     },
     {
         desc: "Throw to win",
-        id: uuid(),
+        id: Item.founding_stone,
         name: "Founding Stone",
     },
     {
@@ -99,7 +98,7 @@ const items: ReadonlyArray<IItem> = [
             bottom: Affinity.blue,
         },
         desc: "",
-        id: uuid(),
+        id: Item.rawhide_headband,
         name: "Rawhide Headband",
         stats: [
             {
@@ -127,13 +126,18 @@ const items: ReadonlyArray<IItem> = [
             top: Affinity.blue,
         },
         desc: "",
-        id: uuid(),
+        id: Item.rawhide_vest,
         name: "Rawhide Vest",
         stats: [
             {
                 amount: 1,
                 showOnCard: true,
                 type: DefenseStats.body,
+            },
+            {
+                amount: 1,
+                showOnCard: true,
+                type: DefenseStats.waist,
             },
         ],
         types: [
@@ -147,7 +151,7 @@ const items: ReadonlyArray<IItem> = [
             left: Affinity.red,
         },
         desc: "When you depart, gain +1 survival",
-        id: uuid(),
+        id: Item.rawhide_gloves,
         name: "Rawhide Gloves",
         stats: [
             {
@@ -164,7 +168,7 @@ const items: ReadonlyArray<IItem> = [
     },
     {
         desc: "",
-        id: uuid(),
+        id: Item.rawhide_pants,
         name: "Rawhide Pants",
         stats: [
             {
@@ -181,7 +185,7 @@ const items: ReadonlyArray<IItem> = [
     },
     {
         desc: "When you depart, gain +1 survival",
-        id: uuid(),
+        id: Item.rawhide_boots,
         name: "Rawhide Boots",
         stats: [
             {
