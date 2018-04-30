@@ -8,7 +8,7 @@ import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions
 import { ImportAction } from "../interfaces/importAction";
 import { SetNameAction } from "../interfaces/settlementActions";
 import { CreateSurvivorAction, KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorStatAction } from "../interfaces/survivorActions";
-import { clone } from "../util";
+import { clone, defenseStatToString } from "../util";
 
 type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | UpdateSurvivorAction | UpdateSurvivorStatAction | KillSurvivorAction | ReviveSurvivorAction | CreateSurvivorAction | UpdateGearGridAction;
 
@@ -266,66 +266,49 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         }
         // Updates geargrid with updated grid from payload
         case ActionTypes.UPDATE_GEARGRID: {
-            console.error("FIX UPDATE_GEARGRID!!!!!!!");
-            /*if (action.payload) {
+            if (action.payload) {
                 const { survivorId, slots } = action.payload;
                 const { geargrids, items, survivors } = state;
-                let baseState;
 
-                console.log("SURVIVOR", survivorId);
                 if (survivorId) {
                     const survivor = survivors.find((s) => s.id === survivorId) as ISurvivor;
-                    const newStats: any = {};
+                    const defenseStats = survivor.defenseStats.map((defensestat) => {
 
-                    // map survivor defenseStats
-                    Object.keys(survivor.defenseStats).map((statKey) => {
-                        // map slots from geargrid
-                        slots.map((slot) => {
-                            if (slot.content) {
-                                // find item in slot
-                                const item = items.find((itm) => itm.id === slot.content) as IItem;
-                                const { stats } = item;
-                                // map item stat to survivor
-                                if (stats) {
-                                    stats.map((stat: any) => {
-                                        console.log(statKey.toLowerCase(), stat.type, stat.type.toLowerCase() === statKey.toLowerCase()as DefenseStats);
-                                        if (stat.type.toLowerCase() === statKey) {
-                                            newStats[statKey] = {
-                                                ...survivor.defenseStats[statKey],
-                                                armor: survivor.defenseStats[statKey].armor + stat.amount,
-                                            };
-                                        }
-                                    });
-                                }
+                        const gearAmount = slots.filter((slot) => slot.content).map((slot) => items.find((itm) => itm.id === slot.content) as IItem)
+                        .map((item) => {
+                            if (item.stats) {
+                                return item.stats
+                                .filter((stat) => stat.stat === defensestat.stat)
+                                .map((stat) => stat.amount)
+                                .reduce((acc: number, stat) => {
+                                    return acc + stat;
+                                }, 0);
                             }
-                        });
-                        if (!newStats[statKey]) {
-                            newStats[statKey] = survivor.defenseStats[statKey];
-                        }
+                            return 0;
+                        })
+                        .reduce((acc, stat) => (acc + stat), 0);
+                        return {
+                            ...defensestat,
+                            armor: gearAmount,
+                        } as IHitLocation;
                     });
-
                     const newSurvivor = {
                         ...survivor,
-                        defenseStats: newStats,
+                        defenseStats,
                     };
-                    console.log("UPDATING SURVIVOR", newSurvivor);
-                    baseState = reducer(state, updateSurvivor(newSurvivor));
-                } else {
-                    baseState = state;
+
+                    const baseState = reducer(state, updateSurvivor(newSurvivor));
+                    return {
+                        ...baseState,
+                        geargrids: geargrids.map((grid) => {
+                            if (action.payload && grid.id === action.payload.id) {
+                                return action.payload;
+                            }
+                            return grid;
+                        }),
+                    };
                 }
-
-                const newState = {
-                    ...baseState,
-                    geargrids: geargrids.map((grid) => {
-                        if (action.payload && grid.id === action.payload.id) {
-                            return action.payload;
-                        }
-                        return grid;
-                    }),
-                };
-
-                return newState;
-            }*/
+            }
             return state;
         }
         default: return state;
