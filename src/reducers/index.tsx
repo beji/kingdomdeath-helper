@@ -1,7 +1,7 @@
 import { Reducer } from "redux";
-import { removeFromHunt } from "../actions";
+import { removeFromHunt, updateSurvivor } from "../actions";
 import initialState, { DEFAULT_SURVIVOR_NAME } from "../initialstate";
-import { IBaseStats, IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
+import { DefenseStats, IBaseStats, IGearGrid, IHitLocation, IItem, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
@@ -19,6 +19,10 @@ function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: IS
         survivors: updatedSurvivors,
     };
     return nextState;
+}
+
+function getCombinedArmorStats(grid: IGearGrid) {
+    return grid;
 }
 
 const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: Actions): ISettlement => {
@@ -273,10 +277,56 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         // Updates geargrid with updated grid from payload
         case ActionTypes.UPDATE_GEARGRID: {
             if (action.payload) {
+                const { survivorId, slots } = action.payload;
+                const { geargrids, items, survivors } = state;
+                let baseState;
+
+                console.log("SURVIVOR", survivorId);
+                if (survivorId) {
+                    const survivor = survivors.find((s) => s.id === survivorId) as ISurvivor;
+                    const newStats: any = {};
+
+                    // map survivor defenseStats
+                    Object.keys(survivor.defenseStats).map((statKey) => {
+                        // map slots from geargrid
+                        slots.map((slot) => {
+                            if (slot.content) {
+                                // find item in slot
+                                const item = items.find((itm) => itm.id === slot.content) as IItem;
+                                const { stats } = item;
+                                // map item stat to survivor
+                                if (stats) {
+                                    stats.map((stat: any) => {
+                                        console.log(statKey.toLowerCase(), stat.type, stat.type.toLowerCase() === statKey.toLowerCase()as DefenseStats);
+                                        if (stat.type.toLowerCase() === statKey) {
+                                            newStats[statKey] = {
+                                                ...survivor.defenseStats[statKey],
+                                                armor: survivor.defenseStats[statKey].armor + stat.amount,
+                                            };
+                                        } else {
+                                            newStats[statKey] = survivor.defenseStats[statKey];
+                                        }
+                                    });
+                                } else {
+                                    newStats[statKey] = survivor.defenseStats[statKey];
+                                }
+                            }
+                        });
+                    });
+
+                    const newSurvivor = {
+                        ...survivor,
+                        defenseStats: newStats,
+                    };
+                    console.log("UPDATING SURVIVOR", newSurvivor);
+                    baseState = reducer(state, updateSurvivor(newSurvivor));
+                } else {
+                    baseState = state;
+                }
 
                 const newState = {
-                    ...state,
-                    geargrids: state.geargrids.map((grid) => {
+                    ...baseState,
+                    geargrids: geargrids.map((grid) => {
                         if (action.payload && grid.id === action.payload.id) {
                             return action.payload;
                         }

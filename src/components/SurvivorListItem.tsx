@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions";
 import { killSurvivor, reviveSurvivor, updateSurvivor } from "../actions/survivorActions";
-import { Gender, ID, IGearGrid, ISettlement, ISurvivor } from "../interfaces";
+import { ID, IGearGrid, ISettlement, ISurvivor } from "../interfaces";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
 import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
