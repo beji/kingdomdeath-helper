@@ -1,7 +1,7 @@
 import React from "react";
 import styledLegacy from "styled-components";
 import styled from "styled-components-ts"; // use styled here for code highlighting to work correct
-import { Affinity, AffinityTypes } from "../interfaces/gear";
+import { Affinity, AffinityTypes } from "../interfaces";
 
 interface IAffinityIconProps {
     affinity: Affinity;

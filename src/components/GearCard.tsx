@@ -2,11 +2,9 @@ import React, { SyntheticEvent } from "react";
 import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
-import { Affinity, AffinityTypes, IGearGrid, IItem, ISettlement, Item } from "../interfaces";
+import { Affinity, AffinityTypes, DefenseStats, ID, IGearGrid, IItem, ISettlement, Item, StatType } from "../interfaces";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
-import { ID } from "../interfaces/generics";
-import { BaseStats, DefenseStats, StatType } from "../interfaces/survivor";
-import { baseStatToString, defenseStatToString } from "../util";
+import { defenseStatToString } from "../util";
 import AffinityIcon from "./AffinityIcon";
 import { colorMagentaLachs } from "./StyledComponents";
 
