@@ -5,12 +5,13 @@ import { Dispatch } from "redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions";
 import { killSurvivor, reviveSurvivor, updateSurvivor } from "../actions/survivorActions";
-import { Gender, ID, IGearGrid, ISettlement } from "../interfaces";
+import { ID, IGearGrid, ISettlement } from "../interfaces";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
 import { ISurvivor } from "../interfaces/survivor";
 import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
-import { clone, genderToString } from "../util";
+import { clone } from "../util";
 import FancyButton from "./FancyButton";
+import GenderEdit from "./GenderEdit";
 import NameEdit from "./NameEdit";
 import SurvivorBaseStat from "./SurvivorBaseStat";
 
@@ -37,11 +38,6 @@ interface ISurvivorListItemOwnProps {
 
 interface ISurvivorListItemProps extends ISurvivorListItemOwnProps, ISurvivorListItemStateProps, ISurvivorListItemDispatchProps { }
 
-interface ISurvivorListItemState {
-    editName: boolean;
-    editGender: boolean;
-}
-
 const Cell = styled.td`
     border: 1px solid #333;
     padding: 0.25vh 0.25vw;
@@ -67,17 +63,10 @@ const mapStateToProps = (state: ISettlement, ownProps: ISurvivorListItemOwnProps
     };
 };
 
-class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListItemState> {
+class SurvivorListItem extends Component<ISurvivorListItemProps> {
     public constructor(props: ISurvivorListItemProps) {
         super(props);
         this.handleHuntBoxChange = this.handleHuntBoxChange.bind(this);
-        this.state = {
-            editGender: false,
-            editName: false,
-        };
-
-        this.handleGenderChange = this.handleGenderChange.bind(this);
-        this.handleGenderClick = this.handleGenderClick.bind(this);
 
         this.handleKillClick = this.handleKillClick.bind(this);
         this.handleReviveClick = this.handleReviveClick.bind(this);
@@ -89,7 +78,6 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
             const { huntSlots } = this.props;
             const { name, id, gender, gridId, alive, hunting } = this.props.survivor;
             const { movement, accuracy, strength, evasion, luck, speed } = this.props.survivor.baseStats;
-            const { editName, editGender } = this.state;
 
             return (
                 <tr>
@@ -98,8 +86,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
                         <NameEdit name={name} updateFunc={this.handleNameUpdate} />
                     </Cell>
                     <Cell>
-                        {editGender && this.renderGenderSelect()}
-                        {!editGender && <span onClick={this.handleGenderClick}>{genderToString(gender)}</span>}
+                        <GenderEdit id={id} />
                     </Cell>
                     <Cell><SurvivorBaseStat id={id} stat={movement} /></Cell>
                     <Cell><SurvivorBaseStat id={id} stat={accuracy} /></Cell>
@@ -138,40 +125,6 @@ class SurvivorListItem extends Component<ISurvivorListItemProps, ISurvivorListIt
                 this.props.removeFromHunt(this.props.id);
             }
         }
-    }
-
-    private handleGenderClick(e: SyntheticEvent<HTMLSpanElement>) {
-        this.setState({
-            editGender: true,
-        });
-    }
-
-    private handleGenderChange(e: SyntheticEvent<HTMLSelectElement>) {
-        if (this.props.survivor) {
-            const newGender = parseInt(e.currentTarget.value, 10) as Gender;
-
-            this.props.updateSurvivor({
-                ...this.props.survivor,
-                gender: newGender,
-            });
-
-            this.setState({
-                editGender: false,
-            });
-        }
-    }
-
-    private renderGenderSelect() {
-        if (this.props.survivor) {
-            return (
-                <select onChange={this.handleGenderChange} defaultValue={this.props.survivor.gender.toString()}>
-                    <option value={Gender.male}>{genderToString(Gender.male)}</option>
-                    <option value={Gender.female}>{genderToString(Gender.female)}</option>
-                </select>);
-        } else {
-            return "";
-        }
-
     }
 
     private handleKillClick(e: SyntheticEvent<HTMLButtonElement>) {
