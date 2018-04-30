@@ -5,7 +5,8 @@ import { updateGear } from "../actions/gearActions";
 import { Affinity, AffinityTypes, IGearGrid, IItem, ISettlement, Item } from "../interfaces";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { ID } from "../interfaces/generics";
-import { DefenseStats, StatType } from "../interfaces/survivor";
+import { BaseStats, DefenseStats, StatType } from "../interfaces/survivor";
+import { baseStatToString, defenseStatToString } from "../util";
 import AffinityIcon from "./AffinityIcon";
 import { colorMagentaLachs } from "./StyledComponents";
 
@@ -138,12 +139,20 @@ class GearCard extends React.Component<IGearCardProps> {
                     <CardHeadline>{item.name}</CardHeadline>
                     <CardTypes>{item.types && item.types.map((type, idx) => <span key={idx}>{type} </span>)}</CardTypes>
                     <CardDescription>{item.desc}</CardDescription>
-                    {armorStat && <CardDefStat><Shield>{armorStat.amount} <CardDefStatType>{armorStat.type}</CardDefStatType></Shield></CardDefStat>}
+                    {armorStat && <CardDefStat><Shield>{armorStat.amount} <CardDefStatType>{this.renderType(armorStat.type, armorStat.stat)}</CardDefStatType></Shield></CardDefStat>}
                     {this.renderAffinity(item)}
                 </StyledCard>
             );
         } else {
             return "";
+        }
+    }
+
+    private renderType(type: StatType, stat: DefenseStats | BaseStats) {
+        if (type === StatType.base) {
+            return baseStatToString(stat as BaseStats);
+        } else {
+            return defenseStatToString(stat as DefenseStats);
         }
     }
 
