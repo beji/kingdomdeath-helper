@@ -139,20 +139,12 @@ class GearCard extends React.Component<IGearCardProps> {
                     <CardHeadline>{item.name}</CardHeadline>
                     <CardTypes>{item.types && item.types.map((type, idx) => <span key={idx}>{type} </span>)}</CardTypes>
                     <CardDescription>{item.desc}</CardDescription>
-                    {armorStat && <CardDefStat><Shield>{armorStat.amount} <CardDefStatType>{this.renderType(armorStat.type, armorStat.stat)}</CardDefStatType></Shield></CardDefStat>}
+                    {armorStat && <CardDefStat><Shield>{armorStat.amount} <CardDefStatType>{defenseStatToString(armorStat.stat as DefenseStats)}</CardDefStatType></Shield></CardDefStat>}
                     {this.renderAffinity(item)}
                 </StyledCard>
             );
         } else {
             return "";
-        }
-    }
-
-    private renderType(type: StatType, stat: DefenseStats | BaseStats) {
-        if (type === StatType.base) {
-            return baseStatToString(stat as BaseStats);
-        } else {
-            return defenseStatToString(stat as DefenseStats);
         }
     }
 
