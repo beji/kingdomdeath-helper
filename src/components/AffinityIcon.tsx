@@ -9,7 +9,7 @@ interface IAffinityIconProps {
     type?: AffinityTypes;
 }
 
-const PuzzleIcon = styled<IAffinityIconProps>(styledLegacy.div)`
+const PuzzleIcon = styled<IAffinityIconProps>(styledLegacy.div) `
     background:${(props) => props.affinity};
     border-radius:2px;
     display:inline-block;
@@ -41,7 +41,7 @@ const PuzzleIcon = styled<IAffinityIconProps>(styledLegacy.div)`
     }
 `;
 
-const CompleteIcon = styled<IAffinityIconProps>(styledLegacy.div)`
+const CompleteIcon = styled<IAffinityIconProps>(styledLegacy.div) `
     background:${(props) => props.affinity};
     display:inline-block;
     height:1em;

@@ -90,13 +90,13 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
             <StatLayer>
                 <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {label}</StatLayerHeadline>
                 <StatEdit>
-                    <Label>Permanent</Label><NumberEdit value={permanent} innerRef={this.setupPermRef}/>
+                    <Label>Permanent</Label><NumberEdit value={permanent} innerRef={this.setupPermRef} />
                 </StatEdit>
                 <StatEdit>
-                    <Label>Gear</Label><NumberEdit value={gear} innerRef={this.setupGearRef}/>
+                    <Label>Gear</Label><NumberEdit value={gear} innerRef={this.setupGearRef} />
                 </StatEdit>
                 <StatEdit>
-                    <Label>Token</Label><NumberEdit value={token} innerRef={this.setupTokenRef}/>
+                    <Label>Token</Label><NumberEdit value={token} innerRef={this.setupTokenRef} />
                 </StatEdit>
                 <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
             </StatLayer>

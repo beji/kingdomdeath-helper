@@ -1,8 +1,8 @@
 import { ID } from "./generics";
 
-const enum Gender {
-    Male = "M",
-    Female = "F",
+enum Gender {
+    male,
+    female,
 }
 
 enum BaseStats {
