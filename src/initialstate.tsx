@@ -1,45 +1,45 @@
 import uuid from "uuid/v4";
 import { Affinity, Gender, ID, IGearGrid, IItem, ISettlement, ISurvivor, ISurvivorBaseStat, Item, ItemType, StatType } from "./interfaces";
-import { BaseStats, DefenseStats, IBaseStats, IDefenseStats, IHitLocation } from "./interfaces/survivor";
+import { BaseStats, DefenseStats, IHitLocation } from "./interfaces/survivor";
 
 export const DEFAULT_SURVIVOR_NAME = "Rename me to get +1 Survival";
 
-const getSurvivorBaseStat = (label: BaseStats): ISurvivorBaseStat => ({
+const getSurvivorBaseStat = (stat: BaseStats): ISurvivorBaseStat => ({
     gear: 0,
-    label,
     permanent: 0,
+    stat,
     token: 0,
     type: StatType.base,
 });
 
-const getBaseStats = (): IBaseStats => ({
-    accuracy: getSurvivorBaseStat(BaseStats.accuracy),
-    evasion: getSurvivorBaseStat(BaseStats.evasion),
-    luck: getSurvivorBaseStat(BaseStats.luck),
-    movement: getSurvivorBaseStat(BaseStats.movement),
-    speed: getSurvivorBaseStat(BaseStats.speed),
-    strength: getSurvivorBaseStat(BaseStats.strength),
-});
+const getBaseStats = (): ISurvivorBaseStat[] => ([
+    getSurvivorBaseStat(BaseStats.accuracy),
+    getSurvivorBaseStat(BaseStats.evasion),
+    getSurvivorBaseStat(BaseStats.luck),
+    getSurvivorBaseStat(BaseStats.movement),
+    getSurvivorBaseStat(BaseStats.speed),
+    getSurvivorBaseStat(BaseStats.strength),
+]);
 
-const getHitLocation = (label: DefenseStats, onlyHeavyWound: boolean, noWounds: boolean = false): IHitLocation => ({
+const getHitLocation = (stat: DefenseStats, onlyHeavyWound: boolean, noWounds: boolean = false): IHitLocation => ({
     armor: 0,
     heavyWound: false,
-    label,
     lightWound: false,
     noWounds,
     onlyHeavyWound,
+    stat,
     type: StatType.defense,
 });
 
-const getDefense = (): IDefenseStats => ({
-    arms: getHitLocation(DefenseStats.arms, false),
-    body: getHitLocation(DefenseStats.body, false),
-    brain: getHitLocation(DefenseStats.brain, true),
-    head: getHitLocation(DefenseStats.head, false),
-    legs: getHitLocation(DefenseStats.legs, false),
-    survival: getHitLocation(DefenseStats.survival, false, true),
-    waist: getHitLocation(DefenseStats.waist, false),
-});
+const getDefense = (): IHitLocation[] => ([
+    getHitLocation(DefenseStats.arms, false),
+    getHitLocation(DefenseStats.body, false),
+    getHitLocation(DefenseStats.brain, true),
+    getHitLocation(DefenseStats.head, false),
+    getHitLocation(DefenseStats.legs, false),
+    getHitLocation(DefenseStats.survival, false, true),
+    getHitLocation(DefenseStats.waist, false),
+]);
 
 const survivors: ReadonlyArray<ISurvivor> = Array.apply(null, { length: 8 }).map(Number.call, Number).map((n: number) => {
     return {
@@ -75,7 +75,7 @@ const items: ReadonlyArray<IItem> = [
         types: [
             ItemType.weapon,
         ],
-    },
+    } as IItem,
     {
         desc: "Survivor Lendenschurz",
         id: Item.cloth,
@@ -84,7 +84,8 @@ const items: ReadonlyArray<IItem> = [
             {
                 amount: 1,
                 showOnCard: true,
-                type: DefenseStats.waist,
+                stat: DefenseStats.waist,
+                type: StatType.defense,
             },
         ],
     },
@@ -104,7 +105,8 @@ const items: ReadonlyArray<IItem> = [
             {
                 amount: 1,
                 showOnCard: true,
-                type: DefenseStats.head,
+                stat: DefenseStats.head,
+                type: StatType.defense,
             },
         ],
         types: [
@@ -132,12 +134,14 @@ const items: ReadonlyArray<IItem> = [
             {
                 amount: 1,
                 showOnCard: true,
-                type: DefenseStats.body,
+                stat: DefenseStats.body,
+                type: StatType.defense,
             },
             {
                 amount: 1,
                 showOnCard: true,
-                type: DefenseStats.waist,
+                stat: DefenseStats.waist,
+                type: StatType.defense,
             },
         ],
         types: [
@@ -157,7 +161,8 @@ const items: ReadonlyArray<IItem> = [
             {
                 amount: 1,
                 showOnCard: true,
-                type: DefenseStats.arms,
+                stat: DefenseStats.arms,
+                type: StatType.defense,
             },
         ],
         types: [
@@ -174,7 +179,8 @@ const items: ReadonlyArray<IItem> = [
             {
                 amount: 1,
                 showOnCard: true,
-                type: DefenseStats.waist,
+                stat: DefenseStats.waist,
+                type: StatType.defense,
             },
         ],
         types: [
@@ -191,7 +197,8 @@ const items: ReadonlyArray<IItem> = [
             {
                 amount: 1,
                 showOnCard: true,
-                type: DefenseStats.legs,
+                stat: DefenseStats.legs,
+                type: StatType.defense,
             },
         ],
         types: [

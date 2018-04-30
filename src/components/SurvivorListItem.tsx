@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions";
 import { killSurvivor, reviveSurvivor, updateSurvivor } from "../actions/survivorActions";
-import { ID, IGearGrid, ISettlement, ISurvivor } from "../interfaces";
+import { ID, IGearGrid, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
 import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
@@ -75,8 +75,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
     public render() {
         if (this.props.survivor) {
             const { huntSlots } = this.props;
-            const { name, id, gender, gridId, alive, hunting } = this.props.survivor;
-            const { movement, accuracy, strength, evasion, luck, speed } = this.props.survivor.baseStats;
+            const { name, id, gender, gridId, alive, hunting, baseStats } = this.props.survivor;
 
             return (
                 <tr>
@@ -87,12 +86,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
                     <Cell>
                         <GenderEdit id={id} />
                     </Cell>
-                    <Cell><SurvivorBaseStat id={id} stat={movement} /></Cell>
-                    <Cell><SurvivorBaseStat id={id} stat={accuracy} /></Cell>
-                    <Cell><SurvivorBaseStat id={id} stat={strength} /></Cell>
-                    <Cell><SurvivorBaseStat id={id} stat={evasion} /></Cell>
-                    <Cell><SurvivorBaseStat id={id} stat={luck} /></Cell>
-                    <Cell><SurvivorBaseStat id={id} stat={speed} /></Cell>
+                    {this.renderBaseStats(baseStats, id)}
                     <Cell>
                         {alive && (<div><select value={hunting ? gridId : "remove"} onChange={this.handleHuntBoxChange}><option value="remove">not hunting</option>{huntSlots.map((v, i) => <option key={i} value={i}>Hunter {v.gridId + 1}</option>)}</select></div>)}
                     </Cell>
@@ -104,6 +98,13 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
         } else {
             return "";
         }
+    }
+
+    private renderBaseStats(baseStats: ReadonlyArray<ISurvivorBaseStat>, id: ID) {
+        return baseStats.map((basestat, idx) => {
+            return (
+                <Cell key={idx}><SurvivorBaseStat id={id} stat={basestat} /></Cell>);
+        });
     }
 
     private handleNameUpdate(newName: string) {

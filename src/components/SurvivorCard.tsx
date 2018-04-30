@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { updateSurvivor } from "../actions/survivorActions";
 import { DefenseStats, ID, IHitLocation, ISettlement, ISurvivor } from "../interfaces";
 import { UpdateSurvivorAction } from "../interfaces/survivorActions";
-import { clone } from "../util";
+import { baseStatToString, clone, defenseStatToString } from "../util";
 import GenderEdit from "./GenderEdit";
 import NameEdit from "./NameEdit";
 import SurvivorBaseStat from "./SurvivorBaseStat";
@@ -92,15 +92,14 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
             survivor: props.survivor,
         };
         this.nameUpdate = this.nameUpdate.bind(this);
-        this.renderDefenceStat = this.renderDefenceStat.bind(this);
     }
 
     public render() {
         const { survivor, firstnameEdit } = this.props;
-        const sortedBaseStats = ["movement", "accuracy", "strength", "evasion", "luck", "speed"];
         const sortedDefenceStats = ["brain", "head", "arms", "body", "waist", "legs"];
         if (survivor) {
             const { name, id, gender, baseStats, defenseStats } = survivor;
+            const survival = defenseStats.find((stat) => stat.stat === DefenseStats.survival);
             return (
                 <StyledCard>
                     <NameSection>
@@ -113,14 +112,14 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
                             <GenderEdit id={id} />
                         </section>
                         <section>
-                            <SurvivorStat><StatLabel>{defenseStats.survival.label}</StatLabel><SurvivorDefenseStat id={id} stat={defenseStats.survival} /></SurvivorStat>
+                            {survival && <SurvivorStat><StatLabel>{defenseStatToString(survival.stat)}</StatLabel><SurvivorDefenseStat id={id} stat={survival} /></SurvivorStat>}
                         </section>
                     </NameSection>
                     <StatSection>
-                        {sortedBaseStats.map((statKey, idx) => (<SurvivorStat key={idx}><StatLabel>{baseStats[statKey].label}</StatLabel><SurvivorBaseStat id={id} stat={baseStats[statKey]} /></SurvivorStat>))}
+                        {survivor.baseStats.map((baseStat, idx) => (<SurvivorStat key={idx}><StatLabel>{baseStatToString(baseStat.stat)}</StatLabel><SurvivorBaseStat id={id} stat={baseStat} /></SurvivorStat>))}
                     </StatSection>
                     <StatSection>
-                        {sortedDefenceStats.map((statKey, idx) => (defenseStats[statKey].label !== DefenseStats.survival && <SurvivorStat key={idx}><StatLabel>{defenseStats[statKey].label}</StatLabel><SurvivorDefenseStat id={id} stat={defenseStats[statKey]} /></SurvivorStat>))}
+                        {survivor.defenseStats.map((defenseStat, idx) => (defenseStat.stat !== DefenseStats.survival && <SurvivorStat key={idx}><StatLabel>{defenseStatToString(defenseStat.stat)}</StatLabel><SurvivorDefenseStat id={id} stat={defenseStat} /></SurvivorStat>))}
                     </StatSection>
                 </StyledCard>
             );
@@ -130,36 +129,6 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
                     No Survivor chosen!
                 </StyledCard>
             );
-        }
-    }
-    private renderDefenceStat(defStat: IHitLocation, locName: string, index: number) {
-        return (
-            <div key={index}>
-                {defStat.label}
-                <div>
-                    {defStat.armor}
-                    {!defStat.onlyHeavyWound && <LightWound onClick={this.toggleWound.bind(this, locName, "lightWound")} className={defStat.lightWound ? "active" : ""} />}
-                    <HeavyWound onClick={this.toggleWound.bind(this, locName, "heavyWound")} className={defStat.heavyWound ? "active" : ""} />
-                </div>
-            </div>
-        );
-    }
-    private toggleWound(locName: string, woundType: string) {
-        if (this.props.survivor) {
-            const defStat = this.props.survivor.defenseStats[locName];
-            if (woundType === "lightWound" || (woundType === "heavyWound" && defStat.lightWound)) {
-                const next = {
-                    ...this.props.survivor,
-                    defenseStats: {
-                        ...this.props.survivor.defenseStats,
-                        [locName]: {
-                            ...defStat,
-                            [woundType]: !defStat[woundType],
-                        },
-                    },
-                };
-                this.props.updateSurvivor(next);
-            }
         }
     }
     private nameUpdate(newName: string) {

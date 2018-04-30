@@ -1,5 +1,5 @@
 import { ID } from "./generics";
-import { BaseStats, DefenseStats } from "./survivor";
+import { BaseStats, DefenseStats, StatType } from "./survivor";
 
 enum Affinity {
     red = "red",
@@ -51,7 +51,8 @@ interface IItem {
     readonly stats?: ReadonlyArray<{
         readonly amount: number;
         readonly showOnCard: boolean;
-        readonly type: DefenseStats | BaseStats;
+        readonly type: StatType;
+        readonly stat: DefenseStats | BaseStats;
     }>;
     readonly affinity?: {
         readonly [key: string]: Affinity | any;

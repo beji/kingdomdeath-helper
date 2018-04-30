@@ -11,28 +11,27 @@ enum StatType {
 }
 
 enum BaseStats {
-    accuracy = "Accuracy",
-    evasion = "Evasion",
-    luck = "Luck",
-    movement = "Movement",
-    speed = "Speed",
-    strength = "Strength",
+    accuracy,
+    evasion,
+    luck,
+    movement,
+    speed,
+    strength,
 }
 
 enum DefenseStats {
-    brain = "Brain",
-    head = "Head",
-    arms = "Arms",
-    body = "Body",
-    waist = "Waist",
-    legs = "Legs",
-    survival = "Survival",
+    brain,
+    head,
+    arms,
+    body,
+    waist,
+    legs,
+    survival,
 }
 
 interface IHitLocation {
     readonly [key: string]: ID | string | number | boolean;
     readonly armor: number;
-    readonly label: string;
     readonly onlyHeavyWound: boolean;
     readonly noWounds: boolean;
     readonly lightWound: boolean;
@@ -44,32 +43,10 @@ interface IHitLocation {
 interface ISurvivorBaseStat {
     readonly [key: string]: number | string;
     readonly gear: number;
-    readonly label: string;
     readonly permanent: number;
     readonly token: number;
     readonly type: StatType.base;
     readonly stat: BaseStats;
-}
-
-interface IBaseStats {
-    readonly [key: string]: ISurvivorBaseStat;
-    readonly movement: ISurvivorBaseStat;
-    readonly accuracy: ISurvivorBaseStat;
-    readonly strength: ISurvivorBaseStat;
-    readonly evasion: ISurvivorBaseStat;
-    readonly luck: ISurvivorBaseStat;
-    readonly speed: ISurvivorBaseStat;
-}
-
-interface IDefenseStats {
-    readonly [key: string]: IHitLocation;
-    readonly brain: IHitLocation;
-    readonly head: IHitLocation;
-    readonly body: IHitLocation;
-    readonly arms: IHitLocation;
-    readonly waist: IHitLocation;
-    readonly legs: IHitLocation;
-    readonly survival: IHitLocation;
 }
 
 interface ISurvivor {
@@ -79,8 +56,8 @@ interface ISurvivor {
     readonly gender: Gender;
     readonly hunting: boolean;
     readonly alive: boolean;
-    readonly baseStats: IBaseStats;
-    readonly defenseStats: IDefenseStats;
+    readonly baseStats: ReadonlyArray<ISurvivorBaseStat>;
+    readonly defenseStats: ReadonlyArray<IHitLocation>;
 }
 
-export { BaseStats, DefenseStats, Gender, IDefenseStats, IHitLocation, ISurvivor, IBaseStats, ISurvivorBaseStat, StatType };
+export { BaseStats, DefenseStats, Gender, IHitLocation, ISurvivor, ISurvivorBaseStat, StatType };

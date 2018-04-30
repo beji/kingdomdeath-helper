@@ -5,7 +5,7 @@ import { setName } from "../actions/settlementActions";
 import { killSurvivor, updateSurvivor } from "../actions/survivorActions";
 import SurvivorBaseStat from "../components/SurvivorBaseStat";
 import initialState, { newSurvivor } from "../initialstate";
-import { ISettlement, ISurvivor } from "../interfaces";
+import { DefenseStats, IHitLocation, ISettlement, ISurvivor } from "../interfaces";
 import reducer from "../reducers";
 import { clone } from "../util";
 
@@ -116,13 +116,17 @@ describe("The reducer", () => {
             const survivor = newSurvivor();
             const state = { ...initialState, survivors: [survivor] };
 
-            expect(state.survivors[0].defenseStats.survival.armor).to.equal(0);
+            const initialSurvival = state.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IHitLocation;
+
+            expect(initialSurvival.armor).to.equal(0);
             const update = {
                 ...survivor,
                 name: "New Name",
             };
             const result = reducer(state, updateSurvivor(update));
-            expect(result.survivors[0].defenseStats.survival.armor).to.equal(1);
+
+            const resultSurvival = result.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IHitLocation;
+            expect(resultSurvival.armor).to.equal(1);
         });
 
         it("should give not give free survival on renames that are not the first", () => {
@@ -131,13 +135,15 @@ describe("The reducer", () => {
                 name: "Rudolf",
             };
             const state = { ...initialState, survivors: [survivor] };
-            expect(state.survivors[0].defenseStats.survival.armor).to.equal(0);
+            const initialSurvival = state.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IHitLocation;
+            expect(initialSurvival.armor).to.equal(0);
             const update = {
                 ...survivor,
                 name: "New Name",
             };
             const result = reducer(state, updateSurvivor(update));
-            expect(result.survivors[0].defenseStats.survival.armor).to.equal(0);
+            const resultSurvival = result.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IHitLocation;
+            expect(resultSurvival.armor).to.equal(0);
         });
     });
 });

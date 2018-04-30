@@ -10,7 +10,6 @@ import NumberEdit from "./NumberEdit";
 import { HeavyWound, Label, LightWound, StatEdit, StatElement, StatLayer, StatLayerHeadline, StatWrapper } from "./SurvivorStatElements";
 
 interface ISurvivorDefenseStatStatStateProps {
-    statKey?: string;
     survivor?: ISurvivor;
 }
 
@@ -35,12 +34,8 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction>): ISurv
 
 const mapStateToProps = (state: ISettlement, ownProps: ISurvivorDefenseStatOwnProps): ISurvivorDefenseStatStatStateProps => {
     const survivor = state.survivors.find((v) => v.id === ownProps.id);
-    const statKey = survivor && Object.keys(survivor.baseStats).reduce((a, c) => {
-        return survivor.baseStats[c].id === ownProps.stat.id ? c : a;
-    });
 
     return {
-        statKey,
         survivor: clone(survivor),
     };
 };

@@ -1,7 +1,7 @@
 import { Reducer } from "redux";
 import { removeFromHunt, updateSurvivor } from "../actions";
 import initialState, { DEFAULT_SURVIVOR_NAME } from "../initialstate";
-import { DefenseStats, IBaseStats, IGearGrid, IHitLocation, IItem, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
+import { DefenseStats, IGearGrid, IHitLocation, IItem, ISettlement, ISurvivor, ISurvivorBaseStat, StatType } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
@@ -39,11 +39,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                 const { survivorId } = state.geargrids[action.payload.gridId];
 
                 const oldSurvivor = state.survivors.find((survivor) => survivor.id === survivorId);
-                let oldStats: any = {};
-
-                if (oldSurvivor) {
-                    oldStats = clone(oldSurvivor.baseStats);
-                }
+                const oldStats = oldSurvivor ? clone(oldSurvivor.baseStats) : [];
 
                 // Remove the old survivor by abusing the reducer
                 const baseState = oldSurvivor ? reducer(state, removeFromHunt(oldSurvivor.id)) : state;
@@ -56,24 +52,23 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                             gridId: action.payload.gridId.toString(),
                             hunting: true,
                         };
-                        if (Object.keys(oldStats).length > 0) {
-                            // The non-gear baseStats stay the same
-                            const newBaseStats = Object.keys(survivor.baseStats).reduce((acc, key) => {
-                                return {
-                                    ...acc,
-                                    [key]: {
-                                        ...newState.baseStats[key],
-                                        gear: oldStats[key].gear,
-                                    },
-                                };
-                            }, {}) as IBaseStats;
 
-                            return {
-                                ...newState,
-                                baseStats: newBaseStats,
-                            };
-                        }
-                        return newState;
+                        // The non-gear baseStats stay the same
+                        const newBaseStats = survivor.baseStats.map((basestat) => {
+                            const oldStat = oldStats.find((oldstat) => oldstat.stat === basestat.stat);
+                            if (oldStat) {
+                                return {
+                                    ...basestat,
+                                    gear: oldStat.gear,
+                                };
+                            }
+                            return basestat;
+                        });
+
+                        return {
+                            ...newState,
+                            baseStats: newBaseStats,
+                        };
                     }
                     return survivor;
                 });
@@ -107,15 +102,12 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                         return {
                             ...survivor,
                             // The non-gear baseStats stay the same
-                            baseStats: Object.keys(survivor.baseStats).reduce((acc, key) => {
+                            baseStats: survivor.baseStats.map((basestat) => {
                                 return {
-                                    ...acc,
-                                    [key]: {
-                                        ...survivor.baseStats[key],
-                                        gear: 0,
-                                    },
+                                    ...basestat,
+                                    gear: 0,
                                 };
-                            }, {}) as IBaseStats,
+                            }),
                             gridId: undefined,
                             hunting: false,
 
@@ -167,15 +159,18 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     // Survivors gain one free survival on the first rename (faked by checking for the DEFAULT_SURVIVOR_NAME, could be cheated)
                     if (survivor.id === newSurvivor.id && newSurvivor.name !== "") {
                         if (survivor.name === DEFAULT_SURVIVOR_NAME && newSurvivor.name !== DEFAULT_SURVIVOR_NAME) {
+
                             return {
                                 ...newSurvivor,
-                                defenseStats: {
-                                    ...newSurvivor.defenseStats,
-                                    survival: {
-                                        ...newSurvivor.defenseStats.survival,
-                                        armor: newSurvivor.defenseStats.survival.armor + 1,
-                                    },
-                                },
+                                defenseStats: newSurvivor.defenseStats.map((defensestat) => {
+                                    if (defensestat.stat === DefenseStats.survival) {
+                                        return {
+                                            ...defensestat,
+                                            armor: defensestat.armor + 1,
+                                        };
+                                    }
+                                    return defensestat;
+                                }),
                             };
                         }
                         return clone(newSurvivor);
@@ -192,43 +187,31 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                 const newStat = action.payload;
                 return generateWithUpdatedSurvivors(state, (survivor) => {
 
-                    const {stat, survivorId} = newStat;
+                    const { stat, survivorId } = newStat;
                     // At this point the update could be for a baseStat or a hitLocation, we don't know yet
 
-                    // We try to find a baseStat that maps to the given id
-                    const statType = stat.type;
                     if (survivor.id === survivorId) {
-                        if (statType === StatType.base) {
-                            // FIXME: Hier weitermachen...
+                        if (stat.type === StatType.base) {
+                            return {
+                                ...survivor,
+                                baseStats: survivor.baseStats.map((basestat) => {
+                                    if (basestat.stat === stat.stat) {
+                                        return clone(stat);
+                                    }
+                                    return basestat;
+                                }),
+                            };
+                        } else if (stat.type === StatType.defense) {
+                            return {
+                                ...survivor,
+                                defenseStats: survivor.defenseStats.map((basestat) => {
+                                    if (basestat.stat === stat.stat) {
+                                        return clone(stat);
+                                    }
+                                    return basestat;
+                                }),
+                            };
                         }
-                    }
-                    const statKeyForBaseStat = Object.keys(survivor.baseStats).find((statKey) => {
-                        return survivor.baseStats[statKey].type === stat.type;
-                    });
-                    // We found a baseStat, so this update is for a baseStat
-                    if (statKeyForBaseStat) {
-                        return {
-                            ...survivor,
-                            baseStats: {
-                                ...survivor.baseStats,
-                                [statKeyForBaseStat]: newStat as ISurvivorBaseStat,
-                            },
-                        };
-                    }
-
-                    // If we get here then we didn't find a baseStat, so the update propably is a hitLocation
-                    const statKeyForHitLocation = Object.keys(survivor.defenseStats).find((statKey) => {
-                        return survivor.defenseStats[statKey].id === newStat.id;
-                    });
-
-                    if (statKeyForHitLocation) {
-                        return {
-                            ...survivor,
-                            defenseStats: {
-                                ...survivor.defenseStats,
-                                [statKeyForHitLocation]: newStat as IHitLocation,
-                            },
-                        };
                     }
                     return survivor;
                 });
@@ -283,7 +266,8 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         }
         // Updates geargrid with updated grid from payload
         case ActionTypes.UPDATE_GEARGRID: {
-            if (action.payload) {
+            console.error("FIX UPDATE_GEARGRID!!!!!!!");
+            /*if (action.payload) {
                 const { survivorId, slots } = action.payload;
                 const { geargrids, items, survivors } = state;
                 let baseState;
@@ -341,7 +325,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                 };
 
                 return newState;
-            }
+            }*/
             return state;
         }
         default: return state;

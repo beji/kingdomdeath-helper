@@ -2,10 +2,10 @@ import React, { SyntheticEvent } from "react";
 import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
-import { Affinity, AffinityTypes, IGearGrid, IItem, ISettlement, Item  } from "../interfaces";
+import { Affinity, AffinityTypes, IGearGrid, IItem, ISettlement, Item } from "../interfaces";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { ID } from "../interfaces/generics";
-import { DefenseStats } from "../interfaces/survivor";
+import { DefenseStats, StatType } from "../interfaces/survivor";
 import AffinityIcon from "./AffinityIcon";
 import { colorMagentaLachs } from "./StyledComponents";
 
@@ -131,8 +131,7 @@ class GearCard extends React.Component<IGearCardProps> {
     public render() {
         if (this.props.item) {
             const { item, slotId } = this.props;
-            // FIXME: is there a better way to get stat of enum DefenseStat?
-            const armorStat = item.stats && item.stats.find((stat) => Object.keys(DefenseStats).find((ds) => DefenseStats[ds as any] === stat.type) !== undefined);
+            const armorStat = item.stats && item.stats.find((stat) => stat.type === StatType.defense);
             return (
                 <StyledCard onDragStart={this.handleDragStart} draggable={true}>
                     {slotId && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
