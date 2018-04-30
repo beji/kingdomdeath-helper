@@ -3,9 +3,8 @@ import "mocha";
 import { addToHunt, removeFromHunt } from "../actions";
 import { setName } from "../actions/settlementActions";
 import { killSurvivor, updateSurvivor } from "../actions/survivorActions";
-import SurvivorBaseStat from "../components/SurvivorBaseStat";
 import initialState, { newSurvivor } from "../initialstate";
-import { DefenseStats, IHitLocation, ISettlement, ISurvivor } from "../interfaces";
+import { DefenseStats, IDefenseStat, ISettlement, ISurvivor } from "../interfaces";
 import reducer from "../reducers";
 import { clone } from "../util";
 
@@ -116,7 +115,7 @@ describe("The reducer", () => {
             const survivor = newSurvivor();
             const state = { ...initialState, survivors: [survivor] };
 
-            const initialSurvival = state.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IHitLocation;
+            const initialSurvival = state.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
 
             expect(initialSurvival.armor).to.equal(0);
             const update = {
@@ -125,7 +124,7 @@ describe("The reducer", () => {
             };
             const result = reducer(state, updateSurvivor(update));
 
-            const resultSurvival = result.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IHitLocation;
+            const resultSurvival = result.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
             expect(resultSurvival.armor).to.equal(1);
         });
 
@@ -135,14 +134,14 @@ describe("The reducer", () => {
                 name: "Rudolf",
             };
             const state = { ...initialState, survivors: [survivor] };
-            const initialSurvival = state.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IHitLocation;
+            const initialSurvival = state.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
             expect(initialSurvival.armor).to.equal(0);
             const update = {
                 ...survivor,
                 name: "New Name",
             };
             const result = reducer(state, updateSurvivor(update));
-            const resultSurvival = result.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IHitLocation;
+            const resultSurvival = result.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
             expect(resultSurvival.armor).to.equal(0);
         });
     });
