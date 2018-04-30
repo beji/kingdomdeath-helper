@@ -4,7 +4,7 @@ import { Dispatch } from "redux";
 import { updateSurvivorStat } from "../actions/survivorActions";
 import { ID, IHitLocation, ISettlement, ISurvivor, ISurvivorBaseStat } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
-import { clone } from "../util";
+import { baseStatToString, clone } from "../util";
 import FancyButton from "./FancyButton";
 import NumberEdit from "./NumberEdit";
 import { Label, StatEdit, StatElement, StatLayer, StatLayerHeadline, StatWrapper } from "./SurvivorStatElements";
@@ -80,10 +80,10 @@ class SurvivorBaseStat extends React.Component<ISurvivorBaseStatProps, ISurvivor
     }
 
     private renderEditState() {
-        const { permanent, gear, token, label } = this.props.stat;
+        const { permanent, gear, token, stat } = this.props.stat;
         return (
             <StatLayer>
-                <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {label}</StatLayerHeadline>
+                <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {baseStatToString(stat)}</StatLayerHeadline>
                 <StatEdit>
                     <Label>Permanent</Label><NumberEdit value={permanent} innerRef={this.setupPermRef} />
                 </StatEdit>
