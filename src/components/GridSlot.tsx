@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
-import { ID, IGearGrid, ISettlement } from "../interfaces";
+import { ID, IGearGrid, ISettlement, Item } from "../interfaces";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { clone } from "../util";
 import FancyButton from "./FancyButton";
@@ -96,7 +96,7 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
 
     private generateHandler = (value: any, method: any) => (...e: Array<SyntheticEvent<HTMLDivElement>>) => method(value, ...e);
 
-    private handleGearListItemSelect(itemId: ID) {
+    private handleGearListItemSelect(itemId: Item) {
         if (this.props.grid) {
             const { grid, slotId } = this.props;
             const newGrid = {

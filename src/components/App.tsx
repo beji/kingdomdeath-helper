@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { ID, ISettlement } from "../interfaces";
+import { ID, ISettlement, Item } from "../interfaces";
 import CreateSurvivor from "./CreateSurvivor";
 import ExportForm from "./ExportForm";
 import GearGrid from "./GearGrid";
@@ -31,7 +31,7 @@ interface IAppProps {
     aliveCount?: number;
     geargrids?: ID[];
     id?: ID;
-    items: ID[];
+    items: Item[];
 }
 
 const mapStateToProps = (state: ISettlement): IAppProps => {

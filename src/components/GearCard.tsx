@@ -2,8 +2,7 @@ import React, { SyntheticEvent } from "react";
 import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
-import { ISettlement } from "../interfaces";
-import { Affinity, AffinityTypes, IGearGrid, IItem } from "../interfaces/gear";
+import { Affinity, AffinityTypes, IGearGrid, IItem, ISettlement, Item  } from "../interfaces";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { ID } from "../interfaces/generics";
 import { DefenseStats } from "../interfaces/survivor";
@@ -21,7 +20,7 @@ interface IGearCardStateProps {
 }
 
 interface IGearCardOwnProps {
-    id: ID;
+    id: Item;
     slotId?: ID;
 }
 

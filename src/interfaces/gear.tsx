@@ -39,7 +39,7 @@ interface IGearGrid {
 }
 
 interface IGridSlot {
-    readonly content?: string;
+    readonly content?: Item;
     readonly id: ID;
 }
 
