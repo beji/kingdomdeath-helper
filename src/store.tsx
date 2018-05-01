@@ -10,7 +10,7 @@ interface IExtendedWindow extends Window {
 const global = (typeof window !== "undefined") ? window as IExtendedWindow : null;
 
 const composeEnhancers = (global !== null && global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__)
-    ? global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ name: "Kindom Death" })
+    ? global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ name: "Kingdom Death" })
     : compose;
 
 export default function configureStore() {
