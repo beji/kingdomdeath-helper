@@ -61,7 +61,7 @@ class App extends React.Component<IAppProps> {
                     <ResetHunt />
                 </div>
                 <div>
-                    Population: {aliveCount ? aliveCount : 0}
+                    Population: {aliveCount ? aliveCount : 0}, dead: {aliveCount && this.props.survivors ? this.props.survivors.length - aliveCount : "all of them apparently"}
                 </div>
                 <SurvivorList>
                     <thead>
