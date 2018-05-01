@@ -3,17 +3,15 @@ import { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { createSurvivor } from "../actions/survivorActions";
-import { newSurvivor } from "../initialstate";
-import { ISurvivor } from "../interfaces";
 import { CreateSurvivorAction } from "../interfaces/survivorActions";
 import FancyButton from "./FancyButton";
 
 interface ICreateSurvivorDispatchProps {
-    createSurvivor: (survivor: ISurvivor) => CreateSurvivorAction;
+    createSurvivor: () => CreateSurvivorAction;
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<CreateSurvivorAction>): ICreateSurvivorDispatchProps => ({
-    createSurvivor: (survivor: ISurvivor) => dispatch(createSurvivor(survivor)),
+    createSurvivor: () => dispatch(createSurvivor()),
 });
 
 class CreateSurvivor extends React.Component<ICreateSurvivorDispatchProps> {
@@ -29,7 +27,7 @@ class CreateSurvivor extends React.Component<ICreateSurvivorDispatchProps> {
     }
 
     private handleClick(e: SyntheticEvent<HTMLButtonElement>) {
-        this.props.createSurvivor(newSurvivor());
+        this.props.createSurvivor();
     }
 }
 

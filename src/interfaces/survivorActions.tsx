@@ -11,4 +11,4 @@ export type KillSurvivorAction = IAction<ActionTypes.KILL_SURVIVOR, ID>;
 
 export type ReviveSurvivorAction = IAction<ActionTypes.REVIVE_SURVIVOR, ID>;
 
-export type CreateSurvivorAction = IAction<ActionTypes.CREATE_SURVIVOR, ISurvivor>;
+export type CreateSurvivorAction = IAction<ActionTypes.CREATE_SURVIVOR, undefined>;

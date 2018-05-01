@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
 import { removeFromHunt, updateSurvivor } from "../actions";
-import initialState, { DEFAULT_SURVIVOR_NAME } from "../initialstate";
+import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../initialstate";
 import { DefenseStats, IBaseStat, IDefenseStat, IGearGrid, IItem, ISettlement, ISurvivor, StatType } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
@@ -159,15 +159,15 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         // b) The gender of a survivor
         case ActionTypes.UPDATE_SURVIVOR: {
             if (action.payload) {
-                const newSurvivor = action.payload as ISurvivor;
+                const survivorToUpdate = action.payload as ISurvivor;
                 const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
                     // Survivors gain one free survival on the first rename (faked by checking for the DEFAULT_SURVIVOR_NAME, could be cheated)
-                    if (survivor.id === newSurvivor.id && newSurvivor.name !== "") {
-                        if (survivor.name === DEFAULT_SURVIVOR_NAME && newSurvivor.name !== DEFAULT_SURVIVOR_NAME) {
+                    if (survivor.id === survivorToUpdate.id && survivorToUpdate.name !== "") {
+                        if (survivor.name === DEFAULT_SURVIVOR_NAME && survivorToUpdate.name !== DEFAULT_SURVIVOR_NAME) {
 
                             return {
-                                ...newSurvivor,
-                                defenseStats: newSurvivor.defenseStats.map((defensestat) => {
+                                ...survivorToUpdate,
+                                defenseStats: survivorToUpdate.defenseStats.map((defensestat) => {
                                     if (defensestat.stat === DefenseStats.survival) {
                                         return {
                                             ...defensestat,
@@ -178,7 +178,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                                 }),
                             };
                         }
-                        return clone(newSurvivor);
+                        return clone(survivorToUpdate);
                     }
                     return survivor;
                 });
@@ -260,14 +260,10 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         }
         // Creates a new survivor
         case ActionTypes.CREATE_SURVIVOR: {
-            if (action.payload) {
-                const nextState = {
-                    ...state,
-                    survivors: state.survivors.concat(action.payload),
-                };
-                return nextState;
-            }
-            return state;
+            return {
+                ...state,
+                survivors: state.survivors.concat(newSurvivor()),
+            };
         }
         // Updates geargrid with updated grid from payload
         case ActionTypes.UPDATE_GEARGRID: {
@@ -297,12 +293,12 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                             armor: gearAmount,
                         } as IDefenseStat;
                     });
-                    const newSurvivor = {
+                    const updatedSurvivor = {
                         ...survivor,
                         defenseStats,
                     };
 
-                    const baseState = reducer(state, updateSurvivor(newSurvivor));
+                    const baseState = reducer(state, updateSurvivor(updatedSurvivor));
                     return {
                         ...baseState,
                         geargrids: geargrids.map((grid) => {

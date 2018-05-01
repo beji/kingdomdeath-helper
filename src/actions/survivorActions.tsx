@@ -25,7 +25,7 @@ export const reviveSurvivor = (id: ID): ReviveSurvivorAction => ({
     type: ActionTypes.REVIVE_SURVIVOR,
 });
 
-export const createSurvivor = (survivor: ISurvivor): CreateSurvivorAction => ({
-    payload: survivor,
+export const createSurvivor = (): CreateSurvivorAction => ({
+    payload: undefined,
     type: ActionTypes.CREATE_SURVIVOR,
 });
