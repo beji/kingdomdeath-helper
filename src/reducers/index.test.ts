@@ -80,6 +80,17 @@ describe("The reducer", () => {
             expect(huntingAfter).to.equal(4);
         });
 
+        it("should not allow a survivor to take multiple hunt spots", () => {
+            const state = clone(initialState);
+            const survivorToTest = state.survivors[3];
+            expect(state.geargrids[0].survivorId, "before test: first grid is not assigned to the survivor").to.not.equal(survivorToTest.id);
+            expect(state.geargrids[3].survivorId, "before test: last grid is assigned to the suvivor").to.equal(survivorToTest.id);
+
+            const result = reducer(state, addToHunt(survivorToTest.id, 0));
+
+            expect(result.geargrids[0].survivorId, "after test: first grid is assigned to the survivor").to.equal(survivorToTest.id);
+            expect(result.geargrids[3].survivorId, "after test: last grid is not assigned to the suvivor").to.not.equal(survivorToTest.id);
+        });
     });
 
     describe("RemoveFromHuntAction", () => {

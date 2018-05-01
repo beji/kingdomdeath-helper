@@ -41,8 +41,13 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                 const oldSurvivor = state.survivors.find((survivor) => survivor.id === survivorId);
                 const oldStats = oldSurvivor ? clone(oldSurvivor.baseStats) : [];
 
-                // Remove the old survivor by abusing the reducer
-                const baseState = oldSurvivor ? reducer(state, removeFromHunt(oldSurvivor.id)) : state;
+                // If the survivor is currently hunting they might be just switching their hunting spot
+                // we need to keep them from occupying two spots at the same time
+                // so we just remove them from the hunt before (re-)adding them
+                const statePhaseOne = reducer(state, removeFromHunt(action.payload.id));
+
+                // If the targeted hunting spot is currently occupied the old hunter needs to get removed as well
+                const baseState = oldSurvivor ? reducer(statePhaseOne, removeFromHunt(oldSurvivor.id)) : statePhaseOne;
 
                 const nextState = generateWithUpdatedSurvivors(baseState, (survivor) => {
                     // mark the new survivor as hunting and move the gear stats from the old survivor to the new one
