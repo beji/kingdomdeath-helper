@@ -18,7 +18,7 @@ const getBaseStats = (): IBaseStat[] => ([
     getSurvivorBaseStat(BaseStats.movement),
     getSurvivorBaseStat(BaseStats.speed),
     getSurvivorBaseStat(BaseStats.strength),
-]);
+]).sort((a, b) => (a.stat - b.stat));
 
 const getHitLocation = (stat: DefenseStats, onlyHeavyWound: boolean, noWounds: boolean = false): IDefenseStat => ({
     armor: 0,
@@ -39,7 +39,7 @@ const getDefense = (): IDefenseStat[] => ([
     getHitLocation(DefenseStats.legs, false),
     getHitLocation(DefenseStats.survival, false, true),
     getHitLocation(DefenseStats.waist, false),
-]);
+]).sort((a, b) => (a.stat - b.stat));
 
 const survivors: ReadonlyArray<ISurvivor> = Array.apply(null, { length: 8 }).map(Number.call, Number).map((n: number) => {
     return {
