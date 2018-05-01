@@ -30,7 +30,7 @@ describe("The reducer", () => {
                 }),
             };
             const initialHunting = state.survivors.filter((survivor) => survivor.hunting).length;
-            expect(initialHunting).to.equal(0);
+            expect(initialHunting, "nobody is hunting").to.equal(0);
 
             const stateWithHunter = {
                 ...state,
@@ -48,7 +48,7 @@ describe("The reducer", () => {
             const action = addToHunt(firstSurvivor.id, 0);
             const finalState = reducer(stateWithHunter, action);
             const finallyHunting = finalState.survivors.filter((survivor) => survivor.hunting).length;
-            expect(finallyHunting).to.equal(1);
+            expect(finallyHunting, "one survivor is hunting").to.equal(1);
         });
 
         it("should not allow more than four survivors in a hunt", () => {
@@ -77,7 +77,7 @@ describe("The reducer", () => {
             }, state);
 
             const huntingAfter = result.survivors.filter((x) => x.hunting).length;
-            expect(huntingAfter).to.equal(4);
+            expect(huntingAfter, "four survivors are hunting").to.equal(4);
         });
 
         it("should not allow a survivor to take multiple hunt spots", () => {
@@ -100,7 +100,7 @@ describe("The reducer", () => {
             const action = removeFromHunt(firstHunting.id);
             const finalState = reducer(state, action);
             const firstHunterAfter = finalState.survivors.find((survivor) => survivor.id === firstHunting.id) as ISurvivor;
-            expect(firstHunterAfter.hunting).to.equal(false);
+            expect(firstHunterAfter.hunting, "the survivor is not hunting").to.equal(false);
         });
     });
 
@@ -116,8 +116,8 @@ describe("The reducer", () => {
 
             const killAction = killSurvivor(survivor.id);
             const result = reducer(state, killAction);
-            expect(result.survivors[0].hunting).to.equal(false);
-            expect(result.survivors[0].alive).to.equal(false);
+            expect(result.survivors[0].hunting, "the dead survivor is not hunting").to.equal(false);
+            expect(result.survivors[0].alive, "the dead survivor is not alive").to.equal(false);
         });
     });
 
@@ -128,7 +128,7 @@ describe("The reducer", () => {
 
             const initialSurvival = state.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
 
-            expect(initialSurvival.armor).to.equal(0);
+            expect(initialSurvival.armor, "the survivor has zero survival before the rename").to.equal(0);
             const update = {
                 ...survivor,
                 name: "New Name",
@@ -136,7 +136,7 @@ describe("The reducer", () => {
             const result = reducer(state, updateSurvivor(update));
 
             const resultSurvival = result.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
-            expect(resultSurvival.armor).to.equal(1);
+            expect(resultSurvival.armor, "the survivor has one survival after the rename").to.equal(1);
         });
 
         it("should give not give free survival on renames that are not the first", () => {
@@ -146,14 +146,14 @@ describe("The reducer", () => {
             };
             const state = { ...initialState, survivors: [survivor] };
             const initialSurvival = state.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
-            expect(initialSurvival.armor).to.equal(0);
+            expect(initialSurvival.armor, "the survivor has zero survival before the rename").to.equal(0);
             const update = {
                 ...survivor,
                 name: "New Name",
             };
             const result = reducer(state, updateSurvivor(update));
             const resultSurvival = result.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
-            expect(resultSurvival.armor).to.equal(0);
+            expect(resultSurvival.armor, "the survivor has zero survival after the rename").to.equal(0);
         });
     });
 });
