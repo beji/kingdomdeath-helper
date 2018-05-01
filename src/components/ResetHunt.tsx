@@ -20,7 +20,7 @@ class ResetHunt extends React.Component<IResetHuntProps> {
         this.handleClick = this.handleClick.bind(this);
     }
     public render() {
-        return (<FancyButton onClick={this.handleClick}>Reset hunt </FancyButton>);
+        return (<FancyButton onClick={this.handleClick}>⚠ Reset hunt ⚠</FancyButton>);
     }
 
     private handleClick(e: SyntheticEvent<HTMLButtonElement>) {
