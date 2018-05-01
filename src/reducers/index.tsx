@@ -4,13 +4,13 @@ import initialState, { DEFAULT_SURVIVOR_NAME } from "../initialstate";
 import { DefenseStats, IBaseStat, IDefenseStat, IGearGrid, IItem, ISettlement, ISurvivor, StatType } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
-import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
+import { AddToHuntAction, RemoveFromHuntAction, ResetHuntAction } from "../interfaces/huntActions";
 import { ImportAction } from "../interfaces/importAction";
 import { SetNameAction } from "../interfaces/settlementActions";
 import { CreateSurvivorAction, KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { clone, defenseStatToString } from "../util";
 
-type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | UpdateSurvivorAction | UpdateSurvivorStatAction | KillSurvivorAction | ReviveSurvivorAction | CreateSurvivorAction | UpdateGearGridAction;
+type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | UpdateSurvivorAction | UpdateSurvivorStatAction | KillSurvivorAction | ReviveSurvivorAction | CreateSurvivorAction | UpdateGearGridAction | ResetHuntAction;
 
 function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
     const updatedSurvivors = state.survivors.map(mapfunc);
@@ -310,6 +310,22 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                 }
             }
             return state;
+        }
+        case ActionTypes.RESET_HUNT: {
+            return {
+                ...state,
+                survivors: state.survivors.map((survivor) => ({
+                    ...survivor,
+                    baseStats: survivor.baseStats.map((basestat) => ({
+                        ...basestat,
+                        token: 0,
+                    })),
+                    defenseStats: survivor.defenseStats.map((defensestat) => ({
+                        ...defensestat,
+                        modifier: 0,
+                    })),
+                })),
+            };
         }
         default: return state;
     }

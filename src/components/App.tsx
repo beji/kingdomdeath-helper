@@ -5,6 +5,7 @@ import { ID, ISettlement, Item } from "../interfaces";
 import CreateSurvivor from "./CreateSurvivor";
 import ExportForm from "./ExportForm";
 import GearGrid from "./GearGrid";
+import ResetHunt from "./ResetHunt";
 import SettlementName from "./SettlementName";
 import SocketConnector from "./SocketConnector";
 import SurvivorListItem from "./SurvivorListItem";
@@ -56,6 +57,9 @@ class App extends React.Component<IAppProps> {
                 <SurvivorCardsWrapper>
                     {geargrids && geargrids.map((id, idx) => <GearGrid key={idx} id={id} />)}
                 </SurvivorCardsWrapper>
+                <div>
+                    <ResetHunt />
+                </div>
                 <div>
                     Population: {aliveCount ? aliveCount : 0}
                 </div>
