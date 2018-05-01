@@ -22,7 +22,7 @@ const enum ItemType {
 }
 
 const enum Item {
-    rawhide_gloves = 1, // starting at 0 renders no card for rawhide_gloves
+    rawhide_gloves,
     rawhide_vest,
     rawhide_headband,
     rawhide_pants,
