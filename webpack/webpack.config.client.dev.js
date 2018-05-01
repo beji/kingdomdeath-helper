@@ -7,6 +7,7 @@ module.exports =
     {
         name: 'client',
         entry: ['./src/client.tsx', `webpack-hot-middleware/client`],
+        devtool: 'inline-source-map',
         mode: 'development',
         output: {
             path: path.join(__dirname, '..', 'public'),
