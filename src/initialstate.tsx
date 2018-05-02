@@ -1,4 +1,5 @@
 import armor from "data/final/armor.json";
+import weapon from "data/final/weapon.json";
 import uuid from "uuid/v4";
 import { Affinity, BaseStats, DefenseStats, Gender, IBaseStat, ID, IDefenseStat, IGearGrid, IItem, ISettlement, ISurvivor, Item, ItemType, StatType } from "./interfaces";
 
@@ -213,7 +214,7 @@ const items: ReadonlyArray<IItem> = [
 const initialState: ISettlement = {
     geargrids,
     id: uuid(),
-    items: armor,
+    items: armor.concat(weapon),
     name: "Everybody-will-die-town",
     survivors,
 };
