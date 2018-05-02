@@ -26,7 +26,13 @@
       ".tsx"
     ],
     "exclude": [
-      "**/*.d.ts"
+      "**/*.d.ts",
+      "test/**/*.ts",
+      "coverage",
+      "data",
+      "dist",
+      "public",
+      "webpack"
     ],
     "reporter": [
       "html"
