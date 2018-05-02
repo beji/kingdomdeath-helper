@@ -24,6 +24,7 @@
     "name": "Adventure Sword",
     "obtained": "Hunt Event 85",
     "types": [
+      4,
       22,
       23
     ],
@@ -40,6 +41,7 @@
     "name": "Amber Edge",
     "obtained": "Silk Mill",
     "types": [
+      4,
       24,
       11
     ],
@@ -110,6 +112,7 @@
     "name": "Arc Bow",
     "obtained": "Plumery",
     "types": [
+      4,
       28
     ],
     "weapon": {
@@ -142,6 +145,7 @@
     "name": "Barbed Arrows",
     "obtained": "Blacksmith",
     "types": [
+      4,
       30,
       28
     ],
@@ -158,6 +162,7 @@
     "name": "Beast Knuckle",
     "obtained": "Stone Circle",
     "types": [
+      4,
       31,
       10
     ],
@@ -175,6 +180,7 @@
     "obtained": "Silk Mill",
     "types": [
       0,
+      4,
       5,
       32
     ],
@@ -299,6 +305,7 @@
     "name": "Bone Pickaxe",
     "obtained": "Bone Smith",
     "types": [
+      4,
       9,
       35,
       10
@@ -316,6 +323,7 @@
     "name": "Bone Sickle",
     "obtained": "Bone Smith",
     "types": [
+      4,
       9,
       35,
       10
@@ -351,6 +359,7 @@
     "name": "Calcified Digging Claw",
     "obtained": "Underground Sow Event",
     "types": [
+      4,
       20,
       31,
       36
@@ -368,6 +377,7 @@
     "name": "Calcified Juggernaut Blade",
     "obtained": "Underground Sow Event",
     "types": [
+      4,
       20,
       37,
       10,
@@ -386,6 +396,7 @@
     "name": "Calcified Zanbato",
     "obtained": "Underground Sow Event",
     "types": [
+      4,
       20,
       37,
       10,
@@ -457,6 +468,7 @@
     "name": "Claw Head Arrow",
     "obtained": "Catarium",
     "types": [
+      4,
       9,
       38,
       28,
@@ -492,6 +504,7 @@
     "name": "Denticle Axe",
     "obtained": "Skyreef Sanctuary",
     "types": [
+      4,
       20,
       25,
       39
@@ -509,6 +522,7 @@
     "name": "Digging Claw",
     "obtained": "Wet Resin Crafter",
     "types": [
+      4,
       20,
       31,
       36,
@@ -528,6 +542,7 @@
     "name": "Dragon Bite Bolt",
     "obtained": "Dragon Armory",
     "types": [
+      4,
       9,
       38,
       30
@@ -599,6 +614,7 @@
     "name": "Fist and Tooth",
     "obtained": "---",
     "types": [
+      4,
       41
     ],
     "weapon": {
@@ -649,6 +665,7 @@
     "name": "Giant Stone Face",
     "obtained": "Kara Black encounter",
     "types": [
+      4,
       37,
       43
     ],
@@ -665,6 +682,7 @@
     "name": "Gloom Hammer",
     "obtained": "Light-Forging event",
     "types": [
+      4,
       44,
       29
     ],
@@ -681,6 +699,7 @@
     "name": "Gloom Katana",
     "obtained": "Light-Forging event",
     "types": [
+      4,
       45,
       44,
       23
@@ -698,6 +717,7 @@
     "name": "Gloom-Coated Arrow",
     "obtained": "Light-Forging event",
     "types": [
+      4,
       30,
       44
     ],
@@ -771,6 +791,7 @@
     "name": "Hollowpoint Arrow",
     "obtained": "Plumery",
     "types": [
+      4,
       46
     ],
     "weapon": {
@@ -822,6 +843,7 @@
     "name": "Ink Blood Bow",
     "obtained": "Skyreef Sanctuary",
     "types": [
+      4,
       28
     ],
     "weapon": {
@@ -837,6 +859,7 @@
     "name": "Ink Sword",
     "obtained": "Skyreef Sanctuary",
     "types": [
+      4,
       20,
       22,
       48
@@ -854,6 +877,7 @@
     "name": "King Spear",
     "obtained": "Catarium",
     "types": [
+      4,
       26,
       13
     ],
@@ -870,6 +894,7 @@
     "name": "Lance of Longinus",
     "obtained": "Stone Circle",
     "types": [
+      4,
       26,
       10
     ],
@@ -886,6 +911,7 @@
     "name": "Lantern Dagger",
     "obtained": "Blacksmith",
     "types": [
+      4,
       21,
       23,
       12
@@ -903,6 +929,7 @@
     "name": "Lantern Glaive",
     "obtained": "Blacksmith",
     "types": [
+      4,
       26,
       25,
       23,
@@ -921,6 +948,7 @@
     "name": "Lantern Halberd",
     "obtained": "Guidepost innovation - pull it out",
     "types": [
+      4,
       26,
       15
     ],
@@ -937,6 +965,7 @@
     "name": "Lantern Sword",
     "obtained": "Blacksmith",
     "types": [
+      4,
       22,
       23,
       12
@@ -971,6 +1000,7 @@
     "name": "Lion Knight's Left Claw",
     "obtained": "Lion Knight encounter",
     "types": [
+      4,
       49
     ],
     "weapon": {
@@ -986,6 +1016,7 @@
     "name": "Lion Knight's Right Claw",
     "obtained": "Lion Knight encounter",
     "types": [
+      4,
       49
     ],
     "weapon": {
@@ -1000,7 +1031,9 @@
     "material": "2x iron, 1x lion tail",
     "name": "Manacles",
     "obtained": "Weapon Crafter",
-    "types": [],
+    "types": [
+      4
+    ],
     "weapon": {
       "accuracy": 8,
       "speed": 2,
@@ -1014,6 +1047,7 @@
     "name": "Muramasa",
     "obtained": "Hunt Event 88",
     "types": [
+      4,
       45,
       23,
       15
@@ -1067,6 +1101,7 @@
     "name": "Perfect Slayer",
     "obtained": "Blacksmith",
     "types": [
+      4,
       37,
       22,
       13,
@@ -1086,6 +1121,7 @@
     "name": "Prism Mace",
     "obtained": "Sacred Pool",
     "types": [
+      4,
       20,
       29,
       10
@@ -1103,6 +1139,7 @@
     "name": "Rainbow Katana",
     "obtained": "Weapon Crafter",
     "types": [
+      4,
       45,
       23
     ],
@@ -1119,6 +1156,7 @@
     "name": "Ram Prow",
     "obtained": "Wet Resin Crafter",
     "types": [
+      4,
       5,
       32
     ],
@@ -1135,6 +1173,7 @@
     "name": "Rawhide Whip",
     "obtained": "Skinnery",
     "types": [
+      4,
       47,
       2
     ],
@@ -1205,6 +1244,7 @@
     "name": "Ring Whip",
     "obtained": "Blacksmith",
     "types": [
+      4,
       47,
       23,
       12
@@ -1239,6 +1279,7 @@
     "name": "Scrap Dagger",
     "obtained": "Weapon Crafter",
     "types": [
+      4,
       21,
       12
     ],
@@ -1255,6 +1296,7 @@
     "name": "Scrap Sword",
     "obtained": "Weapon Crafter",
     "types": [
+      4,
       22,
       12
     ],
@@ -1271,6 +1313,7 @@
     "name": "Silk Whip",
     "obtained": "Silk Mill",
     "types": [
+      4,
       47,
       52
     ],
@@ -1287,6 +1330,7 @@
     "name": "Skleaver",
     "obtained": "Skyreef Sanctuary",
     "types": [
+      4,
       13,
       10
     ],
@@ -1303,6 +1347,7 @@
     "name": "Skullcap Hammer",
     "obtained": "Weapon Crafter",
     "types": [
+      4,
       29,
       10
     ],
@@ -1319,6 +1364,7 @@
     "name": "Sky Harpoon",
     "obtained": "Skyreef Sanctuary",
     "types": [
+      4,
       20,
       34,
       26
@@ -1336,6 +1382,7 @@
     "name": "Sonic Tomahawk",
     "obtained": "Plumery",
     "types": [
+      4,
       25,
       12
     ],
@@ -1352,6 +1399,7 @@
     "name": "Steel Sword",
     "obtained": "Hunt Event 100.",
     "types": [
+      4,
       22,
       23,
       12
@@ -1418,6 +1466,7 @@
     "name": "Sunspot Dart",
     "obtained": "Skyreef Sanctuary",
     "types": [
+      4,
       33,
       34
     ],
@@ -1452,6 +1501,7 @@
     "name": "The Weaver",
     "obtained": "Spidicules Hunt Event",
     "types": [
+      4,
       22,
       11
     ],
@@ -1468,6 +1518,7 @@
     "name": "Throwing Knife",
     "obtained": "Silk Mill",
     "types": [
+      4,
       33,
       34
     ],
@@ -1484,6 +1535,7 @@
     "name": "Thunder Maul",
     "obtained": "Hunt Event 100.",
     "types": [
+      4,
       29,
       15
     ],
@@ -1500,6 +1552,7 @@
     "name": "Twilight Sword",
     "obtained": "Hooded Knight event",
     "types": [
+      4,
       53,
       23,
       15
@@ -1517,6 +1570,7 @@
     "name": "Vespertine Arrow",
     "obtained": "Sense Memory (kill Flower Knight)",
     "types": [
+      4,
       9,
       38,
       30
@@ -1570,6 +1624,7 @@
     "name": "Whistling Mace",
     "obtained": "Weapon Crafter",
     "types": [
+      4,
       29,
       10
     ],
@@ -1604,6 +1659,7 @@
     "name": "Zanbato",
     "obtained": "Weapon Crafter",
     "types": [
+      4,
       37,
       10
     ],

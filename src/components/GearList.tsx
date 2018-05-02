@@ -3,10 +3,11 @@ import React from "react";
 import { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { ID, IItem, ISettlement } from "../interfaces";
+import { ID, IItem, ISettlement, ItemType } from "../interfaces";
 import { colorMagentaLachs } from "./StyledComponents";
 
 interface IGearListState {
+    filter: ItemType[];
     items: ReadonlyArray<IItem>;
 }
 
@@ -88,6 +89,7 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
     constructor(props: IGearListProps) {
         super(props);
         this.state = {
+            filter: [],
             items: props.items as IItem[],
         };
         this.handleCloseIconClick = this.handleCloseIconClick.bind(this);
@@ -99,8 +101,9 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
             <Wrapper>
                 {this.props.onCancel && <CloseIcon onClick={this.handleCloseIconClick}>X</CloseIcon>}
                 <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} />
+                <div>Armor</div><div>Weapons</div>
                 <List>
-                    {this.state.items.map((v, i) => <ListElement key={i} onClick={this.handleItemSelect.bind(this, v.id)}>{v.name}</ListElement>)}
+                    {this.state.items.map((v, i) => <ListElement key={i} onClick={this.handleItemSelect.bind(this, v.id)} dangerouslySetInnerHTML={{__html: v.name}} />)}
                 </List>
             </Wrapper>
         );
@@ -123,7 +126,12 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
                 keys: ["name"],
             });
             this.setState({
-                items: fuse.search(event.currentTarget.value),
+                items: fuse.search(event.currentTarget.value).map((item: any) => {
+                    return {
+                        ...item,
+                        name: item.name.replace(new RegExp(event.currentTarget.value, "gi"), "<b>$&</b>"),
+                    };
+                }),
             });
         }
 
