@@ -152,19 +152,6 @@
     }
   },
   {
-    "desc": "1/6/5. Block 2: spend move to ignore 2 hits next time you are attacked (up until your next act). You cannot block more than once per attack. Shield adds +2 armor to all locations.",
-    "id": 5,
-    "material": "2x iron, 3x leather, 4x bone",
-    "name": "Beacon Shield",
-    "obtained": "Blacksmith",
-    "types": [],
-    "weapon": {
-      "accuracy": 6,
-      "speed": 1,
-      "strength": 5
-    }
-  },
-  {
     "desc": "katar,bone. Paired. When you wound with this weapon, monster gains -1 toughness until end of this attack.",
     "id": 101,
     "material": "1x large flat tooth, 1x pelt",
@@ -181,25 +168,14 @@
     }
   },
   {
-    "desc": "2/7+/3 The shield has a myriad of eyes on the front to confuse the opponent. If a trap hit location card is drawn during your attacks, discard it and draw another hit location card. 1x/attack and costs 1 survival to perform. Block 1.",
-    "id": 6,
-    "material": "1x scarab shell, 1x compound eye, 1x web silk",
-    "name": "Beetle Eye Shield",
-    "obtained": "Wet Resin Crafter",
-    "types": [],
-    "weapon": {
-      "accuracy": 7,
-      "speed": 2,
-      "strength": 3
-    }
-  },
-  {
-    "desc": "2/7+/4 weapon,shield. Block 1. If holding this shield during an attack (with any weapon) and draw a Trap, roll 1d10. On 6+ the visage distracts the monster and you may discard the trap card (but do not draw a new HL card).",
+    "desc": "Block 1. If holding this shield during an attack (with any weapon) and draw a Trap, roll 1d10. On 6+ the visage distracts the monster and you may discard the trap card (but do not draw a new HL card).",
     "id": 102,
     "material": "1x grinning visage, 1x web silk, 2x bone",
     "name": "Biting Visage",
     "obtained": "Silk Mill",
     "types": [
+      0,
+      5,
       32
     ],
     "weapon": {
@@ -224,23 +200,6 @@
       "accuracy": 5,
       "speed": 3,
       "strength": 10
-    }
-  },
-  {
-    "desc": "1/7+/4 weapon,melee,shield,metal. Block 1. The first time you block a hit each showdown, gain the priority target token. Shield adds +1 armor to all locations.",
-    "id": 7,
-    "material": "1x kings tongue, 1x iron",
-    "name": "Blast Shield",
-    "obtained": "Dragon Armory",
-    "types": [
-      20,
-      32,
-      12
-    ],
-    "weapon": {
-      "accuracy": 7,
-      "speed": 1,
-      "strength": 4
     }
   },
   {
@@ -617,19 +576,6 @@
     }
   },
   {
-    "desc": "3/7/0 weapon. Block 1. 1-aff-green/1-aff-blue/1-aff-red = reduce any suffered brain damage by 1, to min of 1. Shield adds +1 armor to all locations.",
-    "id": 21,
-    "material": "2x small feathers, 1x muculent droppings",
-    "name": "Feather Shield",
-    "obtained": "Plumery",
-    "types": [],
-    "weapon": {
-      "accuracy": 7,
-      "speed": 3,
-      "strength": 0
-    }
-  },
-  {
     "desc": "weapon,melee,spear,2H. Reach 2. 1-aff-green/1-aff-blue/1-aff-red = if you have +5 survival then gain +1 accuracy and +1 strength.",
     "id": 125,
     "material": "1x phoenix finger, 4x bone",
@@ -780,21 +726,6 @@
     }
   },
   {
-    "desc": "2/7+/4 weapon,shield. Block 1.2/7/4. Shield. Block 1. When you wound with this shield, you may spend 1 survival to add 1 armor to all hit locations. Limit 1x/attack.",
-    "id": 35,
-    "material": "Spidicules, destroy Legless Ball, get shield.",
-    "name": "Grinning Visage",
-    "obtained": "Legless Ball innovation",
-    "types": [
-      32
-    ],
-    "weapon": {
-      "accuracy": 7,
-      "speed": 2,
-      "strength": 4
-    }
-  },
-  {
     "desc": "weapon,set,melee,sword,finesse,bone,metal. Sharp, Deadly, Savage. When you wound, Block 2 free if you have Fetorsaurus.",
     "id": 133,
     "material": "Survivor with True Blade fighting art, 1x gormite, 1x stomach lining, 1x calcified juggernaut blade, 1x iron",
@@ -813,24 +744,6 @@
       "accuracy": 4,
       "speed": 3,
       "strength": 15
-    }
-  },
-  {
-    "desc": "2/4+/7 weapon,melee,shield,metal,heavy. Block 2. When the monster performs Unseen Agony or Meltdown, roll 1d10. On 2+ you suffer no damage. Shield adds +2 armor to all locations.",
-    "id": 36,
-    "material": "Dragon King, non-craftable",
-    "name": "Hazmat Shield",
-    "obtained": "The Tomb story event",
-    "types": [
-      20,
-      32,
-      12,
-      13
-    ],
-    "weapon": {
-      "accuracy": 4,
-      "speed": 2,
-      "strength": 7
     }
   },
   {
@@ -948,19 +861,6 @@
       "accuracy": 6,
       "speed": 2,
       "strength": 3
-    }
-  },
-  {
-    "desc": "3/7+/1 Block 1. Once per round, if you wound with this weapon, Block 1 for free. Shield adds +0 armor to all locations.",
-    "id": 38,
-    "material": "1x mammoth hand, 2x bone",
-    "name": "Knuckle Shield",
-    "obtained": "Gormery",
-    "types": [],
-    "weapon": {
-      "accuracy": 7,
-      "speed": 3,
-      "strength": 1
     }
   },
   {
@@ -1213,12 +1113,13 @@
     }
   },
   {
-    "desc": "2/6/7 weapon,shield. +2 movement. Block 1. If a move (or dash) is combined with an attack with this shield, then on a successful hit roll 1d10. If the roll is at or below the number of grids moved, then the monster is knocked down. Throw out all HL traps and ignore reactions for the rest of this round.",
+    "desc": "+2 movement. Block 1. If a move (or dash) is combined with an attack with this shield, then on a successful hit roll 1d10. If the roll is at or below the number of grids moved, then the monster is knocked down. Throw out all HL traps and ignore reactions for the rest of this round.",
     "id": 156,
     "material": "1x century shell, 2x iron, 1x beetle horn",
     "name": "Ram Prow",
     "obtained": "Wet Resin Crafter",
     "types": [
+      5,
       32
     ],
     "weapon": {
@@ -1332,19 +1233,6 @@
     }
   },
   {
-    "desc": "1/8/1 weapon. Block 1: spend action to ignore 1 hit location next time you are attacked. Lasts until your next act. Max 1 block/attack. Shield adds +1 armor to all locations.",
-    "id": 70,
-    "material": "1x leather, 1x bone, 1x hide",
-    "name": "Round Leather Shield",
-    "obtained": "Leather Worker",
-    "types": [],
-    "weapon": {
-      "accuracy": 8,
-      "speed": 1,
-      "strength": 1
-    }
-  },
-  {
     "desc": "dagger,metal. On a perfect hit, gain +2 strength for the rest of the attack.",
     "id": 163,
     "material": "heat, 1x bone, 1x scrap",
@@ -1358,19 +1246,6 @@
       "accuracy": 7,
       "speed": 3,
       "strength": 2
-    }
-  },
-  {
-    "desc": "2/7/3 weapon. Block 1: spend action to ignore 1 hit location next time you are attacked. Lasts until your next act. Max 1 block/attack. Shield adds +1 armor to all locations.",
-    "id": 72,
-    "material": "3x bone, 2x scrap, 3x leather",
-    "name": "Scrap Shield",
-    "obtained": "Blacksmith",
-    "types": [],
-    "weapon": {
-      "accuracy": 7,
-      "speed": 2,
-      "strength": 3
     }
   },
   {
@@ -1468,19 +1343,6 @@
       "accuracy": 5,
       "speed": 3,
       "strength": 2
-    }
-  },
-  {
-    "desc": "1/6/6 weapon. Irreplaceable. -3 movement. Spend action or 1 survival to ignore a hit. Shield adds +0 armor to all locations.",
-    "id": 85,
-    "material": "core game, non-craftable.",
-    "name": "Steel Shield",
-    "obtained": "Hunt Event 100.",
-    "types": [],
-    "weapon": {
-      "accuracy": 6,
-      "speed": 1,
-      "strength": 6
     }
   },
   {

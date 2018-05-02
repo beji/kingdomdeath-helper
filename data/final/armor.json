@@ -55,7 +55,7 @@
     ]
   },
   {
-    "desc": "1/6/5. Block 2: spend move to ignore 2 hits next time you are attacked (up until your next act). You cannot block more than once per attack. Shield adds +2 armor to all locations.",
+    "desc": "Block 2: spend move to ignore 2 hits next time you are attacked (up until your next act). You cannot block more than once per attack. Shield adds +2 armor to all locations.",
     "id": 5,
     "material": "2x iron, 3x leather, 4x bone",
     "name": "Beacon Shield",
@@ -93,22 +93,35 @@
       }
     ],
     "types": [
-      0
-    ]
+      0,
+      5,
+      32
+    ],
+    "weapon": {
+      "accuracy": 6,
+      "speed": 1,
+      "strength": 5
+    }
   },
   {
-    "desc": "2/7+/3 The shield has a myriad of eyes on the front to confuse the opponent. If a trap hit location card is drawn during your attacks, discard it and draw another hit location card. 1x/attack. Block 1.",
+    "desc": "The shield has a myriad of eyes on the front to confuse the opponent. If a trap hit location card is drawn during your attacks, discard it and draw another hit location card. 1x/attack. Block 1.",
     "id": 6,
     "material": "1x scarab shell, 1x compound eye, 1x web silk",
     "name": "Beetle Eye Shield",
     "obtained": "Wet Resin Crafter",
     "stats": [],
     "types": [
-      0
-    ]
+      0,
+      4
+    ],
+    "weapon": {
+      "accuracy": 7,
+      "speed": 2,
+      "strength": 3
+    }
   },
   {
-    "desc": "1/7+/4 weapon,melee,shield,metal. Block 1. The first time you block a hit each showdown, gain the priority target token. Shield adds +1 armor to all locations.",
+    "desc": "Block 1. The first time you block a hit each showdown, gain the priority target token. Shield adds +1 armor to all locations.",
     "id": 7,
     "material": "1x kings tongue, 1x iron",
     "name": "Blast Shield",
@@ -146,8 +159,17 @@
       }
     ],
     "types": [
-      0
-    ]
+      0,
+      5,
+      12,
+      20,
+      32
+    ],
+    "weapon": {
+      "accuracy": 7,
+      "speed": 1,
+      "strength": 4
+    }
   },
   {
     "desc": "jewelry, amber. Accessory. 3x 0.5-aff-blue = If you are the monster controller when the monster draws AI, draw 1 extra card. Select 1 to play and discard the other.",
@@ -397,7 +419,7 @@
     ]
   },
   {
-    "desc": "3/7/0 weapon. Block 1. 1-aff-green/1-aff-blue/1-aff-red = reduce any suffered brain damage by 1, to min of 1. Shield adds +1 armor to all locations.",
+    "desc": "Block 1. 1-aff-green/1-aff-blue/1-aff-red = reduce any suffered brain damage by 1, to min of 1. Shield adds +1 armor to all locations.",
     "id": 21,
     "material": "2x small feathers, 1x muculent droppings",
     "name": "Feather Shield",
@@ -435,11 +457,18 @@
       }
     ],
     "types": [
-      0
-    ]
+      0,
+      5,
+      32
+    ],
+    "weapon": {
+      "accuracy": 7,
+      "speed": 3,
+      "strength": 0
+    }
   },
   {
-    "desc": "2/5+/9. weapon,set,melee,shield,metal. Block 2. Add 2 to all hit locations (as shown). While you carry this, reduce star damage from monster level by 1.",
+    "desc": "set,melee,metal. Block 2. Add 2 to all hit locations (as shown). While you carry this, reduce star damage from monster level by 1.",
     "id": 22,
     "material": "1x beacon shield, 1x underplate fungus, 1x sleeping virus flower, 1x elixir of life",
     "name": "Fetorsaurus",
@@ -477,8 +506,15 @@
       }
     ],
     "types": [
-      0
-    ]
+      0,
+      5,
+      32
+    ],
+    "weapon": {
+      "accuracy": 5,
+      "speed": 2,
+      "strength": 9
+    }
   },
   {
     "desc": "armor,heavy. +1 Accuracy. 3x 1-aff-green = While you are being attacked, the monster has -1 speed.",
@@ -735,18 +771,25 @@
     ]
   },
   {
-    "desc": "2/7/4. Shield. Block 1. When you wound with this shield, you may spend 1 survival to add 1 armor to all hit locations. Limit 1x/attack.",
+    "desc": "Block 1. When you wound with this shield, you may spend 1 survival to add 1 armor to all hit locations. Limit 1x/attack.",
     "id": 35,
     "material": "Spidicules, destroy Legless Ball, get shield.",
     "name": "Grinning Visage",
     "obtained": "Legless Ball innovation",
     "stats": [],
     "types": [
-      0
-    ]
+      0,
+      5,
+      32
+    ],
+    "weapon": {
+      "accuracy": 7,
+      "speed": 2,
+      "strength": 4
+    }
   },
   {
-    "desc": "2/4+/7 weapon,melee,shield,metal,heavy. Block 2. When the monster performs Unseen Agony or Meltdown, roll 1d10. On 2+ you suffer no damage. Shield adds +2 armor to all locations.",
+    "desc": "Block 2. When the monster performs Unseen Agony or Meltdown, roll 1d10. On 2+ you suffer no damage. Shield adds +2 armor to all locations.",
     "id": 36,
     "material": "Dragon King, non-craftable",
     "name": "Hazmat Shield",
@@ -784,8 +827,18 @@
       }
     ],
     "types": [
-      0
-    ]
+      0,
+      5,
+      20,
+      32,
+      12,
+      13
+    ],
+    "weapon": {
+      "accuracy": 4,
+      "speed": 2,
+      "strength": 7
+    }
   },
   {
     "desc": "Mask. Accessory. Gain +1 strength. At the start of the showdown, if you are fighting the Lion Knight, choose your Role card.",
@@ -807,15 +860,22 @@
     ]
   },
   {
-    "desc": "3/7+/1 Block 1. Once per round, if you wound with this weapon, Block 1 for free. Shield adds +0 armor to all locations.",
+    "desc": "Block 1. Once per round, if you wound with this weapon, Block 1 for free. Shield adds +0 armor to all locations.",
     "id": 38,
     "material": "1x mammoth hand, 2x bone",
     "name": "Knuckle Shield",
     "obtained": "Gormery",
     "stats": [],
     "types": [
-      0
-    ]
+      0,
+      5,
+      32
+    ],
+    "weapon": {
+      "accuracy": 7,
+      "speed": 3,
+      "strength": 1
+    }
   },
   {
     "desc": "-2 movement. 2x 0.5-aff-blue/2x 0.5-aff-green = when you depart, add 3 armor to all hit locations with metal armor.",
@@ -1393,7 +1453,7 @@
     ]
   },
   {
-    "desc": "1/8/1 weapon. Block 1: spend action to ignore 1 hit location next time you are attacked. Lasts until your next act. Max 1 block/attack. Shield adds +1 armor to all locations.",
+    "desc": "Block 1: spend action to ignore 1 hit location next time you are attacked. Lasts until your next act. Max 1 block/attack. Shield adds +1 armor to all locations.",
     "id": 70,
     "material": "1x leather, 1x bone, 1x hide",
     "name": "Round Leather Shield",
@@ -1431,8 +1491,15 @@
       }
     ],
     "types": [
-      0
-    ]
+      0,
+      5,
+      32
+    ],
+    "weapon": {
+      "accuracy": 8,
+      "speed": 1,
+      "strength": 1
+    }
   },
   {
     "desc": "armor,set,leather. Takes the place of the leather mask and cuirass in the leather set. No special properties.",
@@ -1461,7 +1528,7 @@
     ]
   },
   {
-    "desc": "2/7/3 weapon. Block 1: spend action to ignore 1 hit location next time you are attacked. Lasts until your next act. Max 1 block/attack. Shield adds +1 armor to all locations.",
+    "desc": "Block 1: spend action to ignore 1 hit location next time you are attacked. Lasts until your next act. Max 1 block/attack. Shield adds +1 armor to all locations.",
     "id": 72,
     "material": "3x bone, 2x scrap, 3x leather",
     "name": "Scrap Shield",
@@ -1499,8 +1566,15 @@
       }
     ],
     "types": [
-      0
-    ]
+      0,
+      5,
+      32
+    ],
+    "weapon": {
+      "accuracy": 7,
+      "speed": 2,
+      "strength": 3
+    }
   },
   {
     "desc": "When you Slam, you may pass through other survivors without causing collision.",
@@ -1712,15 +1786,22 @@
     ]
   },
   {
-    "desc": "1/6/6 weapon. Irreplaceable. -3 movement. Spend action or 1 survival to ignore a hit. Shield adds +0 armor to all locations.",
+    "desc": "Irreplaceable. -3 movement. Spend action or 1 survival to ignore a hit. Shield adds +0 armor to all locations.",
     "id": 85,
     "material": "non-craftable",
     "name": "Steel Shield",
     "obtained": "Hunt Event 100",
     "stats": [],
     "types": [
-      0
-    ]
+      0,
+      5,
+      32
+    ],
+    "weapon": {
+      "accuracy": 6,
+      "speed": 1,
+      "strength": 6
+    }
   },
   {
     "desc": "2x 0.5-aff-red = +1 movement",
