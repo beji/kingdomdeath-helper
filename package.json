@@ -9,6 +9,7 @@
     "start": "yarn run dev",
     "dev": "npm-run-all dev:*",
     "dev:lint": "tslint -c tslint.json ./src/hmr.ts",
+    "dev:test": "yarn run test",
     "dev:run": "cross-env NODE_ENV=development ts-node ./src/hmr.ts",
     "prod": "cross-env NODE_ENV=production ts-node ./src/hmr.ts",
     "build": "npm-run-all build:*",
