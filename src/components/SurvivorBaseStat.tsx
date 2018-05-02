@@ -2,9 +2,9 @@ import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { updateSurvivorStat } from "../actions/survivorActions";
-import { IBaseStat, ID, IDefenseStat, ISettlement, ISurvivor } from "../interfaces";
+import { BaseStats, IBaseStat, ID, IDefenseStat, ISettlement, ISurvivor } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
-import { baseStatToString, clone } from "../util";
+import { capitalize, clone } from "../util";
 import FancyButton from "./FancyButton";
 import NumberEdit from "./NumberEdit";
 import { Label, StatEdit, StatElement, StatLayer, StatLayerHeadline, StatWrapper } from "./SurvivorStatElements";
@@ -83,7 +83,7 @@ class SurvivorBaseStat extends React.Component<IBaseStatProps, IBaseStatState> {
         const { permanent, gear, token, stat } = this.props.stat;
         return (
             <StatLayer>
-                <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {baseStatToString(stat)}</StatLayerHeadline>
+                <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {capitalize(BaseStats[stat])}</StatLayerHeadline>
                 <StatEdit>
                     <Label>Permanent</Label><NumberEdit value={permanent} innerRef={this.setupPermRef} />
                 </StatEdit>

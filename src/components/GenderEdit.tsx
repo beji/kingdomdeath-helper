@@ -4,7 +4,7 @@ import { connect, Dispatch } from "react-redux";
 import { updateSurvivor } from "../actions/survivorActions";
 import { Gender, ID, ISettlement, ISurvivor } from "../interfaces";
 import { UpdateSurvivorAction } from "../interfaces/survivorActions";
-import { clone, genderToString } from "../util";
+import { capitalize, clone } from "../util";
 
 interface IGenderEditState {
     editGender: boolean;
@@ -50,12 +50,12 @@ class GenderEdit extends React.Component<IGenderEditProps, IGenderEditState> {
         const { editGender } = this.state;
         const gender = this.props.survivor ? this.props.survivor.gender : Gender.male;
         if (!editGender) {
-            return (<span onClick={this.handleGenderClick}>{genderToString(gender)}</span>);
+            return (<span onClick={this.handleGenderClick}>{capitalize(Gender[gender])}</span>);
         } else {
             return (
                 <select onChange={this.handleGenderChange} defaultValue={gender.toString()}>
-                    <option value={Gender.male}>{genderToString(Gender.male)}</option>
-                    <option value={Gender.female}>{genderToString(Gender.female)}</option>
+                    <option value={Gender.male}>{capitalize(Gender[Gender.male])}</option>
+                    <option value={Gender.female}>{capitalize(Gender[Gender.female])}</option>
                 </select>
             );
         }
