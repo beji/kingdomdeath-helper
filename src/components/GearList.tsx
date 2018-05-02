@@ -1,3 +1,4 @@
+import Fuse from "fuse.js";
 import React from "react";
 import { SyntheticEvent } from "react";
 import { connect } from "react-redux";
@@ -110,12 +111,17 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
 
     private handleFilter(event: SyntheticEvent<HTMLInputElement>) {
         const { items } = this.props;
-        this.setState({
-            items: items.filter((item) => {
-                return item.name.toLowerCase().search(
-                    event.currentTarget.value.toLowerCase()) !== -1;
-            }),
-        });
+        if (event.currentTarget.value === "") {
+            this.setState({ items });
+        } else {
+            const fuse = new Fuse(items as any[], {
+                keys: ["name"],
+            });
+            this.setState({
+                items: fuse.search(event.currentTarget.value),
+            });
+        }
+
     }
 }
 

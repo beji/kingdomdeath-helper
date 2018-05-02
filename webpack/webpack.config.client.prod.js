@@ -16,7 +16,10 @@ module.exports =
             publicPath: `/assets/`
         },
         resolve: {
-            extensions: ['.ts', '.tsx', '.js', '.jsx']
+            extensions: ['.ts', '.tsx', '.js', '.jsx'],
+            alias: {
+                data: path.resolve(__dirname, "..", "data")
+            }            
         },
         module: {
             rules: [

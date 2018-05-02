@@ -1,6 +1,7 @@
 dist
 node_modules
 public
+test
 yarn-error.log
 .vscode
 .git
