@@ -41,7 +41,6 @@ const mapStateToProps = (state: ISettlement, ownProps: ISurvivorDefenseStatOwnPr
 };
 
 class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISurvivorDefenceStatState> {
-    private armorfield?: HTMLInputElement;
     private modifierfield?: HTMLInputElement;
 
     public constructor(props: ISurvivorDefenseStatProps) {
@@ -53,7 +52,6 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
         this.handleEditConfirm = this.handleEditConfirm.bind(this);
         this.renderEditState = this.renderEditState.bind(this);
 
-        this.setupArmorRef = this.setupArmorRef.bind(this);
         this.setupModifierRef = this.setupModifierRef.bind(this);
     }
 
@@ -76,10 +74,8 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
             <StatLayer>
                 <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {capitalize(DefenseStats[stat])}</StatLayerHeadline>
                 <StatEdit>
-                    <Label>Stat</Label><NumberEdit value={armor} innerRef={this.setupArmorRef} />
-                </StatEdit>
-                <StatEdit>
-                    <Label>Modifier</Label><NumberEdit value={modifier} innerRef={this.setupModifierRef} />
+                    <Label>Stat</Label><NumberEdit value={modifier} innerRef={this.setupModifierRef} addToDisplay={armor} />
+                    <div>Gear total: {armor}</div>
                 </StatEdit>
                 <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
             </StatLayer>
@@ -88,10 +84,6 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
 
     private setupModifierRef(elem: HTMLInputElement) {
         this.modifierfield = elem;
-    }
-
-    private setupArmorRef(elem: HTMLInputElement) {
-        this.armorfield = elem;
     }
 
     private toggleWound(woundType: string) {
@@ -113,10 +105,9 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
     }
 
     private handleEditConfirm(e: SyntheticEvent<HTMLButtonElement>) {
-        if (this.armorfield && this.modifierfield) {
+        if (this.modifierfield) {
             const nextStat = {
                 ...this.props.stat,
-                armor: parseInt(this.armorfield.value, 10),
                 modifier: parseInt(this.modifierfield.value, 10),
             };
             if (this.props.survivor) {
