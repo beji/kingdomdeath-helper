@@ -210,8 +210,6 @@ const items: ReadonlyArray<IItem> = [
     },
 ];
 
-console.log(armor);
-
 const initialState: ISettlement = {
     geargrids,
     id: uuid(),
