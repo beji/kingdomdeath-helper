@@ -35,6 +35,7 @@ const NameSection = styled.section`
 
 const StatSection = styled.section`
     display:flex;
+    flex-wrap:wrap;
     justify-content:space-between;
     width:100%;
     margin: .5rem 0;

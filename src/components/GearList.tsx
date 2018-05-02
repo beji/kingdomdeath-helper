@@ -38,6 +38,11 @@ const Wrapper = styled.div`
     width:30vw;
     height: 50vh;
     z-index:10;
+    @media only screen
+      and (min-device-width: 375px)
+      and (max-device-width: 667px) {
+        width: 95%;
+    }
 `;
 const List = styled.div`
     overflow-y:auto;

@@ -7,6 +7,11 @@ const SurvivorStat = styled.div`
     margin-bottom:.5vh;
     padding:.25rem;
     border: 1px solid #aaa;
+    @media only screen
+      and (min-device-width: 375px)
+      and (max-device-width: 667px) {
+            width: 33.33333%;
+    }
 `;
 
 const StatElement = styled.div`
@@ -63,6 +68,11 @@ const StatLayer = styled.div`
     transform:translate3d(-50%, -50%, 0);
     width:30vw;
     z-index:10;
+    @media only screen
+      and (min-device-width: 375px)
+      and (max-device-width: 667px) {
+            width: 90%;
+    }
 `;
 
 const StatLayerHeadline = styled.div`

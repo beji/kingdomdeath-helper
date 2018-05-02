@@ -39,7 +39,7 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
             @media only screen
               and (min-device-width: 375px)
               and (max-device-width: 667px) {
-                    width: 98vh;
+                    width: 98%;
             }
         `;
         const StyledGrid = styled.div`
