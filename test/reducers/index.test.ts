@@ -1,12 +1,12 @@
 import { expect } from "chai";
 import "mocha";
-import { addToHunt, removeFromHunt } from "../actions";
-import { setName } from "../actions/settlementActions";
-import { killSurvivor, updateSurvivor } from "../actions/survivorActions";
-import initialState, { newSurvivor } from "../initialstate";
-import { DefenseStats, IDefenseStat, ISettlement, ISurvivor } from "../interfaces";
-import reducer from "../reducers";
-import { clone } from "../util";
+import { addToHunt, removeFromHunt } from "../../src/actions";
+import { setName } from "../../src/actions/settlementActions";
+import { killSurvivor, updateSurvivor } from "../../src/actions/survivorActions";
+import initialState, { newSurvivor } from "../../src/initialstate";
+import { DefenseStats, IDefenseStat, ISettlement, ISurvivor } from "../../src/interfaces";
+import reducer from "../../src/reducers";
+import { clone } from "../../src/util";
 
 describe("The reducer", () => {
 
