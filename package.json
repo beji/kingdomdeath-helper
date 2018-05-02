@@ -10,17 +10,15 @@
     "dev": "npm-run-all dev:*",
     "dev:lint": "tslint -c tslint.json ./src/hmr.ts",
     "dev:test": "yarn run test",
-    "dev:run": "cross-env NODE_ENV=development ts-node ./src/hmr.ts",
-    "prod": "cross-env NODE_ENV=production ts-node ./src/hmr.ts",
+    "dev:run": "cross-env NODE_ENV=development ts-node -r tsconfig-paths/register ./src/hmr.ts",
+    "prod": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register ./src/hmr.ts",
     "build": "npm-run-all build:*",
     "build:client": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.client.prod.js",
     "build:server": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.server.prod.js",
     "format": "npm-run-all format:*",
     "format:hmr": "tsfmt -r ./src/hmr.ts",
     "format:code": "tsfmt -r",
-    "test": "npm-run-all test:*",
-    "test:build": "cross-env NODE_ENV=development webpack --config ./webpack/webpack.config.test.js",
-    "test:run": "mocha test/**/*.js"
+    "test": "mocha -r ts-node/register -r tsconfig-paths/register src/**/*.test.ts"
   },
   "devDependencies": {
     "@types/chai": "^4.1.3",
@@ -48,6 +46,7 @@
     "stylelint-processor-styled-components": "^1.3.1",
     "ts-loader": "^4.1.0",
     "ts-node": "^6.0.1",
+    "tsconfig-paths": "^3.3.1",
     "tslint": "^5.9.1",
     "tslint-loader": "^3.6.0",
     "tslint-react": "^3.5.1",
