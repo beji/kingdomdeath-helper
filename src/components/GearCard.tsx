@@ -16,6 +16,8 @@ interface IGearCardStateProps {
     item?: IItem;
     grid?: IGearGrid;
     slotKey?: number;
+    affinityActive?: boolean;
+    setActive?: boolean;
 }
 
 interface IGearCardOwnProps {
@@ -32,16 +34,24 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateGearGridAction>): IGearCard
 const mapStateToProps = (state: ISettlement, ownProps: IGearCardOwnProps): IGearCardStateProps => {
     const grid = state.geargrids.find((curr) => curr.slots.find((slot) => slot.id === ownProps.slotId) !== undefined);
     let slotKey;
+    let affinityActive;
+    let setActive;
     if (grid) {
         grid.slots.forEach((v, i) => {
             if (v.id === ownProps.slotId) {
                 slotKey = i;
             }
         });
+        if (slotKey) {
+            affinityActive = grid.slots[slotKey].affinityActive;
+            setActive = grid.slots[slotKey].setActive;
+        }
     }
     return {
+        affinityActive,
         grid,
         item: state.items.find((item: IItem) => item.id === ownProps.id),
+        setActive,
         slotKey,
     };
 };
@@ -66,7 +76,7 @@ const CardTypes = styled.div`
     font-size:.625rem;
     padding-left:1rem;
 `;
-const CardDefStat = styled.div`
+const CardStatsWrapper = styled.div`
     position:absolute;
     top: -.5rem;
     left: -.5rem;
@@ -90,7 +100,7 @@ const Shield = styled.div`
       left:0;
     }
 `;
-const CardDefStatType = styled.div`
+const ShieldArmorType = styled.div`
     font-size:.5rem;
     line-height:.5rem;
 `;
@@ -98,6 +108,7 @@ const CardDefStatType = styled.div`
 const AffinityWrapper = styled.div`
     font-size:.875rem;
     text-align:left;
+    color: ${(props: IGearCardStateProps) => props.affinityActive ? "#000" : "#aaa"}
 `;
 
 const CloseIcon = styled.div`
@@ -137,7 +148,9 @@ class GearCard extends React.Component<IGearCardProps> {
                     <CardHeadline>{item.name}</CardHeadline>
                     <CardTypes>{item.types && item.types.map((type, idx) => <span key={idx}>{(ItemType)[type]} </span>)}</CardTypes>
                     <CardDescription>{item.desc}</CardDescription>
-                    {armorStat && <CardDefStat><Shield>{armorStat.amount} <CardDefStatType>{defenseStatToString(armorStat.stat as DefenseStats)}</CardDefStatType></Shield></CardDefStat>}
+                    <CardStatsWrapper>
+                        {armorStat && <Shield>{armorStat.amount} <ShieldArmorType>{defenseStatToString(armorStat.stat as DefenseStats)}</ShieldArmorType></Shield>}
+                    </CardStatsWrapper>
                     {this.renderAffinity(item)}
                 </StyledCard>
             );
