@@ -71,6 +71,7 @@ const CardHeadline = styled.div`
 `;
 const CardDescription = styled.div`
     background:#aaa;
+    padding: .25rem;
 `;
 const CardTypes = styled.div`
     font-size:.625rem;
@@ -103,6 +104,35 @@ const Shield = styled.div`
 const ShieldArmorType = styled.div`
     font-size:.5rem;
     line-height:.5rem;
+`;
+const WeaponWrapper = styled.div`
+    border-radius:.5rem;
+    background:#bb9118;
+    color:#fff;
+    font-weight:bold;
+    font-size:.875rem;
+    padding:.25rem .125rem .125rem;
+    width:1.5rem;
+`;
+const WeaponAcc = styled.div`
+    background:#5a3c04;
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+    margin-bottom: 1px;
+    padding: .25rem 0;
+    position:relative;
+    &:after {
+        content: "+";
+        position:absolute;
+        top:50%;
+        right:-5%;
+    }
+`;
+const WeaponSpeed = styled.div`
+    background:#5a3c04;
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+    padding: .25rem 0;
 `;
 
 const AffinityWrapper = styled.div`
@@ -141,15 +171,17 @@ class GearCard extends React.Component<IGearCardProps> {
     public render() {
         if (this.props.item) {
             const { item, slotId } = this.props;
+            const { desc, name, types, weapon } = item;
             const armorStat = item.stats && item.stats.find((stat) => stat.type === StatType.defense);
             return (
                 <StyledCard onDragStart={this.handleDragStart} draggable={true}>
                     {slotId && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
-                    <CardHeadline>{item.name}</CardHeadline>
-                    <CardTypes>{item.types && item.types.map((type, idx) => <span key={idx}>{(ItemType)[type]} </span>)}</CardTypes>
-                    <CardDescription>{item.desc}</CardDescription>
+                    <CardHeadline>{name}</CardHeadline>
+                    <CardTypes>{types && types.map((type, idx) => <span key={idx}>{(ItemType)[type]} </span>)}</CardTypes>
+                    {desc && <CardDescription>{desc}</CardDescription>}
                     <CardStatsWrapper>
                         {armorStat && <Shield>{armorStat.amount} <ShieldArmorType>{defenseStatToString(armorStat.stat as DefenseStats)}</ShieldArmorType></Shield>}
+                        {weapon && <WeaponWrapper><div>{weapon.speed}</div><WeaponAcc>{weapon.accuracy}</WeaponAcc><WeaponSpeed>{weapon.strength}</WeaponSpeed></WeaponWrapper>}
                     </CardStatsWrapper>
                     {this.renderAffinity(item)}
                 </StyledCard>
