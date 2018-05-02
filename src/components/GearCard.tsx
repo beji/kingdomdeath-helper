@@ -2,7 +2,7 @@ import React, { SyntheticEvent } from "react";
 import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
-import { Affinity, AffinityTypes, DefenseStats, ID, IGearGrid, IItem, ISettlement, Item, StatType } from "../interfaces";
+import { Affinity, AffinityTypes, DefenseStats, ID, IGearGrid, IItem, ISettlement, Item, ItemType, StatType } from "../interfaces";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { defenseStatToString } from "../util";
 import AffinityIcon from "./AffinityIcon";
@@ -135,7 +135,7 @@ class GearCard extends React.Component<IGearCardProps> {
                 <StyledCard onDragStart={this.handleDragStart} draggable={true}>
                     {slotId && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
                     <CardHeadline>{item.name}</CardHeadline>
-                    <CardTypes>{item.types && item.types.map((type, idx) => <span key={idx}>{type} </span>)}</CardTypes>
+                    <CardTypes>{item.types && item.types.map((type, idx) => <span key={idx}>{(ItemType)[type]} </span>)}</CardTypes>
                     <CardDescription>{item.desc}</CardDescription>
                     {armorStat && <CardDefStat><Shield>{armorStat.amount} <CardDefStatType>{defenseStatToString(armorStat.stat as DefenseStats)}</CardDefStatType></Shield></CardDefStat>}
                     {this.renderAffinity(item)}

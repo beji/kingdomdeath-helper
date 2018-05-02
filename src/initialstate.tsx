@@ -1,3 +1,4 @@
+import armor from "data/final/armor.json";
 import uuid from "uuid/v4";
 import { Affinity, BaseStats, DefenseStats, Gender, IBaseStat, ID, IDefenseStat, IGearGrid, IItem, ISettlement, ISurvivor, Item, ItemType, StatType } from "./interfaces";
 
@@ -209,10 +210,12 @@ const items: ReadonlyArray<IItem> = [
     },
 ];
 
+console.log(armor);
+
 const initialState: ISettlement = {
     geargrids,
     id: uuid(),
-    items,
+    items: armor,
     name: "Everybody-will-die-town",
     survivors,
 };

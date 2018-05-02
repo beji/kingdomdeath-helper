@@ -5,6 +5,7 @@ import { ID, ISettlement, Item } from "../interfaces";
 import CreateSurvivor from "./CreateSurvivor";
 import ExportForm from "./ExportForm";
 import GearGrid from "./GearGrid";
+import JsonTransorm, { default as JsonTransform } from "./JsonTransform";
 import ResetHunt from "./ResetHunt";
 import SettlementName from "./SettlementName";
 import SocketConnector from "./SocketConnector";
@@ -85,6 +86,7 @@ class App extends React.Component<IAppProps> {
                 </SurvivorList>
                 <CreateSurvivor />
                 <ExportForm />
+                <JsonTransform />
                 <SocketConnector />
             </AppWrapper>);
     }

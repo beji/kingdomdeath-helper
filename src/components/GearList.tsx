@@ -37,6 +37,7 @@ const StyledList = styled.div`
     width:30vw;
     height: 50vh;
     z-index:10;
+    overflow:auto;
 `;
 const ListElement = styled.div`
     border:1px solid #aaa;
