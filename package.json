@@ -64,6 +64,7 @@
   "dependencies": {
     "express": "^4.16.3",
     "fast-deep-equal": "^1.1.0",
+    "fuse.js": "^3.2.0",
     "morgan": "^1.9.0",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
