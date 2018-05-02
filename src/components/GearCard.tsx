@@ -173,6 +173,7 @@ class GearCard extends React.Component<IGearCardProps> {
             const { item, slotId } = this.props;
             const { desc, name, types, weapon } = item;
             const armorStat = item.stats && item.stats.find((stat) => stat.type === StatType.defense);
+            const isShield = item.stats && item.stats.length === 5;
             return (
                 <StyledCard onDragStart={this.handleDragStart} draggable={true}>
                     {slotId && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
@@ -180,8 +181,8 @@ class GearCard extends React.Component<IGearCardProps> {
                     <CardTypes>{types && types.map((type, idx) => <span key={idx}>{(ItemType)[type]} </span>)}</CardTypes>
                     {desc && <CardDescription>{desc}</CardDescription>}
                     <CardStatsWrapper>
-                        {armorStat && <Shield>{armorStat.amount} <ShieldArmorType>{capitalize(DefenseStats[armorStat.stat])}</ShieldArmorType></Shield>}
                         {weapon && <WeaponWrapper><div>{weapon.speed}</div><WeaponAcc>{weapon.accuracy}</WeaponAcc><WeaponSpeed>{weapon.strength}</WeaponSpeed></WeaponWrapper>}
+                        {armorStat && <Shield>{armorStat.amount} <ShieldArmorType>{isShield ? "all" : capitalize(DefenseStats[armorStat.stat])}</ShieldArmorType></Shield>}
                     </CardStatsWrapper>
                     {this.renderAffinity(item)}
                 </StyledCard>
