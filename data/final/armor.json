@@ -1249,6 +1249,17 @@
     ]
   },
   {
+    "affinity": {
+      "bonus": {
+        "affOwn": [
+          2,
+          0
+        ],
+        "desc": "+1 Evasion"
+      },
+      "right": 0,
+      "top": 2
+    },
     "desc": "0.5-aff-blue/0.5-aff-red = +1 evasion",
     "id": 63,
     "material": "1x hide",

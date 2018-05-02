@@ -25,7 +25,7 @@ const mapStateToProps = (state: ISettlement): IGearListStateProps => {
     };
 };
 
-const StyledList = styled.div`
+const Wrapper = styled.div`
     background:#eee;
     border:1px solid ${colorMagentaLachs};
     left:50%;
@@ -37,7 +37,11 @@ const StyledList = styled.div`
     width:30vw;
     height: 50vh;
     z-index:10;
-    overflow:auto;
+`;
+const List = styled.div`
+    overflow-y:auto;
+    height: 90%;
+    margin: 1rem 0;
 `;
 const ListElement = styled.div`
     border:1px solid #aaa;
@@ -86,11 +90,13 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
 
     public render() {
         return (
-            <StyledList>
+            <Wrapper>
                 {this.props.onCancel && <CloseIcon onClick={this.handleCloseIconClick}>X</CloseIcon>}
                 <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} />
-                {this.state.items.map((v, i) => <ListElement key={i} onClick={this.handleItemSelect.bind(this, v.id)}>{v.name}</ListElement>)}
-            </StyledList>
+                <List>
+                    {this.state.items.map((v, i) => <ListElement key={i} onClick={this.handleItemSelect.bind(this, v.id)}>{v.name}</ListElement>)}
+                </List>
+            </Wrapper>
         );
     }
 

@@ -2,9 +2,9 @@ import { ID } from "./generics";
 import { BaseStats, DefenseStats, StatType } from "./survivor";
 
 enum Affinity {
-    red = "red",
-    green = "green",
-    blue = "blue",
+    red,
+    green,
+    blue,
 }
 
 const enum AffinityTypes {

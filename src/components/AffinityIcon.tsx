@@ -10,7 +10,7 @@ interface IAffinityIconProps {
 }
 
 const PuzzleIcon = styled<IAffinityIconProps>(styledLegacy.div) `
-    background:${(props) => props.affinity};
+    background:${(props) => (Affinity)[props.affinity]};
     border-radius:2px;
     display:inline-block;
     height:1em;
@@ -42,7 +42,7 @@ const PuzzleIcon = styled<IAffinityIconProps>(styledLegacy.div) `
 `;
 
 const CompleteIcon = styled<IAffinityIconProps>(styledLegacy.div) `
-    background:${(props) => props.affinity};
+    background:${(props) => (Affinity)[props.affinity]};
     display:inline-block;
     height:1em;
     margin:0 .25em;
@@ -82,7 +82,7 @@ const HalfIcon = CompleteIcon.extend`
 
 export default class AffinityIcon extends React.Component<IAffinityIconProps> {
     public render() {
-        const { affinity, type } = this.props;
+        const { affinity, direction, type } = this.props;
         switch (type) {
             case AffinityTypes.connect: {
                 return (<PuzzleIcon affinity={affinity} title="Affinity on this card" />);
@@ -91,7 +91,7 @@ export default class AffinityIcon extends React.Component<IAffinityIconProps> {
                 return (<CompleteIcon affinity={affinity} title="Affinity on grid" />);
             }
             case AffinityTypes.card: {
-                return (<HalfIcon affinity={affinity} direction={this.props.direction} />);
+                return (<HalfIcon affinity={affinity} direction={direction} />);
             }
             default: {
                 return "";

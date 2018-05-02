@@ -154,7 +154,7 @@ class GearCard extends React.Component<IGearCardProps> {
                 <AffinityWrapper>
                     {affinity.bonus && affinity.bonus.affOwn && affinity.bonus.affOwn.map((aff: Affinity, idx: number) => <AffinityIcon key={idx} type={AffinityTypes.connect} affinity={aff} />)}
                     {affinity.bonus && affinity.bonus.desc}
-                    {directions.map((direction: string, idx) => affinity[direction] && <AffinityIcon key={idx} affinity={affinity[direction]} type={AffinityTypes.card} direction={direction} />)}
+                    {directions.map((direction: string, idx) => affinity[direction] !== undefined && <AffinityIcon key={idx} affinity={affinity[direction]} type={AffinityTypes.card} direction={direction} />)}
                 </AffinityWrapper>
             );
         }
