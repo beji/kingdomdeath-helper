@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
 import { Affinity, AffinityTypes, DefenseStats, ID, IGearGrid, IItem, ISettlement, Item, ItemType, StatType } from "../interfaces";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
-import { defenseStatToString } from "../util";
+import { capitalize } from "../util";
 import AffinityIcon from "./AffinityIcon";
 import { colorMagentaLachs } from "./StyledComponents";
 
@@ -180,7 +180,7 @@ class GearCard extends React.Component<IGearCardProps> {
                     <CardTypes>{types && types.map((type, idx) => <span key={idx}>{(ItemType)[type]} </span>)}</CardTypes>
                     {desc && <CardDescription>{desc}</CardDescription>}
                     <CardStatsWrapper>
-                        {armorStat && <Shield>{armorStat.amount} <ShieldArmorType>{defenseStatToString(armorStat.stat as DefenseStats)}</ShieldArmorType></Shield>}
+                        {armorStat && <Shield>{armorStat.amount} <ShieldArmorType>{capitalize(DefenseStats[armorStat.stat])}</ShieldArmorType></Shield>}
                         {weapon && <WeaponWrapper><div>{weapon.speed}</div><WeaponAcc>{weapon.accuracy}</WeaponAcc><WeaponSpeed>{weapon.strength}</WeaponSpeed></WeaponWrapper>}
                     </CardStatsWrapper>
                     {this.renderAffinity(item)}

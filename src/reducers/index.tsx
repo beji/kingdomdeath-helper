@@ -8,7 +8,7 @@ import { AddToHuntAction, RemoveFromHuntAction, ResetHuntAction } from "../inter
 import { ImportAction } from "../interfaces/importAction";
 import { SetNameAction } from "../interfaces/settlementActions";
 import { CreateSurvivorAction, KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorStatAction } from "../interfaces/survivorActions";
-import { clone, defenseStatToString } from "../util";
+import { clone } from "../util";
 
 type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | UpdateSurvivorAction | UpdateSurvivorStatAction | KillSurvivorAction | ReviveSurvivorAction | CreateSurvivorAction | UpdateGearGridAction | ResetHuntAction;
 

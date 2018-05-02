@@ -2,9 +2,9 @@ import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { updateSurvivorStat } from "../actions/survivorActions";
-import { IBaseStat, ID, IDefenseStat, ISettlement, ISurvivor } from "../interfaces";
+import { DefenseStats, IBaseStat, ID, IDefenseStat, ISettlement, ISurvivor } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
-import { clone, defenseStatToString } from "../util";
+import { capitalize, clone } from "../util";
 import FancyButton from "./FancyButton";
 import NumberEdit from "./NumberEdit";
 import { HeavyWound, Label, LightWound, StatEdit, StatElement, StatLayer, StatLayerHeadline, StatWrapper } from "./SurvivorStatElements";
@@ -74,7 +74,7 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
         const { armor, stat, modifier } = this.props.stat;
         return (
             <StatLayer>
-                <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {defenseStatToString(stat)}</StatLayerHeadline>
+                <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {capitalize(DefenseStats[stat])}</StatLayerHeadline>
                 <StatEdit>
                     <Label>Stat</Label><NumberEdit value={armor} innerRef={this.setupArmorRef} />
                 </StatEdit>

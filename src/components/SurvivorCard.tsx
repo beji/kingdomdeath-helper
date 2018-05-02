@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateSurvivor } from "../actions/survivorActions";
-import { DefenseStats, ID, ISettlement, ISurvivor } from "../interfaces";
+import { BaseStats, DefenseStats, ID, ISettlement, ISurvivor } from "../interfaces";
 import { UpdateSurvivorAction } from "../interfaces/survivorActions";
-import { baseStatToString, clone, defenseStatToString } from "../util";
+import { capitalize, clone } from "../util";
 import GenderEdit from "./GenderEdit";
 import NameEdit from "./NameEdit";
 import SurvivorBaseStat from "./SurvivorBaseStat";
@@ -112,14 +112,14 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
                             <GenderEdit id={id} />
                         </section>
                         <section>
-                            {survival && <SurvivorStat><StatLabel>{defenseStatToString(survival.stat)}</StatLabel><SurvivorDefenseStat id={id} stat={survival} /></SurvivorStat>}
+                            {survival && <SurvivorStat><StatLabel>{capitalize(DefenseStats[survival.stat])}</StatLabel><SurvivorDefenseStat id={id} stat={survival} /></SurvivorStat>}
                         </section>
                     </NameSection>
                     <StatSection>
-                        {survivor.baseStats.map((baseStat, idx) => (<SurvivorStat key={idx}><StatLabel>{baseStatToString(baseStat.stat)}</StatLabel><SurvivorBaseStat id={id} stat={baseStat} /></SurvivorStat>))}
+                        {survivor.baseStats.map((baseStat, idx) => (<SurvivorStat key={idx}><StatLabel>{capitalize(BaseStats[baseStat.stat])}</StatLabel><SurvivorBaseStat id={id} stat={baseStat} /></SurvivorStat>))}
                     </StatSection>
                     <StatSection>
-                        {survivor.defenseStats.map((defenseStat, idx) => (defenseStat.stat !== DefenseStats.survival && <SurvivorStat key={idx}><StatLabel>{defenseStatToString(defenseStat.stat)}</StatLabel><SurvivorDefenseStat id={id} stat={defenseStat} /></SurvivorStat>))}
+                        {survivor.defenseStats.map((defenseStat, idx) => (defenseStat.stat !== DefenseStats.survival && <SurvivorStat key={idx}><StatLabel>{capitalize(DefenseStats[defenseStat.stat])}</StatLabel><SurvivorDefenseStat id={id} stat={defenseStat} /></SurvivorStat>))}
                     </StatSection>
                 </StyledCard>
             );
