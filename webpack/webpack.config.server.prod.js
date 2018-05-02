@@ -14,7 +14,10 @@ module.exports =
             libraryTarget: 'commonjs2',
         },
         resolve: {
-            extensions: ['.ts', '.tsx', '.js', '.jsx']     
+            extensions: ['.ts', '.tsx', '.js', '.jsx'],
+            alias: {
+                data: path.resolve(__dirname, "..", "data")
+            }              
         },
         // Add the loader for .ts files.
         module: {

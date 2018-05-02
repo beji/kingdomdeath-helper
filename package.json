@@ -17,7 +17,9 @@
     "format": "npm-run-all format:*",
     "format:hmr": "tsfmt -r ./src/hmr.ts",
     "format:code": "tsfmt -r",
-    "test": "mocha -r ts-node/register src/**/*.test.ts"
+    "test": "npm-run-all test:*",
+    "test:build": "cross-env NODE_ENV=development webpack --config ./webpack/webpack.config.test.js",
+    "test:run": "mocha test/**/*.js"
   },
   "devDependencies": {
     "@types/chai": "^4.1.3",

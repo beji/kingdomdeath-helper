@@ -1,9 +1,9 @@
 FROM node:10.0-alpine
 EXPOSE 3000
 WORKDIR /usr/src/app
-RUN npm install -g yarn
 ADD . .
-RUN yarn install
-RUN yarn run build
-RUN yarn run test
-CMD ["yarn", "run", "prod"]
+RUN npm install yarn
+RUN ./node_modules/.bin/yarn install
+RUN ./node_modules/.bin/yarn run build
+RUN ./node_modules/.bin/yarn run test
+CMD ["./node_modules/.bin/yarn", "run", "prod"]
