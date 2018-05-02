@@ -1,6 +1,8 @@
 import { expect } from "chai";
 import "mocha";
-import { capitalize } from "src/util";
+import initialState from "src/initialstate";
+import { capitalize, clone } from "src/util";
+import uuid from "uuid/v4";
 
 describe("capitalize", () => {
     it("should capitalize a string correctly", () => {
@@ -14,5 +16,23 @@ describe("capitalize", () => {
     it("should deal with strings that contain only one character", () => {
         expect(capitalize("a")).to.equal("A");
         expect(capitalize("A")).to.equal("A");
+    });
+});
+
+describe("clone", () => {
+    it("should create a copy of an object", () => {
+        const cloned = clone(initialState);
+        expect(cloned.id).to.equal(initialState.id);
+        expect(cloned.name).to.equal(initialState.name);
+    });
+    it("should not create a reference to an object", () => {
+        const initial = {
+            id: uuid(),
+        };
+        const cloned = clone(initial);
+        cloned.id = uuid();
+        expect(cloned.id).to.not.equal(initial.id);
+        initial.id = uuid();
+        expect(initial.id).to.not.equal(cloned.id);
     });
 });
