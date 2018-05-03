@@ -5,7 +5,7 @@ import http from "http";
 import morgan from "morgan";
 import path from "path";
 import socketIo from "socket.io";
-import webpack, { ICompiler } from "webpack";
+import { ICompiler } from "webpack";
 import { IRoomMessage, IStatusUpdateMessage } from "./interfaces/socketMessages";
 
 const app = express();
@@ -14,10 +14,6 @@ const server = new http.Server(app);
 const io = socketIo(server);
 
 const statestore: any = {};
-
-interface ICompilerWithName extends ICompiler {
-    name: string;
-}
 
 io.on("connection", (socket) => {
     console.log("a user connected");
@@ -40,6 +36,7 @@ app.use(morgan("combined"));
 
 if (process.env.NODE_ENV !== "production") {
 
+    const webpack = require("webpack");
     const webpackDevMiddleware = require("webpack-dev-middleware");
     const webpackHotMiddleware = require("webpack-hot-middleware");
     const webpackHotServerMiddleware = require("webpack-hot-server-middleware");
@@ -47,13 +44,17 @@ if (process.env.NODE_ENV !== "production") {
     const serverconfig = require("../webpack/webpack.config.server.dev");
     const compiler = webpack([clientconfig, serverconfig]);
 
+    interface ICompilerWithName extends ICompiler {
+        name: string;
+    }
+
     app.use(webpackDevMiddleware(compiler, {
         hot: true,
         publicPath: "/assets/",
         serverSideRender: false,
     }));
 
-    app.use(webpackHotMiddleware(compiler.compilers.find((c) => (c as ICompilerWithName).name === "client")));
+    app.use(webpackHotMiddleware(compiler.compilers.find((c: ICompiler) => (c as ICompilerWithName).name === "client")));
 
     app.use(webpackHotServerMiddleware(compiler));
 
