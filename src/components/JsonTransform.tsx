@@ -83,7 +83,7 @@ class JsonTransform extends React.Component {
     }
 
     private transformArmor() {
-        const statMap = ["stats.head", "Stats.arms",  "stats.body", "stats.waist", "stats.legs"];
+        const statMap = ["stats.head", "Stats.arms", "stats.body", "stats.waist", "stats.legs"];
         return items.map((data: any) => {
             return {
                 desc: data.desc,
@@ -92,7 +92,7 @@ class JsonTransform extends React.Component {
                 name: data.name,
                 obtained: data.obtained,
                 stats: statMap.map((stat) => {
-                    if ( typeof data[stat] === "number" ) {
+                    if (typeof data[stat] === "number") {
                         const statTypeString: string = stat.split(".")[1];
                         const statType: DefenseStats = (DefenseStats as any)[statTypeString];
                         return {
@@ -103,7 +103,7 @@ class JsonTransform extends React.Component {
                         };
                     }
                 }).filter((e) => e && e.amount > 0),
-                types: [0].concat(data.types.replace("[", "") .replace("]", "").split(",").map((t: string) => {
+                types: [0].concat(data.types.replace("[", "").replace("]", "").split(",").map((t: string) => {
                     return (ItemType as any)[t.trim()];
                 }).filter((e: any) => e)),
             };

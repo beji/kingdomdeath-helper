@@ -103,7 +103,7 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
                 <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} />
                 <div>Armor</div><div>Weapons</div>
                 <List>
-                    {this.state.items.map((v, i) => <ListElement key={i} onClick={this.handleItemSelect.bind(this, v.id)} dangerouslySetInnerHTML={{__html: v.name}} />)}
+                    {this.state.items.map((v, i) => <ListElement key={i} onClick={this.handleItemSelect.bind(this, v.id)} dangerouslySetInnerHTML={{ __html: v.name }} />)}
                 </List>
             </Wrapper>
         );

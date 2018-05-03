@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { updateSurvivor } from "../actions/survivorActions";
 import { ID, IGearGrid, ISettlement } from "../interfaces";
 import GridSlot from "./GridSlot";
+import Link from "./Link";
 import SurvivorCard from "./SurvivorCard";
 
 interface IGearGridState {
@@ -58,7 +59,9 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
             const { grid, id } = this.props;
             return (
                 <PlayerCard>
-                    <PlayerCardHeadline>Huntslot {id}</PlayerCardHeadline>
+                    <PlayerCardHeadline>
+                        <Link to={`/card/${id}`}>Huntslot {id}</Link>
+                    </PlayerCardHeadline>
                     {grid.survivorId && <SurvivorCard key={grid.id} id={grid.survivorId} updateSurvivor={updateSurvivor} />}
                     <StyledGrid>
                         {Object.keys(grid.slots).map((v, i, slots) => <GridSlot key={i} gridId={grid.id} slotId={grid.slots[i].id} />)}
