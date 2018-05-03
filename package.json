@@ -18,7 +18,8 @@
     "format": "npm-run-all format:*",
     "format:hmr": "tsfmt -r ./src/hmr.ts",
     "format:code": "tsfmt -r",
-    "test": "nyc mocha"
+    "test": "nyc mocha",
+    "test-only": "mocha"
   },
   "nyc": {
     "extension": [

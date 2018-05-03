@@ -5,5 +5,5 @@ ADD . .
 RUN npm install yarn
 RUN ./node_modules/.bin/yarn install
 RUN ./node_modules/.bin/yarn run build
-RUN ./node_modules/.bin/yarn run test
+RUN ./node_modules/.bin/yarn run test-only
 CMD ["./node_modules/.bin/yarn", "run", "prod"]
