@@ -1,4 +1,5 @@
 import items from "data/raw/armor.json";
+import items2 from "data/raw/items.json";
 import weapons from "data/raw/weapons.json";
 import React from "react";
 import { DefenseStats, Item, ItemType, StatType } from "../interfaces";
@@ -9,9 +10,41 @@ class JsonTransform extends React.Component {
         return (
             <div>
                 <h1>JSON</h1>
-                {JSON.stringify(this.transformWeapon())}
+                {JSON.stringify(this.transformItems())}
+                <h1>ID</h1>
+                {JSON.stringify(this.getItemIDs())}
             </div>
         );
+    }
+
+    private transformItems() {
+        return items2.map((data) => {
+            return {
+                desc: data.desc,
+                id: (Item as any)[data.name.replace(/ /g, "_").replace(/['()]/g, "").replace("-", "_").toLowerCase()],
+                material: data.material,
+                name: data.name,
+                obtained: data.obtained,
+                types: data.desc.split(".")[0].split(",").map((t: string) => {
+                    return (ItemType as any)[t.trim()];
+                }).filter((e: any) => e),
+            };
+        });
+    }
+
+    private getItemTypes() {
+        const data = this.transformItems();
+        const types = data.map((d: any) => {
+            return d.types.map((t: string) => t);
+        }).join().split(",");
+        return [...new Set(types)];
+    }
+
+    private getItemIDs() {
+        const data = this.transformItems();
+        return data.map((item) => {
+            return item.name.replace(/ /g, "_").replace(/['()]/g, "").replace("-", "_").toLowerCase();
+        });
     }
 
     private transformWeapon() {
