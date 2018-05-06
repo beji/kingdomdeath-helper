@@ -3,3 +3,5 @@ import { IGearGrid } from "./gear";
 import IAction from "./genericAction";
 
 export type UpdateGearGridAction = IAction<ActionTypes.UPDATE_GEARGRID, IGearGrid>;
+
+export type UpdateGearSlotAffinityAction = IAction<ActionTypes.UPDATE_GEARSLOT_AFFINITY, IGearGrid>;

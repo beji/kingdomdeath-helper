@@ -1,17 +1,17 @@
 import { Reducer } from "redux";
-import { removeFromHunt, updateSurvivor } from "../actions";
+import { removeFromHunt, updateGearSlotAffinity, updateSurvivor } from "../actions";
 import items from "../data/ItemDataHelper";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../initialstate";
-import { DefenseStats, IBaseStat, IDefenseStat, IGearGrid, IItem, ISettlement, ISurvivor, StatType } from "../interfaces";
+import { Affinity, DefenseStats, IDefenseStat, IItem, ISettlement, ISurvivor, StatType } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
-import { UpdateGearGridAction } from "../interfaces/gearActions";
+import { UpdateGearGridAction, UpdateGearSlotAffinityAction } from "../interfaces/gearActions";
 import { AddToHuntAction, RemoveFromHuntAction, ResetHuntAction } from "../interfaces/huntActions";
 import { ImportAction } from "../interfaces/importAction";
 import { SetNameAction } from "../interfaces/settlementActions";
 import { CreateSurvivorAction, KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 
-type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | UpdateSurvivorAction | UpdateSurvivorStatAction | KillSurvivorAction | ReviveSurvivorAction | CreateSurvivorAction | UpdateGearGridAction | ResetHuntAction;
+type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | UpdateSurvivorAction | UpdateSurvivorStatAction | KillSurvivorAction | ReviveSurvivorAction | CreateSurvivorAction | UpdateGearGridAction | UpdateGearSlotAffinityAction | ResetHuntAction;
 
 function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
     const updatedSurvivors = state.survivors.map(mapfunc);
@@ -305,9 +305,8 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                         defenseStats,
                     };
 
-                    const baseState = reducer(state, updateSurvivor(updatedSurvivor));
-                    return {
-                        ...baseState,
+                    const baseState = {
+                        ...state,
                         geargrids: geargrids.map((grid) => {
                             if (action.payload && grid.id === action.payload.id) {
                                 return action.payload;
@@ -315,7 +314,61 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                             return grid;
                         }),
                     };
+
+                    return reducer(reducer(baseState, updateSurvivor(updatedSurvivor)), updateGearSlotAffinity(action.payload));
                 }
+            }
+            return state;
+        }
+        case ActionTypes.UPDATE_GEARSLOT_AFFINITY: {
+            if (action.payload) {
+                const gearGrid = action.payload;
+                console.log("updateAffs");
+                return {
+                    ...state,
+                    geargrids: state.geargrids.map((grid) => {
+                        if (grid.id === gearGrid.id) {
+                            return {
+                                ...gearGrid,
+                                slots: gearGrid.slots.map((slot, slotKey) => {
+                                    if (slot.content) {
+                                        const thisCard = items.find((item) => item.id === slot.content);
+                                        const directions = [
+                                            {o: "top", c: "bottom", slotId: slotKey - 3},
+                                            {o: "right", c: "left", slotId: slotKey + 1},
+                                            {o: "bottom", c: "top", slotId: slotKey + 3},
+                                            {o: "left", c: "right", slotId: slotKey - 1},
+                                        ];
+                                        const affinityActive =  [] as Affinity[];
+                                        directions.forEach((direction) => {
+                                            if (direction.slotId > -1 && direction.slotId < 10) {
+                                                if (gearGrid.slots[direction.slotId].content) {
+                                                    const card = items.find((item) => item.id === gearGrid.slots[direction.slotId].content);
+                                                    const affinity = thisCard && thisCard.affinity && thisCard.affinity[direction.o];
+                                                    if (affinity === (card && card.affinity && card.affinity[direction.c])) {
+                                                        affinityActive.push(affinity);
+                                                    }
+                                                }
+                                            }
+                                        });
+                                        console.log(affinityActive);
+                                        if (affinityActive.length > 0) {
+                                            return {
+                                                ...slot,
+                                                affinityActive,
+                                            };
+                                        } else {
+                                            return slot;
+                                        }
+                                    } else {
+                                        return slot;
+                                    }
+                                }),
+                            };
+                        }
+                        return grid;
+                    }),
+                };
             }
             return state;
         }
