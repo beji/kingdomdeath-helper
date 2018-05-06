@@ -3,7 +3,7 @@ import { Reducer } from "redux";
 import { removeFromHunt, updateGearSlotAffinity, updateSurvivor } from "../actions";
 import items from "../data/ItemDataHelper";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../initialstate";
-import { Affinity, DefenseStats, IDefenseStat, IItem, ISettlement, ISurvivor, StatType } from "../interfaces";
+import { Affinity, AffinityTypes, DefenseStats, IDefenseStat, IItem, ISettlement, ISurvivor, StatType } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { UpdateGearGridAction, UpdateGearSlotAffinityAction } from "../interfaces/gearActions";
 import { AddToHuntAction, RemoveFromHuntAction, ResetHuntAction } from "../interfaces/huntActions";
@@ -16,11 +16,10 @@ type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAc
 
 function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
     const updatedSurvivors = state.survivors.map(mapfunc);
-    const nextState = {
+    return {
         ...state,
         survivors: updatedSurvivors,
     };
-    return nextState;
 }
 
 const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: Actions): ISettlement => {
@@ -144,11 +143,10 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         // Updates the settlement name
         case ActionTypes.SET_NAME: {
             if (action.payload && action.payload !== "") {
-                const nextState = {
+                return {
                     ...state,
                     name: action.payload,
                 };
-                return nextState;
             }
             return state;
         }
@@ -158,7 +156,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         case ActionTypes.UPDATE_SURVIVOR: {
             if (action.payload) {
                 const survivorToUpdate = action.payload as ISurvivor;
-                const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
+                return generateWithUpdatedSurvivors(state, (survivor) => {
                     // Survivors gain one free survival on the first rename (faked by checking for the DEFAULT_SURVIVOR_NAME, could be cheated)
                     if (survivor.id === survivorToUpdate.id && survivorToUpdate.name !== "") {
                         if (survivor.name === DEFAULT_SURVIVOR_NAME && survivorToUpdate.name !== DEFAULT_SURVIVOR_NAME) {
@@ -180,7 +178,6 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     }
                     return survivor;
                 });
-                return nextState;
             }
             return state;
         }
@@ -234,7 +231,6 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         // Kill a survivor. This should remove them from the hunt and update the gear grid accordingly
         case ActionTypes.KILL_SURVIVOR: {
             if (action.payload) {
-                const gridElement = state.geargrids.find((grid) => grid.survivorId === action.payload);
                 const baseState = reducer(state, removeFromHunt(action.payload));
                 // Mark the survivor as dead (or not alive, to be more correct)
                 return generateWithUpdatedSurvivors(baseState, (survivor) => {
@@ -335,30 +331,46 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                                         const thisCard = items.find((item) => item.id === slot.content);
                                         const directions = [
                                             {o: "top", c: "bottom", slotId: slotKey - 3},
-                                            {o: "right", c: "left", slotId: slotKey + 1},
+                                            {o: "right", c: "left", slotId: slotKey % 3 === 2 ? -1 : slotKey + 1},
                                             {o: "bottom", c: "top", slotId: slotKey + 3},
-                                            {o: "left", c: "right", slotId: slotKey - 1},
+                                            {o: "left", c: "right", slotId: slotKey % 3 === 0 ? -1 : slotKey - 1},
                                         ];
-                                        const affinityActive =  [] as Affinity[];
+                                        const affinities =  [] as Affinity[];
+                                        let affinityActive = false;
+
+                                        // calculate affinities for with adjacent slots
                                         directions.forEach((direction) => {
                                             if (direction.slotId > -1 && direction.slotId < 10) {
                                                 if (gearGrid.slots[direction.slotId].content) {
                                                     const card = items.find((item) => item.id === gearGrid.slots[direction.slotId].content);
                                                     const affinity = thisCard && thisCard.affinity && thisCard.affinity[direction.o];
                                                     if (affinity === (card && card.affinity && card.affinity[direction.c])) {
-                                                        affinityActive.push(affinity);
+                                                        affinities.push(affinity);
                                                     }
                                                 }
                                             }
                                         });
-                                        if (affinityActive.length > 0) {
-                                            return {
-                                                ...slot,
-                                                affinityActive,
-                                            };
-                                        } else {
-                                            return slot;
+
+                                        // calculate is affinity bonus on current card is active
+                                        if (affinities && affinities.length > 0 && thisCard && thisCard.affinity && thisCard.affinity.bonus) {
+                                            const activeAffs = [] as Affinity[];
+                                            const requiredAffinities = thisCard.affinity.bonus.require;
+                                            affinities.forEach((slotAff) => {
+                                                requiredAffinities.some((cardAff) => {
+                                                    if (slotAff === cardAff.color && cardAff.connection === AffinityTypes.card) {
+                                                        activeAffs.push(slotAff);
+                                                    }
+                                                    return slotAff === cardAff.color;
+                                                });
+                                            });
+                                            affinityActive = requiredAffinities.length === activeAffs.length;
                                         }
+
+                                        return {
+                                            ...slot,
+                                            affinities,
+                                            affinityActive,
+                                        };
                                     } else {
                                         return slot;
                                     }
@@ -404,7 +416,9 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                         }),
                     };
                 }
+                return state;
             }
+            return state;
         }
         default: return state;
     }

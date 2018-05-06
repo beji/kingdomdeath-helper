@@ -37,7 +37,6 @@ const mapStateToProps = (state: ISettlement, ownProps: IGearCardOwnProps): IGear
     const grid = state.geargrids.find((curr) => curr.slots.find((slot) => slot.id === ownProps.slotId) !== undefined);
     const item = items.find((itm: IItem) => itm.id === ownProps.id);
     let slotKey;
-    let affinities = [] as Affinity[];
     let affinityActive = false;
     let setActive = false;
 
@@ -45,24 +44,10 @@ const mapStateToProps = (state: ISettlement, ownProps: IGearCardOwnProps): IGear
         grid.slots.forEach((slot, idx) => {
             if (slot.id === ownProps.slotId) {
                 slotKey = idx;
-                affinities = slot.affinityActive as Affinity[];
+                affinityActive = slot.affinityActive;
                 setActive = slot.setActive;
             }
         });
-    }
-
-    if (affinities && affinities.length > 0 && item && item.affinity && item.affinity.bonus) {
-        const activeAffs = [] as Affinity[];
-        const requiredAffinities = item.affinity.bonus.require;
-        affinities.forEach((slotAff) => {
-            requiredAffinities.some((cardAff) => {
-                if (slotAff === cardAff.color) {
-                    activeAffs.push(slotAff);
-                }
-                return slotAff === cardAff.color;
-            });
-        });
-        affinityActive = requiredAffinities.length === activeAffs.length;
     }
 
     return {

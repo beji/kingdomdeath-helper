@@ -23,7 +23,8 @@ interface IGearGrid {
 interface IGridSlot {
     readonly content?: Item;
     readonly id: ID;
-    readonly affinityActive: ReadonlyArray<Affinity>;
+    readonly affinities?: ReadonlyArray<Affinity>;
+    readonly affinityActive: boolean;
     readonly setActive: boolean;
 }
 
