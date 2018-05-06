@@ -3,4 +3,5 @@ dist
 public
 .nyc_output
 coverage
+tsfmt.json
 yarn-error.log
