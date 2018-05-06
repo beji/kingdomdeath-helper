@@ -85,12 +85,13 @@ const CardStatsWrapper = styled.div`
     left: -.5rem;
 `;
 const Shield = styled.div`
+    align-self:flex-start;
     background: black;
     color:white;
     font-size:.825rem;
     padding: .25rem .25rem 0;
     position:relative;
-    align-self:flex-start;
+    text-align: center;
     width:1.75rem;
     &:after {
       content:" ";
@@ -116,6 +117,7 @@ const WeaponWrapper = styled.div`
     font-size:.875rem;
     margin-right:.125rem;
     padding:.25rem .125rem .125rem;
+    text-align:center;
     width:1.5rem;
 `;
 const WeaponAcc = styled.div`
