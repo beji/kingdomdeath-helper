@@ -1,9 +1,9 @@
 import { expect } from "chai";
 import "mocha";
-import { addToHunt, removeFromHunt } from "../../src/actions";
+import { addToHunt, importSettlement, removeFromHunt } from "../../src/actions";
 import { setName } from "../../src/actions/settlementActions";
-import { killSurvivor, updateSurvivor } from "../../src/actions/survivorActions";
-import initialState, { newSurvivor } from "../../src/initialstate";
+import { createSurvivor, killSurvivor, updateSurvivor } from "../../src/actions/survivorActions";
+import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../../src/initialstate";
 import { DefenseStats, IDefenseStat, ISettlement, ISurvivor } from "../../src/interfaces";
 import reducer from "../../src/reducers";
 import { clone } from "../../src/util";
@@ -104,6 +104,36 @@ describe("The reducer", () => {
         });
     });
 
+    describe("ImportAction", () => {
+        it("should simply override the current state with the new settlement data", () => {
+            const state = clone(initialState);
+            const newState = {
+                ...state,
+                id: "this is a new state!",
+            };
+            const result = reducer(state, importSettlement(newState));
+
+            expect(result.id, "the id should have changed").to.equal(newState.id);
+            newState.name = "I should not affect the state!";
+            expect(result.name, "The new state should be a proper copy").to.not.equal(newState.name);
+        });
+    });
+
+    describe("SetNameAction", () => {
+        it("should not update the settlement name if given an empty string", () => {
+            const state = clone(initialState);
+            const action = setName("");
+            const result = reducer(state, action);
+            expect(result.name).to.not.equal("");
+        });
+        it("should update the name of the settlement", () => {
+            const state = clone(initialState);
+            const action = setName("everybody-survives-town");
+            const result = reducer(state, action);
+            expect(result.name).to.equal("everybody-survives-town");
+        });
+    });
+
     describe("KillSurvivorAction", () => {
         it("should remove a dead survivor from the hunt", () => {
             const state = clone(initialState);
@@ -118,6 +148,17 @@ describe("The reducer", () => {
             const result = reducer(state, killAction);
             expect(result.survivors[0].hunting, "the dead survivor is not hunting").to.equal(false);
             expect(result.survivors[0].alive, "the dead survivor is not alive").to.equal(false);
+        });
+    });
+
+    describe("CreateSurvivorAction", () => {
+        it("should add a new survivor to the settlement", () => {
+            const state = clone(initialState);
+            const action = createSurvivor();
+            const result = reducer(state, action);
+            expect(result.survivors.length).to.equal(state.survivors.length + 1);
+            const lastSurvivor = result.survivors[result.survivors.length - 1];
+            expect(lastSurvivor.name).to.equal(DEFAULT_SURVIVOR_NAME);
         });
     });
 

@@ -22,10 +22,6 @@ function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: IS
     return nextState;
 }
 
-function getCombinedArmorStats(grid: IGearGrid) {
-    return grid;
-}
-
 const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: Actions): ISettlement => {
 
     if (!state) {
@@ -142,7 +138,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             return state;
         }
         case ActionTypes.IMPORT: {
-            return action.payload || state;
+            return clone(action.payload) || state;
         }
         // Updates the settlement name
         case ActionTypes.SET_NAME: {
