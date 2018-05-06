@@ -1311,9 +1311,15 @@
   {
     "affinity": {
       "bonus": {
-        "affOwn": [
-          2,
-          0
+        "require": [
+          {
+            "color":2,
+            "connection":0
+          },
+          {
+            "color":0,
+            "connection":0
+          }
         ],
         "desc": "+1 Evasion"
       },

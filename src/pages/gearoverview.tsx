@@ -14,6 +14,11 @@ const CardGrid = styled.div`
 const CardWrapper = styled.div`
     width:25%;
     padding:.5rem;
+    @media only screen
+      and (min-device-width: 375px)
+      and (max-device-width: 667px) {
+        width: 50%;
+    }
 `;
 const FilterInput = styled.input`
     border: 2px solid #aaa;
