@@ -102,7 +102,7 @@ const LightWound = styled.div`
     width:1rem;
     height:1rem;
     &.active {
-        background: #888;
+        background: ${colorMagentaLachs};
     }
 `;
 const HeavyWound = LightWound.extend`
