@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { colorMagentaLachs } from "./StyledComponents";
 
 const SurvivorStat = styled.div`
-    width:16%;
+    flex: 1;
+    max-width: 50%;
     text-align:center;
     margin-bottom:.5vh;
     padding:.25rem;
@@ -60,6 +61,7 @@ const StatLayer = styled.div`
     border-radius: .5rem;
     box-shadow:3px 3px 10px;
     display:flex;
+    justify-content: space-between;
     flex-wrap:wrap;
     left:50%;
     padding:.5rem;
