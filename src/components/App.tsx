@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import styled from "styled-components";
 import Home from "../pages";
+import GearOverviewPage from "../pages/gearoverview";
 import SurvivorCardPage from "../pages/suvivorcard";
 import ExportForm from "./ExportForm";
 import SocketConnector from "./SocketConnector";
@@ -17,6 +18,7 @@ class App extends React.Component {
                 <AppWrapper>
                     <Route exact={true} path="/" component={Home} />
                     <Route path="/card/:cardnumber" component={SurvivorCardPage} />
+                    <Route path="/gear" component={GearOverviewPage} />
                     <ExportForm />
                     <SocketConnector />
                 </AppWrapper>
