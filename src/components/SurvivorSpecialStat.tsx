@@ -99,14 +99,14 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
                         <ul>
                             {weaponArts.map((art, idx) => <li key={idx}>{art.name}</li>)}
                         </ul>
-                        <FancyButton onClick={this.showWeaponArtList}>Add Weapon Art</FancyButton>
+                        <FancyButton onClick={this.showWeaponArtList}>Manage Weapon Arts</FancyButton>
                         {showWeaponArtList && <WeaponArtslist id={this.props.survivor.id} onCancel={this.hideWeaponArtList} />}
                     </React.Fragment>
                 );
             } else {
                 return (
                     <React.Fragment>
-                        <FancyButton onClick={this.showWeaponArtList}>Add Weapon Art</FancyButton>
+                        <FancyButton onClick={this.showWeaponArtList}>Manage Weapon Arts</FancyButton>
                         {showWeaponArtList && <WeaponArtslist id={this.props.survivor.id} onCancel={this.hideWeaponArtList} />}
                     </React.Fragment>
                 );
