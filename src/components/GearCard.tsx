@@ -74,7 +74,9 @@ const CardHeadline = styled.div`
     text-align:center;
 `;
 const CardDescription = styled.div`
-    background:#aaa;
+    background:#ccc;
+    font-size:.875rem;
+    margin-bottom: .25rem;
     padding: .25rem;
 `;
 const CardTypes = styled.div`
@@ -145,12 +147,22 @@ const WeaponSpeed = styled.div`
 `;
 
 const AffinityWrapper = styled.div`
+    background:#ccc;
+    color: #939393;
     font-size:.875rem;
+    padding:.125rem;
     text-align:left;
-    color: #aaa;
     &.active {
       color: #000;
     }
+`;
+
+const AffinityRequirments = styled.span`
+    border: 1px solid #757575;
+    background: #aaa;
+    display: inline-block;
+    padding: .125rem;
+    margin-right: .25rem;
 `;
 
 const CloseIcon = styled.div`
@@ -211,7 +223,7 @@ class GearCard extends React.Component<IGearCardProps> {
         if (affinity) {
             return (
                 <AffinityWrapper className={this.props.affinityActive ? "active" : ""}>
-                    {affinity.bonus && affinity.bonus.require && affinity.bonus.require.map((aff: IAffinity, idx: number) => <AffinityIcon key={idx} type={aff.connection} affinity={aff.color} />)}
+                    {affinity.bonus && affinity.bonus.require && (<AffinityRequirments>{affinity.bonus.require.map((aff: IAffinity, idx: number) => <AffinityIcon key={idx} type={aff.connection} affinity={aff.color} />)}</AffinityRequirments>)}
                     {affinity.bonus && affinity.bonus.desc}
                     {directions.map((direction: string, idx) => affinity[direction] !== undefined && <AffinityIcon key={idx} affinity={affinity[direction]} type={AffinityTypes.connect} direction={direction} />)}
                 </AffinityWrapper>

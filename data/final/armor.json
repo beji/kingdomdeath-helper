@@ -1963,7 +1963,22 @@
     ]
   },
   {
-    "desc": "Unique, Irreplaceable, Accessory (not armor). 2x 1-aff-green = spend action to lose all your survival and gain that many +1 strength tokens.",
+    "affinity": {
+      "bonus": {
+        "desc": "Spend action to lose all your survival and gain that many +1 strength tokens.",
+        "require": [
+          {
+            "color": 1,
+            "connection": 1
+          },
+          {
+            "color": 1,
+            "connection": 1
+          }
+        ]
+      }
+    },
+    "desc": "Accessory (not armor).",
     "id": 90,
     "material": "endeavor, 1x shimmering mane, 6x bone, 4x organ",
     "name": "White Lion Mask",
