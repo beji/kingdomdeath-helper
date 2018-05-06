@@ -2,7 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import CreateSurvivor from "../components/CreateSurvivor";
+import FancyButton from "../components/FancyButton";
 import GearGrid from "../components/GearGrid";
+import Link from "../components/Link";
 import ResetHunt from "../components/ResetHunt";
 import SettlementName from "../components/SettlementName";
 import SurvivorListItem from "../components/SurvivorListItem";
@@ -48,6 +50,7 @@ class App extends React.Component<IAppProps> {
 
         return (
             <AppWrapper>
+                <Link to="/gear"><FancyButton>Gear</FancyButton></Link>
                 <SettlementName />
                 <SurvivorCardsWrapper>
                     {geargrids && geargrids.map((id, idx) => <GearGrid key={idx} id={id} />)}
