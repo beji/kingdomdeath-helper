@@ -20,10 +20,12 @@ interface ISurvivorDefenseStatDispatchProps {
 interface ISurvivorDefenseStatOwnProps {
     id: ID;
     stat: IDefenseStat;
+    renderWounds?: boolean;
 }
 
 interface ISurvivorDefenceStatState {
     editSurvivorStat: boolean;
+    renderWounds: boolean;
 }
 
 interface ISurvivorDefenseStatProps extends ISurvivorDefenseStatStatStateProps, ISurvivorDefenseStatOwnProps, ISurvivorDefenseStatDispatchProps { }
@@ -47,6 +49,7 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
         super(props);
         this.state = {
             editSurvivorStat: false,
+            renderWounds: props.renderWounds === undefined ? true : props.renderWounds,
         };
         this.handleEditClick = this.handleEditClick.bind(this);
         this.handleEditConfirm = this.handleEditConfirm.bind(this);
@@ -56,13 +59,13 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
     }
 
     public render() {
-        const { editSurvivorStat } = this.state;
+        const { editSurvivorStat, renderWounds } = this.state;
         const { stat } = this.props;
         return (
             <StatWrapper>
                 <StatElement onClick={this.handleEditClick}>{stat.armor + stat.modifier}</StatElement>
-                {!stat.noWounds && !stat.onlyHeavyWound && <LightWound onClick={this.toggleWound.bind(this, "lightWound")} className={stat.lightWound ? "active" : ""} />}
-                {!stat.noWounds && <HeavyWound onClick={this.toggleWound.bind(this, "heavyWound")} className={stat.heavyWound ? "active" : ""} />}
+                {renderWounds && !stat.noWounds && !stat.onlyHeavyWound && <LightWound onClick={this.toggleWound.bind(this, "lightWound")} className={stat.lightWound ? "active" : ""} />}
+                {renderWounds && !stat.noWounds && <HeavyWound onClick={this.toggleWound.bind(this, "heavyWound")} className={stat.heavyWound ? "active" : ""} />}
                 {editSurvivorStat && this.renderEditState()}
             </StatWrapper>
         );

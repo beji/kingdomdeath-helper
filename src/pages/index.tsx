@@ -64,6 +64,8 @@ class App extends React.Component<IAppProps> {
                             <th>Alive</th>
                             <th>Name</th>
                             <th>Gender</th>
+                            <th>Insanity</th>
+                            <th>Survival</th>
                             <th>Movement</th>
                             <th>Accuracy</th>
                             <th>Strength</th>

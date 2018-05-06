@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions";
 import { killSurvivor, reviveSurvivor, updateSurvivor } from "../actions/survivorActions";
-import { IBaseStat, ID, IGearGrid, ISettlement, ISurvivor } from "../interfaces";
+import { DefenseStats, IBaseStat, ID, IDefenseStat, IGearGrid, ISettlement, ISurvivor } from "../interfaces";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
 import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
@@ -13,6 +13,7 @@ import FancyButton from "./FancyButton";
 import GenderEdit from "./GenderEdit";
 import NameEdit from "./NameEdit";
 import SurvivorBaseStat from "./SurvivorBaseStat";
+import SurvivorDefenseStat from "./SurvivorDefenseStat";
 
 interface ISurvivorListItemStateProps {
     survivor?: ISurvivor;
@@ -75,7 +76,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
     public render() {
         if (this.props.survivor) {
             const { huntSlots } = this.props;
-            const { name, id, gender, gridId, alive, hunting, baseStats } = this.props.survivor;
+            const { name, id, gender, gridId, alive, hunting, baseStats, defenseStats } = this.props.survivor;
 
             return (
                 <tr>
@@ -86,6 +87,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
                     <Cell>
                         <GenderEdit id={id} />
                     </Cell>
+                    {this.renderDefStats(defenseStats, id)}
                     {this.renderBaseStats(baseStats, id)}
                     <Cell>
                         {alive && (<div><select value={hunting ? gridId : "remove"} onChange={this.handleHuntBoxChange}><option value="remove">not hunting</option>{huntSlots.map((v, i) => <option key={i} value={i}>Hunter {v.gridId + 1}</option>)}</select></div>)}
@@ -104,6 +106,13 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
         return baseStats.map((basestat, idx) => {
             return (
                 <Cell key={idx}><SurvivorBaseStat id={id} stat={basestat} /></Cell>);
+        });
+    }
+
+    private renderDefStats(defenseStats: ReadonlyArray<IDefenseStat>, id: ID) {
+        return defenseStats.filter((defStat) => defStat.stat === DefenseStats.brain || defStat.stat === DefenseStats.survival).map((defStat, idx) => {
+            return (
+                <Cell key={idx}><SurvivorDefenseStat id={id} stat={defStat} renderWounds={false} /></Cell>);
         });
     }
 
