@@ -45,13 +45,13 @@ const mapStateToProps = (state: ISettlement, ownProps: IGearCardOwnProps): IGear
         grid.slots.forEach((slot, idx) => {
             if (slot.id === ownProps.slotId) {
                 slotKey = idx;
-                affinities = [...slot.affinityActive];
+                affinities = slot.affinityActive as Affinity[];
                 setActive = slot.setActive;
             }
         });
     }
 
-    if (affinities.length > 0 && item && item.affinity && item.affinity.bonus) {
+    if (affinities && affinities.length > 0 && item && item.affinity && item.affinity.bonus) {
         const activeAffs = [] as Affinity[];
         const requiredAffinities = item.affinity.bonus.require;
         affinities.forEach((slotAff) => {
