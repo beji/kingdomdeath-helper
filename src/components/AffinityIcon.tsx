@@ -84,13 +84,13 @@ export default class AffinityIcon extends React.Component<IAffinityIconProps> {
     public render() {
         const { affinity, direction, type } = this.props;
         switch (type) {
-            case AffinityTypes.connect: {
+            case AffinityTypes.card: {
                 return (<PuzzleIcon affinity={affinity} title="Affinity on this card" />);
             }
             case AffinityTypes.grid: {
                 return (<CompleteIcon affinity={affinity} title="Affinity on grid" />);
             }
-            case AffinityTypes.card: {
+            case AffinityTypes.connect: {
                 return (<HalfIcon affinity={affinity} direction={direction} />);
             }
             default: {

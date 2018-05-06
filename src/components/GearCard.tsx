@@ -3,7 +3,7 @@ import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
 import items from "../data/ItemDataHelper";
-import { Affinity, AffinityTypes, DefenseStats, ID, IGearGrid, IItem, ISettlement, Item, ItemType, StatType } from "../interfaces";
+import { AffinityTypes, DefenseStats, IAffinity, ID, IGearGrid, IItem, ISettlement, Item, ItemType, StatType } from "../interfaces";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { capitalize } from "../util";
 import AffinityIcon from "./AffinityIcon";
@@ -204,9 +204,9 @@ class GearCard extends React.Component<IGearCardProps> {
         if (affinity) {
             return (
                 <AffinityWrapper>
-                    {affinity.bonus && affinity.bonus.affOwn && affinity.bonus.affOwn.map((aff: Affinity, idx: number) => <AffinityIcon key={idx} type={AffinityTypes.connect} affinity={aff} />)}
+                    {affinity.bonus && affinity.bonus.require && affinity.bonus.require.map((aff: IAffinity, idx: number) => <AffinityIcon key={idx} type={aff.connection} affinity={aff.color} />)}
                     {affinity.bonus && affinity.bonus.desc}
-                    {directions.map((direction: string, idx) => affinity[direction] !== undefined && <AffinityIcon key={idx} affinity={affinity[direction]} type={AffinityTypes.card} direction={direction} />)}
+                    {directions.map((direction: string, idx) => affinity[direction] !== undefined && <AffinityIcon key={idx} affinity={affinity[direction]} type={AffinityTypes.connect} direction={direction} />)}
                 </AffinityWrapper>
             );
         }

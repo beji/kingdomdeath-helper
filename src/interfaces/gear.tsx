@@ -40,6 +40,11 @@ interface IWeapon {
     readonly strength: number;
 }
 
+interface IAffinity {
+    readonly color: Affinity;
+    readonly connection: AffinityTypes;
+}
+
 interface IItem {
     readonly id: Item;
     readonly name: string;
@@ -57,8 +62,7 @@ interface IItem {
         readonly left?: Affinity;
         readonly bonus?: {
             readonly desc: string;
-            readonly affOwn?: ReadonlyArray<Affinity>;
-            readonly affGrid?: ReadonlyArray<Affinity>;
+            readonly require: ReadonlyArray<IAffinity>
             readonly stats?: ReadonlyArray<IItemStat>;
         }
     };
@@ -70,4 +74,4 @@ interface IItem {
     };
 }
 
-export { Affinity, AffinityTypes, IGearGrid, IGridSlot, IItem, Item, ItemType };
+export { Affinity, AffinityTypes, IAffinity, IGearGrid, IGridSlot, IItem, Item, ItemType };
