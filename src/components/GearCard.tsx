@@ -65,6 +65,7 @@ const StyledCard = styled.div`
     background:#ddd;
     padding:1rem;
     margin:.5rem;
+    min-height: 8rem;
     position:relative;
 `;
 const CardHeadline = styled.div`

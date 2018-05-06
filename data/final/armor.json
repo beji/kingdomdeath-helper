@@ -21,6 +21,10 @@
     ]
   },
   {
+    "affinity": {
+      "right": 0,
+      "bottom": 2
+    },
     "desc": "jewelry, Accessory. Armor 3 on head. At the start of your act, if you have any +1 strength tokens, reveal the next 4 monster hit locations and put them back in any order.",
     "id": 3,
     "material": "1x legendary horns, 1x phoenix crest",
@@ -41,6 +45,9 @@
     ]
   },
   {
+    "affinity": {
+      "bottom": 0
+    },
     "desc": "item, bone, heavy. If adjacent to the monster when you suffer a severe body injury, the monster suffers a wound. Limit, once per round.",
     "id": 4,
     "material": "1x stout vertebrae, 1x scrap",
@@ -172,6 +179,11 @@
     }
   },
   {
+    "affinity": {
+      "right": 1,
+      "bottom": 1,
+      "left": 1
+    },
     "desc": "jewelry, amber. Accessory. 3x 0.5-aff-blue = If you are the monster controller when the monster draws AI, draw 1 extra card. Select 1 to play and discard the other.",
     "id": 8,
     "material": "legless ball, 3x eyeballs, 2x stomach",
@@ -210,6 +222,9 @@
     ]
   },
   {
+    "affinity": {
+      "bottom": 2
+    },
     "desc": "Whenever you spend movement, the scales' color shift. Gain +1 evasion until your next act.",
     "id": 10,
     "material": "1x cycloid scales, 1x hide, 1x prismatic gills",
@@ -228,6 +243,11 @@
     ]
   },
   {
+    "affinity": {
+      "top": 2,
+      "right": 0,
+      "left": 0
+    },
     "desc": "When you spend movement, you Shadow Walk and may move through occupied spaces without causing collision. 1x 0.5-aff-blue / 2x 1-aff-red = +1 accuracy",
     "id": 11,
     "material": "1x cycloid scales, 1x scrap, 1x huge sunteeth, 1x salt",
@@ -246,6 +266,10 @@
     ]
   },
   {
+    "affinity": {
+      "top": 1,
+      "left": 2
+    },
     "desc": "1x 0.5-aff-blue / 1x 0.5-aff-green = Spend movement: You are not a threat until you attack. If you have the priority target token, gain 2 survival and remove it.",
     "id": 12,
     "material": "1x cycloid scales, 1x bone, 1x shadow tentacles",
@@ -264,6 +288,10 @@
     ]
   },
   {
+    "affinity": {
+      "top": 2,
+      "bottom": 1
+    },
     "desc": "1x 0.5-aff-green / 3x 1-aff-blue = When you depart, gain survival equal to the number of blue affinities you have.",
     "id": 13,
     "material": "1x cycloid scales, 1x hide, 1x huge sunteeth",
@@ -282,6 +310,10 @@
     ]
   },
   {
+    "affinity": {
+      "right": 2,
+      "left": 2
+    },
     "desc": "When you Shadow Walk and attack a monster from its blind spot, your weapon gains +1 accuracy and Sharp for that attack.",
     "id": 14,
     "material": "1x cycloid scales, 1x bone, 1x small sunteeth, 1x salt",
@@ -1789,6 +1821,9 @@
     ]
   },
   {
+    "affinity": {
+      "bottom": 1
+    },
     "desc": "When you suffer a severe head injury, the skull helm is destroyed.",
     "id": 84,
     "material": "2x bone -or- 1x skull",
@@ -1825,7 +1860,32 @@
     }
   },
   {
-    "desc": "2x 0.5-aff-red = +1 movement",
+    "affinity": {
+      "right": 0,
+      "bottom": 0,
+      "bonus": {
+        "desc": "+1 movement",
+        "require": [
+          {
+            "color": 0,
+            "connection": 0
+          },
+          {
+            "color": 0,
+            "connection": 0
+          }
+        ],
+        "stats": [
+          {
+            "amount": 1,
+            "showOnCard": true,
+            "type": 1,
+            "stat": 3
+          }
+        ]
+      }
+    },
+    "desc": "",
     "id": 86,
     "material": "1x white fur, 1x hide",
     "name": "White Lion Boots",
@@ -1843,6 +1903,9 @@
     ]
   },
   {
+    "affinity": {
+      "top": 2
+    },
     "desc": "Pounce: spend move+action to move 3 spaces in straight line. If you moved 3 spaces, activate a melee weapon with +1 strength.",
     "id": 87,
     "material": "1x white fur, 1x hide",
@@ -1879,6 +1942,9 @@
     ]
   },
   {
+    "affinity": {
+      "bottom": 0
+    },
     "desc": "Spend action and 1 survival to Roar: Non-deaf insane survivors gain +2 strength until end of round. All other survivors gain +1 insanity.",
     "id": 89,
     "material": "1x white fur, 1x great cat bone",
@@ -1917,6 +1983,10 @@
     ]
   },
   {
+    "affinity": {
+      "right": 0,
+      "left": 0
+    },
     "desc": "",
     "id": 91,
     "material": "1x white fur, 1x hide",
