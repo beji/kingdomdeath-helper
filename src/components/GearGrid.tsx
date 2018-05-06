@@ -2,7 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { updateSurvivor } from "../actions/survivorActions";
-import { ID, IGearGrid, ISettlement } from "../interfaces";
+import { Affinity, AffinityTypes, ID, IGearGrid, ISettlement } from "../interfaces";
+import AffinityIcon from "./AffinityIcon";
 import GridSlot from "./GridSlot";
 import Link from "./Link";
 import SurvivorCard from "./SurvivorCard";
@@ -56,6 +57,7 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
         `;
         const GridAffinities = styled.div`
             display:flex;
+            font-size:.875rem;
             justify-content: space-around;
             margin: .25rem;
         `;
@@ -69,9 +71,9 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
                     </PlayerCardHeadline>
                     {grid.survivorId && <SurvivorCard key={grid.id} id={grid.survivorId} updateSurvivor={updateSurvivor} />}
                     <GridAffinities>
-                        <div>Red: {grid.affinities && grid.affinities.reduce((acc, curr) => curr === 0 ? acc + 1 : acc, 0)}</div>
-                        <div>Green: {grid.affinities && grid.affinities.reduce((acc, curr) => curr === 1 ? acc + 1 : acc, 0)}</div>
-                        <div>Blue: {grid.affinities && grid.affinities.reduce((acc, curr) => curr === 2 ? acc + 1 : acc, 0)}</div>
+                        <div>{grid.affinities && grid.affinities.reduce((acc, curr) => curr === 0 ? acc + 1 : acc, 0)}x <AffinityIcon affinity={Affinity.red} type={AffinityTypes.grid}/></div>
+                        <div>{grid.affinities && grid.affinities.reduce((acc, curr) => curr === 1 ? acc + 1 : acc, 0)}x <AffinityIcon affinity={Affinity.green} type={AffinityTypes.grid}/></div>
+                        <div>{grid.affinities && grid.affinities.reduce((acc, curr) => curr === 2 ? acc + 1 : acc, 0)}x <AffinityIcon affinity={Affinity.blue} type={AffinityTypes.grid}/></div>
                     </GridAffinities>
                     <StyledGrid>
                         {Object.keys(grid.slots).map((v, i, slots) => <GridSlot key={i} gridId={grid.id} slotId={grid.slots[i].id} />)}
