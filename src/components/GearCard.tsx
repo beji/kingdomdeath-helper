@@ -3,7 +3,7 @@ import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
 import items from "../data/ItemDataHelper";
-import { AffinityTypes, DefenseStats, IAffinity, ID, IGearGrid, IItem, ISettlement, Item, ItemType, StatType } from "../interfaces";
+import { Affinity, AffinityTypes, DefenseStats, IAffinity, ID, IGearGrid, IGridSlot, IItem, ISettlement, Item, ItemType, StatType } from "../interfaces";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { capitalize } from "../util";
 import AffinityIcon from "./AffinityIcon";
@@ -17,7 +17,8 @@ interface IGearCardStateProps {
     item?: IItem;
     grid?: IGearGrid;
     slotKey?: number;
-    affinityActive?: boolean;
+    slot?: IGridSlot;
+    affinityActive?: ReadonlyArray<Affinity>;
     setActive?: boolean;
 }
 
@@ -35,18 +36,17 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateGearGridAction>): IGearCard
 const mapStateToProps = (state: ISettlement, ownProps: IGearCardOwnProps): IGearCardStateProps => {
     const grid = state.geargrids.find((curr) => curr.slots.find((slot) => slot.id === ownProps.slotId) !== undefined);
     let slotKey;
-    let affinityActive;
-    let setActive;
+    let affinityActive = [] as ReadonlyArray<Affinity>;
+    let setActive = false;
+
     if (grid) {
-        grid.slots.forEach((v, i) => {
-            if (v.id === ownProps.slotId) {
-                slotKey = i;
+        grid.slots.forEach((slot, idx) => {
+            if (slot.id === ownProps.slotId) {
+                slotKey = idx;
+                affinityActive = slot.affinityActive;
+                setActive = slot.setActive;
             }
         });
-        if (slotKey) {
-            affinityActive = grid.slots[slotKey].affinityActive;
-            setActive = grid.slots[slotKey].setActive;
-        }
     }
     return {
         affinityActive,
@@ -207,6 +207,7 @@ class GearCard extends React.Component<IGearCardProps> {
                     {affinity.bonus && affinity.bonus.require && affinity.bonus.require.map((aff: IAffinity, idx: number) => <AffinityIcon key={idx} type={aff.connection} affinity={aff.color} />)}
                     {affinity.bonus && affinity.bonus.desc}
                     {directions.map((direction: string, idx) => affinity[direction] !== undefined && <AffinityIcon key={idx} affinity={affinity[direction]} type={AffinityTypes.connect} direction={direction} />)}
+                    <div>SlotAff: {this.props.affinityActive}</div>
                 </AffinityWrapper>
             );
         }
