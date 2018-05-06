@@ -324,57 +324,69 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     ...state,
                     geargrids: state.geargrids.map((grid) => {
                         if (grid.id === gearGrid.id) {
-                            return {
-                                ...gearGrid,
-                                slots: gearGrid.slots.map((slot, slotKey) => {
-                                    if (slot.content) {
-                                        const thisCard = items.find((item) => item.id === slot.content);
-                                        const directions = [
-                                            {o: "top", c: "bottom", slotId: slotKey - 3},
-                                            {o: "right", c: "left", slotId: slotKey % 3 === 2 ? -1 : slotKey + 1},
-                                            {o: "bottom", c: "top", slotId: slotKey + 3},
-                                            {o: "left", c: "right", slotId: slotKey % 3 === 0 ? -1 : slotKey - 1},
-                                        ];
-                                        const affinities =  [] as Affinity[];
-                                        let affinityActive = false;
+                            const gridAffinities: Affinity[] = [];
+                            const affinitySlots: string[] = [];
+                            const slots = gearGrid.slots.map((slot, slotKey) => {
+                                if (slot.content) {
+                                    const thisCard = items.find((item) => item.id === slot.content);
+                                    const directions = [
+                                        {o: "top", c: "bottom", slotId: slotKey - 3},
+                                        {o: "right", c: "left", slotId: slotKey % 3 === 2 ? -1 : slotKey + 1},
+                                        {o: "bottom", c: "top", slotId: slotKey + 3},
+                                        {o: "left", c: "right", slotId: slotKey % 3 === 0 ? -1 : slotKey - 1},
+                                    ];
+                                    const affinities =  [] as Affinity[];
+                                    let affinityActive = false;
 
-                                        // calculate affinities for with adjacent slots
-                                        directions.forEach((direction) => {
-                                            if (direction.slotId > -1 && direction.slotId < 10) {
-                                                if (gearGrid.slots[direction.slotId].content) {
-                                                    const card = items.find((item) => item.id === gearGrid.slots[direction.slotId].content);
-                                                    const affinity = thisCard && thisCard.affinity && thisCard.affinity[direction.o];
-                                                    if (affinity === (card && card.affinity && card.affinity[direction.c])) {
-                                                        affinities.push(affinity);
+                                    // calculate affinities with adjacent slots
+                                    directions.forEach((direction) => {
+                                        if (direction.slotId > -1 && direction.slotId < 10) {
+                                            if (gearGrid.slots[direction.slotId].content) {
+                                                const card = items.find((item) => item.id === gearGrid.slots[direction.slotId].content);
+                                                const affinity = thisCard && thisCard.affinity && thisCard.affinity[direction.o];
+                                                const affinitySlotMarker = slotKey > direction.slotId ? `${direction.slotId}${slotKey}` : `${slotKey}${direction.slotId}`;
+                                                if (affinity === (card && card.affinity && card.affinity[direction.c])) {
+                                                    affinities.push(affinity);
+                                                    console.log(affinitySlots.length, affinitySlotMarker, affinitySlots.indexOf(affinitySlotMarker) === -1);
+                                                    if (affinitySlots.indexOf(affinitySlotMarker) === -1) {
+                                                        gridAffinities.push(affinity);
+
+                                                        affinitySlots.push(affinitySlotMarker);
                                                     }
                                                 }
                                             }
-                                        });
-
-                                        // calculate is affinity bonus on current card is active
-                                        if (affinities && affinities.length > 0 && thisCard && thisCard.affinity && thisCard.affinity.bonus) {
-                                            const activeAffs = [] as Affinity[];
-                                            const requiredAffinities = thisCard.affinity.bonus.require;
-                                            affinities.forEach((slotAff) => {
-                                                requiredAffinities.some((cardAff) => {
-                                                    if (slotAff === cardAff.color && cardAff.connection === AffinityTypes.card) {
-                                                        activeAffs.push(slotAff);
-                                                    }
-                                                    return slotAff === cardAff.color;
-                                                });
-                                            });
-                                            affinityActive = requiredAffinities.length === activeAffs.length;
                                         }
+                                    });
 
-                                        return {
-                                            ...slot,
-                                            affinities,
-                                            affinityActive,
-                                        };
-                                    } else {
-                                        return slot;
+                                    // calculate if affinity bonus on current card is active
+                                    if (affinities && affinities.length > 0 && thisCard && thisCard.affinity && thisCard.affinity.bonus) {
+                                        const activeAffs: Affinity[] = [];
+                                        const requiredAffinities = thisCard.affinity.bonus.require;
+                                        affinities.forEach((slotAff) => {
+                                            requiredAffinities.some((cardAff) => {
+                                                if (slotAff === cardAff.color && cardAff.connection === AffinityTypes.card) {
+                                                    activeAffs.push(slotAff);
+                                                }
+                                                return slotAff === cardAff.color;
+                                            });
+                                        });
+                                        affinityActive = requiredAffinities.length === activeAffs.length;
                                     }
-                                }),
+
+                                    return {
+                                        ...slot,
+                                        affinities,
+                                        affinityActive,
+                                    };
+                                } else {
+                                    return slot;
+                                }
+                            });
+
+                            return {
+                                ...gearGrid,
+                                affinities: gridAffinities,
+                                slots,
                             };
                         }
                         return grid;

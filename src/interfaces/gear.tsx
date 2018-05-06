@@ -15,6 +15,7 @@ const enum AffinityTypes {
 }
 
 interface IGearGrid {
+    readonly affinities: Affinity[];
     readonly id: ID;
     readonly survivorId?: ID;
     readonly slots: ReadonlyArray<IGridSlot>;

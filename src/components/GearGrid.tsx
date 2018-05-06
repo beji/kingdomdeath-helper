@@ -54,6 +54,11 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
             text-align:center;
             margin:.5vh 0;
         `;
+        const GridAffinities = styled.div`
+            display:flex;
+            justify-content: space-around;
+            margin: .25rem;
+        `;
 
         if (this.props.grid) {
             const { grid, id } = this.props;
@@ -63,6 +68,11 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
                         <Link to={`/card/${id}`}>Huntslot {id}</Link>
                     </PlayerCardHeadline>
                     {grid.survivorId && <SurvivorCard key={grid.id} id={grid.survivorId} updateSurvivor={updateSurvivor} />}
+                    <GridAffinities>
+                        <div>Red: {grid.affinities && grid.affinities.reduce((acc, curr) => curr === 0 ? acc + 1 : acc, 0)}</div>
+                        <div>Green: {grid.affinities && grid.affinities.reduce((acc, curr) => curr === 1 ? acc + 1 : acc, 0)}</div>
+                        <div>Blue: {grid.affinities && grid.affinities.reduce((acc, curr) => curr === 2 ? acc + 1 : acc, 0)}</div>
+                    </GridAffinities>
                     <StyledGrid>
                         {Object.keys(grid.slots).map((v, i, slots) => <GridSlot key={i} gridId={grid.id} slotId={grid.slots[i].id} />)}
                     </StyledGrid>
