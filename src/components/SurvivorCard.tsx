@@ -3,13 +3,14 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateSurvivor } from "../actions/survivorActions";
-import { BaseStats, DefenseStats, ID, ISettlement, ISurvivor } from "../interfaces";
+import { BaseStats, DefenseStats, ID, ISettlement, ISurvivor, SpecialStats } from "../interfaces";
 import { UpdateSurvivorAction } from "../interfaces/survivorActions";
-import { capitalize, clone } from "../util";
+import { capitalize, clone, specialStatToString } from "../util";
 import GenderEdit from "./GenderEdit";
 import NameEdit from "./NameEdit";
 import SurvivorBaseStat from "./SurvivorBaseStat";
 import SurvivorDefenseStat from "./SurvivorDefenseStat";
+import SurvivorSpecialStat from "./SurvivorSpecialStat";
 import { StatLabel, SurvivorStat } from "./SurvivorStatElements";
 
 const StyledCard = styled.div`
@@ -116,6 +117,9 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
                             {survival && <SurvivorStat><StatLabel>{capitalize(DefenseStats[survival.stat])}</StatLabel><SurvivorDefenseStat id={id} stat={survival} /></SurvivorStat>}
                         </section>
                     </NameSection>
+                    <StatSection>
+                        {survivor.specialstats.map((specialStat, idx) => (<SurvivorStat key={idx}><StatLabel>{specialStatToString(specialStat.stat)}</StatLabel><SurvivorSpecialStat id={id} stat={specialStat} /></SurvivorStat>))}
+                    </StatSection>
                     <StatSection>
                         {survivor.baseStats.map((baseStat, idx) => (<SurvivorStat key={idx}><StatLabel>{capitalize(BaseStats[baseStat.stat])}</StatLabel><SurvivorBaseStat id={id} stat={baseStat} /></SurvivorStat>))}
                     </StatSection>

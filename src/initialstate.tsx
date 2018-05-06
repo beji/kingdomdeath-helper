@@ -1,5 +1,5 @@
 import uuid from "uuid/v4";
-import { Affinity, BaseStats, DefenseStats, Gender, IBaseStat, ID, IDefenseStat, IGearGrid, IItem, ISettlement, ISurvivor, Item, ItemType, StatType } from "./interfaces";
+import { Affinity, BaseStats, DefenseStats, Gender, IBaseStat, ID, IDefenseStat, IGearGrid, IItem, ISettlement, ISpecialStat, ISurvivor, Item, ItemType, SpecialStats, StatType } from "./interfaces";
 
 export const DEFAULT_SURVIVOR_NAME = "Rename me to get +1 Survival";
 
@@ -41,6 +41,19 @@ const getDefense = (): IDefenseStat[] => ([
     getHitLocation(DefenseStats.waist, false),
 ]).sort((a, b) => (a.stat - b.stat));
 
+const getSpecialStat = (stat: SpecialStats): ISpecialStat => ({
+    stat,
+    type: StatType.special,
+    value: 0,
+});
+
+const getSpecialStats = (): ISpecialStat[] => ([
+    getSpecialStat(SpecialStats.courage),
+    getSpecialStat(SpecialStats.huntxp),
+    getSpecialStat(SpecialStats.understanding),
+    getSpecialStat(SpecialStats.weapon_proficiency),
+]).sort((a, b) => (a.stat - b.stat));
+
 const survivors: ReadonlyArray<ISurvivor> = Array.apply(null, { length: 8 }).map(Number.call, Number).map((n: number) => {
     return {
         alive: n < 4 || n % 3 === 0,
@@ -49,9 +62,11 @@ const survivors: ReadonlyArray<ISurvivor> = Array.apply(null, { length: 8 }).map
         gender: n % 2 === 0 ? Gender.male : Gender.female,
         gridId: n < 4 ? n : undefined,
         hunting: n < 4,
+        huntxp: 0,
         id: uuid(),
         name: `Survivor ${n}`,
-    };
+        specialstats: getSpecialStats(),
+    } as ISurvivor;
 });
 
 const huntingSurvivors: ID[] = survivors.filter((survivor) => survivor.hunting).map((survivor) => survivor.id);
@@ -224,8 +239,10 @@ export function newSurvivor(): ISurvivor {
         gender: Gender.male,
         gridId: undefined,
         hunting: false,
+        huntxp: 0,
         id: uuid(),
         name: DEFAULT_SURVIVOR_NAME,
+        specialstats: getSpecialStats(),
     };
 }
 

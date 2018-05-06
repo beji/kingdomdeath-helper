@@ -1,4 +1,4 @@
-import { IBaseStat, ID, IDefenseStat, ISurvivor } from "../interfaces";
+import { IBaseStat, ID, IDefenseStat, ISpecialStat, ISurvivor } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { CreateSurvivorAction, KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 
@@ -7,7 +7,7 @@ export const updateSurvivor = (survivor: ISurvivor): UpdateSurvivorAction => ({
     type: ActionTypes.UPDATE_SURVIVOR,
 });
 
-export const updateSurvivorStat = (stat: IBaseStat | IDefenseStat, survivorId: ID): UpdateSurvivorStatAction => ({
+export const updateSurvivorStat = (stat: IBaseStat | IDefenseStat | ISpecialStat, survivorId: ID): UpdateSurvivorStatAction => ({
     payload: {
         stat,
         survivorId,

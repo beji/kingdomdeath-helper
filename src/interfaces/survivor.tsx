@@ -1,16 +1,17 @@
 import { ID } from "./generics";
 
-enum Gender {
+export enum Gender {
     male,
     female,
 }
 
-enum StatType {
+export enum StatType {
     defense,
     base,
+    special,
 }
 
-enum BaseStats {
+export enum BaseStats {
     accuracy,
     evasion,
     luck,
@@ -19,7 +20,7 @@ enum BaseStats {
     strength,
 }
 
-enum DefenseStats {
+export enum DefenseStats {
     brain,
     head,
     arms,
@@ -29,7 +30,14 @@ enum DefenseStats {
     survival,
 }
 
-interface IDefenseStat {
+export enum SpecialStats {
+    huntxp,
+    weapon_proficiency,
+    courage,
+    understanding,
+}
+
+export interface IDefenseStat {
     readonly [key: string]: ID | string | number | boolean;
     readonly armor: number;
     readonly modifier: number;
@@ -41,7 +49,7 @@ interface IDefenseStat {
     readonly stat: DefenseStats;
 }
 
-interface IBaseStat {
+export interface IBaseStat {
     readonly [key: string]: number | string;
     readonly gear: number;
     readonly permanent: number;
@@ -50,7 +58,13 @@ interface IBaseStat {
     readonly stat: BaseStats;
 }
 
-interface ISurvivor {
+export interface ISpecialStat {
+    readonly stat: SpecialStats;
+    readonly value: number;
+    readonly type: StatType.special;
+}
+
+export interface ISurvivor {
     readonly id: ID;
     readonly gridId: string | undefined;
     readonly name: string;
@@ -59,6 +73,6 @@ interface ISurvivor {
     readonly alive: boolean;
     readonly baseStats: ReadonlyArray<IBaseStat>;
     readonly defenseStats: ReadonlyArray<IDefenseStat>;
+    readonly huntxp: number;
+    readonly specialstats: ReadonlyArray<ISpecialStat>;
 }
-
-export { BaseStats, DefenseStats, Gender, IDefenseStat, ISurvivor, IBaseStat, StatType };

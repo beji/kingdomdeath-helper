@@ -213,6 +213,16 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                                     return basestat;
                                 }),
                             };
+                        } else if (stat.type === StatType.special) {
+                            return {
+                                ...survivor,
+                                specialstats: survivor.specialstats.map((specialstat) => {
+                                    if (specialstat.stat === stat.stat) {
+                                        return clone(stat);
+                                    }
+                                    return specialstat;
+                                }),
+                            };
                         }
                     }
                     return survivor;

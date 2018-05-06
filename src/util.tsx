@@ -1,4 +1,4 @@
-import { BaseStats, DefenseStats, Gender } from "./interfaces";
+import { BaseStats, DefenseStats, Gender, ISpecialStat, SpecialStats } from "./interfaces";
 
 // tslint:disable:no-bitwise
 
@@ -20,4 +20,12 @@ export function capitalize(input: string) {
         return input.toUpperCase();
     }
     return input.charAt(0).toUpperCase() + input.slice(1);
+}
+
+export function specialStatToString(stat: SpecialStats) {
+    switch (stat) {
+        case SpecialStats.huntxp: return "Hunt XP";
+        case SpecialStats.weapon_proficiency: return "Weapon Proficiency";
+        default: return capitalize(SpecialStats[stat]);
+    }
 }
