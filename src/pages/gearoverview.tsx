@@ -34,7 +34,7 @@ interface IGearOverviewPageState {
 const sortedItems = items;
 const sortColumnName = "name";
 sortedItems.sort((x, y) => {
-    return ((x[sortColumnName] === y[sortColumnName]) ? 0 : ((x[sortColumnName] > y[sortColumnName]) ? 1 : -1 ));
+    return ((x[sortColumnName] === y[sortColumnName]) ? 0 : ((x[sortColumnName] > y[sortColumnName]) ? 1 : -1));
 });
 
 class GearOverviewPage extends React.Component<any, IGearOverviewPageState> {
@@ -59,7 +59,7 @@ class GearOverviewPage extends React.Component<any, IGearOverviewPageState> {
         return this.state.items.map((item, idx) => {
             return (
                 <CardWrapper key={idx}>
-                    <GearCard id={item.id}/>
+                    <GearCard id={item.id} />
                 </CardWrapper>
             );
         });
