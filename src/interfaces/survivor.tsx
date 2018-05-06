@@ -161,5 +161,5 @@ export interface ISurvivor {
     readonly defenseStats: ReadonlyArray<IDefenseStat>;
     readonly huntxp: number;
     readonly specialstats: ReadonlyArray<ISpecialStat>;
-    readonly weaponArt?: IWeaponArt;
+    readonly weaponArts?: ReadonlyArray<IWeaponArt>;
 }

@@ -2,12 +2,13 @@ import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { updateSurvivorStat } from "../actions/survivorActions";
-import { ID, IDefenseStat, ISettlement, ISpecialStat, ISurvivor, SpecialStats } from "../interfaces";
+import { ID, IDefenseStat, ISettlement, ISpecialStat, ISurvivor, IWeaponArt, SpecialStats } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { capitalize, clone, specialStatToString } from "../util";
 import FancyButton from "./FancyButton";
 import NumberEdit from "./NumberEdit";
 import { Label, StatEdit, StatElement, StatLayer, StatLayerHeadline, StatWrapper } from "./SurvivorStatElements";
+import WeaponArtslist from "./WeaponArtsList";
 
 interface ISpecialStatStateProps {
     survivor?: ISurvivor;
@@ -26,6 +27,7 @@ interface ISpecialStatProps extends ISpecialStatStateProps, ISpecialStatDispatch
 
 interface ISpecialStatState {
     editSurvivorStat: boolean;
+    showWeaponArtList: boolean;
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction>): ISpecialStatDispatchProps => ({
@@ -48,12 +50,15 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
         super(props);
         this.state = {
             editSurvivorStat: false,
+            showWeaponArtList: false,
         };
         this.handleEditClick = this.handleEditClick.bind(this);
         this.handleEditConfirm = this.handleEditConfirm.bind(this);
         this.renderEditState = this.renderEditState.bind(this);
 
         this.setupValueRef = this.setupValueRef.bind(this);
+        this.showWeaponArtList = this.showWeaponArtList.bind(this);
+        this.hideWeaponArtList = this.hideWeaponArtList.bind(this);
     }
 
     public render() {
@@ -66,6 +71,7 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
                     {stat.value}
                 </StatElement>
                 {editSurvivorStat && this.renderEditState()}
+                {(stat.stat === SpecialStats.weapon_proficiency) && (stat.value >= 3 || this.props.survivor && this.props.survivor.weaponArts) && this.renderWeaponArt()}
             </StatWrapper>
         );
     }
@@ -81,6 +87,44 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
                 <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
             </StatLayer>
         );
+    }
+
+    private renderWeaponArt() {
+        if (this.props.survivor) {
+            const { showWeaponArtList } = this.state;
+            const { weaponArts } = this.props.survivor;
+            if (weaponArts) {
+                return (
+                    <React.Fragment>
+                        <ul>
+                            {weaponArts.map((art, idx) => <li key={idx}>{art.name}</li>)}
+                        </ul>
+                        <FancyButton onClick={this.showWeaponArtList}>Add Weapon Art</FancyButton>
+                        {showWeaponArtList && <WeaponArtslist id={this.props.survivor.id} onCancel={this.hideWeaponArtList} />}
+                    </React.Fragment>
+                );
+            } else {
+                return (
+                    <React.Fragment>
+                        <FancyButton onClick={this.showWeaponArtList}>Add Weapon Art</FancyButton>
+                        {showWeaponArtList && <WeaponArtslist id={this.props.survivor.id} onCancel={this.hideWeaponArtList} />}
+                    </React.Fragment>
+                );
+            }
+        }
+        return ("");
+    }
+
+    private showWeaponArtList(e: SyntheticEvent<HTMLButtonElement>) {
+        this.setState({
+            showWeaponArtList: true,
+        });
+    }
+
+    private hideWeaponArtList() {
+        this.setState({
+            showWeaponArtList: false,
+        });
     }
 
     private handleEditClick(e: SyntheticEvent<HTMLSpanElement>) {

@@ -1,3 +1,4 @@
+import weaponArts from "data/final/weaponarts.json";
 import { Reducer } from "redux";
 import { removeFromHunt, updateSurvivor } from "../actions";
 import items from "../data/ItemDataHelper";
@@ -8,10 +9,10 @@ import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { AddToHuntAction, RemoveFromHuntAction, ResetHuntAction } from "../interfaces/huntActions";
 import { ImportAction } from "../interfaces/importAction";
 import { SetNameAction } from "../interfaces/settlementActions";
-import { CreateSurvivorAction, KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorStatAction } from "../interfaces/survivorActions";
+import { CreateSurvivorAction, KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorStatAction, UpdateSurvivorWeaponArtsAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 
-type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | UpdateSurvivorAction | UpdateSurvivorStatAction | KillSurvivorAction | ReviveSurvivorAction | CreateSurvivorAction | UpdateGearGridAction | ResetHuntAction;
+type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | UpdateSurvivorAction | UpdateSurvivorStatAction | KillSurvivorAction | ReviveSurvivorAction | CreateSurvivorAction | UpdateGearGridAction | ResetHuntAction | UpdateSurvivorWeaponArtsAction;
 
 function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
     const updatedSurvivors = state.survivors.map(mapfunc);
@@ -334,6 +335,25 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     })),
                 })),
             };
+        }
+        case ActionTypes.UPDATE_SURVIVOR_WEAPON_ART: {
+            if (action.payload) {
+                const { id, arts } = action.payload;
+                if (arts.length <= 3) {
+                    return {
+                        ...state,
+                        survivors: state.survivors.map((survivor) => {
+                            if (survivor.id === id) {
+                                return {
+                                    ...survivor,
+                                    weaponArts: arts.map((art) => weaponArts[art]),
+                                };
+                            }
+                            return survivor;
+                        }),
+                    };
+                }
+            }
         }
         default: return state;
     }
