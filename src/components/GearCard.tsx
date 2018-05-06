@@ -18,7 +18,7 @@ interface IGearCardStateProps {
     grid?: IGearGrid;
     slotKey?: number;
     slot?: IGridSlot;
-    affinityActive?: ReadonlyArray<Affinity>;
+    affinityActive?: boolean;
     setActive?: boolean;
 }
 
@@ -35,23 +35,40 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateGearGridAction>): IGearCard
 
 const mapStateToProps = (state: ISettlement, ownProps: IGearCardOwnProps): IGearCardStateProps => {
     const grid = state.geargrids.find((curr) => curr.slots.find((slot) => slot.id === ownProps.slotId) !== undefined);
+    const item = items.find((itm: IItem) => itm.id === ownProps.id);
     let slotKey;
-    let affinityActive = [] as ReadonlyArray<Affinity>;
+    let affinities = [] as Affinity[];
+    let affinityActive = false;
     let setActive = false;
 
     if (grid) {
         grid.slots.forEach((slot, idx) => {
             if (slot.id === ownProps.slotId) {
                 slotKey = idx;
-                affinityActive = slot.affinityActive;
+                affinities = [...slot.affinityActive];
                 setActive = slot.setActive;
             }
         });
     }
+
+    if (affinities.length > 0 && item && item.affinity && item.affinity.bonus) {
+        const activeAffs = [] as Affinity[];
+        const requiredAffinities = item.affinity.bonus.require;
+        affinities.forEach((slotAff) => {
+            requiredAffinities.some((cardAff) => {
+                if (slotAff === cardAff.color) {
+                    activeAffs.push(slotAff);
+                }
+                return slotAff === cardAff.color;
+            });
+        });
+        affinityActive = requiredAffinities.length === activeAffs.length;
+    }
+
     return {
         affinityActive,
         grid,
-        item: items.find((item: IItem) => item.id === ownProps.id),
+        item,
         setActive,
         slotKey,
     };
@@ -144,7 +161,10 @@ const WeaponSpeed = styled.div`
 const AffinityWrapper = styled.div`
     font-size:.875rem;
     text-align:left;
-    color: ${(props: IGearCardStateProps) => props.affinityActive ? "#000" : "#aaa"}
+    color: #aaa;
+    &.active {
+      color: #000;
+    }
 `;
 
 const CloseIcon = styled.div`
@@ -172,6 +192,7 @@ class GearCard extends React.Component<IGearCardProps> {
         };
         this.handleDragStart = this.handleDragStart.bind(this);
         this.handleCloseIconClick = this.handleCloseIconClick.bind(this);
+        this.renderAffinity = this.renderAffinity.bind(this);
     }
 
     public render() {
@@ -203,11 +224,10 @@ class GearCard extends React.Component<IGearCardProps> {
         const directions: string[] = ["top", "left", "bottom", "right"];
         if (affinity) {
             return (
-                <AffinityWrapper>
+                <AffinityWrapper className={this.props.affinityActive ? "active" : ""}>
                     {affinity.bonus && affinity.bonus.require && affinity.bonus.require.map((aff: IAffinity, idx: number) => <AffinityIcon key={idx} type={aff.connection} affinity={aff.color} />)}
                     {affinity.bonus && affinity.bonus.desc}
                     {directions.map((direction: string, idx) => affinity[direction] !== undefined && <AffinityIcon key={idx} affinity={affinity[direction]} type={AffinityTypes.connect} direction={direction} />)}
-                    <div>SlotAff: {this.props.affinityActive}</div>
                 </AffinityWrapper>
             );
         }

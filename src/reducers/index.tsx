@@ -323,7 +323,6 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         case ActionTypes.UPDATE_GEARSLOT_AFFINITY: {
             if (action.payload) {
                 const gearGrid = action.payload;
-                console.log("updateAffs");
                 return {
                     ...state,
                     geargrids: state.geargrids.map((grid) => {
@@ -351,7 +350,6 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                                                 }
                                             }
                                         });
-                                        console.log(affinityActive);
                                         if (affinityActive.length > 0) {
                                             return {
                                                 ...slot,
