@@ -12,7 +12,17 @@ export function darken(rgb: string, by: number) {
     const r = Math.floor((convertedRgb >> 16) * modifier);
     const g = Math.floor((convertedRgb >> 8 & 0x00FF) * modifier);
     const b = Math.floor(convertedRgb & 0x0000FF * modifier);
-    return "#" + (r << 16 | g << 8 | b).toString(16);
+
+    return "#" + ((r < 0 ? 0 : r) << 16 | (g < 0 ? 0 : g) << 8 | (b < 0 ? 0 : b)).toString(16);
+}
+
+export function lighten(rgb: string, by: number) {
+    const convertedRgb = parseInt(rgb.replace("#", ""), 16);
+    const modifier = 1 + by;
+    const r = Math.floor((convertedRgb >> 16) * modifier);
+    const g = Math.floor((convertedRgb >> 8 & 0x00FF) * modifier);
+    const b = Math.floor(convertedRgb & 0x0000FF * modifier);
+    return "#" + ((r > 255 ? 255 : r) << 16 | (g > 255 ? 255 : g) << 8 | (b > 255 ? 255 : b)).toString(16);
 }
 
 export function capitalize(input: string) {
