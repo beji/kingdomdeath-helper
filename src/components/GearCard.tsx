@@ -2,6 +2,7 @@ import React, { SyntheticEvent } from "react";
 import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
+import items from "../data/ItemDataHelper";
 import { Affinity, AffinityTypes, DefenseStats, ID, IGearGrid, IItem, ISettlement, Item, ItemType, StatType } from "../interfaces";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { capitalize } from "../util";
@@ -50,7 +51,7 @@ const mapStateToProps = (state: ISettlement, ownProps: IGearCardOwnProps): IGear
     return {
         affinityActive,
         grid,
-        item: state.items.find((item: IItem) => item.id === ownProps.id),
+        item: items.find((item: IItem) => item.id === ownProps.id),
         setActive,
         slotKey,
     };

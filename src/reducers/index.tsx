@@ -1,5 +1,6 @@
 import { Reducer } from "redux";
 import { removeFromHunt, updateSurvivor } from "../actions";
+import items from "../data/ItemDataHelper";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../initialstate";
 import { DefenseStats, IBaseStat, IDefenseStat, IGearGrid, IItem, ISettlement, ISurvivor, StatType } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
@@ -269,7 +270,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         case ActionTypes.UPDATE_GEARGRID: {
             if (action.payload) {
                 const { survivorId, slots } = action.payload;
-                const { geargrids, items, survivors } = state;
+                const { geargrids, survivors } = state;
 
                 if (survivorId) {
                     const survivor = survivors.find((s) => s.id === survivorId) as ISurvivor;

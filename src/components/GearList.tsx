@@ -1,9 +1,9 @@
 import Fuse from "fuse.js";
 import React from "react";
 import { SyntheticEvent } from "react";
-import { connect } from "react-redux";
 import styled from "styled-components";
-import { ID, IItem, ISettlement, ItemType } from "../interfaces";
+import items from "../data/ItemDataHelper";
+import { ID, IItem, ItemType } from "../interfaces";
 import { colorMagentaLachs } from "./StyledComponents";
 
 interface IGearListState {
@@ -11,21 +11,10 @@ interface IGearListState {
     items: ReadonlyArray<IItem>;
 }
 
-interface IGearListStateProps {
-    items: ReadonlyArray<IItem>;
-}
-interface IGearListOwnProps {
+interface IGearListProps {
     onItemSelect?: any;
     onCancel?: any;
 }
-
-interface IGearListProps extends IGearListStateProps, IGearListOwnProps { }
-
-const mapStateToProps = (state: ISettlement): IGearListStateProps => {
-    return {
-        items: state.items,
-    };
-};
 
 const Wrapper = styled.div`
     background:#eee;
@@ -90,7 +79,7 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
         super(props);
         this.state = {
             filter: [],
-            items: props.items as IItem[],
+            items: items as IItem[],
         };
         this.handleCloseIconClick = this.handleCloseIconClick.bind(this);
         this.handleFilter = this.handleFilter.bind(this);
@@ -118,7 +107,6 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
     }
 
     private handleFilter(event: SyntheticEvent<HTMLInputElement>) {
-        const { items } = this.props;
         if (event.currentTarget.value === "") {
             this.setState({ items });
         } else {
@@ -138,4 +126,4 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
     }
 }
 
-export default connect(mapStateToProps)(GearList);
+export default GearList;

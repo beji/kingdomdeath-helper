@@ -6,7 +6,7 @@ import GearGrid from "../components/GearGrid";
 import ResetHunt from "../components/ResetHunt";
 import SettlementName from "../components/SettlementName";
 import SurvivorListItem from "../components/SurvivorListItem";
-import { ID, ISettlement, Item } from "../interfaces";
+import { ID, ISettlement } from "../interfaces";
 
 const AppWrapper = styled.div`
 `;
@@ -29,7 +29,6 @@ interface IAppProps {
     aliveCount?: number;
     geargrids?: ID[];
     id?: ID;
-    items: Item[];
 }
 
 const mapStateToProps = (state: ISettlement): IAppProps => {
@@ -38,7 +37,6 @@ const mapStateToProps = (state: ISettlement): IAppProps => {
         geargrids: state.geargrids.map((grid) => grid.id),
         huntingSurvivors: state.survivors.filter((survivor) => survivor.hunting).map((survivor) => survivor.id),
         id: state.id,
-        items: state.items.map((item) => item.id),
         name: state.name,
         survivors: state.survivors.map((survivor) => survivor.id),
     };
@@ -46,7 +44,7 @@ const mapStateToProps = (state: ISettlement): IAppProps => {
 
 class App extends React.Component<IAppProps> {
     public render() {
-        const { geargrids, survivors, aliveCount, items } = this.props;
+        const { geargrids, survivors, aliveCount } = this.props;
 
         return (
             <AppWrapper>
