@@ -24,6 +24,12 @@ declare module "data/raw/*.json" {
     export default items;
 }
 
+declare module "data/final/weaponarts.json" {
+    import { IWeaponArt } from "src/interfaces";
+    const arts: [IWeaponArt];
+    export default arts;
+}
+
 declare module "data/final/*.json" {
     import { IItem } from "src/interfaces";
     const armor: [IItem];
