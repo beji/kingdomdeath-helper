@@ -10,7 +10,7 @@ const htmlhead = `<!doctype html>
 <body>
 <div id="content">`;
 
-const hmtlfoot = (bundlepaths = ["bundle.js"]) => `</div>${bundlepaths.map((bundlepath) => `<script src="/assets/${bundlepath}"></script>`)}</body></html>`;
+const hmtlfoot = (bundlepaths = ["bundle.js"]) => `</div>${bundlepaths.map((bundlepath) => `<script src="/assets/${bundlepath}"></script>`).join("")}</body></html>`;
 
 export default function serverRenderer(stats: any) {
     return (req: IncomingMessage, res: ServerResponse) => {
