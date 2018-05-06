@@ -4,12 +4,13 @@ import styled from "styled-components";
 import FancyButton from "./FancyButton";
 
 const StyledInput = styled.input`
+    border-radius: 0;
     font-size: 1rem;
     line-height: 1.5rem;
     padding: 0;
+    text-align:center;
     vertical-align: middle;
     width: 2.5rem;
-    text-align:center;
 `;
 
 const FancyButtonLeft = FancyButton.extend`

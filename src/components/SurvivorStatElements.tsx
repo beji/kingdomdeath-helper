@@ -85,13 +85,14 @@ const StatLayerHeadline = styled.div`
 `;
 
 const Input = styled.input`
-    width:70%;
+    border-radius: 0;
     margin:.5rem 0;
+    width:70%;
 `;
 
 const Label = styled.div`
-    width:30%;
     margin:.5rem 0;
+    width:30%;
 `;
 
 const LightWound = styled.div`
