@@ -2,6 +2,7 @@ import { IWeaponArt } from "interfaces";
 import React, { SyntheticEvent } from "react";
 import styled from "styled-components";
 import FancyButton from "./FancyButton";
+import { colorMagentaLachs } from "./StyledComponents";
 import { StatLayer, StatLayerHeadline } from "./SurvivorStatElements";
 
 interface IWeaponArtItemProps {
@@ -16,13 +17,14 @@ const WeaponArtDescription = styled.div`
     margin-bottom: 2rem;
 `;
 
-const WeaponArtItemWrapper = styled.li`
+const WeaponArtItemWrapper = styled.div`
     cursor: pointer;
-    * {
-        cursor: default;
-    }
-    button {
-        cursor: pointer;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    &:before{
+        content: "►";
+        color: ${colorMagentaLachs};
+        margin-right: 0.25rem;
     }
 `;
 export default class WeaponArtItem extends React.Component<IWeaponArtItemProps, IWeaponArtItemState> {
@@ -41,10 +43,10 @@ export default class WeaponArtItem extends React.Component<IWeaponArtItemProps, 
         const { art } = this.props;
         const { showDetails } = this.state;
         return (
-            <WeaponArtItemWrapper onClick={this.showDescription}>
-                {art.name}
+            <React.Fragment>
+                <WeaponArtItemWrapper onClick={this.showDescription}>{art.name}</WeaponArtItemWrapper>
                 {showDetails && this.renderDescription()}
-            </WeaponArtItemWrapper>
+            </React.Fragment>
         );
     }
     private showDescription(e: SyntheticEvent<HTMLElement>) {

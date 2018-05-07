@@ -1,6 +1,7 @@
 import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
+import styled from "styled-components";
 import { updateSurvivorStat } from "../actions/survivorActions";
 import { ID, IDefenseStat, ISettlement, ISpecialStat, ISurvivor, IWeaponArt, SpecialStats } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
@@ -30,6 +31,10 @@ interface ISpecialStatState {
     editSurvivorStat: boolean;
     showWeaponArtList: boolean;
 }
+
+const WeaponArtItemsWrapper = styled.div`
+    text-align: left;
+`;
 
 const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction>): ISpecialStatDispatchProps => ({
     updateSurvivorStat: (stat: ISpecialStat | IDefenseStat, survivorId: ID) => dispatch(updateSurvivorStat(stat, survivorId)),
@@ -97,9 +102,9 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
             if (weaponArts) {
                 return (
                     <React.Fragment>
-                        <ul>
+                        <WeaponArtItemsWrapper>
                             {weaponArts.map((art, idx) => <WeaponArtItem key={idx} art={art}/>)}
-                        </ul>
+                        </WeaponArtItemsWrapper>
                         <FancyButton onClick={this.showWeaponArtList}>Manage Weapon Arts</FancyButton>
                         {showWeaponArtList && <WeaponArtslist id={this.props.survivor.id} onCancel={this.hideWeaponArtList} />}
                     </React.Fragment>
