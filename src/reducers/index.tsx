@@ -347,7 +347,6 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                                                 const affinitySlotMarker = slotKey > direction.slotId ? `${direction.slotId}${slotKey}` : `${slotKey}${direction.slotId}`;
                                                 if (affinity === (card && card.affinity && card.affinity[direction.c])) {
                                                     affinities.push(affinity);
-                                                    console.log(affinitySlots.length, affinitySlotMarker, affinitySlots.indexOf(affinitySlotMarker) === -1);
                                                     if (affinitySlots.indexOf(affinitySlotMarker) === -1) {
                                                         gridAffinities.push(affinity);
 
