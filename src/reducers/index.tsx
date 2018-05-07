@@ -421,13 +421,26 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                                 }
                                 affinityActive = requiredAffinities.length === activeAffs.length;
 
+                                // update survivor with stats from active bonus
                                 if (affinityActive && bonus.stats && updatedSurvivor) {
                                     bonus.stats.map((bonusStat) => {
                                         updatedSurvivor.baseStats.some((survivorStat: any) => {
-                                            if (bonusStat.stat === survivorStat.stat) {
+                                            if (bonusStat.type === survivorStat.type && bonusStat.stat === survivorStat.stat) {
                                                 survivorStat.gear += bonusStat.amount;
                                             }
                                             return bonusStat.stat === survivorStat.stat;
+                                        });
+                                    });
+                                }
+
+                                // check itemstats for baseStats and update survivor
+                                if (thisCard.stats && updatedSurvivor) {
+                                    thisCard.stats.map((cardStat) => {
+                                        updatedSurvivor.baseStats.some((survivorStat: any) => {
+                                            if (cardStat.type === survivorStat.type && cardStat.stat === survivorStat.stat) {
+                                                survivorStat.gear += cardStat.amount;
+                                            }
+                                            return cardStat.stat === survivorStat.stat;
                                         });
                                     });
                                 }
