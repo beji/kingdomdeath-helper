@@ -124,6 +124,7 @@ const WeaponWrapper = styled.div`
     padding:.25rem .125rem .125rem;
     text-align:center;
     width:1.5rem;
+    z-index:2;
 `;
 const WeaponAcc = styled.div`
     background:#5a3c04;
