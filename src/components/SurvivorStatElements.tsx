@@ -11,7 +11,7 @@ const SurvivorStat = styled.div`
     @media only screen
       and (min-device-width: 375px)
       and (max-device-width: 667px) {
-            width: 33.33333%;
+            min-width: 33.33333%;
     }
 `;
 
@@ -25,20 +25,20 @@ const StatElement = styled.div`
     &.gear:before {
           content: "";
           position: absolute;
-          top: 0%;
-          right: 0%;
-          width: 0px;
-          height: 0px;
+          top: 0;
+          right: 0;
+          width: 0;
+          height: 0;
           border-top: 20px solid ${colorMagentaLachs};
           border-left: 20px solid transparent;
     }
     &.token:after {
           content: "";
           position: absolute;
-          top: 0%;
-          right: 0%;
-          width: 0px;
-          height: 0px;
+          top: 0;
+          right: 0;
+          width: 0;
+          height: 0;
           border-top: 10px solid limegreen;
           border-left: 10px solid transparent;
     }

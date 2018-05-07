@@ -6,6 +6,7 @@ import { Affinity, AffinityTypes, ID, IGearGrid, ISettlement } from "../interfac
 import AffinityIcon from "./AffinityIcon";
 import GridSlot from "./GridSlot";
 import Link from "./Link";
+import { media } from "./StyledComponents";
 import SurvivorCard from "./SurvivorCard";
 
 interface IGearGridState {
@@ -37,10 +38,9 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
     public render() {
         const PlayerCard = styled.div`
             width:47vw;
-            margin:1vh 1vw;
+            margin:1vh 1%;
             @media only screen
-              and (min-device-width: 375px)
-              and (max-device-width: 667px) {
+              and (max-width: 420px) {
                     width: 98%;
             }
         `;
