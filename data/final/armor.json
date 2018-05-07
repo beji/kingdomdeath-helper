@@ -1974,9 +1974,22 @@
   },
   {
     "affinity": {
-      "bottom": 0
+      "bottom": 0,
+      "bonus": {
+        "desc": "Spend action and 1 survival to Roar: Non-deaf insane survivors gain +2 strength until end of round. All other survivors gain +1 insanity.",
+        "require": [
+          {
+            "color": 0,
+            "connection": 0
+          },
+          {
+            "color": 2,
+            "connection": 1
+          }
+        ]
+      }
     },
-    "desc": "Spend action and 1 survival to Roar: Non-deaf insane survivors gain +2 strength until end of round. All other survivors gain +1 insanity.",
+    "desc": "",
     "id": 89,
     "material": "1x white fur, 1x great cat bone",
     "name": "White Lion Helm",
