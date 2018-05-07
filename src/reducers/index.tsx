@@ -1,9 +1,9 @@
 import weaponArts from "data/final/weaponarts.json";
 import { Reducer } from "redux";
-import { removeFromHunt, updateGearSlotAffinity, updateSurvivor } from "../actions";
+import { removeFromHunt, updateGearSlotAffinity } from "../actions";
 import items from "../data/ItemDataHelper";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../initialstate";
-import { Affinity, AffinityTypes, DefenseStats, IDefenseStat, IItem, ISettlement, ISurvivor, StatType } from "../interfaces";
+import { Affinity, AffinityTypes, DefenseStats, IDefenseStat, IGearGrid, IItem, ISettlement, ISurvivor, StatType } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { UpdateGearGridAction, UpdateGearSlotAffinityAction } from "../interfaces/gearActions";
 import { AddToHuntAction, RemoveFromHuntAction, ResetHuntAction } from "../interfaces/huntActions";
@@ -19,6 +19,14 @@ function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: IS
     return {
         ...state,
         survivors: updatedSurvivors,
+    };
+}
+
+function generateWithUpdatedGrid(state: ISettlement, mapfunc: (grid: IGearGrid) => IGearGrid) {
+    const updatedGrids = state.geargrids.map(mapfunc);
+    return {
+        ...state,
+        geargrids: updatedGrids,
     };
 }
 
@@ -273,46 +281,46 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         case ActionTypes.UPDATE_GEARGRID: {
             if (action.payload) {
                 const { survivorId, slots } = action.payload;
-                const { geargrids, survivors } = state;
 
                 if (survivorId) {
-                    const survivor = survivors.find((s) => s.id === survivorId) as ISurvivor;
-                    const defenseStats = survivor.defenseStats.map((defensestat) => {
+                    const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
+                        if (survivor.id === survivorId) {
+                            const defenseStats = survivor.defenseStats.map((defensestat) => {
 
-                        const gearAmount = slots.filter((slot) => slot.content).map((slot) => items.find((itm) => itm.id === slot.content) as IItem)
-                            .map((item) => {
-                                if (item.stats) {
-                                    return item.stats
-                                        .filter((stat) => stat.stat === defensestat.stat)
-                                        .map((stat) => stat.amount)
-                                        .reduce((acc: number, stat) => {
-                                            return acc + stat;
-                                        }, 0);
-                                }
-                                return 0;
-                            })
-                            .reduce((acc, stat) => (acc + stat), 0);
-                        return {
-                            ...defensestat,
-                            armor: gearAmount,
-                        } as IDefenseStat;
+                                const gearAmount = slots.filter((slot) => slot.content).map((slot) => items.find((itm) => itm.id === slot.content) as IItem)
+                                    .map((item) => {
+                                        if (item.stats) {
+                                            return item.stats
+                                                .filter((stat) => stat.stat === defensestat.stat)
+                                                .map((stat) => stat.amount)
+                                                .reduce((acc: number, stat) => {
+                                                    return acc + stat;
+                                                }, 0);
+                                        }
+                                        return 0;
+                                    })
+                                    .reduce((acc, stat) => (acc + stat), 0);
+                                return {
+                                    ...defensestat,
+                                    armor: gearAmount,
+                                } as IDefenseStat;
+                            });
+                            return {
+                                ...survivor,
+                                defenseStats,
+                            };
+                        }
+                        return survivor;
                     });
-                    const updatedSurvivor = {
-                        ...survivor,
-                        defenseStats,
-                    };
 
-                    const baseState = {
-                        ...state,
-                        geargrids: geargrids.map((grid) => {
-                            if (action.payload && grid.id === action.payload.id) {
-                                return action.payload;
-                            }
-                            return grid;
-                        }),
-                    };
+                    const baseState = generateWithUpdatedGrid(nextState, (grid) => {
+                        if (action.payload && grid.id === action.payload.id) {
+                            return action.payload;
+                        }
+                        return grid;
+                    });
 
-                    return reducer(reducer(baseState, updateSurvivor(updatedSurvivor)), updateGearSlotAffinity(action.payload));
+                    return reducer(baseState, updateGearSlotAffinity(action.payload));
                 }
             }
             return state;
@@ -320,77 +328,74 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         case ActionTypes.UPDATE_GEARSLOT_AFFINITY: {
             if (action.payload) {
                 const gearGrid = action.payload;
-                return {
-                    ...state,
-                    geargrids: state.geargrids.map((grid) => {
-                        if (grid.id === gearGrid.id) {
-                            const gridAffinities: Affinity[] = [];
-                            const affinitySlots: string[] = [];
-                            const slots = gearGrid.slots.map((slot, slotKey) => {
-                                if (slot.content) {
-                                    const thisCard = items.find((item) => item.id === slot.content);
-                                    const directions = [
-                                        {o: "top", c: "bottom", slotId: slotKey - 3},
-                                        {o: "right", c: "left", slotId: slotKey % 3 === 2 ? -1 : slotKey + 1},
-                                        {o: "bottom", c: "top", slotId: slotKey + 3},
-                                        {o: "left", c: "right", slotId: slotKey % 3 === 0 ? -1 : slotKey - 1},
-                                    ];
-                                    const affinities =  [] as Affinity[];
-                                    let affinityActive = false;
+                return generateWithUpdatedGrid(state, (grid) => {
+                    if (grid.id === gearGrid.id) {
+                        const gridAffinities: Affinity[] = [];
+                        const affinitySlots: string[] = [];
+                        const slots = gearGrid.slots.map((slot, slotKey) => {
+                            if (slot.content) {
+                                const thisCard = items.find((item) => item.id === slot.content);
+                                const directions = [
+                                    {o: "top", c: "bottom", slotId: slotKey - 3},
+                                    {o: "right", c: "left", slotId: slotKey % 3 === 2 ? -1 : slotKey + 1},
+                                    {o: "bottom", c: "top", slotId: slotKey + 3},
+                                    {o: "left", c: "right", slotId: slotKey % 3 === 0 ? -1 : slotKey - 1},
+                                ];
+                                const affinities =  [] as Affinity[];
+                                let affinityActive = false;
 
-                                    // calculate affinities with adjacent slots
-                                    directions.forEach((direction) => {
-                                        if (direction.slotId > -1 && direction.slotId < 10) {
-                                            if (gearGrid.slots[direction.slotId].content) {
-                                                const card = items.find((item) => item.id === gearGrid.slots[direction.slotId].content);
-                                                const affinity = thisCard && thisCard.affinity && thisCard.affinity[direction.o];
-                                                const affinitySlotMarker = slotKey > direction.slotId ? `${direction.slotId}${slotKey}` : `${slotKey}${direction.slotId}`;
-                                                if (affinity === (card && card.affinity && card.affinity[direction.c])) {
-                                                    affinities.push(affinity);
-                                                    if (affinitySlots.indexOf(affinitySlotMarker) === -1) {
-                                                        gridAffinities.push(affinity);
+                                // calculate affinities with adjacent slots
+                                directions.forEach((direction) => {
+                                    if (direction.slotId > -1 && direction.slotId < 10) {
+                                        if (gearGrid.slots[direction.slotId].content) {
+                                            const card = items.find((item) => item.id === gearGrid.slots[direction.slotId].content);
+                                            const affinity = thisCard && thisCard.affinity && thisCard.affinity[direction.o];
+                                            const affinitySlotMarker = slotKey > direction.slotId ? `${direction.slotId}${slotKey}` : `${slotKey}${direction.slotId}`;
+                                            if (affinity === (card && card.affinity && card.affinity[direction.c])) {
+                                                affinities.push(affinity);
+                                                if (affinitySlots.indexOf(affinitySlotMarker) === -1) {
+                                                    gridAffinities.push(affinity);
 
-                                                        affinitySlots.push(affinitySlotMarker);
-                                                    }
+                                                    affinitySlots.push(affinitySlotMarker);
                                                 }
                                             }
                                         }
-                                    });
-
-                                    // calculate if affinity bonus on current card is active
-                                    if (affinities && affinities.length > 0 && thisCard && thisCard.affinity && thisCard.affinity.bonus) {
-                                        const activeAffs: Affinity[] = [];
-                                        const requiredAffinities = thisCard.affinity.bonus.require;
-                                        affinities.forEach((slotAff) => {
-                                            requiredAffinities.some((cardAff) => {
-                                                if (slotAff === cardAff.color && cardAff.connection === AffinityTypes.card) {
-                                                    activeAffs.push(slotAff);
-                                                }
-                                                return slotAff === cardAff.color;
-                                            });
-                                        });
-                                        affinityActive = requiredAffinities.length === activeAffs.length;
                                     }
+                                });
 
-                                    return {
-                                        ...slot,
-                                        affinities,
-                                        affinityActive,
-                                    };
-                                } else {
-                                    return slot;
+                                // calculate if affinity bonus on current card is active
+                                if (affinities && affinities.length > 0 && thisCard && thisCard.affinity && thisCard.affinity.bonus) {
+                                    const activeAffs: Affinity[] = [];
+                                    const requiredAffinities = thisCard.affinity.bonus.require;
+                                    affinities.forEach((slotAff) => {
+                                        requiredAffinities.some((cardAff) => {
+                                            if (slotAff === cardAff.color && cardAff.connection === AffinityTypes.card) {
+                                                activeAffs.push(slotAff);
+                                            }
+                                            return slotAff === cardAff.color;
+                                        });
+                                    });
+                                    affinityActive = requiredAffinities.length === activeAffs.length;
                                 }
-                            });
 
-                            return {
-                                ...gearGrid,
-                                affinities: gridAffinities,
-                                slots,
-                            };
-                        }
-                        return grid;
-                    }),
-                };
+                                return {
+                                    ...slot,
+                                    affinities,
+                                    affinityActive,
+                                };
+                            } else {
+                                return slot;
+                            }
+                        });
+
+                        return {
+                            ...gearGrid,
+                            affinities: gridAffinities,
+                            slots,
+                        };
+                    }
+                    return grid;
+                });
             }
             return state;
         }
