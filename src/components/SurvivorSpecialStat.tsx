@@ -71,7 +71,7 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
                     {stat.value}
                 </StatElement>
                 {editSurvivorStat && this.renderEditState()}
-                {(stat.stat === SpecialStats.weapon_proficiency) && (stat.value >= 3 || this.props.survivor && this.props.survivor.weaponArts) && this.renderWeaponArt()}
+                {(stat.stat === SpecialStats.weapon_proficiency) && this.renderWeaponArt()}
             </StatWrapper>
         );
     }
