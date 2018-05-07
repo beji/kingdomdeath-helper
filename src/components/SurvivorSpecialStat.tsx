@@ -8,6 +8,7 @@ import { capitalize, clone, specialStatToString } from "../util";
 import FancyButton from "./FancyButton";
 import NumberEdit from "./NumberEdit";
 import { Label, StatEdit, StatElement, StatLayer, StatLayerHeadline, StatWrapper } from "./SurvivorStatElements";
+import WeaponArtItem from "./WeaponArtItem";
 import WeaponArtslist from "./WeaponArtsList";
 
 interface ISpecialStatStateProps {
@@ -97,7 +98,7 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
                 return (
                     <React.Fragment>
                         <ul>
-                            {weaponArts.map((art, idx) => <li key={idx}>{art.name}</li>)}
+                            {weaponArts.map((art, idx) => <WeaponArtItem key={idx} art={art}/>)}
                         </ul>
                         <FancyButton onClick={this.showWeaponArtList}>Manage Weapon Arts</FancyButton>
                         {showWeaponArtList && <WeaponArtslist id={this.props.survivor.id} onCancel={this.hideWeaponArtList} />}

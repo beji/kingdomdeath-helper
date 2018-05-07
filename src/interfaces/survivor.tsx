@@ -120,7 +120,7 @@ export enum WeaponArt {
 export interface IWeaponArt {
     readonly id: WeaponArt;
     readonly name: string;
-    readonly desc: string;
+    readonly description: string;
 }
 
 export interface IDefenseStat {
