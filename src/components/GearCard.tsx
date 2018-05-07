@@ -164,6 +164,11 @@ const AffinityRequirments = styled.span`
     padding: .125rem;
     margin-right: .25rem;
 `;
+const MadeAt = styled.div`
+    font-size:.625rem;
+    margin-top:.25rem;
+    text-align:center;
+`;
 
 const CloseIcon = styled.div`
     background:#ccc;
@@ -196,7 +201,7 @@ class GearCard extends React.Component<IGearCardProps> {
     public render() {
         if (this.props.item) {
             const { item, slotId } = this.props;
-            const { desc, name, types, weapon } = item;
+            const { desc, name, types, weapon, obtained } = item;
             const armorStat = item.stats && item.stats.find((stat) => stat.type === StatType.defense);
             const isShield = item.stats && item.stats.length === 5;
             return (
@@ -210,6 +215,7 @@ class GearCard extends React.Component<IGearCardProps> {
                         {armorStat && <Shield>{armorStat.amount} <ShieldArmorType>{isShield ? "all" : capitalize(DefenseStats[armorStat.stat])}</ShieldArmorType></Shield>}
                     </CardStatsWrapper>
                     {this.renderAffinity(item)}
+                    {obtained && <MadeAt>{obtained}</MadeAt>}
                 </StyledCard>
             );
         } else {
