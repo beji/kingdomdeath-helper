@@ -244,11 +244,35 @@
   },
   {
     "affinity": {
+      "bonus": {
+        "desc": "+1 accuracy",
+        "require": [
+          {
+            "color": 2,
+            "connection": 0
+          },
+          {
+            "color": 0,
+            "connection": 1
+          },
+          {
+            "color": 0,
+            "connection": 1
+          }
+        ],
+        "stats": [
+          {
+            "amount": 1,
+            "type": 1,
+            "stat": 0
+          }
+        ]
+      },
       "top": 2,
       "right": 0,
       "left": 0
     },
-    "desc": "When you spend movement, you Shadow Walk and may move through occupied spaces without causing collision. 1x 0.5-aff-blue / 2x 1-aff-red = +1 accuracy",
+    "desc": "When you spend movement, you Shadow Walk and may move through occupied spaces without causing collision.",
     "id": 11,
     "material": "1x cycloid scales, 1x scrap, 1x huge sunteeth, 1x salt",
     "name": "Cycloid Scale Jacket",
@@ -1368,7 +1392,14 @@
             "connection":0
           }
         ],
-        "desc": "+1 Evasion"
+        "desc": "+1 Evasion",
+        "stats": [
+          {
+            "amount": 1,
+            "type": 1,
+            "stat": 1
+          }
+        ]
       },
       "right": 0,
       "top": 2

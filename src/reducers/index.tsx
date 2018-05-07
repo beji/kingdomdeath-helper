@@ -1,6 +1,6 @@
 import weaponArts from "data/final/weaponarts.json";
 import { Reducer } from "redux";
-import { removeFromHunt, updateGearSlotAffinity } from "../actions";
+import { removeFromHunt, updateGearSlotAffinity, updateSurvivor } from "../actions";
 import items from "../data/ItemDataHelper";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../initialstate";
 import { Affinity, AffinityTypes, DefenseStats, IDefenseStat, IGearGrid, IItem, ISettlement, ISurvivor, StatType } from "../interfaces";
@@ -328,11 +328,27 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         case ActionTypes.UPDATE_GEARSLOT_AFFINITY: {
             if (action.payload) {
                 const gearGrid = action.payload;
-                return generateWithUpdatedGrid(state, (grid) => {
+                const currentSurvivor = state.survivors.find((survivor) => survivor.id === gearGrid.survivorId);
+                let updatedSurvivor: any;
+
+                if (currentSurvivor) {
+                    updatedSurvivor = {
+                        ...currentSurvivor,
+                        baseStats: currentSurvivor.baseStats.map((stat) => {
+                            return {
+                                ...stat,
+                                gear: 0,
+                            };
+                        }),
+                    };
+                }
+
+                const nextState = generateWithUpdatedGrid(state, (grid) => {
                     if (grid.id === gearGrid.id) {
                         const gridAffinities: Affinity[] = [];
                         const affinitySlots: string[] = [];
-                        const slots = gearGrid.slots.map((slot, slotKey) => {
+                        // calculate affinities in this grid
+                        let slots = gearGrid.slots.map((slot, slotKey) => {
                             if (slot.content) {
                                 const thisCard = items.find((item) => item.id === slot.content);
                                 const directions = [
@@ -342,11 +358,10 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                                     {o: "left", c: "right", slotId: slotKey % 3 === 0 ? -1 : slotKey - 1},
                                 ];
                                 const affinities =  [] as Affinity[];
-                                let affinityActive = false;
 
-                                // calculate affinities with adjacent slots
+                                // calculate slot affinities with adjacent slots and gridAffinities
                                 directions.forEach((direction) => {
-                                    if (direction.slotId > -1 && direction.slotId < 10) {
+                                    if (direction.slotId > -1 && direction.slotId < 9) {
                                         if (gearGrid.slots[direction.slotId].content) {
                                             const card = items.find((item) => item.id === gearGrid.slots[direction.slotId].content);
                                             const affinity = thisCard && thisCard.affinity && thisCard.affinity[direction.o];
@@ -355,7 +370,6 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                                                 affinities.push(affinity);
                                                 if (affinitySlots.indexOf(affinitySlotMarker) === -1) {
                                                     gridAffinities.push(affinity);
-
                                                     affinitySlots.push(affinitySlotMarker);
                                                 }
                                             }
@@ -363,10 +377,27 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                                     }
                                 });
 
-                                // calculate if affinity bonus on current card is active
-                                if (affinities && affinities.length > 0 && thisCard && thisCard.affinity && thisCard.affinity.bonus) {
-                                    const activeAffs: Affinity[] = [];
-                                    const requiredAffinities = thisCard.affinity.bonus.require;
+                                return {
+                                    ...slot,
+                                    affinities,
+                                };
+                            } else {
+                                return slot;
+                            }
+                        });
+                        // calculate active card affinities
+                        slots = slots.map((slot) => {
+                            const { affinities, content } = slot;
+                            const thisCard = items.find((item) => item.id === slot.content);
+                            let affinityActive = false;
+                            // calculate if affinity bonus on current card is active
+                            if (content &&  thisCard && thisCard.affinity && thisCard.affinity.bonus) {
+                                const { bonus } = thisCard.affinity;
+                                const activeAffs: Affinity[] = [];
+                                const requiredAffinities = bonus.require;
+
+                                // check affinities on card
+                                if (affinities && affinities.length > 0) {
                                     affinities.forEach((slotAff) => {
                                         requiredAffinities.some((cardAff) => {
                                             if (slotAff === cardAff.color && cardAff.connection === AffinityTypes.card) {
@@ -375,17 +406,38 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                                             return slotAff === cardAff.color;
                                         });
                                     });
-                                    affinityActive = requiredAffinities.length === activeAffs.length;
+                                }
+
+                                // check affinities on grid
+                                if (requiredAffinities.length !== activeAffs.length) {
+                                    gridAffinities.forEach((gridAff) => {
+                                        requiredAffinities.some((cardAff) => {
+                                            if (gridAff === cardAff.color && cardAff.connection === AffinityTypes.grid) {
+                                                activeAffs.push(gridAff);
+                                            }
+                                            return gridAff === cardAff.color;
+                                        });
+                                    });
+                                }
+                                affinityActive = requiredAffinities.length === activeAffs.length;
+
+                                if (affinityActive && bonus.stats && updatedSurvivor) {
+                                    bonus.stats.map((bonusStat) => {
+                                        updatedSurvivor.baseStats.some((survivorStat: any) => {
+                                            if (bonusStat.stat === survivorStat.stat) {
+                                                survivorStat.gear += bonusStat.amount;
+                                            }
+                                            return bonusStat.stat === survivorStat.stat;
+                                        });
+                                    });
                                 }
 
                                 return {
                                     ...slot,
-                                    affinities,
                                     affinityActive,
                                 };
-                            } else {
-                                return slot;
                             }
+                            return slot;
                         });
 
                         return {
@@ -396,6 +448,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     }
                     return grid;
                 });
+                return reducer(nextState, updateSurvivor(updatedSurvivor));
             }
             return state;
         }

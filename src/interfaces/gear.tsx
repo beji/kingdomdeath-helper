@@ -31,7 +31,6 @@ interface IGridSlot {
 
 interface IItemStat {
     readonly amount: number;
-    readonly showOnCard: boolean;
     readonly type: StatType;
     readonly stat: DefenseStats | BaseStats;
 }
