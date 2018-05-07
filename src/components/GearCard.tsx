@@ -155,6 +155,10 @@ const AffinityWrapper = styled.div`
     &.active {
       color: #000;
     }
+    &:empty {
+      background:transparent;
+      padding:0;
+    }
 `;
 
 const AffinityRequirments = styled.span`
@@ -228,11 +232,13 @@ class GearCard extends React.Component<IGearCardProps> {
         const directions: string[] = ["top", "left", "bottom", "right"];
         if (affinity) {
             return (
-                <AffinityWrapper className={this.props.affinityActive ? "active" : ""}>
-                    {affinity.bonus && affinity.bonus.require && (<AffinityRequirments>{affinity.bonus.require.map((aff: IAffinity, idx: number) => <AffinityIcon key={idx} type={aff.connection} affinity={aff.color} />)}</AffinityRequirments>)}
-                    {affinity.bonus && affinity.bonus.desc}
+                <div>
+                    <AffinityWrapper className={this.props.affinityActive ? "active" : ""}>
+                        {affinity.bonus && affinity.bonus.require && (<AffinityRequirments>{affinity.bonus.require.map((aff: IAffinity, idx: number) => <AffinityIcon key={idx} type={aff.connection} affinity={aff.color} />)}</AffinityRequirments>)}
+                        {affinity.bonus && affinity.bonus.desc}
+                    </AffinityWrapper>
                     {directions.map((direction: string, idx) => affinity[direction] !== undefined && <AffinityIcon key={idx} affinity={affinity[direction]} type={AffinityTypes.connect} direction={direction} />)}
-                </AffinityWrapper>
+                </div>
             );
         }
         return "";
