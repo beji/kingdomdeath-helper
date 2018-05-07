@@ -433,6 +433,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                                     });
                                 }
 
+                                // TODO: move to own action?
                                 // check itemstats for baseStats and update survivor
                                 if (thisCard.stats && updatedSurvivor) {
                                     thisCard.stats.map((cardStat) => {
