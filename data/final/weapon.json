@@ -227,7 +227,10 @@
     }
   },
   {
-    "desc": "weapon,melee,axe,bone. Frail. Savage: 1/attack, if you critically wound, cause 1 additional wound. Does not apply to impervious hit locations.",
+    "affinity": {
+      "left": 0
+    },
+    "desc": "Frail. Savage: 1/attack, if you critically wound, cause 1 additional wound. Does not apply to impervious hit locations.",
     "id": 105,
     "material": "1x bone, 1x organ",
     "name": "Bone Axe",
@@ -245,7 +248,10 @@
     }
   },
   {
-    "desc": "weapon,melee,sword,bone. Frail: When you attempt to wound a super-dense hit location, this weapon breaks. Archive the card at the END of the attack.",
+    "affinity": {
+      "left": 0
+    },
+    "desc": "Frail: When you attempt to wound a super-dense hit location, this weapon breaks. Archive the card at the END of the attack.",
     "id": 106,
     "material": "1x bone",
     "name": "Bone Blade",
@@ -263,7 +269,11 @@
     }
   },
   {
-    "desc": "weapon,melee,dagger,bone. On a Perfect Hit, gain +1 survival.",
+    "affinity": {
+      "top": 0,
+      "left": 0
+    },
+    "desc": "On a Perfect Hit, gain +1 survival.",
     "id": 107,
     "material": "1x bone",
     "name": "Bone Dagger",
@@ -281,7 +291,10 @@
     }
   },
   {
-    "desc": "weapon,ranged,thrown,bone. Range: 6. Frail: When you attempt to wound a super-dense hit location, this weapon breaks. Archive the card at the END of the attack.",
+    "affinity": {
+      "left": 0
+    },
+    "desc": "Range: 6. Frail: When you attempt to wound a super-dense hit location, this weapon breaks. Archive the card at the END of the attack.",
     "id": 108,
     "material": "1x bone",
     "name": "Bone Darts",
@@ -299,7 +312,10 @@
     }
   },
   {
-    "desc": "item,tool,bone. Frail: When you attempt to wound a super-dense hit location, this weapon breaks. Archive the card at the END of the attack. After Hunt Phase setup, place Mineral Gathering event on any hunt space.",
+    "affinity": {
+      "top": 1
+    },
+    "desc": "Frail: When you attempt to wound a super-dense hit location, this weapon breaks. Archive the card at the END of the attack. After Hunt Phase setup, place Mineral Gathering event on any hunt space.",
     "id": 109,
     "material": "ammonia, 1x bone, 1x leather",
     "name": "Bone Pickaxe",
@@ -317,7 +333,10 @@
     }
   },
   {
-    "desc": "item,tool,bone. Frail: When you attempt to wound a super-dense hit location, this weapon breaks. Archive the card at the END of the attack. After Hunt Phase setup, place Herb Gathering event on any hunt space.",
+    "affinity": {
+      "top": 1
+    },
+    "desc": "Frail: When you attempt to wound a super-dense hit location, this weapon breaks. Archive the card at the END of the attack. After Hunt Phase setup, place Herb Gathering event on any hunt space.",
     "id": 110,
     "material": "ammonia, 1x bone, 1x leather",
     "name": "Bone Sickle",
@@ -335,7 +354,7 @@
     }
   },
   {
-    "desc": "weapon,melee,axe,other. Paired. Sentient: must be insane to activate. Irreplaceable: When you die, archive this weapon.",
+    "desc": "Paired. Sentient: must be insane to activate. Irreplaceable: When you die, archive this weapon.",
     "id": 111,
     "material": "non-craftable",
     "name": "Butcher Cleaver",
