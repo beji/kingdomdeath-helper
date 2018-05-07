@@ -75,6 +75,9 @@ const FilterInput = styled.input`
 `;
 
 class GearList extends React.Component<IGearListProps, IGearListState> {
+
+    private inputfield?: HTMLInputElement;
+
     constructor(props: IGearListProps) {
         super(props);
         this.state = {
@@ -83,14 +86,20 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
         };
         this.handleCloseIconClick = this.handleCloseIconClick.bind(this);
         this.handleFilter = this.handleFilter.bind(this);
+        this.setupInputRef = this.setupInputRef.bind(this);
+    }
+
+    public componentDidMount() {
+        if (this.inputfield) {
+            this.inputfield.focus();
+        }
     }
 
     public render() {
         return (
             <Wrapper>
                 {this.props.onCancel && <CloseIcon onClick={this.handleCloseIconClick}>X</CloseIcon>}
-                <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} />
-                <div>Armor</div><div>Weapons</div>
+                <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} innerRef={this.setupInputRef} />
                 <List>
                     {this.state.items.map((v, i) => <ListElement key={i} onClick={this.handleItemSelect.bind(this, v.id)} dangerouslySetInnerHTML={{ __html: v.name }} />)}
                 </List>
@@ -104,6 +113,10 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
 
     private handleCloseIconClick() {
         this.props.onCancel();
+    }
+
+    private setupInputRef(elem: HTMLInputElement) {
+        this.inputfield = elem;
     }
 
     private handleFilter(event: SyntheticEvent<HTMLInputElement>) {
