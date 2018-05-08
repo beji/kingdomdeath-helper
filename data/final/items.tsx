@@ -1,4 +1,4 @@
-import { IItem, ItemType } from "../../src/interfaces";
+import { Affinity, AffinityTypes, BaseStats, IItem, ItemType, StatType } from "../../src/interfaces";
 
 export const items: IItem[] = [
     {
@@ -1185,11 +1185,38 @@ export const items: IItem[] = [
         types: [],
     },
     {
-        desc: "Gain +1 evasion. 3x 1-aff-green = +1 evasion (again)",
+        affinity: {
+            bonus: {
+                desc: "+1 evasion (again).",
+                require: [
+                    {
+                        color: Affinity.green,
+                        connection: AffinityTypes.grid,
+                    },
+                    {
+                        color: Affinity.green,
+                        connection: AffinityTypes.grid,
+                    },
+                    {
+                        color: Affinity.green,
+                        connection: AffinityTypes.grid,
+                    },
+                ],
+            },
+            left: Affinity.green,
+        },
+        desc: "Gain +1 evasion.",
         id: 308,
         material: "1x organ",
         name: "Monster Grease",
         obtained: "Organ Grinder",
+        stats: [
+            {
+                amount: 1,
+                stat: BaseStats.evasion,
+                type: StatType.base,
+            },
+        ],
         types: [],
     },
     {

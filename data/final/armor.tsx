@@ -246,7 +246,8 @@ export const armor: IItem[] = [
                         color: Affinity.red,
                         connection: AffinityTypes.grid,
                     },
-                ],                stats: [
+                ],
+                stats: [
                     {
                         amount: 1,
                         stat: BaseStats.accuracy,
@@ -1343,7 +1344,8 @@ export const armor: IItem[] = [
                         color: Affinity.red,
                         connection: AffinityTypes.card,
                     },
-                ],                stats: [
+                ],
+                stats: [
                     {
                         amount: 1,
                         stat: BaseStats.evasion,
