@@ -1,4 +1,4 @@
-import { Affinity, AffinityTypes, DefenseStats, IItem, Set, StatType, BaseStats } from "../../src/interfaces";
+import { Affinity, AffinityTypes, BaseStats, DefenseStats, IItem, Set, StatType } from "../../src/interfaces";
 
 export const armor: IItem[] = [
     {
