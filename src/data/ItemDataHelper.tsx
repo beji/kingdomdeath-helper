@@ -1,4 +1,4 @@
-import armor from "data/final/armor.json";
+import { armor } from "data/final/armor";
 import items from "data/final/items.json";
 import weapon from "data/final/weapon.json";
 

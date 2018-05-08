@@ -75,7 +75,7 @@ const CardHeadline = styled.div`
 `;
 const CardDescription = styled.div`
     background:#ccc;
-    font-size:.875rem;
+    font-size:.75rem;
     margin-bottom: .25rem;
     padding: .25rem;
 `;

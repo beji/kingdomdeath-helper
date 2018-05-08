@@ -1,4 +1,4 @@
-enum Item {
+const enum Item {
     bone_sword,
     founding_stone,
     antelope_mask,

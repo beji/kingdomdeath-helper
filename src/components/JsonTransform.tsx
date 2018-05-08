@@ -6,7 +6,7 @@ import { DefenseStats, Item, ItemType, StatType } from "../interfaces";
 
 class JsonTransform extends React.Component {
 
-    public render() {
+    /*public render() {
         return (
             <div>
                 <h1>JSON</h1>
@@ -122,7 +122,7 @@ class JsonTransform extends React.Component {
         const data = this.transformArmor();
         const ids = data.map((item: any) => item.id);
         return ids;
-    }
+    }*/
 
 }
 
