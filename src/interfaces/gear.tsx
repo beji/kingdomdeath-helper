@@ -27,6 +27,7 @@ interface IGridSlot {
     readonly affinities?: ReadonlyArray<Affinity>;
     readonly affinityActive: boolean;
     readonly setActive: boolean;
+    readonly sets?: ReadonlyArray<Set>;
 }
 
 interface IItemStat {

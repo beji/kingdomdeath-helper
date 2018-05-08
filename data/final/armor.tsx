@@ -1,4 +1,4 @@
-import { Affinity, AffinityTypes, DefenseStats, IItem, Set, StatType } from "../../src/interfaces";
+import { Affinity, AffinityTypes, DefenseStats, IItem, Set, StatType, BaseStats } from "../../src/interfaces";
 
 export const armor: IItem[] = [
     {
@@ -9,7 +9,8 @@ export const armor: IItem[] = [
         obtained: "Mask Maker",
         stats: [
             {
-                amount: 2,                stat: 1,
+                amount: 2,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -32,7 +33,8 @@ export const armor: IItem[] = [
         obtained: "Sacred Pool",
         stats: [
             {
-                amount: 3,                stat: 1,
+                amount: 3,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -67,23 +69,28 @@ export const armor: IItem[] = [
         obtained: "Blacksmith",
         stats: [
             {
-                amount: 2,                stat: 1,
+                amount: 2,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
             {
-                amount: 2,                stat: 2,
+                amount: 2,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
             {
-                amount: 2,                stat: 3,
+                amount: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
             {
-                amount: 2,                stat: 4,
+                amount: 2,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
             {
-                amount: 2,                stat: 5,
+                amount: 2,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -123,23 +130,28 @@ export const armor: IItem[] = [
         obtained: "Dragon Armory",
         stats: [
             {
-                amount: 1,                stat: 1,
+                amount: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
             {
-                amount: 1,                stat: 2,
+                amount: 1,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
             {
-                amount: 1,                stat: 3,
+                amount: 1,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
             {
-                amount: 1,                stat: 4,
+                amount: 1,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
             {
-                amount: 1,                stat: 5,
+                amount: 1,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -170,7 +182,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
         ],
@@ -189,7 +201,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 1,
-                stat: 4,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
         ],
@@ -209,7 +221,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -237,7 +249,7 @@ export const armor: IItem[] = [
                 ],                stats: [
                     {
                         amount: 1,
-                        stat: 0,
+                        stat: BaseStats.accuracy,
                         type: StatType.base,
                     },
                 ],
@@ -254,7 +266,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
         ],
@@ -275,7 +287,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 5,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -296,7 +308,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 4,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
         ],
@@ -317,7 +329,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
         ],
@@ -334,7 +346,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -356,7 +368,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 4,
-                stat: 4,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
         ],
@@ -378,7 +390,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 4,
-                stat: 5,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -400,7 +412,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 4,
-                stat: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
         ],
@@ -420,7 +432,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 4,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
         ],
@@ -442,7 +454,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 4,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -462,27 +474,27 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 1,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
             {
                 amount: 1,
-                stat: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
             {
                 amount: 1,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
             {
                 amount: 1,
-                stat: 4,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
             {
                 amount: 1,
-                stat: 5,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -506,27 +518,27 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
             {
                 amount: 2,
-                stat: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
             {
                 amount: 2,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
             {
                 amount: 2,
-                stat: 4,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
             {
                 amount: 2,
-                stat: 5,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -550,7 +562,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 3,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -568,7 +580,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -587,7 +599,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -606,7 +618,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 5,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -626,7 +638,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -646,7 +658,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
         ],
@@ -666,12 +678,12 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
             {
                 amount: 2,
-                stat: 4,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
         ],
@@ -691,7 +703,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 5,
-                stat: 5,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -712,7 +724,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 5,
-                stat: 4,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
         ],
@@ -732,7 +744,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 5,
-                stat: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
         ],
@@ -751,7 +763,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 5,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -771,7 +783,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 5,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
         ],
@@ -809,27 +821,27 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
             {
                 amount: 2,
-                stat: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
             {
                 amount: 2,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
             {
                 amount: 2,
-                stat: 4,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
             {
                 amount: 2,
-                stat: 5,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -856,7 +868,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -892,7 +904,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 5,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
         ],
@@ -909,7 +921,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 5,
-                stat: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
         ],
@@ -926,7 +938,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 5,
-                stat: 5,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -943,7 +955,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 5,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -960,7 +972,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 5,
-                stat: 4,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
         ],
@@ -977,7 +989,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 3,
-                stat: 5,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -994,7 +1006,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 3,
-                stat: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
         ],
@@ -1011,7 +1023,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 3,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
         ],
@@ -1028,7 +1040,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 3,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -1045,7 +1057,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 3,
-                stat: 4,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
         ],
@@ -1062,7 +1074,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 1,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -1090,7 +1102,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -1110,7 +1122,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 4,
-                stat: 4,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
         ],
@@ -1127,7 +1139,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 4,
-                stat: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
         ],
@@ -1144,7 +1156,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 4,
-                stat: 5,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -1161,7 +1173,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 4,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -1178,7 +1190,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -1198,7 +1210,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 4,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
         ],
@@ -1215,7 +1227,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -1235,7 +1247,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 1,
-                stat: 5,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -1258,7 +1270,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 1,
-                stat: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
         ],
@@ -1290,7 +1302,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 1,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -1310,7 +1322,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 1,
-                stat: 4,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
         ],
@@ -1334,7 +1346,7 @@ export const armor: IItem[] = [
                 ],                stats: [
                     {
                         amount: 1,
-                        stat: 1,
+                        stat: BaseStats.evasion,
                         type: StatType.base,
                     },
                 ],
@@ -1353,7 +1365,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 1,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
         ],
@@ -1370,7 +1382,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 4,
-                stat: 4,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
         ],
@@ -1388,7 +1400,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 4,
-                stat: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
         ],
@@ -1406,7 +1418,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 4,
-                stat: 5,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -1424,7 +1436,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 4,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -1442,7 +1454,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 4,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
         ],
@@ -1460,7 +1472,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
         ],
@@ -1479,27 +1491,27 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 1,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
             {
                 amount: 1,
-                stat: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
             {
                 amount: 1,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
             {
                 amount: 1,
-                stat: 4,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
             {
                 amount: 1,
-                stat: 5,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -1523,12 +1535,12 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
             {
                 amount: 2,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
         ],
@@ -1547,27 +1559,27 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 1,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
             {
                 amount: 1,
-                stat: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
             {
                 amount: 1,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
             {
                 amount: 1,
-                stat: 4,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
             {
                 amount: 1,
-                stat: 5,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -1591,7 +1603,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
         ],
@@ -1608,7 +1620,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
         ],
@@ -1625,7 +1637,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 3,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -1642,7 +1654,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 5,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -1659,7 +1671,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 4,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
         ],
@@ -1687,7 +1699,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 3,
-                stat: 5,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -1704,7 +1716,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 3,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
         ],
@@ -1721,7 +1733,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 3,
-                stat: 4,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
         ],
@@ -1738,7 +1750,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 3,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -1755,7 +1767,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 3,
-                stat: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
         ],
@@ -1775,7 +1787,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 3,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -1818,7 +1830,7 @@ export const armor: IItem[] = [
                 stats: [
                     {
                         amount: 1,
-                        stat: 3,
+                        stat: BaseStats.movement,
                         type: StatType.base,
                     },
                 ],
@@ -1837,7 +1849,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 5,
+                stat: DefenseStats.legs,
                 type: StatType.defense,
             },
         ],
@@ -1860,7 +1872,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 3,
+                stat: DefenseStats.body,
                 type: StatType.defense,
             },
         ],
@@ -1880,7 +1892,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 2,
+                stat: DefenseStats.arms,
                 type: StatType.defense,
             },
         ],
@@ -1916,7 +1928,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -1951,7 +1963,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 1,
+                stat: DefenseStats.head,
                 type: StatType.defense,
             },
         ],
@@ -1974,7 +1986,7 @@ export const armor: IItem[] = [
         stats: [
             {
                 amount: 2,
-                stat: 4,
+                stat: DefenseStats.waist,
                 type: StatType.defense,
             },
         ],
