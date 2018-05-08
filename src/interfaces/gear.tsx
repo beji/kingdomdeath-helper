@@ -14,6 +14,10 @@ const enum AffinityTypes {
     connect,
 }
 
+const enum Set {
+    rawhide,
+}
+
 interface IGearGrid {
     readonly affinities: Affinity[];
     readonly id: ID;
@@ -68,11 +72,13 @@ interface IItem {
         }
     };
     readonly set?: {
+        readonly id: Set;
         readonly bonus?: {
             readonly desc: string;
             readonly stats?: ReadonlyArray<IItemStat>;
         };
+        readonly name: string;
     };
 }
 
-export { Affinity, AffinityTypes, IAffinity, IGearGrid, IGridSlot, IItem, Item, ItemType };
+export { Affinity, AffinityTypes, IAffinity, IGearGrid, IGridSlot, IItem, Item, ItemType, Set };

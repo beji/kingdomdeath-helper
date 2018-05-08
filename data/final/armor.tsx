@@ -1,4 +1,4 @@
-import { Affinity, AffinityTypes, IItem, StatType, DefenseStats } from "../../src/interfaces";
+import { Affinity, AffinityTypes, DefenseStats, IItem, Set, StatType } from "../../src/interfaces";
 
 export const armor: IItem[] = [
     {
@@ -1351,6 +1351,8 @@ export const armor: IItem[] = [
                     },
                 ],
             },
+            id: Set.rawhide,
+            name: "Rawhide set",
         },
         stats: [
             {
