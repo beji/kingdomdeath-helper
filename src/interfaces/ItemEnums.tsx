@@ -462,7 +462,7 @@ enum ItemType {
     stone,
     gloomy,
     katana,
-    Slow,
+    slow,
     whip,
     fragile,
     Katar,

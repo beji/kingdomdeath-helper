@@ -1,4 +1,4 @@
-import { IItem } from "../../src/interfaces";
+import { IItem, ItemType } from "../../src/interfaces";
 
 export const items: IItem[] = [
     {
@@ -8,7 +8,7 @@ export const items: IItem[] = [
         name: "???",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -18,7 +18,7 @@ export const items: IItem[] = [
         name: "1,000 Year Sunspot",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -28,7 +28,7 @@ export const items: IItem[] = [
         name: "3,000 Year Sunspot",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -54,8 +54,8 @@ export const items: IItem[] = [
         name: "Ancient Lion Claws",
         obtained: "Death Reading event",
         types: [
-            9,
-            13,
+            ItemType.item,
+            ItemType.heavy,
         ],
     },
     {
@@ -73,9 +73,9 @@ export const items: IItem[] = [
         name: "Armor Spikes",
         obtained: "Gormery",
         types: [
-            9,
-            10,
-            13,
+            ItemType.item,
+            ItemType.bone,
+            ItemType.heavy,
         ],
     },
     {
@@ -101,7 +101,7 @@ export const items: IItem[] = [
         name: "Beetle Horn",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -201,8 +201,8 @@ export const items: IItem[] = [
         name: "Blue Power Core",
         obtained: "Dragon Armory",
         types: [
-            9,
-            8,
+            ItemType.item,
+            ItemType.jewelry,
         ],
     },
     {
@@ -212,9 +212,9 @@ export const items: IItem[] = [
         name: "Blue Ring",
         obtained: "Silk Mill",
         types: [
-            8,
-            11,
-            7,
+            ItemType.jewelry,
+            ItemType.amber,
+            ItemType.accessory,
         ],
     },
     {
@@ -232,8 +232,8 @@ export const items: IItem[] = [
         name: "Bone Witch Mehndi",
         obtained: "Death Reading",
         types: [
-            9,
-            15,
+            ItemType.item,
+            ItemType.other,
         ],
     },
     {
@@ -291,8 +291,8 @@ export const items: IItem[] = [
         name: "Butcher's Blood",
         obtained: "Death Reading",
         types: [
-            9,
-            15,
+            ItemType.item,
+            ItemType.other,
         ],
     },
     {
@@ -302,9 +302,9 @@ export const items: IItem[] = [
         name: "Calcified Greaves",
         obtained: "Underground Sow Event",
         types: [
-            9,
-            10,
-            13,
+            ItemType.item,
+            ItemType.bone,
+            ItemType.heavy,
         ],
     },
     {
@@ -314,9 +314,9 @@ export const items: IItem[] = [
         name: "Calcified Shoulder Pads",
         obtained: "Underground Sow Event",
         types: [
-            9,
-            10,
-            13,
+            ItemType.item,
+            ItemType.bone,
+            ItemType.heavy,
         ],
     },
     {
@@ -342,7 +342,7 @@ export const items: IItem[] = [
         name: "Century Fingernails",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -352,9 +352,9 @@ export const items: IItem[] = [
         name: "Century Greaves",
         obtained: "Wet Resin Crafter",
         types: [
-            9,
-            40,
-            13,
+            ItemType.item,
+            ItemType.mineral,
+            ItemType.heavy,
         ],
     },
     {
@@ -372,10 +372,10 @@ export const items: IItem[] = [
         name: "Century Shoulder Pads",
         obtained: "Wet Resin Crafter",
         types: [
-            9,
-            10,
-            40,
-            13,
+            ItemType.item,
+            ItemType.bone,
+            ItemType.mineral,
+            ItemType.heavy,
         ],
     },
     {
@@ -465,7 +465,7 @@ export const items: IItem[] = [
         name: "Dark Water",
         obtained: "",
         types: [
-            15,
+            ItemType.other,
         ],
     },
     {
@@ -475,9 +475,9 @@ export const items: IItem[] = [
         name: "Dark Water Vial",
         obtained: "Light-Forging event",
         types: [
-            9,
-            44,
-            48,
+            ItemType.item,
+            ItemType.gloomy,
+            ItemType.fragile,
         ],
     },
     {
@@ -487,8 +487,8 @@ export const items: IItem[] = [
         name: "DBK Errant Badge",
         obtained: "Wet Resin Crafter",
         types: [
-            9,
-            8,
+            ItemType.item,
+            ItemType.jewelry,
         ],
     },
     {
@@ -498,8 +498,8 @@ export const items: IItem[] = [
         name: "Death Mehndi",
         obtained: "Death Reading",
         types: [
-            9,
-            15,
+            ItemType.item,
+            ItemType.other,
         ],
     },
     {
@@ -509,9 +509,9 @@ export const items: IItem[] = [
         name: "Deathpact (gun)",
         obtained: "Defeat Manhunter",
         types: [
-            9,
-            12,
-            48,
+            ItemType.item,
+            ItemType.metal,
+            ItemType.fragile,
         ],
     },
     {
@@ -521,7 +521,7 @@ export const items: IItem[] = [
         name: "Dense Bone",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -531,9 +531,9 @@ export const items: IItem[] = [
         name: "Dragon Vestments",
         obtained: "Midnights Children event",
         types: [
-            9,
-            52,
-            15,
+            ItemType.item,
+            ItemType.silk,
+            ItemType.other,
         ],
     },
     {
@@ -567,8 +567,8 @@ export const items: IItem[] = [
         name: "Elastic Harness (Rubber Bone Harness)",
         obtained: "Wet Resin Crafter",
         types: [
-            9,
-            10,
+            ItemType.item,
+            ItemType.bone,
             19,
         ],
     },
@@ -595,7 +595,7 @@ export const items: IItem[] = [
         name: "Elytra",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -637,9 +637,9 @@ export const items: IItem[] = [
         name: "Fairy Bottle",
         obtained: "Sense Memory event",
         types: [
-            9,
-            48,
-            15,
+            ItemType.item,
+            ItemType.fragile,
+            ItemType.other,
         ],
     },
     {
@@ -681,8 +681,8 @@ export const items: IItem[] = [
         name: "Flower Knight Badge",
         obtained: "Kill Flower Knight",
         types: [
-            9,
-            8,
+            ItemType.item,
+            ItemType.jewelry,
         ],
     },
     {
@@ -708,11 +708,11 @@ export const items: IItem[] = [
         name: "Gloom Bracelets",
         obtained: "Light-Forging event",
         types: [
-            9,
-            8,
-            44,
-            48,
-            13,
+            ItemType.item,
+            ItemType.jewelry,
+            ItemType.gloomy,
+            ItemType.fragile,
+            ItemType.heavy,
         ],
     },
     {
@@ -722,9 +722,9 @@ export const items: IItem[] = [
         name: "Gloom Cream",
         obtained: "Light-Forging event",
         types: [
-            9,
-            44,
-            15,
+            ItemType.item,
+            ItemType.gloomy,
+            ItemType.other,
         ],
     },
     {
@@ -734,8 +734,8 @@ export const items: IItem[] = [
         name: "Gloom Mehndi",
         obtained: "Light-Forging event",
         types: [
-            9,
-            44,
+            ItemType.item,
+            ItemType.gloomy,
         ],
     },
     {
@@ -745,9 +745,9 @@ export const items: IItem[] = [
         name: "Gloom Sheath",
         obtained: "Light-Forging event",
         types: [
-            9,
-            44,
-            15,
+            ItemType.item,
+            ItemType.gloomy,
+            ItemType.other,
         ],
     },
     {
@@ -757,8 +757,8 @@ export const items: IItem[] = [
         name: "Glyph of Solitude",
         obtained: "Death Reading",
         types: [
-            9,
-            15,
+            ItemType.item,
+            ItemType.other,
         ],
     },
     {
@@ -776,9 +776,9 @@ export const items: IItem[] = [
         name: "Golden Plate",
         obtained: "Kill L2 Lion God",
         types: [
-            9,
-            12,
-            13,
+            ItemType.item,
+            ItemType.metal,
+            ItemType.heavy,
         ],
     },
     {
@@ -812,7 +812,7 @@ export const items: IItem[] = [
         name: "Gorn",
         obtained: "Gormery",
         types: [
-            9,
+            ItemType.item,
             14,
         ],
     },
@@ -839,9 +839,9 @@ export const items: IItem[] = [
         name: "Green Ring",
         obtained: "Silk Mill",
         types: [
-            8,
-            11,
-            7,
+            ItemType.jewelry,
+            ItemType.amber,
+            ItemType.accessory,
         ],
     },
     {
@@ -851,7 +851,7 @@ export const items: IItem[] = [
         name: "Hagfish",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -861,7 +861,7 @@ export const items: IItem[] = [
         name: "Handed Skull",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -871,8 +871,8 @@ export const items: IItem[] = [
         name: "Healing Potion",
         obtained: "Gormchymist",
         types: [
-            9,
-            48,
+            ItemType.item,
+            ItemType.fragile,
         ],
     },
     {
@@ -882,9 +882,9 @@ export const items: IItem[] = [
         name: "Hidden Crimson Jewel",
         obtained: "Spelunking of Death event",
         types: [
-            9,
-            8,
-            15,
+            ItemType.item,
+            ItemType.jewelry,
+            ItemType.other,
         ],
     },
     {
@@ -894,10 +894,10 @@ export const items: IItem[] = [
         name: "Hideous Disguise",
         obtained: "Defeat Lion Knight",
         types: [
-            9,
+            ItemType.item,
             16,
-            10,
-            15,
+            ItemType.bone,
+            ItemType.other,
         ],
     },
     {
@@ -931,7 +931,7 @@ export const items: IItem[] = [
         name: "Huge Sunteeth",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -941,9 +941,9 @@ export const items: IItem[] = [
         name: "Hunter's Heart",
         obtained: "Kill Manhunter",
         types: [
-            9,
-            12,
-            13,
+            ItemType.item,
+            ItemType.metal,
+            ItemType.heavy,
         ],
     },
     {
@@ -977,7 +977,7 @@ export const items: IItem[] = [
         name: "Jagged Marrow Fruit",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -1019,8 +1019,8 @@ export const items: IItem[] = [
         name: "Lantern Mehndi",
         obtained: "Death Reading event",
         types: [
-            9,
-            15,
+            ItemType.item,
+            ItemType.other,
         ],
     },
     {
@@ -1030,7 +1030,7 @@ export const items: IItem[] = [
         name: "Large Appendage",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -1040,7 +1040,7 @@ export const items: IItem[] = [
         name: "Large Appendage (Spidi hand)",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -1066,7 +1066,7 @@ export const items: IItem[] = [
         name: "Life Elixir",
         obtained: "Gormchymist",
         types: [
-            9,
+            ItemType.item,
         ],
     },
     {
@@ -1084,8 +1084,8 @@ export const items: IItem[] = [
         name: "Lion Knight Badge",
         obtained: "Defeat Lion Knight",
         types: [
-            9,
-            8,
+            ItemType.item,
+            ItemType.jewelry,
         ],
     },
     {
@@ -1143,7 +1143,7 @@ export const items: IItem[] = [
         name: "Mammoth Hand",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -1153,7 +1153,7 @@ export const items: IItem[] = [
         name: "Manhunter's Hat",
         obtained: "Kill Manhunter",
         types: [
-            9,
+            ItemType.item,
             2,
             19,
         ],
@@ -1165,7 +1165,7 @@ export const items: IItem[] = [
         name: "Meaty Rib",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -1247,10 +1247,10 @@ export const items: IItem[] = [
         name: "Necromancer's Eye",
         obtained: "Death Reading",
         types: [
-            9,
+            ItemType.item,
             3,
-            8,
-            15,
+            ItemType.jewelry,
+            ItemType.other,
         ],
     },
     {
@@ -1276,7 +1276,7 @@ export const items: IItem[] = [
         name: "Osseous Bloom",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -1350,7 +1350,7 @@ export const items: IItem[] = [
         name: "Power Potion",
         obtained: "Gormchymist",
         types: [
-            9,
+            ItemType.item,
         ],
     },
     {
@@ -1408,7 +1408,7 @@ export const items: IItem[] = [
         name: "Rainbow Wing Belt",
         obtained: "Wet Resin Crafter",
         types: [
-            9,
+            ItemType.item,
         ],
     },
     {
@@ -1418,9 +1418,9 @@ export const items: IItem[] = [
         name: "Raptor Worm Collar",
         obtained: "Light-Forging event",
         types: [
-            9,
-            8,
-            44,
+            ItemType.item,
+            ItemType.jewelry,
+            ItemType.gloomy,
         ],
     },
     {
@@ -1446,8 +1446,8 @@ export const items: IItem[] = [
         name: "Red Power Core",
         obtained: "Dragon Armory",
         types: [
-            9,
-            8,
+            ItemType.item,
+            ItemType.jewelry,
         ],
     },
     {
@@ -1457,9 +1457,9 @@ export const items: IItem[] = [
         name: "Red Ring",
         obtained: "Silk Mill",
         types: [
-            8,
-            11,
-            7,
+            ItemType.jewelry,
+            ItemType.amber,
+            ItemType.accessory,
         ],
     },
     {
@@ -1477,9 +1477,9 @@ export const items: IItem[] = [
         name: "Regenerating Blade",
         obtained: "Crit DBK Filthy Resin Sword HL",
         types: [
-            9,
-            40,
-            15,
+            ItemType.item,
+            ItemType.mineral,
+            ItemType.other,
         ],
     },
     {
@@ -1489,8 +1489,8 @@ export const items: IItem[] = [
         name: "Reverberating Lantern",
         obtained: "Kill Manhunter",
         types: [
-            9,
-            35,
+            ItemType.item,
+            ItemType.tool,
         ],
     },
     {
@@ -1524,9 +1524,9 @@ export const items: IItem[] = [
         name: "Scarab Circlet",
         obtained: "Wet Resin Crafter",
         types: [
-            8,
-            10,
-            15,
+            ItemType.jewelry,
+            ItemType.bone,
+            ItemType.other,
         ],
     },
     {
@@ -1568,7 +1568,7 @@ export const items: IItem[] = [
         name: "Seasoned Monster Meat",
         obtained: "Wet Resin Crafter",
         types: [
-            9,
+            ItemType.item,
         ],
     },
     {
@@ -1586,7 +1586,7 @@ export const items: IItem[] = [
         name: "Serrated Fangs",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -1604,8 +1604,8 @@ export const items: IItem[] = [
         name: "Shadow Saliva Shawl",
         obtained: "Skyreef Sanctuary",
         types: [
-            9,
-            15,
+            ItemType.item,
+            ItemType.other,
         ],
     },
     {
@@ -1679,11 +1679,11 @@ export const items: IItem[] = [
         name: "Silk Bomb",
         obtained: "Silk Mill",
         types: [
-            9,
-            34,
-            52,
-            11,
-            48,
+            ItemType.item,
+            ItemType.thrown,
+            ItemType.silk,
+            ItemType.amber,
+            ItemType.fragile,
         ],
     },
     {
@@ -1701,7 +1701,7 @@ export const items: IItem[] = [
         name: "Silver Urn",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -1727,7 +1727,7 @@ export const items: IItem[] = [
         name: "Sleeping Virus Flower",
         obtained: "Kill Flower Knight",
         types: [
-            9,
+            ItemType.item,
         ],
     },
     {
@@ -1737,10 +1737,10 @@ export const items: IItem[] = [
         name: "Slender Ovule",
         obtained: "Light-Forging event",
         types: [
-            9,
-            8,
-            44,
-            15,
+            ItemType.item,
+            ItemType.jewelry,
+            ItemType.gloomy,
+            ItemType.other,
         ],
     },
     {
@@ -1774,7 +1774,7 @@ export const items: IItem[] = [
         name: "Small Sunteeth",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -1808,8 +1808,8 @@ export const items: IItem[] = [
         name: "Steadfast Potion",
         obtained: "Gormchymist",
         types: [
-            9,
-            13,
+            ItemType.item,
+            ItemType.heavy,
         ],
     },
     {
@@ -1835,9 +1835,9 @@ export const items: IItem[] = [
         name: "Stone Arm",
         obtained: "The Messenger of Humanity encounter",
         types: [
-            9,
+            ItemType.item,
             43,
-            13,
+            ItemType.heavy,
         ],
     },
     {
@@ -1871,7 +1871,7 @@ export const items: IItem[] = [
         name: "Stout Vertebrae",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -1889,8 +1889,8 @@ export const items: IItem[] = [
         name: "Sun Vestments",
         obtained: "Sacred Pool",
         types: [
-            9,
-            52,
+            ItemType.item,
+            ItemType.silk,
         ],
     },
     {
@@ -1908,7 +1908,7 @@ export const items: IItem[] = [
         name: "Sunshark Bone",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -1918,7 +1918,7 @@ export const items: IItem[] = [
         name: "Sunshark Fin",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -1936,7 +1936,7 @@ export const items: IItem[] = [
         name: "Sunstones",
         obtained: "",
         types: [
-            10,
+            ItemType.bone,
         ],
     },
     {
@@ -1954,9 +1954,9 @@ export const items: IItem[] = [
         name: "The Beetle Bomb",
         obtained: "Wet Resin Crafter",
         types: [
-            9,
-            34,
-            48,
+            ItemType.item,
+            ItemType.thrown,
+            ItemType.fragile,
         ],
     },
     {
@@ -1966,7 +1966,7 @@ export const items: IItem[] = [
         name: "The Knowledge Worm",
         obtained: "",
         types: [
-            15,
+            ItemType.other,
         ],
     },
     {
@@ -1976,7 +1976,7 @@ export const items: IItem[] = [
         name: "Thick Web Silk",
         obtained: "",
         types: [
-            52,
+            ItemType.silk,
         ],
     },
     {
@@ -1986,9 +1986,9 @@ export const items: IItem[] = [
         name: "Tool Belt",
         obtained: "Tools of War event",
         types: [
-            9,
-            12,
-            48,
+            ItemType.item,
+            ItemType.metal,
+            ItemType.fragile,
         ],
     },
     {
@@ -1998,9 +1998,9 @@ export const items: IItem[] = [
         name: "Trash Crown",
         obtained: "Black Harvest event",
         types: [
-            8,
-            48,
-            15,
+            ItemType.jewelry,
+            ItemType.fragile,
+            ItemType.other,
         ],
     },
     {
@@ -2042,8 +2042,8 @@ export const items: IItem[] = [
         name: "Vespertine Cello",
         obtained: "Sense Memory (kill Flower Knight)",
         types: [
-            9,
-            15,
+            ItemType.item,
+            ItemType.other,
         ],
     },
     {
@@ -2053,8 +2053,8 @@ export const items: IItem[] = [
         name: "Vespertine Satchel",
         obtained: "Sense Memory (kill Flower Knight)",
         types: [
-            9,
-            13,
+            ItemType.item,
+            ItemType.heavy,
         ],
     },
     {
@@ -2080,7 +2080,7 @@ export const items: IItem[] = [
         name: "Web Silk",
         obtained: "",
         types: [
-            52,
+            ItemType.silk,
         ],
     },
     {
@@ -2106,8 +2106,8 @@ export const items: IItem[] = [
         name: "Wisdom Potion",
         obtained: "Gormchymist",
         types: [
-            9,
-            15,
+            ItemType.item,
+            ItemType.other,
         ],
     },
     {
