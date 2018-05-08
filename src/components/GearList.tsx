@@ -125,6 +125,7 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
         } else {
             const fuse = new Fuse(items as any[], {
                 keys: ["name"],
+                threshold: 0.5,
             });
             this.setState({
                 items: fuse.search(event.currentTarget.value).map((item: any) => {
