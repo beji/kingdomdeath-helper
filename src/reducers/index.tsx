@@ -3,7 +3,7 @@ import { Reducer } from "redux";
 import { removeFromHunt, updateGearSlotAffinity, updateSurvivor } from "../actions";
 import items from "../data/ItemDataHelper";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../initialstate";
-import { Affinity, AffinityTypes, DefenseStats, IDefenseStat, IGearGrid, IItem, ISettlement, ISurvivor, StatType } from "../interfaces";
+import { Affinity, AffinityTypes, DefenseStats, IDefenseStat, IGearGrid, IItem, ISettlement, ISurvivor, SpecialStats, StatType } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { UpdateGearGridAction, UpdateGearSlotAffinityAction } from "../interfaces/gearActions";
 import { AddToHuntAction, RemoveFromHuntAction, ResetHuntAction } from "../interfaces/huntActions";
@@ -390,6 +390,22 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                             const { affinities, content } = slot;
                             const thisCard = items.find((item) => item.id === slot.content);
                             let affinityActive = false;
+
+                            // TODO: move to own action?
+                            // check itemstats for baseStats and update survivor
+                            if (thisCard && thisCard.stats && updatedSurvivor) {
+                                thisCard.stats.map((cardStat) => {
+                                    const statTypes = ["DefenseStats", "BaseStats", "SpecialStats"]; // Array sorted by StatType enum
+                                    const fieldToAddName = ["armor", "gear", "value"]; // Array sorted by StatType enum
+                                    updatedSurvivor[statTypes[cardStat.type]].some((survivorStat: any) => {
+                                        if (cardStat.stat === survivorStat.stat) {
+                                            survivorStat[fieldToAddName[cardStat.type]] += cardStat.amount;
+                                        }
+                                        return cardStat.stat === survivorStat.stat;
+                                    });
+                                });
+                            }
+
                             // calculate if affinity bonus on current card is active
                             if (content && thisCard && thisCard.affinity && thisCard.affinity.bonus) {
                                 const { bonus } = thisCard.affinity;
@@ -429,19 +445,6 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                                                 survivorStat.gear += bonusStat.amount;
                                             }
                                             return bonusStat.stat === survivorStat.stat;
-                                        });
-                                    });
-                                }
-
-                                // TODO: move to own action?
-                                // check itemstats for baseStats and update survivor
-                                if (thisCard.stats && updatedSurvivor) {
-                                    thisCard.stats.map((cardStat) => {
-                                        updatedSurvivor.baseStats.some((survivorStat: any) => {
-                                            if (cardStat.type === survivorStat.type && cardStat.stat === survivorStat.stat) {
-                                                survivorStat.gear += cardStat.amount;
-                                            }
-                                            return cardStat.stat === survivorStat.stat;
                                         });
                                     });
                                 }
