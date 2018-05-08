@@ -352,12 +352,12 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                             if (slot.content) {
                                 const thisCard = items.find((item) => item.id === slot.content);
                                 const directions = [
-                                    {o: "top", c: "bottom", slotId: slotKey - 3},
-                                    {o: "right", c: "left", slotId: slotKey % 3 === 2 ? -1 : slotKey + 1},
-                                    {o: "bottom", c: "top", slotId: slotKey + 3},
-                                    {o: "left", c: "right", slotId: slotKey % 3 === 0 ? -1 : slotKey - 1},
+                                    { o: "top", c: "bottom", slotId: slotKey - 3 },
+                                    { o: "right", c: "left", slotId: slotKey % 3 === 2 ? -1 : slotKey + 1 },
+                                    { o: "bottom", c: "top", slotId: slotKey + 3 },
+                                    { o: "left", c: "right", slotId: slotKey % 3 === 0 ? -1 : slotKey - 1 },
                                 ];
-                                const affinities =  [] as Affinity[];
+                                const affinities = [] as Affinity[];
 
                                 // calculate slot affinities with adjacent slots and gridAffinities
                                 directions.forEach((direction) => {
@@ -391,7 +391,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                             const thisCard = items.find((item) => item.id === slot.content);
                             let affinityActive = false;
                             // calculate if affinity bonus on current card is active
-                            if (content &&  thisCard && thisCard.affinity && thisCard.affinity.bonus) {
+                            if (content && thisCard && thisCard.affinity && thisCard.affinity.bonus) {
                                 const { bonus } = thisCard.affinity;
                                 const activeAffs: Affinity[] = [];
                                 const requiredAffinities = bonus.require;

@@ -7,7 +7,7 @@ export { colorMagentaLachs };
 export const media = {
     mobile: (...args: any[]) => css`
         @media (max-width: 420px) {
-          ${ css.call(undefined, ...args) }
+          ${ css.call(undefined, ...args)}
         }
     `,
 };
