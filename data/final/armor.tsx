@@ -1,4 +1,4 @@
-import { Affinity, AffinityTypes, IItem, StatType } from "../../src/interfaces";
+import { Affinity, AffinityTypes, IItem, StatType, DefenseStats } from "../../src/interfaces";
 
 export const armor: IItem[] = [
     {
@@ -1320,6 +1320,38 @@ export const armor: IItem[] = [
         material: "1x hide",
         name: "Rawhide Vest",
         obtained: "Skinnery",
+        set: {
+            bonus: {
+                desc: "Add 1 to all hit locations. When you perform a survival action roll 1d10. On a result of 6+, gain +1 survival.",
+                stats: [
+                    {
+                        amount: 1,
+                        stat: DefenseStats.head,
+                        type: StatType.defense,
+                    },
+                    {
+                        amount: 1,
+                        stat: DefenseStats.arms,
+                        type: StatType.defense,
+                    },
+                    {
+                        amount: 1,
+                        stat: DefenseStats.body,
+                        type: StatType.defense,
+                    },
+                    {
+                        amount: 1,
+                        stat: DefenseStats.waist,
+                        type: StatType.defense,
+                    },
+                    {
+                        amount: 1,
+                        stat: DefenseStats.legs,
+                        type: StatType.defense,
+                    },
+                ],
+            },
+        },
         stats: [
             {
                 amount: 1,
