@@ -5,6 +5,7 @@ import Home from "../pages";
 import GearOverviewPage from "../pages/gearoverview";
 import SurvivorCardPage from "../pages/suvivorcard";
 import ExportForm from "./ExportForm";
+import Layer from "./Layer";
 import SocketConnector from "./SocketConnector";
 
 const AppWrapper = styled.div`
@@ -21,6 +22,7 @@ class App extends React.Component {
                     <Route path="/gear" component={GearOverviewPage} />
                     <ExportForm />
                     <SocketConnector />
+                    <Layer />
                 </AppWrapper>
             </BrowserRouter>);
     }

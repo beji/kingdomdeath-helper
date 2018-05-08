@@ -103,7 +103,7 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
                 return (
                     <React.Fragment>
                         <WeaponArtItemsWrapper>
-                            {weaponArts.map((art, idx) => <WeaponArtItem key={idx} art={art}/>)}
+                            {weaponArts.map((art, idx) => <WeaponArtItem key={idx} art={art} />)}
                         </WeaponArtItemsWrapper>
                         <FancyButton onClick={this.showWeaponArtList}>Manage Weapon Arts</FancyButton>
                         {showWeaponArtList && <WeaponArtslist id={this.props.survivor.id} onCancel={this.hideWeaponArtList} />}

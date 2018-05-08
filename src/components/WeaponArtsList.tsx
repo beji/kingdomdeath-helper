@@ -1,12 +1,11 @@
 import weaponArts from "data/final/weaponarts.json";
 import { UpdateSurvivorWeaponArtsAction } from "interfaces/survivorActions";
-import React from "react";
-import { SyntheticEvent } from "react";
+import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateSurvivorWeaponArt } from "../actions";
-import { ID, ISettlement, ISurvivor, ItemType, IWeaponArt, WeaponArt } from "../interfaces";
+import { ID, ISettlement, IWeaponArt, WeaponArt } from "../interfaces";
 import FancyButton from "./FancyButton";
 import { colorMagentaLachs } from "./StyledComponents";
 
