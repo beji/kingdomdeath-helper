@@ -395,7 +395,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                             // check itemstats for baseStats and update survivor
                             if (thisCard && thisCard.stats && updatedSurvivor) {
                                 thisCard.stats.map((cardStat) => {
-                                    const statTypes = ["DefenseStats", "BaseStats", "SpecialStats"]; // Array sorted by StatType enum
+                                    const statTypes = ["defenseStats", "baseStats", "specialstats"]; // Array sorted by StatType enum
                                     const fieldToAddName = ["armor", "gear", "value"]; // Array sorted by StatType enum
                                     updatedSurvivor[statTypes[cardStat.type]].some((survivorStat: any) => {
                                         if (cardStat.stat === survivorStat.stat) {
