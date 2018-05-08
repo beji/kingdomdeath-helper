@@ -30,12 +30,6 @@ declare module "data/final/weaponarts.json" {
     export default arts;
 }
 
-declare module "data/final/*.json" {
-    import { IItem } from "src/interfaces";
-    const armor: [IItem];
-    export default armor;
-}
-
 declare module "*.json" {
     const value: any;
     export default value;
