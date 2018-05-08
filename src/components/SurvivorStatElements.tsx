@@ -5,13 +5,12 @@ const SurvivorStat = styled.div`
     flex: 1;
     max-width: 50%;
     text-align:center;
-    margin-bottom:.5vh;
     padding:.25rem;
     border: 1px solid #aaa;
     @media only screen
       and (min-device-width: 375px)
       and (max-device-width: 667px) {
-            min-width: 33.33333%;
+         flex-basis:33.33333%;
     }
 `;
 

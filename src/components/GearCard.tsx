@@ -116,7 +116,7 @@ const ShieldArmorType = styled.div`
 `;
 const WeaponWrapper = styled.div`
     border-radius:.5rem;
-    background:#bb9118;
+    background:#999;
     color:#fff;
     font-weight:bold;
     font-size:.875rem;
@@ -127,7 +127,7 @@ const WeaponWrapper = styled.div`
     z-index:2;
 `;
 const WeaponAcc = styled.div`
-    background:#5a3c04;
+    background:#666;
     border-top-left-radius: .5rem;
     border-top-right-radius: .5rem;
     margin-bottom: 1px;
@@ -141,7 +141,7 @@ const WeaponAcc = styled.div`
     }
 `;
 const WeaponSpeed = styled.div`
-    background:#5a3c04;
+    background:#666;
     border-bottom-left-radius: .5rem;
     border-bottom-right-radius: .5rem;
     padding: .25rem 0;
