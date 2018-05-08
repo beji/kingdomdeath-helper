@@ -1,5 +1,5 @@
 import { ID } from "./generics";
-import { Item, ItemType } from "./ItemEnums";
+import { Item, ItemType, Set } from "./ItemEnums";
 import { BaseStats, DefenseStats, StatType } from "./survivor";
 
 enum Affinity {
@@ -12,10 +12,6 @@ const enum AffinityTypes {
     card,
     grid,
     connect,
-}
-
-const enum Set {
-    rawhide,
 }
 
 interface IGearGrid {
@@ -73,12 +69,16 @@ interface IItem {
     };
     readonly set?: {
         readonly id: Set;
-        readonly bonus?: {
-            readonly desc: string;
-            readonly stats?: ReadonlyArray<IItemStat>;
-        };
-        readonly name: string;
     };
 }
 
-export { Affinity, AffinityTypes, IAffinity, IGearGrid, IGridSlot, IItem, Item, ItemType, Set };
+interface ISet {
+    readonly id: Set;
+    readonly bonus?: {
+        readonly desc: string;
+        readonly stats?: ReadonlyArray<IItemStat>;
+    };
+    readonly name: string;
+}
+
+export { Affinity, AffinityTypes, IAffinity, IGearGrid, IGridSlot, IItem, Item, ItemType, ISet, Set };

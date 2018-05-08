@@ -350,6 +350,9 @@ export const armor: IItem[] = [
         material: "2x veined wing, 1x organ, 1x iron",
         name: "Dragon Belt",
         obtained: "Dragon Armory",
+        set: {
+            id: Set.dragon_armor,
+        },
         stats: [
             {
                 amount: 4,
@@ -369,6 +372,9 @@ export const armor: IItem[] = [
         material: "1x kings claws, 1x husk, 1x organ, 1x iron",
         name: "Dragon Boots",
         obtained: "Dragon Armory",
+        set: {
+            id: Set.dragon_armor,
+        },
         stats: [
             {
                 amount: 4,
@@ -388,6 +394,9 @@ export const armor: IItem[] = [
         material: "1x cabled vein, 1x husk, 1x leather, 1x iron",
         name: "Dragon Gloves",
         obtained: "Dragon Armory",
+        set: {
+            id: Set.dragon_armor,
+        },
         stats: [
             {
                 amount: 4,
@@ -405,6 +414,9 @@ export const armor: IItem[] = [
         material: "1x horn fragment, 1x iron, 1x hardened ribs, 1x leather",
         name: "Dragon Mantle",
         obtained: "Dragon Armory",
+        set: {
+            id: Set.dragon_armor,
+        },
         stats: [
             {
                 amount: 4,
@@ -424,6 +436,9 @@ export const armor: IItem[] = [
         material: "1x horn fragment, 2x bone, 1x husk",
         name: "Dragonskull Helm",
         obtained: "Dragon Armory",
+        set: {
+            id: Set.dragon_armor,
+        },
         stats: [
             {
                 amount: 4,
@@ -1214,6 +1229,9 @@ export const armor: IItem[] = [
         material: "1x hide",
         name: "Rawhide Boots",
         obtained: "Skinnery",
+        set: {
+            id: Set.rawhide,
+        },
         stats: [
             {
                 amount: 1,
@@ -1234,6 +1252,9 @@ export const armor: IItem[] = [
         material: "1x hide",
         name: "Rawhide Gloves",
         obtained: "Skinnery",
+        set: {
+            id: Set.rawhide,
+        },
         stats: [
             {
                 amount: 1,
@@ -1263,6 +1284,9 @@ export const armor: IItem[] = [
         material: "1x hide",
         name: "Rawhide Headband",
         obtained: "Skinnery",
+        set: {
+            id: Set.rawhide,
+        },
         stats: [
             {
                 amount: 1,
@@ -1280,6 +1304,9 @@ export const armor: IItem[] = [
         material: "1x hide",
         name: "Rawhide Pants",
         obtained: "Skinnery",
+        set: {
+            id: Set.rawhide,
+        },
         stats: [
             {
                 amount: 1,
@@ -1321,38 +1348,7 @@ export const armor: IItem[] = [
         name: "Rawhide Vest",
         obtained: "Skinnery",
         set: {
-            bonus: {
-                desc: "Add 1 to all hit locations. When you perform a survival action roll 1d10. On a result of 6+, gain +1 survival.",
-                stats: [
-                    {
-                        amount: 1,
-                        stat: DefenseStats.head,
-                        type: StatType.defense,
-                    },
-                    {
-                        amount: 1,
-                        stat: DefenseStats.arms,
-                        type: StatType.defense,
-                    },
-                    {
-                        amount: 1,
-                        stat: DefenseStats.body,
-                        type: StatType.defense,
-                    },
-                    {
-                        amount: 1,
-                        stat: DefenseStats.waist,
-                        type: StatType.defense,
-                    },
-                    {
-                        amount: 1,
-                        stat: DefenseStats.legs,
-                        type: StatType.defense,
-                    },
-                ],
-            },
             id: Set.rawhide,
-            name: "Rawhide set",
         },
         stats: [
             {
@@ -1835,6 +1831,9 @@ export const armor: IItem[] = [
         material: "1x white fur, 1x hide",
         name: "White Lion Boots",
         obtained: "Catarium",
+        set: {
+            id: Set.white_lion,
+        },
         stats: [
             {
                 amount: 2,
@@ -1855,6 +1854,9 @@ export const armor: IItem[] = [
         material: "1x white fur, 1x hide",
         name: "White Lion Coat",
         obtained: "Catarium",
+        set: {
+            id: Set.white_lion,
+        },
         stats: [
             {
                 amount: 2,
@@ -1872,6 +1874,9 @@ export const armor: IItem[] = [
         material: "1x white fur, 1x bone",
         name: "White Lion Gauntlets",
         obtained: "Catarium",
+        set: {
+            id: Set.white_lion,
+        },
         stats: [
             {
                 amount: 2,
@@ -1905,6 +1910,9 @@ export const armor: IItem[] = [
         material: "1x white fur, 1x great cat bone",
         name: "White Lion Helm",
         obtained: "Catarium",
+        set: {
+            id: Set.white_lion,
+        },
         stats: [
             {
                 amount: 2,
@@ -1937,6 +1945,9 @@ export const armor: IItem[] = [
         material: "endeavor, 1x shimmering mane, 6x bone, 4x organ",
         name: "White Lion Mask",
         obtained: "Mask Maker",
+        set: {
+            id: Set.white_lion,
+        },
         stats: [
             {
                 amount: 2,

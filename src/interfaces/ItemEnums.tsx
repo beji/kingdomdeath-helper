@@ -472,4 +472,10 @@ enum ItemType {
     twilightsword,
 }
 
-export { Item, ItemType };
+const enum Set {
+    rawhide,
+    dragon_armor,
+    white_lion,
+}
+
+export { Item, ItemType, Set };
