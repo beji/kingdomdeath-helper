@@ -398,7 +398,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                                     const statTypes = ["defenseStats", "baseStats", "specialstats"]; // Array sorted by StatType enum
                                     const fieldToAddName = ["armor", "gear", "value"]; // Array sorted by StatType enum
                                     updatedSurvivor[statTypes[cardStat.type]].some((survivorStat: any) => {
-                                        if (cardStat.stat === survivorStat.stat) {
+                                        if (cardStat.stat === survivorStat.stat && cardStat.type !== StatType.defense) {
                                             survivorStat[fieldToAddName[cardStat.type]] += cardStat.amount;
                                         }
                                         return cardStat.stat === survivorStat.stat;
