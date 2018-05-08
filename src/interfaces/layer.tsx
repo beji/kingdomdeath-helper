@@ -1,11 +1,12 @@
-export enum LayerTypes {
+import Layer from "../components/Layer";
+
+export const enum LayerTypes {
     simple,
 }
 
-export interface ILayerEvent {
-    type: LayerTypes;
-    payload: {
-        headline: JSX.Element | string;
-        content: JSX.Element | string;
-    };
+export default interface ILayerEvent<T, P> {
+    readonly type: T;
+    readonly payload?: P;
 }
+
+export type SimpleLayerEvent = ILayerEvent<LayerTypes.simple, { headline: JSX.Element, content: JSX.Element }>;

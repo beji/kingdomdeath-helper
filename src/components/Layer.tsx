@@ -1,19 +1,18 @@
 import React, { SyntheticEvent } from "react";
-import { ILayerEvent, LayerTypes } from "../interfaces/layer";
+import { LayerTypes, SimpleLayerEvent } from "../interfaces/layer";
 import layerSubject from "../layerSubject";
 import FancyButton from "./FancyButton";
 import { StatLayer, StatLayerHeadline } from "./SurvivorStatElements";
 
 interface ILayerState {
-    data?: ILayerEvent;
+    data?: SimpleLayerEvent;
 }
 
 export default class Layer extends React.Component<{}, ILayerState> {
     public constructor(props: any) {
         super(props);
         layerSubject.subscribe((data: any) => {
-            const d = data as ILayerEvent;
-            this.setState({ data: d });
+            this.setState({ data });
         });
         this.hideLayer = this.hideLayer.bind(this);
         this.state = {
@@ -22,7 +21,7 @@ export default class Layer extends React.Component<{}, ILayerState> {
     }
     public render() {
         const { data } = this.state;
-        if (data) {
+        if (data && data.payload) {
             switch (data.type) {
                 case LayerTypes.simple: {
                     const { headline, content } = data.payload;
