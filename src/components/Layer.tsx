@@ -1,12 +1,12 @@
 import React, { SyntheticEvent } from "react";
 import { Subscription } from "rxjs/Subscription";
 import styled from "styled-components";
-import { LayerTypes, SimpleLayerEvent } from "../interfaces/layer";
-import layerSubject from "../layerSubject";
+import { LayerEvents, SimpleLayerEvent } from "../interfaces/layer";
+import layerSubject, { LayerSubjectMessage } from "../layerSubject";
 import { CloseIcon, colorMagentaLachs, SimpleLayer, SimpleLayerHeadline } from "./StyledComponents";
 
 interface ILayerState {
-    data?: SimpleLayerEvent;
+    data?: LayerSubjectMessage;
     subscription: Subscription;
 }
 
@@ -14,7 +14,11 @@ export default class Layer extends React.Component<{}, ILayerState> {
     public constructor(props: any) {
         super(props);
         const subscription = layerSubject.subscribe((data) => {
-            this.setState({ data });
+            if (data.type === LayerEvents.hide) {
+                this.hideLayer();
+            } else {
+                this.setState({ data });
+            }
         });
         this.hideLayer = this.hideLayer.bind(this);
         this.state = {
@@ -30,13 +34,13 @@ export default class Layer extends React.Component<{}, ILayerState> {
         const { data } = this.state;
         if (data && data.payload) {
             switch (data.type) {
-                case LayerTypes.simple: {
+                case LayerEvents.show_simple: {
                     const { headline, content } = data.payload;
                     return (
                         <SimpleLayer>
                             <CloseIcon onClick={this.hideLayer}>X</CloseIcon>
                             {headline && <SimpleLayerHeadline>{headline}</SimpleLayerHeadline>}
-                            <div>{content}</div>
+                            {content}
                         </SimpleLayer>
                     );
                 }
@@ -47,7 +51,7 @@ export default class Layer extends React.Component<{}, ILayerState> {
         }
     }
 
-    private hideLayer(e: SyntheticEvent<HTMLElement>) {
+    private hideLayer(e?: SyntheticEvent<HTMLElement>) {
         this.setState({
             data: undefined,
         });

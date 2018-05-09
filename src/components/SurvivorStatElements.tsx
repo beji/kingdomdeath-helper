@@ -14,6 +14,12 @@ const SurvivorStat = styled.div`
     }
 `;
 
+const StatEditWrapper = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+`;
+
 const StatElement = styled.div`
     border:1px solid #eee;
     cursor:pointer;
@@ -49,6 +55,7 @@ const StatLabel = styled.span`
 const StatEdit = styled.div`
     width:33.33333%;
     margin-bottom:1rem;
+    text-align: center;
 `;
 
 const StatWrapper = styled.div`
@@ -62,7 +69,7 @@ const Input = styled.input`
 
 const Label = styled.div`
     margin:.5rem 0;
-    width:30%;
+    width:100%;
 `;
 
 const LightWound = styled.div`
@@ -80,4 +87,4 @@ const HeavyWound = LightWound.extend`
     border-width:3px;
 `;
 
-export { HeavyWound, Input, Label, LightWound, StatEdit, StatElement, StatLabel, StatWrapper, SurvivorStat };
+export { HeavyWound, Input, Label, LightWound, StatEdit, StatElement, StatLabel, StatWrapper, SurvivorStat, StatEditWrapper };

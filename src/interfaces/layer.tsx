@@ -1,7 +1,8 @@
 import Layer from "../components/Layer";
 
-export const enum LayerTypes {
-    simple,
+export const enum LayerEvents {
+    show_simple,
+    hide,
 }
 
 export default interface ILayerEvent<T, P> {
@@ -9,4 +10,6 @@ export default interface ILayerEvent<T, P> {
     readonly payload?: P;
 }
 
-export type SimpleLayerEvent = ILayerEvent<LayerTypes.simple, { headline: JSX.Element, content: JSX.Element }>;
+export type SimpleLayerEvent = ILayerEvent<LayerEvents.show_simple, { headline: JSX.Element, content: JSX.Element }>;
+
+export type HideLayerEvent = ILayerEvent<LayerEvents.hide, undefined>;

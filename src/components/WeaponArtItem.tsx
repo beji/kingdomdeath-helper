@@ -1,7 +1,7 @@
 import { IWeaponArt } from "interfaces";
 import React, { SyntheticEvent } from "react";
 import styled from "styled-components";
-import { LayerTypes, SimpleLayerEvent } from "../interfaces/layer";
+import { LayerEvents, SimpleLayerEvent } from "../interfaces/layer";
 import layerSubject from "../layerSubject";
 import FancyButton from "./FancyButton";
 import { colorMagentaLachs } from "./StyledComponents";
@@ -47,7 +47,7 @@ export default class WeaponArtItem extends React.Component<IWeaponArtItemProps> 
                 content: <WeaponArtDescription>{art.description}</WeaponArtDescription>,
                 headline: <React.Fragment>{art.name}</React.Fragment>,
             },
-            type: LayerTypes.simple,
+            type: LayerEvents.show_simple,
         });
     }
 }

@@ -1,14 +1,15 @@
+import { LayerEvents } from "interfaces/layer";
 import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { updateSurvivorStat } from "../actions/survivorActions";
 import { BaseStats, IBaseStat, ID, IDefenseStat, ISettlement, ISurvivor } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
+import layerSubject from "../layerSubject";
 import { capitalize, clone } from "../util";
 import FancyButton from "./FancyButton";
 import NumberEdit from "./NumberEdit";
-import { SimpleLayer, SimpleLayerHeadline } from "./StyledComponents";
-import { Label, StatEdit, StatElement, StatWrapper } from "./SurvivorStatElements";
+import { Label, StatEdit, StatEditWrapper, StatElement, StatWrapper } from "./SurvivorStatElements";
 
 interface IBaseStatStateProps {
     survivor?: ISurvivor;
@@ -25,10 +26,6 @@ interface IBaseStatOwnProps {
 
 interface IBaseStatProps extends IBaseStatStateProps, IBaseStatDispatchProps, IBaseStatOwnProps { }
 
-interface IBaseStatState {
-    editSurvivorStat: boolean;
-}
-
 const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction>): IBaseStatDispatchProps => ({
     updateSurvivorStat: (stat: IBaseStat | IDefenseStat, survivorId: ID) => dispatch(updateSurvivorStat(stat, survivorId)),
 });
@@ -41,7 +38,7 @@ const mapStateToProps = (state: ISettlement, ownProps: IBaseStatOwnProps): IBase
     };
 };
 
-class SurvivorBaseStat extends React.Component<IBaseStatProps, IBaseStatState> {
+class SurvivorBaseStat extends React.Component<IBaseStatProps> {
 
     private permfield?: HTMLInputElement;
     private gearfield?: HTMLInputElement;
@@ -49,12 +46,8 @@ class SurvivorBaseStat extends React.Component<IBaseStatProps, IBaseStatState> {
 
     public constructor(props: IBaseStatProps) {
         super(props);
-        this.state = {
-            editSurvivorStat: false,
-        };
         this.handleEditClick = this.handleEditClick.bind(this);
         this.handleEditConfirm = this.handleEditConfirm.bind(this);
-        this.renderEditState = this.renderEditState.bind(this);
 
         this.setupPermRef = this.setupPermRef.bind(this);
         this.setupGearRef = this.setupGearRef.bind(this);
@@ -63,7 +56,6 @@ class SurvivorBaseStat extends React.Component<IBaseStatProps, IBaseStatState> {
     }
 
     public render() {
-        const { editSurvivorStat } = this.state;
         const { stat } = this.props;
         const classes = [
             stat.gear > 0 ? "gear" : "",
@@ -75,33 +67,33 @@ class SurvivorBaseStat extends React.Component<IBaseStatProps, IBaseStatState> {
                 <StatElement onClick={this.handleEditClick} className={classes.map((v) => v).join(" ")}>
                     {stat.permanent + stat.gear + stat.token}
                 </StatElement>
-                {editSurvivorStat && this.renderEditState()}
             </StatWrapper>
         );
     }
 
-    private renderEditState() {
-        const { permanent, gear, token, stat } = this.props.stat;
-        return (
-            <SimpleLayer>
-                <SimpleLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {capitalize(BaseStats[stat])}</SimpleLayerHeadline>
-                <StatEdit>
-                    <Label>Permanent</Label><NumberEdit value={permanent} innerRef={this.setupPermRef} />
-                </StatEdit>
-                <StatEdit>
-                    <Label>Gear</Label><NumberEdit value={gear} innerRef={this.setupGearRef} />
-                </StatEdit>
-                <StatEdit>
-                    <Label>Token</Label><NumberEdit value={token} innerRef={this.setupTokenRef} />
-                </StatEdit>
-                <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
-            </SimpleLayer>
-        );
-    }
-
     private handleEditClick(e: SyntheticEvent<HTMLSpanElement>) {
-        this.setState({
-            editSurvivorStat: true,
+        const { permanent, gear, token, stat } = this.props.stat;
+        layerSubject.next({
+            payload: {
+                content: (
+                    <React.Fragment>
+                        <StatEditWrapper>
+                            <StatEdit>
+                                <Label>Permanent</Label><NumberEdit value={permanent} innerRef={this.setupPermRef} />
+                            </StatEdit>
+                            <StatEdit>
+                                <Label>Gear</Label><NumberEdit value={gear} innerRef={this.setupGearRef} />
+                            </StatEdit>
+                            <StatEdit>
+                                <Label>Token</Label><NumberEdit value={token} innerRef={this.setupTokenRef} />
+                            </StatEdit>
+                        </StatEditWrapper>
+                        <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
+                    </React.Fragment>
+                ),
+                headline: <React.Fragment>{this.props.survivor && this.props.survivor.name}'s {capitalize(BaseStats[stat])}</React.Fragment>,
+            },
+            type: LayerEvents.show_simple,
         });
     }
 
@@ -128,10 +120,11 @@ class SurvivorBaseStat extends React.Component<IBaseStatProps, IBaseStatState> {
             if (this.props && this.props.survivor) {
                 this.props.updateSurvivorStat(nextStat, this.props.survivor.id);
             }
+            layerSubject.next({
+                payload: undefined,
+                type: LayerEvents.hide,
+            });
         }
-        this.setState({
-            editSurvivorStat: false,
-        });
     }
 }
 

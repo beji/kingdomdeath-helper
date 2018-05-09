@@ -1,15 +1,16 @@
+import { LayerEvents } from "interfaces/layer";
 import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateSurvivorStat } from "../actions/survivorActions";
-import { ID, IDefenseStat, ISettlement, ISpecialStat, ISurvivor, IWeaponArt, SpecialStats } from "../interfaces";
+import { ID, IDefenseStat, ISettlement, ISpecialStat, ISurvivor, SpecialStats } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
-import { capitalize, clone, specialStatToString } from "../util";
+import layerSubject from "../layerSubject";
+import { clone, specialStatToString } from "../util";
 import FancyButton from "./FancyButton";
 import NumberEdit from "./NumberEdit";
-import { SimpleLayer, SimpleLayerHeadline } from "./StyledComponents";
-import { Label, StatEdit, StatElement, StatWrapper } from "./SurvivorStatElements";
+import { Label, StatEdit, StatEditWrapper, StatElement, StatWrapper } from "./SurvivorStatElements";
 import WeaponArtItem from "./WeaponArtItem";
 import WeaponArtslist from "./WeaponArtsList";
 
@@ -29,7 +30,6 @@ interface ISpecialStatOwnProps {
 interface ISpecialStatProps extends ISpecialStatStateProps, ISpecialStatDispatchProps, ISpecialStatOwnProps { }
 
 interface ISpecialStatState {
-    editSurvivorStat: boolean;
     showWeaponArtList: boolean;
 }
 
@@ -56,7 +56,6 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
     public constructor(props: ISpecialStatProps) {
         super(props);
         this.state = {
-            editSurvivorStat: false,
             showWeaponArtList: false,
         };
         this.handleEditClick = this.handleEditClick.bind(this);
@@ -69,7 +68,6 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
     }
 
     public render() {
-        const { editSurvivorStat } = this.state;
         const { stat } = this.props;
 
         return (
@@ -77,7 +75,6 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
                 <StatElement onClick={this.handleEditClick}>
                     {stat.value}
                 </StatElement>
-                {editSurvivorStat && this.renderEditState()}
                 {(stat.stat === SpecialStats.weapon_proficiency) && this.renderWeaponArt()}
             </StatWrapper>
         );
@@ -86,13 +83,14 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
     private renderEditState() {
         const { stat, value } = this.props.stat;
         return (
-            <SimpleLayer>
-                <SimpleLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {specialStatToString(stat)}</SimpleLayerHeadline>
-                <StatEdit>
-                    <Label>Value</Label><NumberEdit value={value} innerRef={this.setupValueRef} />
-                </StatEdit>
+            <React.Fragment>
+                <StatEditWrapper>
+                    <StatEdit>
+                        <Label>Value</Label><NumberEdit value={value} innerRef={this.setupValueRef} />
+                    </StatEdit>
+                </StatEditWrapper>
                 <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
-            </SimpleLayer>
+            </React.Fragment>
         );
     }
 
@@ -135,8 +133,13 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
     }
 
     private handleEditClick(e: SyntheticEvent<HTMLSpanElement>) {
-        this.setState({
-            editSurvivorStat: true,
+        const { stat, value } = this.props.stat;
+        layerSubject.next({
+            payload: {
+                content: this.renderEditState(),
+                headline: <React.Fragment>{this.props.survivor && this.props.survivor.name}'s {specialStatToString(stat)}</React.Fragment>,
+            },
+            type: LayerEvents.show_simple,
         });
     }
 
@@ -153,8 +156,9 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
                 this.props.updateSurvivorStat(nextStat, this.props.survivor.id);
             }
         }
-        this.setState({
-            editSurvivorStat: false,
+        layerSubject.next({
+            payload: undefined,
+            type: LayerEvents.hide,
         });
     }
 }

@@ -1,4 +1,4 @@
-import { LayerTypes, SimpleLayerEvent } from "interfaces/layer";
+import { LayerEvents, SimpleLayerEvent } from "interfaces/layer";
 import React, { SyntheticEvent } from "react";
 import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
@@ -291,7 +291,7 @@ class GearCard extends React.Component<IGearCardProps> {
                     content: <React.Fragment>{desc}</React.Fragment>,
                     headline: <React.Fragment>{name}</React.Fragment>,
                 },
-                type: LayerTypes.simple,
+                type: LayerEvents.show_simple,
             });
         }
     }

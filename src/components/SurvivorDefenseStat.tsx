@@ -1,14 +1,15 @@
+import { LayerEvents } from "interfaces/layer";
 import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { updateSurvivorStat } from "../actions/survivorActions";
 import { DefenseStats, IBaseStat, ID, IDefenseStat, ISettlement, ISurvivor } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
+import layerSubject from "../layerSubject";
 import { capitalize, clone } from "../util";
 import FancyButton from "./FancyButton";
 import NumberEdit from "./NumberEdit";
-import { SimpleLayer, SimpleLayerHeadline } from "./StyledComponents";
-import { HeavyWound, Label, LightWound, StatEdit, StatElement, StatWrapper } from "./SurvivorStatElements";
+import { HeavyWound, Label, LightWound, StatEdit, StatEditWrapper, StatElement, StatWrapper } from "./SurvivorStatElements";
 
 interface ISurvivorDefenseStatStatStateProps {
     survivor?: ISurvivor;
@@ -25,7 +26,6 @@ interface ISurvivorDefenseStatOwnProps {
 }
 
 interface ISurvivorDefenceStatState {
-    editSurvivorStat: boolean;
     renderWounds: boolean;
 }
 
@@ -49,7 +49,6 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
     public constructor(props: ISurvivorDefenseStatProps) {
         super(props);
         this.state = {
-            editSurvivorStat: false,
             renderWounds: props.renderWounds === undefined ? true : props.renderWounds,
         };
         this.handleEditClick = this.handleEditClick.bind(this);
@@ -60,14 +59,13 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
     }
 
     public render() {
-        const { editSurvivorStat, renderWounds } = this.state;
+        const { renderWounds } = this.state;
         const { stat } = this.props;
         return (
             <StatWrapper>
                 <StatElement onClick={this.handleEditClick}>{stat.armor + stat.modifier}</StatElement>
                 {renderWounds && !stat.noWounds && !stat.onlyHeavyWound && <LightWound onClick={this.toggleWound.bind(this, "lightWound")} className={stat.lightWound ? "active" : ""} />}
                 {renderWounds && !stat.noWounds && <HeavyWound onClick={this.toggleWound.bind(this, "heavyWound")} className={stat.heavyWound ? "active" : ""} />}
-                {editSurvivorStat && this.renderEditState()}
             </StatWrapper>
         );
     }
@@ -75,14 +73,15 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
     private renderEditState() {
         const { armor, stat, modifier } = this.props.stat;
         return (
-            <SimpleLayer>
-                <SimpleLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {capitalize(DefenseStats[stat])}</SimpleLayerHeadline>
-                <StatEdit>
-                    <Label>Stat</Label><NumberEdit value={modifier} innerRef={this.setupModifierRef} addToDisplay={armor} />
-                    <div>Gear total: {armor}</div>
-                </StatEdit>
+            <React.Fragment>
+                <StatEditWrapper>
+                    <StatEdit>
+                        <Label>Stat</Label><NumberEdit value={modifier} innerRef={this.setupModifierRef} addToDisplay={armor} />
+                        <div>Gear total: {armor}</div>
+                    </StatEdit>
+                </StatEditWrapper>
                 <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
-            </SimpleLayer>
+            </React.Fragment>
         );
     }
 
@@ -103,8 +102,13 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
     }
 
     private handleEditClick(e: SyntheticEvent<HTMLSpanElement>) {
-        this.setState({
-            editSurvivorStat: true,
+        const { stat } = this.props.stat;
+        layerSubject.next({
+            payload: {
+                content: this.renderEditState(),
+                headline: <React.Fragment>{this.props.survivor && this.props.survivor.name}'s {capitalize(DefenseStats[stat])}</React.Fragment>,
+            },
+            type: LayerEvents.show_simple,
         });
     }
 
@@ -118,8 +122,9 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
                 this.props.updateSurvivorStat(nextStat, this.props.survivor.id);
             }
         }
-        this.setState({
-            editSurvivorStat: false,
+        layerSubject.next({
+            payload: undefined,
+            type: LayerEvents.hide,
         });
     }
 }

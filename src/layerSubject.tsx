@@ -1,6 +1,8 @@
-import { SimpleLayerEvent } from "interfaces/layer";
+import { HideLayerEvent, SimpleLayerEvent } from "interfaces/layer";
 import { Subject } from "rxjs/Subject";
 
-const layerSubject = new Subject<SimpleLayerEvent>();
+export type LayerSubjectMessage = SimpleLayerEvent | HideLayerEvent;
+
+const layerSubject = new Subject<LayerSubjectMessage>();
 
 export default layerSubject;
