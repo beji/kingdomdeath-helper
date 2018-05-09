@@ -4,7 +4,7 @@ import { SyntheticEvent } from "react";
 import styled from "styled-components";
 import items from "../data/ItemDataHelper";
 import { ID, IItem, ItemType } from "../interfaces";
-import { colorMagentaLachs } from "./StyledComponents";
+import { CloseIcon, colorMagentaLachs } from "./StyledComponents";
 
 interface IGearListState {
     filter: ItemType[];
@@ -49,24 +49,7 @@ const ListElement = styled.div`
         border-color:${colorMagentaLachs}
     }
 `;
-const CloseIcon = styled.div`
-    background:#ccc;
-    border:1px solid #444;
-    border-radius:50%;
-    cursor:pointer;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size:1rem;
-    height:2rem;
-    line-height:2rem;
-    position:absolute;
-    right:-1rem;
-    text-align:center;
-    top:-1rem;
-    width:2rem;
-    &:hover {
-        background:${colorMagentaLachs}
-    }
-`;
+
 const FilterInput = styled.input`
     border: 2px solid #aaa;
     font-size:1rem;

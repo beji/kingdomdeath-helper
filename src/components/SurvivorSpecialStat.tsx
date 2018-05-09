@@ -8,7 +8,8 @@ import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { capitalize, clone, specialStatToString } from "../util";
 import FancyButton from "./FancyButton";
 import NumberEdit from "./NumberEdit";
-import { Label, StatEdit, StatElement, StatLayer, StatLayerHeadline, StatWrapper } from "./SurvivorStatElements";
+import { SimpleLayer, SimpleLayerHeadline } from "./StyledComponents";
+import { Label, StatEdit, StatElement, StatWrapper } from "./SurvivorStatElements";
 import WeaponArtItem from "./WeaponArtItem";
 import WeaponArtslist from "./WeaponArtsList";
 
@@ -85,13 +86,13 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
     private renderEditState() {
         const { stat, value } = this.props.stat;
         return (
-            <StatLayer>
-                <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {specialStatToString(stat)}</StatLayerHeadline>
+            <SimpleLayer>
+                <SimpleLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {specialStatToString(stat)}</SimpleLayerHeadline>
                 <StatEdit>
                     <Label>Value</Label><NumberEdit value={value} innerRef={this.setupValueRef} />
                 </StatEdit>
                 <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
-            </StatLayer>
+            </SimpleLayer>
         );
     }
 

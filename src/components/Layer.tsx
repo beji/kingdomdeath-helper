@@ -1,9 +1,9 @@
 import React, { SyntheticEvent } from "react";
 import { Subscription } from "rxjs/Subscription";
+import styled from "styled-components";
 import { LayerTypes, SimpleLayerEvent } from "../interfaces/layer";
 import layerSubject from "../layerSubject";
-import FancyButton from "./FancyButton";
-import { StatLayer, StatLayerHeadline } from "./SurvivorStatElements";
+import { CloseIcon, colorMagentaLachs, SimpleLayer, SimpleLayerHeadline } from "./StyledComponents";
 
 interface ILayerState {
     data?: SimpleLayerEvent;
@@ -33,11 +33,11 @@ export default class Layer extends React.Component<{}, ILayerState> {
                 case LayerTypes.simple: {
                     const { headline, content } = data.payload;
                     return (
-                        <StatLayer>
-                            {headline && <StatLayerHeadline>{headline}</StatLayerHeadline>}
+                        <SimpleLayer>
+                            <CloseIcon onClick={this.hideLayer}>X</CloseIcon>
+                            {headline && <SimpleLayerHeadline>{headline}</SimpleLayerHeadline>}
                             <div>{content}</div>
-                            <FancyButton onClick={this.hideLayer}>Close</FancyButton>
-                        </StatLayer>
+                        </SimpleLayer>
                     );
                 }
                 default: return "";

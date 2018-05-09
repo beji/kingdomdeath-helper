@@ -7,7 +7,8 @@ import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { capitalize, clone } from "../util";
 import FancyButton from "./FancyButton";
 import NumberEdit from "./NumberEdit";
-import { HeavyWound, Label, LightWound, StatEdit, StatElement, StatLayer, StatLayerHeadline, StatWrapper } from "./SurvivorStatElements";
+import { SimpleLayer, SimpleLayerHeadline } from "./StyledComponents";
+import { HeavyWound, Label, LightWound, StatEdit, StatElement, StatWrapper } from "./SurvivorStatElements";
 
 interface ISurvivorDefenseStatStatStateProps {
     survivor?: ISurvivor;
@@ -74,14 +75,14 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
     private renderEditState() {
         const { armor, stat, modifier } = this.props.stat;
         return (
-            <StatLayer>
-                <StatLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {capitalize(DefenseStats[stat])}</StatLayerHeadline>
+            <SimpleLayer>
+                <SimpleLayerHeadline>{this.props.survivor && this.props.survivor.name}'s {capitalize(DefenseStats[stat])}</SimpleLayerHeadline>
                 <StatEdit>
                     <Label>Stat</Label><NumberEdit value={modifier} innerRef={this.setupModifierRef} addToDisplay={armor} />
                     <div>Gear total: {armor}</div>
                 </StatEdit>
                 <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
-            </StatLayer>
+            </SimpleLayer>
         );
     }
 

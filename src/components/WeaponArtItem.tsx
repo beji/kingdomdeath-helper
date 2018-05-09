@@ -5,7 +5,6 @@ import { LayerTypes, SimpleLayerEvent } from "../interfaces/layer";
 import layerSubject from "../layerSubject";
 import FancyButton from "./FancyButton";
 import { colorMagentaLachs } from "./StyledComponents";
-import { StatLayer, StatLayerHeadline } from "./SurvivorStatElements";
 
 interface IWeaponArtItemProps {
     art: IWeaponArt;
