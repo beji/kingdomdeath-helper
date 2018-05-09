@@ -46,9 +46,9 @@ export default class WeaponArtItem extends React.Component<IWeaponArtItemProps> 
         layerSubject.next({
             payload: {
                 content: <WeaponArtDescription>{art.description}</WeaponArtDescription>,
-                headline: <React.Fragment>art.name</React.Fragment>,
+                headline: <React.Fragment>{art.name}</React.Fragment>,
             },
             type: LayerTypes.simple,
-        } as SimpleLayerEvent);
+        });
     }
 }

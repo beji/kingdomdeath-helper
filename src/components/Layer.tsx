@@ -1,4 +1,5 @@
 import React, { SyntheticEvent } from "react";
+import { Subscription } from "rxjs/Subscription";
 import { LayerTypes, SimpleLayerEvent } from "../interfaces/layer";
 import layerSubject from "../layerSubject";
 import FancyButton from "./FancyButton";
@@ -6,18 +7,24 @@ import { StatLayer, StatLayerHeadline } from "./SurvivorStatElements";
 
 interface ILayerState {
     data?: SimpleLayerEvent;
+    subscription: Subscription;
 }
 
 export default class Layer extends React.Component<{}, ILayerState> {
     public constructor(props: any) {
         super(props);
-        layerSubject.subscribe((data: any) => {
+        const subscription = layerSubject.subscribe((data) => {
             this.setState({ data });
         });
         this.hideLayer = this.hideLayer.bind(this);
         this.state = {
             data: undefined,
+            subscription,
         };
+    }
+
+    public componentWillUnmount() {
+        this.state.subscription.unsubscribe();
     }
     public render() {
         const { data } = this.state;
@@ -41,7 +48,6 @@ export default class Layer extends React.Component<{}, ILayerState> {
     }
 
     private hideLayer(e: SyntheticEvent<HTMLElement>) {
-        e.stopPropagation();
         this.setState({
             data: undefined,
         });

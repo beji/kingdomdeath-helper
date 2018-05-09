@@ -1,12 +1,15 @@
+import { LayerTypes, SimpleLayerEvent } from "interfaces/layer";
 import React, { SyntheticEvent } from "react";
 import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
 import items from "../data/ItemDataHelper";
-import { Affinity, AffinityTypes, DefenseStats, IAffinity, ID, IGearGrid, IGridSlot, IItem, ISettlement, Item, ItemType, StatType } from "../interfaces";
+import { AffinityTypes, DefenseStats, IAffinity, ID, IGearGrid, IGridSlot, IItem, ISettlement, Item, ItemType, StatType } from "../interfaces";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
+import layerSubject from "../layerSubject";
 import { capitalize } from "../util";
 import AffinityIcon from "./AffinityIcon";
+import FancyButton from "./FancyButton";
 import { colorMagentaLachs } from "./StyledComponents";
 
 interface IGearCardDispatchProps {
@@ -201,6 +204,7 @@ class GearCard extends React.Component<IGearCardProps> {
         this.handleDragStart = this.handleDragStart.bind(this);
         this.handleCloseIconClick = this.handleCloseIconClick.bind(this);
         this.renderAffinity = this.renderAffinity.bind(this);
+        this.showDescription = this.showDescription.bind(this);
     }
 
     public render() {
@@ -214,7 +218,7 @@ class GearCard extends React.Component<IGearCardProps> {
                     {slotId && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
                     <CardHeadline>{name}</CardHeadline>
                     <CardTypes>{types && types.map((type, idx) => <span key={idx}>{(ItemType)[type]} </span>)}</CardTypes>
-                    {desc && <CardDescription>{desc}</CardDescription>}
+                    <FancyButton onClick={this.showDescription}>Description</FancyButton>
                     <CardStatsWrapper>
                         {weapon && <WeaponWrapper><div>{weapon.speed}</div><WeaponAcc>{weapon.accuracy}</WeaponAcc><WeaponSpeed>{weapon.strength}</WeaponSpeed></WeaponWrapper>}
                         {armorStat && <Shield>{armorStat.amount} <ShieldArmorType>{isShield ? "all" : capitalize(DefenseStats[armorStat.stat])}</ShieldArmorType></Shield>}
@@ -275,6 +279,20 @@ class GearCard extends React.Component<IGearCardProps> {
                 id: this.props.id,
                 slotKey: this.props.slotKey,
             }));
+        }
+    }
+
+    private showDescription(e: SyntheticEvent<HTMLButtonElement>) {
+        const { item, slotId } = this.props;
+        if (item) {
+            const { desc, name } = item;
+            layerSubject.next({
+                payload: {
+                    content: <React.Fragment>{desc}</React.Fragment>,
+                    headline: <React.Fragment>{name}</React.Fragment>,
+                },
+                type: LayerTypes.simple,
+            });
         }
     }
 }
