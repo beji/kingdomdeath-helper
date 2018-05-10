@@ -1236,11 +1236,40 @@ export const items: IItem[] = [
         types: [],
     },
     {
-        desc: "Gain +1 strength. 2x 1-aff-red = +1 strength (again)",
+        affinity: {
+            bonus: {
+                desc: "+1 strength (again)",
+                require: [
+                    {
+                        color: Affinity.red,
+                        connection: AffinityTypes.grid,
+                    },
+                    {
+                        color: Affinity.red,
+                        connection: AffinityTypes.grid,
+                    },
+                ],
+                stats: [
+                    {
+                        amount: 1,
+                        stat: BaseStats.strength,
+                        type: StatType.base,
+                    },
+                ],
+            },
+        },
+        desc: "Gain +1 strength.",
         id: 311,
         material: "heat, 1x scrap, 1x bone",
         name: "Monster Tooth Necklace",
         obtained: "Organ Grinder",
+        stats: [
+            {
+                amount: 1,
+                stat: BaseStats.strength,
+                type: StatType.base,
+            },
+        ],
         types: [],
     },
     {
