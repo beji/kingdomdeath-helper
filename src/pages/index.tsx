@@ -69,12 +69,12 @@ class App extends React.Component<IAppProps> {
                             <th>Gender</th>
                             <th>Insanity</th>
                             <th>Survival</th>
-                            <th>Movement</th>
                             <th>Accuracy</th>
-                            <th>Strength</th>
                             <th>Evasion</th>
                             <th>Luck</th>
+                            <th>Movement</th>
                             <th>Speed</th>
+                            <th>Strength</th>
                             <th>Hunting</th>
                             <th>Kill/Revive</th>
                         </tr>
