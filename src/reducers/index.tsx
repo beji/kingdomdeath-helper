@@ -1,9 +1,9 @@
 import weaponArts from "data/final/weaponarts.json";
 import { Reducer } from "redux";
-import { removeFromHunt, updateGearSlotAffinity, updateSurvivor } from "../actions";
+import { removeFromHunt, updateGear, updateGearSlotAffinity, updateSurvivor } from "../actions";
 import items from "../data/ItemDataHelper";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../initialstate";
-import { Affinity, AffinityTypes, DefenseStats, IDefenseStat, IGearGrid, IItem, ISettlement, ISurvivor, SpecialStats, StatType } from "../interfaces";
+import { Affinity, AffinityTypes, DefenseStats, IGearGrid, IItem, ISettlement, ISurvivor, StatType } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { UpdateGearGridAction, UpdateGearSlotAffinityAction } from "../interfaces/gearActions";
 import { AddToHuntAction, RemoveFromHuntAction, ResetHuntAction } from "../interfaces/huntActions";
@@ -83,20 +83,24 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     return survivor;
                 });
                 // Now the grid has to reference the new survivor
+                let newGrid;
                 const updatedGearGrids = nextState.geargrids.map((geargrid, idx) => {
                     if (action.payload && idx === action.payload.gridId) {
-                        return {
+                        newGrid = {
                             ...geargrid,
                             survivorId: action.payload.id,
                         };
+                        return newGrid;
                     }
                     return geargrid;
                 });
 
-                return {
+                const returnState = {
                     ...nextState,
                     geargrids: updatedGearGrids,
                 };
+
+                return newGrid ? reducer(returnState, updateGear(newGrid as IGearGrid)) : returnState;
             }
             return state;
         }
@@ -302,7 +306,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                                 }),
                             };
 
-                            // asign stats from gear
+                            // assign stats from gear
                             slots
                                 .filter((slot) => slot.content)
                                 .map((slot) => items.find((itm) => itm.id === slot.content) as IItem)
