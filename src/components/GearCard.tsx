@@ -23,6 +23,7 @@ interface IGearCardStateProps {
     slot?: IGridSlot;
     affinityActive?: boolean;
     setActive?: boolean;
+    showDescButton: boolean;
 }
 
 interface IGearCardOwnProps {
@@ -39,6 +40,7 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateGearGridAction>): IGearCard
 const mapStateToProps = (state: ISettlement, ownProps: IGearCardOwnProps): IGearCardStateProps => {
     const grid = state.geargrids.find((curr) => curr.slots.find((slot) => slot.id === ownProps.slotId) !== undefined);
     const item = items.find((itm: IItem) => itm.id === ownProps.id);
+    const showDescButton = item ? item.desc.length > 40 : false;
     let slotKey;
     let affinityActive = false;
     let setActive = false;
@@ -58,6 +60,7 @@ const mapStateToProps = (state: ISettlement, ownProps: IGearCardOwnProps): IGear
         grid,
         item,
         setActive,
+        showDescButton,
         slotKey,
     };
 };
@@ -209,7 +212,7 @@ class GearCard extends React.Component<IGearCardProps> {
 
     public render() {
         if (this.props.item) {
-            const { item, slotId } = this.props;
+            const { item, slotId, showDescButton } = this.props;
             const { desc, name, types, weapon, obtained } = item;
             const armorStat = item.stats && item.stats.find((stat) => stat.type === StatType.defense);
             const isShield = item.stats && item.stats.length === 5;
@@ -218,7 +221,8 @@ class GearCard extends React.Component<IGearCardProps> {
                     {slotId && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
                     <CardHeadline>{name}</CardHeadline>
                     <CardTypes>{types && types.map((type, idx) => <span key={idx}>{(ItemType)[type]} </span>)}</CardTypes>
-                    <FancyButton onClick={this.showDescription}>Description</FancyButton>
+                    {showDescButton && <FancyButton onClick={this.showDescription}>Description</FancyButton>}
+                    {!showDescButton && desc && <CardDescription>{desc}</CardDescription>}
                     <CardStatsWrapper>
                         {weapon && <WeaponWrapper><div>{weapon.speed}</div><WeaponAcc>{weapon.accuracy}</WeaponAcc><WeaponSpeed>{weapon.strength}</WeaponSpeed></WeaponWrapper>}
                         {armorStat && <Shield>{armorStat.amount} <ShieldArmorType>{isShield ? "all" : capitalize(DefenseStats[armorStat.stat])}</ShieldArmorType></Shield>}
