@@ -112,7 +112,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
     private renderDefStats(defenseStats: ReadonlyArray<IDefenseStat>, id: ID) {
         return defenseStats.filter((defStat) => defStat.stat === DefenseStats.brain || defStat.stat === DefenseStats.survival).map((defStat, idx) => {
             return (
-                <Cell key={idx}><SurvivorDefenseStat id={id} stat={defStat} renderWounds={false} /></Cell>);
+                <Cell key={idx}><SurvivorDefenseStat id={id} statid={defStat.stat} renderWounds={false} /></Cell>);
         });
     }
 

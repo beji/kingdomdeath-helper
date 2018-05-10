@@ -4,10 +4,10 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateSurvivorStat } from "../actions/survivorActions";
-import { ID, IDefenseStat, ISettlement, ISpecialStat, ISurvivor, SpecialStats } from "../interfaces";
+import { ID, IDefenseStat, ISettlement, ISpecialStat, IWeaponArt, SpecialStats } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import layerSubject from "../layerSubject";
-import { clone, specialStatToString } from "../util";
+import { specialStatToString } from "../util";
 import FancyButton from "./FancyButton";
 import NumberEdit from "./NumberEdit";
 import { Label, StatEdit, StatEditWrapper, StatElement, StatWrapper } from "./SurvivorStatElements";
@@ -15,7 +15,10 @@ import WeaponArtItem from "./WeaponArtItem";
 import WeaponArtslist from "./WeaponArtsList";
 
 interface ISpecialStatStateProps {
-    survivor?: ISurvivor;
+    stat?: ISpecialStat;
+    survivor?: ID;
+    weaponArts?: ReadonlyArray<IWeaponArt>;
+    survivorname: string;
 }
 
 interface ISpecialStatDispatchProps {
@@ -24,7 +27,7 @@ interface ISpecialStatDispatchProps {
 
 interface ISpecialStatOwnProps {
     id: ID;
-    stat: ISpecialStat;
+    statid: SpecialStats;
 }
 
 interface ISpecialStatProps extends ISpecialStatStateProps, ISpecialStatDispatchProps, ISpecialStatOwnProps { }
@@ -45,7 +48,10 @@ const mapStateToProps = (state: ISettlement, ownProps: ISpecialStatOwnProps): IS
     const survivor = state.survivors.find((v) => v.id === ownProps.id);
 
     return {
-        survivor: clone(survivor),
+        stat: survivor ? survivor.specialstats.find((specialstat) => specialstat.stat === ownProps.statid) : undefined,
+        survivor: survivor ? survivor.id : undefined,
+        survivorname: survivor ? survivor.name : "",
+        weaponArts: ownProps.statid === SpecialStats.weapon_proficiency && survivor ? survivor.weaponArts : [],
     };
 };
 
@@ -60,7 +66,6 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
         };
         this.handleEditClick = this.handleEditClick.bind(this);
         this.handleEditConfirm = this.handleEditConfirm.bind(this);
-        this.renderEditState = this.renderEditState.bind(this);
 
         this.setupValueRef = this.setupValueRef.bind(this);
         this.showWeaponArtList = this.showWeaponArtList.bind(this);
@@ -69,35 +74,23 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
 
     public render() {
         const { stat } = this.props;
-
-        return (
-            <StatWrapper>
-                <StatElement onClick={this.handleEditClick}>
-                    {stat.value}
-                </StatElement>
-                {(stat.stat === SpecialStats.weapon_proficiency) && this.renderWeaponArt()}
-            </StatWrapper>
-        );
-    }
-
-    private renderEditState() {
-        const { stat, value } = this.props.stat;
-        return (
-            <React.Fragment>
-                <StatEditWrapper>
-                    <StatEdit>
-                        <Label>Value</Label><NumberEdit value={value} innerRef={this.setupValueRef} />
-                    </StatEdit>
-                </StatEditWrapper>
-                <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
-            </React.Fragment>
-        );
+        if (stat) {
+            return (
+                <StatWrapper>
+                    <StatElement onClick={this.handleEditClick}>
+                        {stat.value}
+                    </StatElement>
+                    {(stat.stat === SpecialStats.weapon_proficiency) && this.renderWeaponArt()}
+                </StatWrapper>
+            );
+        }
+        return "";
     }
 
     private renderWeaponArt() {
         if (this.props.survivor) {
             const { showWeaponArtList } = this.state;
-            const { weaponArts } = this.props.survivor;
+            const { weaponArts, survivor } = this.props;
             if (weaponArts) {
                 return (
                     <React.Fragment>
@@ -105,14 +98,14 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
                             {weaponArts.map((art, idx) => <WeaponArtItem key={idx} art={art} />)}
                         </WeaponArtItemsWrapper>
                         <FancyButton onClick={this.showWeaponArtList}>Manage Weapon Arts</FancyButton>
-                        {showWeaponArtList && <WeaponArtslist id={this.props.survivor.id} onCancel={this.hideWeaponArtList} />}
+                        {showWeaponArtList && <WeaponArtslist id={this.props.survivor} onCancel={this.hideWeaponArtList} />}
                     </React.Fragment>
                 );
             } else {
                 return (
                     <React.Fragment>
                         <FancyButton onClick={this.showWeaponArtList}>Manage Weapon Arts</FancyButton>
-                        {showWeaponArtList && <WeaponArtslist id={this.props.survivor.id} onCancel={this.hideWeaponArtList} />}
+                        {showWeaponArtList && <WeaponArtslist id={this.props.survivor} onCancel={this.hideWeaponArtList} />}
                     </React.Fragment>
                 );
             }
@@ -133,27 +126,38 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
     }
 
     private handleEditClick(e: SyntheticEvent<HTMLSpanElement>) {
-        const { stat, value } = this.props.stat;
-        layerSubject.next({
-            payload: {
-                content: this.renderEditState(),
-                headline: <React.Fragment>{this.props.survivor && this.props.survivor.name}'s {specialStatToString(stat)}</React.Fragment>,
-            },
-            type: LayerEvents.show_simple,
-        });
+        if (this.props.stat) {
+            const { stat, value } = this.props.stat;
+            layerSubject.next({
+                payload: {
+                    content: (
+                        <React.Fragment>
+                            <StatEditWrapper>
+                                <StatEdit>
+                                    <Label>Value</Label><NumberEdit value={value} innerRef={this.setupValueRef} />
+                                </StatEdit>
+                            </StatEditWrapper>
+                            <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
+                        </React.Fragment>
+                    ),
+                    headline: <React.Fragment>{this.props.survivor && this.props.survivorname}'s {specialStatToString(stat)}</React.Fragment>,
+                },
+                type: LayerEvents.show_simple,
+            });
+        }
     }
 
     private setupValueRef(elem: HTMLInputElement) {
         this.valuefield = elem;
     }
     private handleEditConfirm(e: SyntheticEvent<HTMLButtonElement>) {
-        if (this.valuefield) {
+        if (this.valuefield && this.props.stat) {
             const nextStat = {
                 ...this.props.stat,
                 value: parseInt(this.valuefield.value, 10),
             };
             if (this.props && this.props.survivor) {
-                this.props.updateSurvivorStat(nextStat, this.props.survivor.id);
+                this.props.updateSurvivorStat(nextStat, this.props.survivor);
             }
         }
         layerSubject.next({

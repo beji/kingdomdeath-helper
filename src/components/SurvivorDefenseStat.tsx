@@ -3,16 +3,18 @@ import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { updateSurvivorStat } from "../actions/survivorActions";
-import { DefenseStats, IBaseStat, ID, IDefenseStat, ISettlement, ISurvivor } from "../interfaces";
+import { DefenseStats, IBaseStat, ID, IDefenseStat, ISettlement } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import layerSubject from "../layerSubject";
-import { capitalize, clone } from "../util";
+import { capitalize } from "../util";
 import FancyButton from "./FancyButton";
 import NumberEdit from "./NumberEdit";
 import { HeavyWound, Label, LightWound, StatEdit, StatEditWrapper, StatElement, StatWrapper } from "./SurvivorStatElements";
 
 interface ISurvivorDefenseStatStatStateProps {
-    survivor?: ISurvivor;
+    survivor?: ID;
+    survivorname?: string;
+    stat?: IDefenseStat;
 }
 
 interface ISurvivorDefenseStatDispatchProps {
@@ -21,7 +23,7 @@ interface ISurvivorDefenseStatDispatchProps {
 
 interface ISurvivorDefenseStatOwnProps {
     id: ID;
-    stat: IDefenseStat;
+    statid: DefenseStats;
     renderWounds?: boolean;
 }
 
@@ -39,7 +41,9 @@ const mapStateToProps = (state: ISettlement, ownProps: ISurvivorDefenseStatOwnPr
     const survivor = state.survivors.find((v) => v.id === ownProps.id);
 
     return {
-        survivor: clone(survivor),
+        stat: survivor ? survivor.defenseStats.find((defensestat) => defensestat.stat === ownProps.statid) : undefined,
+        survivor: survivor ? survivor.id : undefined,
+        survivorname: survivor ? survivor.name : "",
     };
 };
 
@@ -53,7 +57,6 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
         };
         this.handleEditClick = this.handleEditClick.bind(this);
         this.handleEditConfirm = this.handleEditConfirm.bind(this);
-        this.renderEditState = this.renderEditState.bind(this);
 
         this.setupModifierRef = this.setupModifierRef.bind(this);
     }
@@ -61,28 +64,16 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
     public render() {
         const { renderWounds } = this.state;
         const { stat } = this.props;
-        return (
-            <StatWrapper>
-                <StatElement onClick={this.handleEditClick}>{stat.armor + stat.modifier}</StatElement>
-                {renderWounds && !stat.noWounds && !stat.onlyHeavyWound && <LightWound onClick={this.toggleWound.bind(this, "lightWound")} className={stat.lightWound ? "active" : ""} />}
-                {renderWounds && !stat.noWounds && <HeavyWound onClick={this.toggleWound.bind(this, "heavyWound")} className={stat.heavyWound ? "active" : ""} />}
-            </StatWrapper>
-        );
-    }
-
-    private renderEditState() {
-        const { armor, stat, modifier } = this.props.stat;
-        return (
-            <React.Fragment>
-                <StatEditWrapper>
-                    <StatEdit>
-                        <Label>Stat</Label><NumberEdit value={modifier} innerRef={this.setupModifierRef} addToDisplay={armor} />
-                        <div>Gear total: {armor}</div>
-                    </StatEdit>
-                </StatEditWrapper>
-                <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
-            </React.Fragment>
-        );
+        if (stat) {
+            return (
+                <StatWrapper>
+                    <StatElement onClick={this.handleEditClick}>{stat.armor + stat.modifier}</StatElement>
+                    {renderWounds && !stat.noWounds && !stat.onlyHeavyWound && <LightWound onClick={this.toggleWound.bind(this, "lightWound")} className={stat.lightWound ? "active" : ""} />}
+                    {renderWounds && !stat.noWounds && <HeavyWound onClick={this.toggleWound.bind(this, "heavyWound")} className={stat.heavyWound ? "active" : ""} />}
+                </StatWrapper>
+            );
+        }
+        return "";
     }
 
     private setupModifierRef(elem: HTMLInputElement) {
@@ -90,36 +81,51 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
     }
 
     private toggleWound(woundType: string) {
-        if (this.props && woundType === "lightWound" || (woundType === "heavyWound" && this.props.stat.lightWound) || (woundType === "heavyWound" && this.props.stat.onlyHeavyWound)) {
-            const newState = {
-                ...this.props.stat,
-                [woundType]: !this.props.stat[woundType],
-            };
-            if (this.props.survivor) {
-                this.props.updateSurvivorStat(newState, this.props.survivor.id);
+        if (this.props.stat) {
+            if (woundType === "lightWound" || (woundType === "heavyWound" && this.props.stat.lightWound) || (woundType === "heavyWound" && this.props.stat.onlyHeavyWound)) {
+                const newState = {
+                    ...this.props.stat,
+                    [woundType]: !this.props.stat[woundType],
+                };
+                if (this.props.survivor) {
+                    this.props.updateSurvivorStat(newState, this.props.survivor);
+                }
             }
         }
     }
 
     private handleEditClick(e: SyntheticEvent<HTMLSpanElement>) {
-        const { stat } = this.props.stat;
-        layerSubject.next({
-            payload: {
-                content: this.renderEditState(),
-                headline: <React.Fragment>{this.props.survivor && this.props.survivor.name}'s {capitalize(DefenseStats[stat])}</React.Fragment>,
-            },
-            type: LayerEvents.show_simple,
-        });
+        if (this.props.stat) {
+            const { stat, armor, modifier } = this.props.stat;
+            layerSubject.next({
+                payload: {
+                    content: (
+                        <React.Fragment>
+                        <StatEditWrapper>
+                            <StatEdit>
+                                <Label>Stat</Label><NumberEdit value={modifier} innerRef={this.setupModifierRef} addToDisplay={armor} />
+                                <div>Gear total: {armor}</div>
+                            </StatEdit>
+                        </StatEditWrapper>
+                        <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
+                    </React.Fragment>
+                    ),
+                    headline: <React.Fragment>{this.props.survivor && this.props.survivorname}'s {capitalize(DefenseStats[stat])}</React.Fragment>,
+                },
+                type: LayerEvents.show_simple,
+            });
+        }
+
     }
 
     private handleEditConfirm(e: SyntheticEvent<HTMLButtonElement>) {
-        if (this.modifierfield) {
+        if (this.props.stat && this.modifierfield) {
             const nextStat = {
                 ...this.props.stat,
                 modifier: parseInt(this.modifierfield.value, 10),
             };
             if (this.props.survivor) {
-                this.props.updateSurvivorStat(nextStat, this.props.survivor.id);
+                this.props.updateSurvivorStat(nextStat, this.props.survivor);
             }
         }
         layerSubject.next({
