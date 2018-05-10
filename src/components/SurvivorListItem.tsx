@@ -90,7 +90,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
                     {this.renderDefStats(defenseStats, id)}
                     {this.renderBaseStats(baseStats, id)}
                     <Cell>
-                        {alive && (<div><select value={hunting ? gridId : "remove"} onChange={this.handleHuntBoxChange}><option value="remove">not hunting</option>{huntSlots.map((v, i) => <option key={i} value={i}>Hunter {v.gridId + 1}</option>)}</select></div>)}
+                        {alive && (<div><select value={hunting ? gridId : "remove"} onChange={this.handleHuntBoxChange}><option value="remove">not hunting</option>{huntSlots.map((v, i) => <option key={i} value={i}>HuntSlot {v.gridId + 1}</option>)}</select></div>)}
                     </Cell>
                     <Cell>
                         {alive ? <FancyButton onClick={this.handleKillClick}>Kill</FancyButton> : <FancyButton onClick={this.handleReviveClick}>Revive</FancyButton>}
