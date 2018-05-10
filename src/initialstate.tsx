@@ -48,6 +48,7 @@ const getSpecialStat = (stat: SpecialStats): ISpecialStat => ({
 });
 
 const getSpecialStats = (): ISpecialStat[] => ([
+    getSpecialStat(SpecialStats.bleed_token),
     getSpecialStat(SpecialStats.courage),
     getSpecialStat(SpecialStats.huntxp),
     getSpecialStat(SpecialStats.understanding),
@@ -58,7 +59,6 @@ const survivors: ReadonlyArray<ISurvivor> = Array.apply(null, { length: 8 }).map
     return {
         alive: n < 4 || n % 3 === 0,
         baseStats: getBaseStats(),
-        bleedTokens: 0,
         defenseStats: getDefense(),
         gender: n % 2 === 0 ? Gender.male : Gender.female,
         gridId: n < 4 ? n : undefined,
@@ -99,7 +99,6 @@ export function newSurvivor(): ISurvivor {
     return {
         alive: true,
         baseStats: getBaseStats(),
-        bleedTokens: 0,
         defenseStats: getDefense(),
         gender: Gender.male,
         gridId: undefined,

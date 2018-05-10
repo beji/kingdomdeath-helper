@@ -72,19 +72,4 @@ const Label = styled.div`
     width:100%;
 `;
 
-const LightWound = styled.div`
-    border:1px solid #444;
-    cursor:pointer;
-    display: inline-block;
-    margin:0 .25vh;
-    width:1rem;
-    height:1rem;
-    &.active {
-        background: ${colorMagentaLachs};
-    }
-`;
-const HeavyWound = LightWound.extend`
-    border-width:3px;
-`;
-
-export { HeavyWound, Input, Label, LightWound, StatEdit, StatElement, StatLabel, StatWrapper, SurvivorStat, StatEditWrapper };
+export { Input, Label, StatEdit, StatElement, StatLabel, StatWrapper, SurvivorStat, StatEditWrapper };

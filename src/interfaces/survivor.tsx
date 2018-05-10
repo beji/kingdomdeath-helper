@@ -35,6 +35,7 @@ export enum SpecialStats {
     weapon_proficiency,
     courage,
     understanding,
+    bleed_token,
 }
 
 export enum WeaponArt {
@@ -163,7 +164,6 @@ export interface ISurvivor {
     readonly baseStats: ReadonlyArray<IBaseStat>;
     readonly defenseStats: ReadonlyArray<IDefenseStat>;
     readonly huntxp: number;
-    readonly bleedTokens: number;
     readonly specialstats: ReadonlyArray<ISpecialStat>;
     readonly weaponArts?: ReadonlyArray<IWeaponArt>;
 }

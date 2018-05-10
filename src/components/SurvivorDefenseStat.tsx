@@ -7,9 +7,10 @@ import { DefenseStats, IBaseStat, ID, IDefenseStat, ISettlement } from "../inter
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import layerSubject from "../layerSubject";
 import { capitalize } from "../util";
+import Checkbox from "./Checkbox";
 import FancyButton from "./FancyButton";
 import NumberEdit from "./NumberEdit";
-import { HeavyWound, Label, LightWound, StatEdit, StatEditWrapper, StatElement, StatWrapper } from "./SurvivorStatElements";
+import { Label, StatEdit, StatEditWrapper, StatElement, StatWrapper } from "./SurvivorStatElements";
 
 interface ISurvivorDefenseStatStatStateProps {
     survivor?: ID;
@@ -69,8 +70,8 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
             return (
                 <StatWrapper>
                     <StatElement onClick={this.handleEditClick}>{stat.armor + stat.modifier}{concatToDisplay && " " + concatToDisplay}</StatElement>
-                    {renderWounds && !stat.noWounds && !stat.onlyHeavyWound && <LightWound onClick={this.toggleWound.bind(this, "lightWound")} className={stat.lightWound ? "active" : ""} />}
-                    {renderWounds && !stat.noWounds && <HeavyWound onClick={this.toggleWound.bind(this, "heavyWound")} className={stat.heavyWound ? "active" : ""} />}
+                    {renderWounds && !stat.noWounds && !stat.onlyHeavyWound && <Checkbox onChange={this.toggleWound.bind(this, "lightWound")} value={stat.lightWound} />}
+                    {renderWounds && !stat.noWounds && <Checkbox onChange={this.toggleWound.bind(this, "heavyWound")} value={stat.heavyWound} highlight={true} />}
                 </StatWrapper>
             );
         }

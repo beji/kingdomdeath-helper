@@ -6,6 +6,7 @@ import { updateSurvivor } from "../actions/survivorActions";
 import { BaseStats, DefenseStats, ID, ISettlement, ISurvivor, SpecialStats } from "../interfaces";
 import { UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { capitalize, clone, specialStatToString } from "../util";
+import Checkbox from "./Checkbox";
 import GenderEdit from "./GenderEdit";
 import NameEdit from "./NameEdit";
 import SurvivorBaseStat from "./SurvivorBaseStat";
@@ -27,11 +28,18 @@ const Label = styled.span`
         content:":";
     }
 `;
-const NameSection = styled.section`
+const NameWrapper = styled.section`
+    display: flex;
     border-bottom: 1px solid #333;
     margin-bottom: 0.5vh;
     padding-bottom: 0.5vh;
-    display: block;
+`;
+const NameSection = styled.section`
+    width: 50%;
+`;
+const SpecialSection = styled.section`
+    text-align: right;
+    width: 50%;
 `;
 
 const StatSection = styled.section`
@@ -40,21 +48,6 @@ const StatSection = styled.section`
     justify-content:space-between;
     width:100%;
     margin: .5rem 0;
-`;
-
-const LightWound = styled.div`
-    border:1px solid #444;
-    cursor:pointer;
-    display: inline-block;
-    margin:0 .25vh;
-    width:1rem;
-    height:1rem;
-    &.active {
-        background: #888;
-    }
-`;
-const HeavyWound = LightWound.extend`
-    border-width:3px;
 `;
 
 interface ISurvivorCardProps {
@@ -106,19 +99,31 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
             const survival = defenseStats.find((stat) => stat.stat === DefenseStats.survival);
             return (
                 <StyledCard>
-                    <NameSection>
-                        <section>
-                            <Label>Name</Label>
-                            <NameEdit name={name} updateFunc={this.nameUpdate} />
-                        </section>
-                        <section>
-                            <Label>Gender</Label>
-                            <GenderEdit id={id} />
-                        </section>
-                        <section>
-                            {survival && <SurvivorStat><StatLabel>{capitalize(DefenseStats[survival.stat])}</StatLabel><SurvivorDefenseStat id={id} statid={survival.stat} concatToDisplay={`/ ${this.props.survivalLimit}`}/></SurvivorStat>}
-                        </section>
-                    </NameSection>
+                    <NameWrapper>
+                        <NameSection>
+                            <section>
+                                <Label>Name</Label>
+                                <NameEdit name={name} updateFunc={this.nameUpdate} />
+                            </section>
+                            <section>
+                                <Label>Gender</Label>
+                                <GenderEdit id={id} />
+                            </section>
+                            <section>
+                                {survival && <SurvivorStat><StatLabel>{capitalize(DefenseStats[survival.stat])}</StatLabel><SurvivorDefenseStat id={id} statid={survival.stat} concatToDisplay={`/ ${this.props.survivalLimit}`}/></SurvivorStat>}
+                            </section>
+                        </NameSection>
+                        <SpecialSection>
+                            <section>
+                                <Label>Skip next hunt</Label>
+                                <Checkbox value={survivor.skipNextHunt} onChange={this.toggleBooleanStat.bind(this, "skipNextHunt")} />
+                            </section>
+                            <section>
+                                <Label>Lifetime ReRoll</Label>
+                                <Checkbox value={survivor.lifetimeReroll} onChange={this.toggleBooleanStat.bind(this, "lifetimeReroll")} />
+                            </section>
+                        </SpecialSection>
+                    </NameWrapper>
                     <StatSection>
                         {survivor.specialstats.map((specialStat, idx) => (<SurvivorStat key={idx}><StatLabel>{specialStatToString(specialStat.stat)}</StatLabel><SurvivorSpecialStat id={id} statid={specialStat.stat} /></SurvivorStat>))}
                     </StatSection>
@@ -143,6 +148,16 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
             const updateData = {
                 ...this.props.survivor,
                 name: newName,
+            } as ISurvivor;
+            this.props.updateSurvivor(updateData);
+        }
+    }
+    private toggleBooleanStat(statKey: string) {
+        const { survivor } = this.props;
+        if (survivor) {
+            const updateData = {
+                ...survivor,
+                [statKey]: !survivor[statKey],
             } as ISurvivor;
             this.props.updateSurvivor(updateData);
         }
