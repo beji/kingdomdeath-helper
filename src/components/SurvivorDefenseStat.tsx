@@ -25,6 +25,7 @@ interface ISurvivorDefenseStatOwnProps {
     id: ID;
     statid: DefenseStats;
     renderWounds?: boolean;
+    concatToDisplay?: string;
 }
 
 interface ISurvivorDefenceStatState {
@@ -63,11 +64,11 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
 
     public render() {
         const { renderWounds } = this.state;
-        const { stat } = this.props;
+        const { stat, concatToDisplay } = this.props;
         if (stat) {
             return (
                 <StatWrapper>
-                    <StatElement onClick={this.handleEditClick}>{stat.armor + stat.modifier}</StatElement>
+                    <StatElement onClick={this.handleEditClick}>{stat.armor + stat.modifier}{concatToDisplay && " " + concatToDisplay}</StatElement>
                     {renderWounds && !stat.noWounds && !stat.onlyHeavyWound && <LightWound onClick={this.toggleWound.bind(this, "lightWound")} className={stat.lightWound ? "active" : ""} />}
                     {renderWounds && !stat.noWounds && <HeavyWound onClick={this.toggleWound.bind(this, "heavyWound")} className={stat.heavyWound ? "active" : ""} />}
                 </StatWrapper>

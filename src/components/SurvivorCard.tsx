@@ -61,6 +61,7 @@ interface ISurvivorCardProps {
     id?: ID;
     survivor?: ISurvivor;
     firstnameEdit?: boolean;
+    survivalLimit?: number;
     updateSurvivor: (survivor: ISurvivor) => UpdateSurvivorAction;
 }
 
@@ -79,6 +80,7 @@ const mapStateToProps = (state: ISettlement, ownProps: ISurvivorCardProps): ISur
     return {
         firstnameEdit: false,
         id: ownProps.id,
+        survivalLimit: state.survivalLimit,
         survivor: clone(newSurvivor),
         updateSurvivor,
     };
@@ -114,7 +116,7 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
                             <GenderEdit id={id} />
                         </section>
                         <section>
-                            {survival && <SurvivorStat><StatLabel>{capitalize(DefenseStats[survival.stat])}</StatLabel><SurvivorDefenseStat id={id} statid={survival.stat} /></SurvivorStat>}
+                            {survival && <SurvivorStat><StatLabel>{capitalize(DefenseStats[survival.stat])}</StatLabel><SurvivorDefenseStat id={id} statid={survival.stat} concatToDisplay={`/ ${this.props.survivalLimit}`}/></SurvivorStat>}
                         </section>
                     </NameSection>
                     <StatSection>

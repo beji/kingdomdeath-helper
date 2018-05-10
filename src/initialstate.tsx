@@ -91,6 +91,7 @@ const initialState: ISettlement = {
     geargrids,
     id: uuid(),
     name: "Everybody-will-die-town",
+    survivalLimit: 1,
     survivors,
 };
 
