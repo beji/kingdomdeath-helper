@@ -118,7 +118,7 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
                         </section>
                     </NameSection>
                     <StatSection>
-                        {survivor.specialstats.map((specialStat, idx) => (<SurvivorStat key={idx}><StatLabel>{specialStatToString(specialStat.stat)}</StatLabel><SurvivorSpecialStat id={id} stat={specialStat} /></SurvivorStat>))}
+                        {survivor.specialstats.map((specialStat, idx) => (<SurvivorStat key={idx}><StatLabel>{specialStatToString(specialStat.stat)}</StatLabel><SurvivorSpecialStat id={id} statid={specialStat.stat} /></SurvivorStat>))}
                     </StatSection>
                     <StatSection>
                         {survivor.baseStats.map((baseStat, idx) => (<SurvivorStat key={idx}><StatLabel>{capitalize(BaseStats[baseStat.stat])}</StatLabel><SurvivorBaseStat id={id} statid={baseStat.stat} /></SurvivorStat>))}
