@@ -2,9 +2,9 @@ import Fuse from "fuse.js";
 import React from "react";
 import { SyntheticEvent } from "react";
 import styled from "styled-components";
-import FancyButton from "../components/FancyButton";
 import GearCard from "../components/GearCard";
 import Link from "../components/Link";
+import { FancyButton } from "../components/StyledComponents";
 import items from "../data/ItemDataHelper";
 import { IItem } from "../interfaces";
 

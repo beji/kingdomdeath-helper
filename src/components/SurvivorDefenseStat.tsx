@@ -10,6 +10,8 @@ import { capitalize } from "../util";
 import Checkbox from "./Checkbox";
 import FancyButton from "./FancyButton";
 import NumberEdit from "./NumberEdit";
+import { FancyButton } from "./StyledComponents";
+import { HeavyWound, Label, LightWound, StatEdit, StatEditWrapper, StatElement, StatWrapper } from "./SurvivorStatElements";
 import { Label, StatEdit, StatEditWrapper, StatElement, StatWrapper } from "./SurvivorStatElements";
 
 interface ISurvivorDefenseStatStatStateProps {

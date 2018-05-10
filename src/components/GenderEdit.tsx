@@ -6,6 +6,8 @@ import { Gender, ID, ISettlement, ISurvivor } from "../interfaces";
 import { UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { capitalize, clone } from "../util";
 
+// TODO: Rework this to not use the whole survivor after the UPDATE_SURVIVOR split
+
 interface IGenderEditState {
     editGender: boolean;
 }

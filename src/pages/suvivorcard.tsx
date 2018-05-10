@@ -2,9 +2,9 @@ import { ID, ISettlement } from "interfaces";
 import React from "react";
 import { Fragment } from "react";
 import { RouteComponentProps } from "react-router";
-import FancyButton from "../components/FancyButton";
 import GearGrid from "../components/GearGrid";
 import Link from "../components/Link";
+import { FancyButton } from "../components/StyledComponents";
 
 interface IPageMatchParams {
     cardnumber: string;

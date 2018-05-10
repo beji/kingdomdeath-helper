@@ -6,8 +6,7 @@ import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateSurvivorWeaponArt } from "../actions";
 import { ID, ISettlement, IWeaponArt, WeaponArt } from "../interfaces";
-import FancyButton from "./FancyButton";
-import { colorMagentaLachs } from "./StyledComponents";
+import { colorMagentaLachs, FancyButton } from "./StyledComponents";
 
 interface IWeaponArtslistState {
     artsToAdd: WeaponArt[];

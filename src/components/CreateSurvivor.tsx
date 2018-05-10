@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { createSurvivor } from "../actions/survivorActions";
 import { CreateSurvivorAction } from "../interfaces/survivorActions";
-import FancyButton from "./FancyButton";
+import { FancyButton } from "./StyledComponents";
 
 interface ICreateSurvivorDispatchProps {
     createSurvivor: () => CreateSurvivorAction;

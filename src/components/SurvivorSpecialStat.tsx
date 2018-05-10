@@ -8,8 +8,8 @@ import { ID, IDefenseStat, ISettlement, ISpecialStat, IWeaponArt, SpecialStats }
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import layerSubject from "../layerSubject";
 import { specialStatToString } from "../util";
-import FancyButton from "./FancyButton";
 import NumberEdit from "./NumberEdit";
+import { FancyButton } from "./StyledComponents";
 import { Label, StatEdit, StatEditWrapper, StatElement, StatWrapper } from "./SurvivorStatElements";
 import WeaponArtItem from "./WeaponArtItem";
 import WeaponArtslist from "./WeaponArtsList";

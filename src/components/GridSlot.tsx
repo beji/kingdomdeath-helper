@@ -6,9 +6,9 @@ import { updateGear } from "../actions/gearActions";
 import { ID, IGearGrid, ISettlement, Item } from "../interfaces";
 import { UpdateGearGridAction } from "../interfaces/gearActions";
 import { clone } from "../util";
-import FancyButton from "./FancyButton";
 import GearCard from "./GearCard";
 import GearList from "./GearList";
+import { FancyButton } from "./StyledComponents";
 
 interface IGridSlotState {
     active: boolean;

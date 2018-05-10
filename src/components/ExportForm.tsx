@@ -6,7 +6,7 @@ import { importSettlement } from "../actions/importAction";
 import { ISettlement } from "../interfaces";
 import { ImportAction } from "../interfaces/importAction";
 import { clone } from "../util";
-import FancyButton from "./FancyButton";
+import { FancyButton } from "./StyledComponents";
 
 interface IExportFormProps extends ISettlement {
     importSettlement: (settlement: ISettlement) => ImportAction;

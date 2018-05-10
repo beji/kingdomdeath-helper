@@ -9,8 +9,7 @@ import { UpdateGearGridAction } from "../interfaces/gearActions";
 import layerSubject from "../layerSubject";
 import { capitalize } from "../util";
 import AffinityIcon from "./AffinityIcon";
-import FancyButton from "./FancyButton";
-import { colorMagentaLachs } from "./StyledComponents";
+import { colorMagentaLachs, FancyButton } from "./StyledComponents";
 
 interface IGearCardDispatchProps {
     updateGear: (gearGrid: IGearGrid) => UpdateGearGridAction;
