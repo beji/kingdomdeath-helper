@@ -37,7 +37,7 @@ export enum SpecialStats {
     understanding,
 }
 
-export enum WeaponArt {
+export const enum WeaponArt {
     abyssal_sadist,
     acanthus_doctor,
     ageless_apprentice,
