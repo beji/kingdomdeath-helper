@@ -285,30 +285,45 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                 if (survivorId) {
                     const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
                         if (survivor.id === survivorId) {
-                            const defenseStats = survivor.defenseStats.map((defensestat) => {
-
-                                const gearAmount = slots.filter((slot) => slot.content).map((slot) => items.find((itm) => itm.id === slot.content) as IItem)
-                                    .map((item) => {
-                                        if (item.stats) {
-                                            return item.stats
-                                                .filter((stat) => stat.stat === defensestat.stat)
-                                                .map((stat) => stat.amount)
-                                                .reduce((acc: number, stat) => {
-                                                    return acc + stat;
-                                                }, 0);
-                                        }
-                                        return 0;
-                                    })
-                                    .reduce((acc, stat) => (acc + stat), 0);
-                                return {
-                                    ...defensestat,
-                                    armor: gearAmount,
-                                } as IDefenseStat;
-                            });
-                            return {
+                            // reset survivor stats
+                            const updatedSurvivor: ISurvivor = {
                                 ...survivor,
-                                defenseStats,
+                                baseStats: survivor.baseStats.map((stat) => {
+                                    return {
+                                        ...stat,
+                                        gear: 0,
+                                    };
+                                }),
+                                defenseStats: survivor.defenseStats.map((stat) => {
+                                    return {
+                                        ...stat,
+                                        armor: 0,
+                                    };
+                                }),
                             };
+
+                            // asign stats from gear
+                            slots
+                                .filter((slot) => slot.content)
+                                .map((slot) => items.find((itm) => itm.id === slot.content) as IItem)
+                                .map((item) => {
+                                    if (item && item.stats && updatedSurvivor) {
+                                        item.stats.map((cardStat) => {
+                                            const statTypes = ["defenseStats", "baseStats", "specialstats"]; // Array sorted by StatType enum
+                                            const fieldToAddName = ["armor", "gear", "value"]; // Array sorted by StatType enum
+                                            if (updatedSurvivor[statTypes[cardStat.type]]) {
+                                                updatedSurvivor[statTypes[cardStat.type]].some((survivorStat: any) => {
+                                                    if (cardStat.stat === survivorStat.stat) {
+                                                        survivorStat[fieldToAddName[cardStat.type]] += cardStat.amount;
+                                                    }
+                                                    return cardStat.stat === survivorStat.stat;
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+
+                            return updatedSurvivor;
                         }
                         return survivor;
                     });
@@ -329,19 +344,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             if (action.payload) {
                 const gearGrid = action.payload;
                 const currentSurvivor = state.survivors.find((survivor) => survivor.id === gearGrid.survivorId);
-                let updatedSurvivor: any;
-
-                if (currentSurvivor) {
-                    updatedSurvivor = {
-                        ...currentSurvivor,
-                        baseStats: currentSurvivor.baseStats.map((stat) => {
-                            return {
-                                ...stat,
-                                gear: 0,
-                            };
-                        }),
-                    };
-                }
+                const updatedSurvivor: any = {...currentSurvivor};
 
                 const nextState = generateWithUpdatedGrid(state, (grid) => {
                     if (grid.id === gearGrid.id) {
@@ -390,21 +393,6 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                             const { affinities, content } = slot;
                             const thisCard = items.find((item) => item.id === slot.content);
                             let affinityActive = false;
-
-                            // TODO: move to own action?
-                            // check itemstats for baseStats and update survivor
-                            if (thisCard && thisCard.stats && updatedSurvivor) {
-                                thisCard.stats.map((cardStat) => {
-                                    const statTypes = ["defenseStats", "baseStats", "specialstats"]; // Array sorted by StatType enum
-                                    const fieldToAddName = ["armor", "gear", "value"]; // Array sorted by StatType enum
-                                    updatedSurvivor[statTypes[cardStat.type]].some((survivorStat: any) => {
-                                        if (cardStat.stat === survivorStat.stat && cardStat.type !== StatType.defense) {
-                                            survivorStat[fieldToAddName[cardStat.type]] += cardStat.amount;
-                                        }
-                                        return cardStat.stat === survivorStat.stat;
-                                    });
-                                });
-                            }
 
                             // calculate if affinity bonus on current card is active
                             if (content && thisCard && thisCard.affinity && thisCard.affinity.bonus) {

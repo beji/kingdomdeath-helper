@@ -151,6 +151,7 @@ export interface ISpecialStat {
 }
 
 export interface ISurvivor {
+    readonly [key: string]: any; // ID | string | number | boolean | undefined | ReadonlyArray<IBaseStat> | ReadonlyArray<IDefenseStat> | ReadonlyArray<ISpecialStat> | ReadonlyArray<IWeaponArt>;
     readonly id: ID;
     readonly gridId: string | undefined;
     readonly name: string;

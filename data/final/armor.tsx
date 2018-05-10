@@ -1290,7 +1290,7 @@ export const armor: IItem[] = [
                     },
                 ],
             },
-            bottom: Affinity.red,
+            bottom: Affinity.blue,
         },
         desc: "",
         id: 61,
