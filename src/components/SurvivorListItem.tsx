@@ -105,7 +105,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
     private renderBaseStats(baseStats: ReadonlyArray<IBaseStat>, id: ID) {
         return baseStats.map((basestat, idx) => {
             return (
-                <Cell key={idx}><SurvivorBaseStat id={id} stat={basestat} /></Cell>);
+                <Cell key={idx}><SurvivorBaseStat id={id} statid={basestat.stat} /></Cell>);
         });
     }
 
