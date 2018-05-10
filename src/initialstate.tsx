@@ -58,13 +58,16 @@ const survivors: ReadonlyArray<ISurvivor> = Array.apply(null, { length: 8 }).map
     return {
         alive: n < 4 || n % 3 === 0,
         baseStats: getBaseStats(),
+        bleedTokens: 0,
         defenseStats: getDefense(),
         gender: n % 2 === 0 ? Gender.male : Gender.female,
         gridId: n < 4 ? n : undefined,
         hunting: n < 4,
         huntxp: 0,
         id: uuid(),
+        lifetimeReroll: false,
         name: `Survivor ${n}`,
+        skipNextHunt: false,
         specialstats: getSpecialStats(),
     } as ISurvivor;
 });
@@ -88,6 +91,7 @@ const initialState: ISettlement = {
     geargrids,
     id: uuid(),
     name: "Everybody-will-die-town",
+    survivalLimit: 1,
     survivors,
 };
 
@@ -95,13 +99,16 @@ export function newSurvivor(): ISurvivor {
     return {
         alive: true,
         baseStats: getBaseStats(),
+        bleedTokens: 0,
         defenseStats: getDefense(),
         gender: Gender.male,
         gridId: undefined,
         hunting: false,
         huntxp: 0,
         id: uuid(),
+        lifetimeReroll: false,
         name: DEFAULT_SURVIVOR_NAME,
+        skipNextHunt: false,
         specialstats: getSpecialStats(),
     };
 }

@@ -158,9 +158,12 @@ export interface ISurvivor {
     readonly gender: Gender;
     readonly hunting: boolean;
     readonly alive: boolean;
+    readonly skipNextHunt: boolean;
+    readonly lifetimeReroll: boolean;
     readonly baseStats: ReadonlyArray<IBaseStat>;
     readonly defenseStats: ReadonlyArray<IDefenseStat>;
     readonly huntxp: number;
+    readonly bleedTokens: number;
     readonly specialstats: ReadonlyArray<ISpecialStat>;
     readonly weaponArts?: ReadonlyArray<IWeaponArt>;
 }
