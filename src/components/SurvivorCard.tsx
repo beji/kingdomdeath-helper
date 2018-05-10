@@ -114,7 +114,7 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
                             <GenderEdit id={id} />
                         </section>
                         <section>
-                            {survival && <SurvivorStat><StatLabel>{capitalize(DefenseStats[survival.stat])}</StatLabel><SurvivorDefenseStat id={id} stat={survival} /></SurvivorStat>}
+                            {survival && <SurvivorStat><StatLabel>{capitalize(DefenseStats[survival.stat])}</StatLabel><SurvivorDefenseStat id={id} statid={survival.stat} /></SurvivorStat>}
                         </section>
                     </NameSection>
                     <StatSection>
@@ -124,7 +124,7 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
                         {survivor.baseStats.map((baseStat, idx) => (<SurvivorStat key={idx}><StatLabel>{capitalize(BaseStats[baseStat.stat])}</StatLabel><SurvivorBaseStat id={id} statid={baseStat.stat} /></SurvivorStat>))}
                     </StatSection>
                     <StatSection>
-                        {survivor.defenseStats.map((defenseStat, idx) => (defenseStat.stat !== DefenseStats.survival && <SurvivorStat key={idx}><StatLabel>{capitalize(DefenseStats[defenseStat.stat])}</StatLabel><SurvivorDefenseStat id={id} stat={defenseStat} /></SurvivorStat>))}
+                        {survivor.defenseStats.map((defenseStat, idx) => (defenseStat.stat !== DefenseStats.survival && <SurvivorStat key={idx}><StatLabel>{capitalize(DefenseStats[defenseStat.stat])}</StatLabel><SurvivorDefenseStat id={id} statid={defenseStat.stat} /></SurvivorStat>))}
                     </StatSection>
                 </StyledCard>
             );
