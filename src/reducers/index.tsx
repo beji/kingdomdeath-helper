@@ -165,6 +165,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         // Updates
         // a) The name of a survivor
         // b) The gender of a survivor
+        // TODO: Rework this into different actions
         case ActionTypes.UPDATE_SURVIVOR: {
             if (action.payload) {
                 const survivorToUpdate = action.payload as ISurvivor;
