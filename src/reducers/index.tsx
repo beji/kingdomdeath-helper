@@ -1,6 +1,6 @@
 import weaponArts from "data/final/weaponarts.json";
 import { Reducer } from "redux";
-import { removeFromHunt, updateGear, updateGearSlotAffinity, updateSurvivor } from "../actions";
+import { removeFromHunt, updateGear, updateGearSlotAffinity, updateSurvivalLimit, updateSurvivor } from "../actions";
 import items from "../data/ItemDataHelper";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../initialstate";
 import { Affinity, AffinityTypes, DefenseStats, IGearGrid, IItem, ISettlement, ISurvivor, StatType } from "../interfaces";
@@ -8,11 +8,24 @@ import ActionTypes from "../interfaces/actionTypes";
 import { UpdateGearGridAction, UpdateGearSlotAffinityAction } from "../interfaces/gearActions";
 import { AddToHuntAction, RemoveFromHuntAction, ResetHuntAction } from "../interfaces/huntActions";
 import { ImportAction } from "../interfaces/importAction";
-import { SetNameAction } from "../interfaces/settlementActions";
+import { SetNameAction, UpdateSurvivalLimitAction } from "../interfaces/settlementActions";
 import { CreateSurvivorAction, KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorStatAction, UpdateSurvivorWeaponArtsAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 
-type Actions = AddToHuntAction | RemoveFromHuntAction | ImportAction | SetNameAction | UpdateSurvivorAction | UpdateSurvivorStatAction | KillSurvivorAction | ReviveSurvivorAction | CreateSurvivorAction | UpdateGearGridAction | UpdateGearSlotAffinityAction | UpdateSurvivorWeaponArtsAction | ResetHuntAction;
+type Actions = AddToHuntAction |
+    RemoveFromHuntAction |
+    ImportAction |
+    SetNameAction |
+    UpdateSurvivalLimitAction |
+    UpdateSurvivorAction |
+    UpdateSurvivorStatAction |
+    KillSurvivorAction |
+    ReviveSurvivorAction |
+    CreateSurvivorAction |
+    UpdateGearGridAction |
+    UpdateGearSlotAffinityAction |
+    UpdateSurvivorWeaponArtsAction |
+    ResetHuntAction;
 
 function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
     const updatedSurvivors = state.survivors.map(mapfunc);
@@ -158,6 +171,16 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                 return {
                     ...state,
                     name: action.payload,
+                };
+            }
+            return state;
+        }
+        // Update Survival Limit
+        case ActionTypes.UPDATE_SURVIVAL_LIMIT: {
+            if (action.payload) {
+                return {
+                    ...state,
+                    survivalLimit: action.payload,
                 };
             }
             return state;

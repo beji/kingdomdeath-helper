@@ -31,6 +31,7 @@ const HiddenInput = styled.input`
 interface INumberEditProps {
     addToDisplay?: number;
     innerRef: (ref: HTMLInputElement) => void;
+    changeFunc?: () => void;
     value: number;
 }
 
@@ -62,6 +63,9 @@ export default class NumberEdit extends React.Component<INumberEditProps> {
             const oldValue = parseInt(this.textfield.value, 10);
             this.textfield.value = (oldValue + increment).toString();
             this.displayfield.value = ((this.props.addToDisplay || 0) + oldValue + increment).toString();
+        }
+        if (this.props.changeFunc) {
+            this.props.changeFunc();
         }
     }
 
