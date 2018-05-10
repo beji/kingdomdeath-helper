@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { resetHunt } from "../actions";
 import { ResetHuntAction } from "../interfaces/huntActions";
-import FancyButton from "./FancyButton";
+import { FancyButton } from "./StyledComponents";
 
 interface IResetHuntProps {
     resetHunt: () => ResetHuntAction;

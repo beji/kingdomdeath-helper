@@ -7,8 +7,8 @@ import { DefenseStats, IBaseStat, ID, IDefenseStat, ISettlement } from "../inter
 import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import layerSubject from "../layerSubject";
 import { capitalize } from "../util";
-import FancyButton from "./FancyButton";
 import NumberEdit from "./NumberEdit";
+import { FancyButton } from "./StyledComponents";
 import { HeavyWound, Label, LightWound, StatEdit, StatEditWrapper, StatElement, StatWrapper } from "./SurvivorStatElements";
 
 interface ISurvivorDefenseStatStatStateProps {

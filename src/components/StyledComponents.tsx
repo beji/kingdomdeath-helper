@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { darken } from "../util";
 
 const colorMagentaLachs = "#A12D6A";
 
@@ -58,4 +59,21 @@ export const SimpleLayerHeadline = styled.div`
     padding:.5rem;
     text-align:center;
     width:100%;
+`;
+
+export const FancyButton = styled.button`
+    background-color: ${colorMagentaLachs};
+    color: #fff;
+    border: 1px solid ${darken(colorMagentaLachs, 0.1)};
+    border-radius: 4px;
+    cursor: pointer;
+    appearance: button;
+    display: inline-block;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    vertical-align: middle;
+    white-space: nowrap;
+    &:hover{
+        background-color: ${darken(colorMagentaLachs, 0.2)};
+    }
 `;

@@ -9,9 +9,9 @@ import { DefenseStats, IBaseStat, ID, IDefenseStat, IGearGrid, ISettlement, ISur
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/huntActions";
 import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
-import FancyButton from "./FancyButton";
 import GenderEdit from "./GenderEdit";
 import NameEdit from "./NameEdit";
+import { FancyButton } from "./StyledComponents";
 import SurvivorBaseStat from "./SurvivorBaseStat";
 import SurvivorDefenseStat from "./SurvivorDefenseStat";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Fragment, SyntheticEvent } from "react";
 import styled from "styled-components";
-import FancyButton from "./FancyButton";
+import { FancyButton } from "./StyledComponents";
 
 const StyledInput = styled.input`
     border-radius: 0;

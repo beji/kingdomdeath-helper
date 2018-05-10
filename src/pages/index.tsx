@@ -2,11 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import CreateSurvivor from "../components/CreateSurvivor";
-import FancyButton from "../components/FancyButton";
 import GearGrid from "../components/GearGrid";
 import Link from "../components/Link";
 import ResetHunt from "../components/ResetHunt";
 import SettlementName from "../components/SettlementName";
+import { FancyButton } from "../components/StyledComponents";
 import SurvivorListItem from "../components/SurvivorListItem";
 import { ID, ISettlement } from "../interfaces";
 

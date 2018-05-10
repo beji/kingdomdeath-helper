@@ -3,7 +3,6 @@ import React, { SyntheticEvent } from "react";
 import styled from "styled-components";
 import { LayerEvents, SimpleLayerEvent } from "../interfaces/layer";
 import layerSubject from "../layerSubject";
-import FancyButton from "./FancyButton";
 import { colorMagentaLachs } from "./StyledComponents";
 
 interface IWeaponArtItemProps {
