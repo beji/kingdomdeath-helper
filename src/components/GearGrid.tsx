@@ -80,6 +80,8 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
                     </StyledGrid>
                 </PlayerCard>
             );
+        } else {
+            return "No valid grid id given!";
         }
     }
 }

@@ -45,12 +45,14 @@ class SocketConnector extends React.Component<ISocketConnectorProps> {
     public componentDidUpdate(prevProps: ISocketConnectorStateProps) {
         if (JSON.stringify(prevProps) !== JSON.stringify(this.props.settlement)) {
             const roomId = getURLParam(window.location.href, "id");
+            console.log("emitting state_update", roomId, this.props.settlement ? this.props.settlement.id : null);
             socket.emit("state_update", { room: roomId, payload: this.props.settlement } as IStatusUpdateMessage);
         }
     }
 
     public componentDidMount() {
         socket.on("state_update_received", (data: ISettlement) => {
+            console.log("state update received", data);
             if (data !== null && JSON.stringify(data) !== JSON.stringify(this.props.settlement)) {
                 console.log("new state", data);
                 this.props.importSettlement(data);
