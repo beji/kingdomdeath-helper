@@ -35,7 +35,7 @@ const getDefense = (): IDefenseStat[] => ([
     getHitLocation(DefenseStats.arms, false),
     getHitLocation(DefenseStats.body, false),
     getHitLocation(DefenseStats.brain, true),
-    getHitLocation(DefenseStats.head, false),
+    getHitLocation(DefenseStats.head, true),
     getHitLocation(DefenseStats.legs, false),
     getHitLocation(DefenseStats.survival, false, true),
     getHitLocation(DefenseStats.waist, false),
