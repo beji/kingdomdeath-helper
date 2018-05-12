@@ -84,7 +84,7 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
 
     private toggleWound(woundType: string) {
         if (this.props.stat) {
-            if (woundType === "lightWound" || (woundType === "heavyWound" && this.props.stat.lightWound) || (woundType === "heavyWound" && this.props.stat.onlyHeavyWound)) {
+            if ((woundType === "lightWound" && !this.props.stat.heavyWound) || (woundType === "heavyWound" && this.props.stat.lightWound) || (woundType === "heavyWound" && this.props.stat.onlyHeavyWound)) {
                 const newState = {
                     ...this.props.stat,
                     [woundType]: !this.props.stat[woundType],
