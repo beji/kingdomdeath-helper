@@ -70,6 +70,7 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
         this.setupValueRef = this.setupValueRef.bind(this);
         this.showWeaponArtList = this.showWeaponArtList.bind(this);
         this.hideWeaponArtList = this.hideWeaponArtList.bind(this);
+        this.renderSpecialStatText = this.renderSpecialStatText.bind(this);
     }
 
     public render() {
@@ -80,6 +81,7 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
                     <StatElement onClick={this.handleEditClick}>
                         {stat.value}
                     </StatElement>
+                    {this.renderSpecialStatText()}
                     {(stat.stat === SpecialStats.weapon_proficiency) && this.renderWeaponArt()}
                 </StatWrapper>
             );
@@ -164,6 +166,38 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps, ISpecialSta
             payload: undefined,
             type: LayerEvents.hide,
         });
+    }
+
+    private renderSpecialStatText() {
+        if (this.props.stat) {
+            const { stat } = this.props;
+
+            switch (stat.stat) {
+                case SpecialStats.weapon_proficiency: {
+                    if (stat.value === 8) {
+                        return "Master";
+                    } else if (stat.value >= 3) {
+                        return "Specialist";
+                    }
+                }
+                case SpecialStats.courage: {
+                    if (stat.value === 9) {
+                        return "See the Truth";
+                    } else if (stat.value >= 3) {
+                        return "Bold";
+                    }
+                }
+                case SpecialStats.understanding: {
+                    if (stat.value === 9) {
+                        return "Insight";
+                    } else if (stat.value >= 3) {
+                        return "White Secret";
+                    }
+                }
+                default: return "";
+            }
+        }
+        return "";
     }
 }
 
