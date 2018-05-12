@@ -63,7 +63,7 @@ class SettlementName extends Component<ISettlementNameProps> {
                 <StyledName>
                     <NameEdit name={this.props.name || "The town with no name"} updateFunc={this.handleNameUpdate} />
                 </StyledName>
-                Survival Limit: <NumberEdit innerRef={this.setupValueRef} value={this.props.survivalLimit} changeFunc={this.handleSLChange}/>
+                Survival Limit: <NumberEdit innerRef={this.setupValueRef} value={this.props.survivalLimit} changeFunc={this.handleSLChange} />
             </Wrapper>
         );
     }

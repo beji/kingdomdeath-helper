@@ -31,8 +31,8 @@ class Checkbox extends React.Component<ICheckboxProps> {
         const { highlight, onChange, value } = this.props;
         return (
             <Wrapper>
-                {!highlight && <StyledCheckbox onClick={onChange} className={value ? "active" : ""}/>}
-                {highlight && <HighlightedCheckbox onClick={onChange}  className={value ? "active" : ""}/>}
+                {!highlight && <StyledCheckbox onClick={onChange} className={value ? "active" : ""} />}
+                {highlight && <HighlightedCheckbox onClick={onChange} className={value ? "active" : ""} />}
             </Wrapper>
         );
     }

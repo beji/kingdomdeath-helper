@@ -110,7 +110,7 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
                                 <GenderEdit id={id} />
                             </section>
                             <section>
-                                {survival && <SurvivorStat><StatLabel>{capitalize(DefenseStats[survival.stat])}</StatLabel><SurvivorDefenseStat id={id} statid={survival.stat} concatToDisplay={`/ ${this.props.survivalLimit}`}/></SurvivorStat>}
+                                {survival && <SurvivorStat><StatLabel>{capitalize(DefenseStats[survival.stat])}</StatLabel><SurvivorDefenseStat id={id} statid={survival.stat} concatToDisplay={`/ ${this.props.survivalLimit}`} /></SurvivorStat>}
                             </section>
                         </NameSection>
                         <SpecialSection>

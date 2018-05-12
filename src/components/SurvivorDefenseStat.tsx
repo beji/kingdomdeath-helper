@@ -103,14 +103,14 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
                 payload: {
                     content: (
                         <React.Fragment>
-                        <StatEditWrapper>
-                            <StatEdit>
-                                <Label>Stat</Label><NumberEdit value={modifier} innerRef={this.setupModifierRef} addToDisplay={armor} />
-                                <div>Gear total: {armor}</div>
-                            </StatEdit>
-                        </StatEditWrapper>
-                        <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
-                    </React.Fragment>
+                            <StatEditWrapper>
+                                <StatEdit>
+                                    <Label>Stat</Label><NumberEdit value={modifier} innerRef={this.setupModifierRef} addToDisplay={armor} />
+                                    <div>Gear total: {armor}</div>
+                                </StatEdit>
+                            </StatEditWrapper>
+                            <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
+                        </React.Fragment>
                     ),
                     headline: <React.Fragment>{this.props.survivor && this.props.survivorname}'s {capitalize(DefenseStats[stat])}</React.Fragment>,
                 },

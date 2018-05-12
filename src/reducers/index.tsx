@@ -372,7 +372,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             if (action.payload) {
                 const gearGrid = action.payload;
                 const currentSurvivor = state.survivors.find((survivor) => survivor.id === gearGrid.survivorId);
-                const updatedSurvivor: any = {...currentSurvivor};
+                const updatedSurvivor: any = { ...currentSurvivor };
 
                 const nextState = generateWithUpdatedGrid(state, (grid) => {
                     if (grid.id === gearGrid.id) {
