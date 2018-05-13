@@ -1,14 +1,5 @@
 import { ISettlement } from "interfaces";
-
-export enum LayerType {
-    simple,
-}
-
-export interface ISimpleLayer {
-    type: LayerType.simple;
-    headline: string;
-    content: string;
-}
+import { ISimpleLayer } from "interfaces/layer";
 
 export interface IInterface {
     layer?: ISimpleLayer;

@@ -1,3 +1,14 @@
+export enum LayerType {
+    simple,
+    basestat,
+}
+
+export interface ISimpleLayer {
+    type: LayerType.simple;
+    headline: string;
+    content: string;
+}
+
 export const enum LayerEvents {
     show_simple,
     hide,

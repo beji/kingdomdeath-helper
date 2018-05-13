@@ -1,18 +1,18 @@
-import { LayerEvents, SimpleLayerEvent } from "interfaces/layer";
 import React, { SyntheticEvent } from "react";
 import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
+import { showLayer } from "../actions";
 import { updateGear } from "../actions/gearActions";
 import items from "../data/ItemDataHelper";
-import { AffinityTypes, DefenseStats, IAffinity, ID, IGearGrid, IGridSlot, IItem, IState, Item, ItemType, StatType } from "../interfaces";
-import { UpdateGearGridAction } from "../interfaces/actions";
-import layerSubject from "../layerSubject";
+import { AffinityTypes, DefenseStats, IAffinity, ID, IGearGrid, IGridSlot, IItem, ISimpleLayer, IState, Item, ItemType, LayerType, StatType } from "../interfaces";
+import { ShowLayerAction, UpdateGearGridAction } from "../interfaces/actions";
 import { capitalize } from "../util";
 import AffinityIcon from "./AffinityIcon";
 import { colorMagentaLachs, FancyButton } from "./StyledComponents";
 
 interface IGearCardDispatchProps {
     updateGear: (gearGrid: IGearGrid) => UpdateGearGridAction;
+    showLayer: (layer: ISimpleLayer) => ShowLayerAction;
 }
 
 interface IGearCardStateProps {
@@ -33,6 +33,7 @@ interface IGearCardOwnProps {
 interface IGearCardProps extends IGearCardOwnProps, IGearCardDispatchProps, IGearCardStateProps { }
 
 const mapDispatchToProps = (dispatch: Dispatch<UpdateGearGridAction>): IGearCardDispatchProps => ({
+    showLayer: (layer: ISimpleLayer) => dispatch(showLayer(layer)),
     updateGear: (grid: IGearGrid) => dispatch(updateGear(grid)),
 });
 
@@ -289,12 +290,10 @@ class GearCard extends React.Component<IGearCardProps> {
         const { item, slotId } = this.props;
         if (item) {
             const { desc, name } = item;
-            layerSubject.next({
-                payload: {
-                    content: <React.Fragment>{desc}</React.Fragment>,
-                    headline: <React.Fragment>{name}</React.Fragment>,
-                },
-                type: LayerEvents.show_simple,
+            this.props.showLayer({
+                content: desc,
+                headline: name,
+                type: LayerType.simple,
             });
         }
     }
