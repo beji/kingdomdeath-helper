@@ -1,3 +1,5 @@
+import { BaseStats, ID } from "interfaces";
+
 export enum LayerType {
     simple,
     basestat,
@@ -7,6 +9,12 @@ export interface ISimpleLayer {
     type: LayerType.simple;
     headline: string;
     content: string;
+}
+
+export interface IBaseStatLayer {
+    type: LayerType.basestat;
+    survivor: ID;
+    stat: BaseStats;
 }
 
 export const enum LayerEvents {

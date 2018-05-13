@@ -16,12 +16,18 @@ const reducer = (state: IInterface | undefined, action: Actions): IInterface => 
             if (action.payload) {
                 return {
                     ...state,
-                    layer: clone(action.payload),
+                    layer: action.payload,
                 };
             }
             return state;
         }
         case ActionTypes.HIDE_LAYER: {
+            return {
+                ...state,
+                layer: undefined,
+            };
+        }
+        case ActionTypes.UPDATE_SURVIVOR_STAT: {
             return {
                 ...state,
                 layer: undefined,
