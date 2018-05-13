@@ -78,7 +78,7 @@ const geargrids: ReadonlyArray<IGearGrid> = Array.apply(null, { length: 4 }).map
     return {
         affinities: [],
         id: uuid(),
-        playername: `Slot ${n}`,
+        playername: `Slot ${n + 1}`,
         slots: Array.apply(null, { length: 9 }).map(() => {
             return {
                 id: uuid(),

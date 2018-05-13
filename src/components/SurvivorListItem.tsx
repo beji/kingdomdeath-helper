@@ -20,6 +20,7 @@ interface ISurvivorListItemStateProps {
     geargrids: ReadonlyArray<IGearGrid>;
     huntSlots: Array<{
         gridId: number,
+        playername: string;
         survivorId?: ID,
     }>;
 }
@@ -57,7 +58,11 @@ const mapStateToProps = (state: IState, ownProps: ISurvivorListItemOwnProps): IS
     return {
         geargrids: state.settlement.geargrids,
         huntSlots: geargrids.map((v, i) => {
-            return { gridId: i, survivorId: geargrids[i].survivorId };
+            return {
+                gridId: i,
+                playername: v.playername || `Slot ${i + 1}`,
+                survivorId: v.survivorId,
+            };
         }),
         survivor: clone(survivor),
     };
@@ -90,7 +95,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
                     {this.renderDefStats(defenseStats, id)}
                     {this.renderBaseStats(baseStats, id)}
                     <Cell>
-                        {alive && (<div><select value={hunting ? gridId : "remove"} onChange={this.handleHuntBoxChange}><option value="remove">not hunting</option>{huntSlots.map((v, i) => <option key={i} value={i}>HuntSlot {v.gridId + 1}</option>)}</select></div>)}
+                        {alive && (<div><select value={hunting ? gridId : "remove"} onChange={this.handleHuntBoxChange}><option value="remove">not hunting</option>{huntSlots.map((v, i) => <option key={i} value={i}>Grid: {v.playername}</option>)}</select></div>)}
                     </Cell>
                     <Cell>
                         {alive ? <FancyButton onClick={this.handleKillClick}>Kill</FancyButton> : <FancyButton onClick={this.handleReviveClick}>Revive</FancyButton>}
