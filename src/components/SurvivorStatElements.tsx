@@ -3,7 +3,6 @@ import { colorMagentaLachs } from "./StyledComponents";
 
 const SurvivorStat = styled.div`
     flex: 1;
-    max-width: 50%;
     text-align:center;
     padding:.25rem;
     border: 1px solid #aaa;

@@ -38,7 +38,7 @@ export enum SpecialStats {
     bleed_token,
 }
 
-export const enum WeaponArt {
+export const enum FightingArt {
     abyssal_sadist,
     acanthus_doctor,
     ageless_apprentice,
@@ -118,8 +118,8 @@ export const enum WeaponArt {
     wielder_of_giants,
     zero_presence,
 }
-export interface IWeaponArt {
-    readonly id: WeaponArt;
+export interface IFightingArt {
+    readonly id: FightingArt;
     readonly name: string;
     readonly description: string;
 }
@@ -152,7 +152,7 @@ export interface ISpecialStat {
 }
 
 export interface ISurvivor {
-    readonly [key: string]: any; // ID | string | number | boolean | undefined | ReadonlyArray<IBaseStat> | ReadonlyArray<IDefenseStat> | ReadonlyArray<ISpecialStat> | ReadonlyArray<IWeaponArt>;
+    readonly [key: string]: any; // ID | string | number | boolean | undefined | ReadonlyArray<IBaseStat> | ReadonlyArray<IDefenseStat> | ReadonlyArray<ISpecialStat> | ReadonlyArray<IFightingArt>;
     readonly id: ID;
     readonly gridId: string | undefined;
     readonly name: string;
@@ -165,5 +165,5 @@ export interface ISurvivor {
     readonly defenseStats: ReadonlyArray<IDefenseStat>;
     readonly huntxp: number;
     readonly specialstats: ReadonlyArray<ISpecialStat>;
-    readonly weaponArts?: ReadonlyArray<IWeaponArt>;
+    readonly fightingArts?: ReadonlyArray<IFightingArt>;
 }

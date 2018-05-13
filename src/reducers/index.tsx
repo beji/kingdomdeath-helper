@@ -1,4 +1,4 @@
-import weaponArts from "data/final/weaponarts.json";
+import fightingArts from "data/final/fightingarts.json";
 import { Reducer } from "redux";
 import { removeFromHunt, updateGear, updateGearSlotAffinity, updateSurvivalLimit, updateSurvivor } from "../actions";
 import items from "../data/ItemDataHelper";
@@ -9,7 +9,7 @@ import { UpdateGearGridAction, UpdateGearSlotAffinityAction } from "../interface
 import { AddToHuntAction, RemoveFromHuntAction, ResetHuntAction } from "../interfaces/huntActions";
 import { ImportAction } from "../interfaces/importAction";
 import { SetNameAction, UpdateSurvivalLimitAction } from "../interfaces/settlementActions";
-import { CreateSurvivorAction, KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorStatAction, UpdateSurvivorWeaponArtsAction } from "../interfaces/survivorActions";
+import { CreateSurvivorAction, KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorFightingArtsAction, UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 
 type Actions = AddToHuntAction |
@@ -24,7 +24,7 @@ type Actions = AddToHuntAction |
     CreateSurvivorAction |
     UpdateGearGridAction |
     UpdateGearSlotAffinityAction |
-    UpdateSurvivorWeaponArtsAction |
+    UpdateSurvivorFightingArtsAction |
     ResetHuntAction;
 
 function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
@@ -511,7 +511,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                             if (survivor.id === id) {
                                 return {
                                     ...survivor,
-                                    weaponArts: arts.map((art) => weaponArts[art]),
+                                    fightingArts: arts.map((art) => fightingArts[art]),
                                 };
                             }
                             return survivor;

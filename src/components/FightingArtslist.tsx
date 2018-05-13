@@ -1,33 +1,42 @@
-import weaponArts from "data/final/weaponarts.json";
-import { UpdateSurvivorWeaponArtsAction } from "interfaces/survivorActions";
+import fightingArts from "data/final/fightingarts.json";
+import Fuse from "fuse.js";
+import { UpdateSurvivorFightingArtsAction } from "interfaces/survivorActions";
 import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
-import { updateSurvivorWeaponArt } from "../actions";
-import { ID, ISettlement, IWeaponArt, WeaponArt } from "../interfaces";
+import { updateSurvivorFightingArt } from "../actions";
+import { FightingArt, ID, IFightingArt, ISettlement } from "../interfaces";
 import { colorMagentaLachs, FancyButton } from "./StyledComponents";
 
-interface IWeaponArtslistState {
-    artsToAdd: WeaponArt[];
-    artsToRemove: WeaponArt[];
+interface IFightingArtslistState {
+    artsToAdd: FightingArt[];
+    artsToRemove: FightingArt[];
+    arts: IFightingArt[];
 }
 
-interface IWeaponArtslistOwnProps {
-    onweaponArtselect?: any;
+interface IFightingArtslistOwnProps {
+    onfightingArtselect?: any;
     onCancel?: any;
     id: ID;
 }
 
-interface IWeaponArtslistStateProps {
-    currentlySelectedArts?: WeaponArt[];
+interface IFightingArtslistStateProps {
+    currentlySelectedArts?: FightingArt[];
 }
 
-interface IWeaponArtslistDispatchProps {
-    updateSurvivorWeaponArt: (id: ID, arts: WeaponArt[]) => UpdateSurvivorWeaponArtsAction;
+interface IFightingArtslistDispatchProps {
+    updateSurvivorFightingArt: (id: ID, arts: FightingArt[]) => UpdateSurvivorFightingArtsAction;
 }
 
-interface IWeaponArtslistProps extends IWeaponArtslistStateProps, IWeaponArtslistDispatchProps, IWeaponArtslistOwnProps { }
+interface IFightingArtslistProps extends IFightingArtslistStateProps, IFightingArtslistDispatchProps, IFightingArtslistOwnProps { }
+
+const FilterInput = styled.input`
+    border: 2px solid #aaa;
+    font-size:1rem;
+    padding:.25rem;
+    width: 80%;
+`;
 
 const Wrapper = styled.div`
     background:#eee;
@@ -49,7 +58,7 @@ const Wrapper = styled.div`
 `;
 const List = styled.div`
     overflow-y:auto;
-    height: 90%;
+    height: 70%;
     margin: 1rem 0;
 `;
 const ListElement = styled.div`
@@ -86,11 +95,11 @@ const CloseIcon = styled.div`
     }
 `;
 
-const mapStateToProps = (state: ISettlement, ownProps: IWeaponArtslistOwnProps): IWeaponArtslistStateProps => {
+const mapStateToProps = (state: ISettlement, ownProps: IFightingArtslistOwnProps): IFightingArtslistStateProps => {
     const survivor = state.survivors.find((s) => s.id === ownProps.id);
-    if (survivor && survivor.weaponArts) {
+    if (survivor && survivor.fightingArts) {
         return {
-            currentlySelectedArts: survivor.weaponArts.map((art) => art.id),
+            currentlySelectedArts: survivor.fightingArts.map((art) => art.id),
         };
     }
     return {
@@ -98,17 +107,19 @@ const mapStateToProps = (state: ISettlement, ownProps: IWeaponArtslistOwnProps):
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorWeaponArtsAction>): IWeaponArtslistDispatchProps => ({
-    updateSurvivorWeaponArt: (id: ID, arts: WeaponArt[]) => dispatch(updateSurvivorWeaponArt(id, arts)),
+const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorFightingArtsAction>): IFightingArtslistDispatchProps => ({
+    updateSurvivorFightingArt: (id: ID, arts: FightingArt[]) => dispatch(updateSurvivorFightingArt(id, arts)),
 });
 
-class WeaponArtslist extends React.Component<IWeaponArtslistProps, IWeaponArtslistState> {
-    constructor(props: IWeaponArtslistProps) {
+class FightingArtslist extends React.Component<IFightingArtslistProps, IFightingArtslistState> {
+    constructor(props: IFightingArtslistProps) {
         super(props);
         this.handleCloseIconClick = this.handleCloseIconClick.bind(this);
         this.renderListElement = this.renderListElement.bind(this);
         this.submit = this.submit.bind(this);
+        this.handleFilter = this.handleFilter.bind(this);
         this.state = {
+            arts: fightingArts,
             artsToAdd: [],
             artsToRemove: [],
         };
@@ -118,23 +129,24 @@ class WeaponArtslist extends React.Component<IWeaponArtslistProps, IWeaponArtsli
         return (
             <Wrapper>
                 {this.props.onCancel && <CloseIcon onClick={this.handleCloseIconClick}>X</CloseIcon>}
-                <FancyButton onClick={this.submit}>Submit</FancyButton>
+                <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} />
                 <List>
-                    {weaponArts.map((art, idx) => <React.Fragment key={idx}>{this.renderListElement(art)}</React.Fragment>)}
+                    {this.state.arts.map((art, idx) => <React.Fragment key={idx}>{this.renderListElement(art)}</React.Fragment>)}
                 </List>
+                <FancyButton onClick={this.submit}>Submit</FancyButton>
             </Wrapper>
         );
     }
 
-    private renderListElement(art: IWeaponArt) {
+    private renderListElement(art: IFightingArt) {
         const currentlySelectedArts = this.props.currentlySelectedArts || [];
         const isSelected = (currentlySelectedArts.includes(art.id) && !this.state.artsToRemove.includes(art.id)) || this.state.artsToAdd.includes(art.id);
         if (isSelected) {
-            return <SelectedListElement onClick={this.deselectWeaponArt.bind(this, art.id)}>{art.name}</SelectedListElement>;
+            return <SelectedListElement onClick={this.deselectFightingArt.bind(this, art.id)}>{art.name}</SelectedListElement>;
         }
-        return <ListElement onClick={this.selectWeaponArt.bind(this, art.id)}>{art.name}</ListElement>;
+        return <ListElement onClick={this.selectFightingArt.bind(this, art.id)}>{art.name}</ListElement>;
     }
-    private selectWeaponArt(newArt: WeaponArt) {
+    private selectFightingArt(newArt: FightingArt) {
         const currentlySelectedArts = this.props.currentlySelectedArts || [];
         const count = currentlySelectedArts.length + this.state.artsToAdd.length - this.state.artsToRemove.length;
         if (count < 3) {
@@ -144,7 +156,7 @@ class WeaponArtslist extends React.Component<IWeaponArtslistProps, IWeaponArtsli
             });
         }
     }
-    private deselectWeaponArt(artToDeselect: WeaponArt) {
+    private deselectFightingArt(artToDeselect: FightingArt) {
         const currentlySelectedArts = this.props.currentlySelectedArts || [];
         this.setState({
             artsToAdd: this.state.artsToAdd.filter((art) => art !== artToDeselect),
@@ -155,7 +167,7 @@ class WeaponArtslist extends React.Component<IWeaponArtslistProps, IWeaponArtsli
     private submit(e: SyntheticEvent<HTMLButtonElement>) {
         const { artsToAdd, artsToRemove } = this.state;
         const arts = (this.props.currentlySelectedArts || []).concat(artsToAdd).filter((art) => !artsToRemove.includes(art));
-        this.props.updateSurvivorWeaponArt(this.props.id, arts);
+        this.props.updateSurvivorFightingArt(this.props.id, arts);
         this.props.onCancel();
 
     }
@@ -163,6 +175,22 @@ class WeaponArtslist extends React.Component<IWeaponArtslistProps, IWeaponArtsli
     private handleCloseIconClick() {
         this.props.onCancel();
     }
+
+    private handleFilter(event: SyntheticEvent<HTMLInputElement>) {
+        if (event.currentTarget.value === "") {
+            this.setState({
+                arts: fightingArts,
+            });
+        } else {
+            const fuse = new Fuse(fightingArts as any[], {
+                keys: ["name"],
+                threshold: 0.5,
+            });
+            this.setState({
+                arts: fuse.search(event.currentTarget.value),
+            });
+        }
+    }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WeaponArtslist);
+export default connect(mapStateToProps, mapDispatchToProps)(FightingArtslist);

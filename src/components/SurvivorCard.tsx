@@ -11,6 +11,7 @@ import GenderEdit from "./GenderEdit";
 import NameEdit from "./NameEdit";
 import SurvivorBaseStat from "./SurvivorBaseStat";
 import SurvivorDefenseStat from "./SurvivorDefenseStat";
+import SurvivorFightingArts from "./SurvivorFightingArts";
 import SurvivorSpecialStat from "./SurvivorSpecialStat";
 import { StatLabel, SurvivorStat } from "./SurvivorStatElements";
 
@@ -48,6 +49,9 @@ const StatSection = styled.section`
     justify-content:space-between;
     width:100%;
     margin: .5rem 0;
+`;
+
+const TextSection = StatSection.extend`
 `;
 
 interface ISurvivorCardProps {
@@ -109,9 +113,6 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
                                 <Label>Gender</Label>
                                 <GenderEdit id={id} />
                             </section>
-                            <section>
-                                {survival && <SurvivorStat><StatLabel>{capitalize(DefenseStats[survival.stat])}</StatLabel><SurvivorDefenseStat id={id} statid={survival.stat} concatToDisplay={`/ ${this.props.survivalLimit}`} /></SurvivorStat>}
-                            </section>
                         </NameSection>
                         <SpecialSection>
                             <section>
@@ -124,6 +125,10 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
                             </section>
                         </SpecialSection>
                     </NameWrapper>
+                    <TextSection>
+                        {survival && <SurvivorStat><StatLabel>{capitalize(DefenseStats[survival.stat])}</StatLabel><SurvivorDefenseStat id={id} statid={survival.stat} concatToDisplay={`/ ${this.props.survivalLimit}`} /></SurvivorStat>}
+                        <SurvivorFightingArts id={id} />
+                    </TextSection>
                     <StatSection>
                         {survivor.specialstats.map((specialStat, idx) => (<SurvivorStat key={idx}><StatLabel>{specialStatToString(specialStat.stat)}</StatLabel><SurvivorSpecialStat id={id} statid={specialStat.stat} /></SurvivorStat>))}
                     </StatSection>

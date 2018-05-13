@@ -1,19 +1,19 @@
-import { IWeaponArt } from "interfaces";
+import { IFightingArt } from "interfaces";
 import React, { SyntheticEvent } from "react";
 import styled from "styled-components";
 import { LayerEvents, SimpleLayerEvent } from "../interfaces/layer";
 import layerSubject from "../layerSubject";
 import { colorMagentaLachs } from "./StyledComponents";
 
-interface IWeaponArtItemProps {
-    art: IWeaponArt;
+interface IFightingArtItemProps {
+    art: IFightingArt;
 }
 
-const WeaponArtDescription = styled.div`
+const FightingArtDescription = styled.div`
     margin-bottom: 2rem;
 `;
 
-const WeaponArtItemWrapper = styled.div`
+const FightingArtItemWrapper = styled.div`
     cursor: pointer;
     margin-top: 1vh;
     margin-bottom: 1vh;
@@ -23,8 +23,8 @@ const WeaponArtItemWrapper = styled.div`
         margin-right: 0.25rem;
     }
 `;
-export default class WeaponArtItem extends React.Component<IWeaponArtItemProps> {
-    public constructor(props: IWeaponArtItemProps) {
+export default class FightingArtItem extends React.Component<IFightingArtItemProps> {
+    public constructor(props: IFightingArtItemProps) {
         super(props);
 
         this.showDescription = this.showDescription.bind(this);
@@ -34,7 +34,7 @@ export default class WeaponArtItem extends React.Component<IWeaponArtItemProps> 
         const { art } = this.props;
         return (
             <React.Fragment>
-                <WeaponArtItemWrapper onClick={this.showDescription}>{art.name}</WeaponArtItemWrapper>
+                <FightingArtItemWrapper onClick={this.showDescription}>{art.name}</FightingArtItemWrapper>
             </React.Fragment>
         );
     }
@@ -43,7 +43,7 @@ export default class WeaponArtItem extends React.Component<IWeaponArtItemProps> 
 
         layerSubject.next({
             payload: {
-                content: <WeaponArtDescription>{art.description}</WeaponArtDescription>,
+                content: <FightingArtDescription>{art.description}</FightingArtDescription>,
                 headline: <React.Fragment>{art.name}</React.Fragment>,
             },
             type: LayerEvents.show_simple,
