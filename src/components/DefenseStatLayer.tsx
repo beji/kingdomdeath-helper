@@ -2,10 +2,11 @@ import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { hideLayer, updateSurvivorStat } from "../actions";
-import { IBaseStat, ID, IDefenseStat, IState, LayerType } from "../interfaces";
+import { DefenseStats, IBaseStat, ID, IDefenseStat, IState, LayerType } from "../interfaces";
 import { HideLayerAction, UpdateSurvivorStatAction } from "../interfaces/actions";
+import { capitalize } from "../util";
 import NumberEdit from "./NumberEdit";
-import { CloseIcon, FancyButton, SimpleLayerWrapper } from "./StyledComponents";
+import { CloseIcon, FancyButton, SimpleLayerHeadline, SimpleLayerWrapper } from "./StyledComponents";
 import { Label, StatEdit, StatEditWrapper } from "./SurvivorStatElements";
 
 interface IDefenseStatLayerStateProps {
@@ -67,6 +68,7 @@ class DefenseStatLayer extends React.Component<IDefenseStatLayerProps> {
             return (
                 <SimpleLayerWrapper>
                     <CloseIcon onClick={this.hideLayer}>X</CloseIcon>
+                    <SimpleLayerHeadline>{this.props.survivor && this.props.survivorname}'s {capitalize(DefenseStats[stat])}</SimpleLayerHeadline>
                     <StatEditWrapper>
                         <StatEdit>
                             <Label>Stat</Label><NumberEdit value={modifier} innerRef={this.setupModifierRef} addToDisplay={armor} />

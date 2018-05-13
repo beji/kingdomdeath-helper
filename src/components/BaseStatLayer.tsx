@@ -2,10 +2,11 @@ import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { hideLayer, updateSurvivorStat } from "../actions";
-import { IBaseStat, ID, IDefenseStat, IState, LayerType } from "../interfaces";
+import { BaseStats, IBaseStat, ID, IDefenseStat, IState, LayerType } from "../interfaces";
 import { HideLayerAction, UpdateSurvivorStatAction } from "../interfaces/actions";
+import { capitalize } from "../util";
 import NumberEdit from "./NumberEdit";
-import { CloseIcon, FancyButton, SimpleLayerWrapper } from "./StyledComponents";
+import { CloseIcon, FancyButton, SimpleLayerHeadline, SimpleLayerWrapper } from "./StyledComponents";
 import { Label, StatEdit, StatEditWrapper } from "./SurvivorStatElements";
 
 interface IBaseStatLayerStateProps {
@@ -72,6 +73,7 @@ class BaseStatLayer extends React.Component<IBaseStatLayerProps> {
             return (
                 <SimpleLayerWrapper>
                     <CloseIcon onClick={this.hideLayer}>X</CloseIcon>
+                    <SimpleLayerHeadline>{this.props.survivorname && this.props.survivorname}'s {capitalize(BaseStats[stat])}</SimpleLayerHeadline>
                     <StatEditWrapper>
                         <StatEdit>
                             <Label>Permanent</Label><NumberEdit value={permanent} innerRef={this.setupPermRef} />

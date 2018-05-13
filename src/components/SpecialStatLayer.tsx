@@ -4,8 +4,9 @@ import { Dispatch } from "redux";
 import { hideLayer, updateSurvivorStat } from "../actions";
 import { ID, ISpecialStat, IState, LayerType } from "../interfaces";
 import { HideLayerAction, UpdateSurvivorStatAction } from "../interfaces/actions";
+import { specialStatToString } from "../util";
 import NumberEdit from "./NumberEdit";
-import { CloseIcon, FancyButton, SimpleLayerWrapper } from "./StyledComponents";
+import { CloseIcon, FancyButton, SimpleLayerHeadline, SimpleLayerWrapper } from "./StyledComponents";
 import { Label, StatEdit, StatEditWrapper } from "./SurvivorStatElements";
 
 interface ISpecialStatLayerStateProps {
@@ -67,6 +68,7 @@ class SpecialStatLayer extends React.Component<ISpecialStatLayerProps> {
             return (
                 <SimpleLayerWrapper>
                     <CloseIcon onClick={this.hideLayer}>X</CloseIcon>
+                    <SimpleLayerHeadline>{this.props.survivor && this.props.survivorname}'s {specialStatToString(stat)}</SimpleLayerHeadline>
                     <StatEditWrapper>
                         <StatEdit>
                             <Label>Value</Label><NumberEdit value={value} innerRef={this.setupValueRef} />
