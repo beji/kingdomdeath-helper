@@ -4,7 +4,7 @@ import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
 import { ID, IGearGrid, ISettlement, Item } from "../interfaces";
-import { UpdateGearGridAction } from "../interfaces/gearActions";
+import { UpdateGearGridAction } from "../interfaces/actions";
 import { clone } from "../util";
 import GearCard from "./GearCard";
 import GearList from "./GearList";

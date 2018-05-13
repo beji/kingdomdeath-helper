@@ -3,7 +3,7 @@ import { connect, Dispatch } from "react-redux";
 import io from "socket.io-client";
 import { importSettlement } from "../actions/importAction";
 import { ISettlement } from "../interfaces";
-import { ImportAction } from "../interfaces/importAction";
+import { ImportAction } from "../interfaces/actions";
 import { IRoomMessage, IStatusUpdateMessage } from "../interfaces/socketMessages";
 import { clone } from "../util";
 

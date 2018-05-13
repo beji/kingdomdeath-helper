@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { updateSurvivorStat } from "../actions/survivorActions";
 import { ID, IDefenseStat, ISettlement, ISpecialStat, SpecialStats } from "../interfaces";
-import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
+import { UpdateSurvivorStatAction } from "../interfaces/actions";
 import layerSubject from "../layerSubject";
 import { specialStatToString } from "../util";
 import NumberEdit from "./NumberEdit";

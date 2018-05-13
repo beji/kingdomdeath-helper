@@ -3,7 +3,7 @@ import { SyntheticEvent } from "react";
 import { connect, Dispatch } from "react-redux";
 import { updateSurvivor } from "../actions/survivorActions";
 import { Gender, ID, ISettlement, ISurvivor } from "../interfaces";
-import { UpdateSurvivorAction } from "../interfaces/survivorActions";
+import { UpdateSurvivorAction } from "../interfaces/actions";
 import { capitalize, clone } from "../util";
 
 // TODO: Rework this to not use the whole survivor after the UPDATE_SURVIVOR split

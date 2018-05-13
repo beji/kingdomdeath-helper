@@ -1,6 +1,6 @@
 import { FightingArt, IBaseStat, ID, IDefenseStat, ISpecialStat, ISurvivor } from "../interfaces";
+import { CreateSurvivorAction, KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorFightingArtsAction, UpdateSurvivorStatAction } from "../interfaces/actions";
 import ActionTypes from "../interfaces/actionTypes";
-import { CreateSurvivorAction, KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorFightingArtsAction, UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 
 export const updateSurvivor = (survivor: ISurvivor): UpdateSurvivorAction => ({
     payload: survivor,

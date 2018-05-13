@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { updateSurvivorStat } from "../actions/survivorActions";
 import { DefenseStats, IBaseStat, ID, IDefenseStat, ISettlement } from "../interfaces";
-import { UpdateSurvivorStatAction } from "../interfaces/survivorActions";
+import { UpdateSurvivorStatAction } from "../interfaces/actions";
 import layerSubject from "../layerSubject";
 import { capitalize } from "../util";
 import Checkbox from "./Checkbox";

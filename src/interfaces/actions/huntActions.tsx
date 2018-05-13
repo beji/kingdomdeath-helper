@@ -1,4 +1,4 @@
-import ActionTypes from "./actionTypes";
+import ActionTypes from "../actionTypes";
 import IAction from "./genericAction";
 
 export type AddToHuntAction = IAction<ActionTypes.ADD_TO_HUNT, { id: string, gridId: number }>;

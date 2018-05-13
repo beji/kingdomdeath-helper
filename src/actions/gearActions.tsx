@@ -1,6 +1,6 @@
 import { IGearGrid } from "../interfaces";
+import { UpdateGearGridAction, UpdateGearSlotAffinityAction } from "../interfaces/actions";
 import ActionTypes from "../interfaces/actionTypes";
-import { UpdateGearGridAction, UpdateGearSlotAffinityAction } from "../interfaces/gearActions";
 
 export const updateGear = (gearGrid: IGearGrid): UpdateGearGridAction => ({
     payload: gearGrid,

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { importSettlement } from "../actions/importAction";
 import { ISettlement } from "../interfaces";
-import { ImportAction } from "../interfaces/importAction";
+import { ImportAction } from "../interfaces/actions";
 import { clone } from "../util";
 import { FancyButton } from "./StyledComponents";
 

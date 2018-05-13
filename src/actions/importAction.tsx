@@ -1,6 +1,6 @@
 import { ISettlement } from "../interfaces";
+import { ImportAction } from "../interfaces/actions";
 import ActionTypes from "../interfaces/actionTypes";
-import { ImportAction } from "../interfaces/importAction";
 
 export const importSettlement = (imported: ISettlement): ImportAction => ({
     payload: imported,

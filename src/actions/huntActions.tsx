@@ -1,6 +1,6 @@
 import { ID } from "../interfaces";
+import { AddToHuntAction, RemoveFromHuntAction, ResetHuntAction } from "../interfaces/actions";
 import ActionTypes from "../interfaces/actionTypes";
-import { AddToHuntAction, RemoveFromHuntAction, ResetHuntAction } from "../interfaces/huntActions";
 
 export const addToHunt = (id: ID, gridId: number): AddToHuntAction => ({
     payload: { id, gridId },

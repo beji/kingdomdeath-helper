@@ -3,7 +3,7 @@ import { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { resetHunt } from "../actions";
-import { ResetHuntAction } from "../interfaces/huntActions";
+import { ResetHuntAction } from "../interfaces/actions";
 import { FancyButton } from "./StyledComponents";
 
 interface IResetHuntProps {

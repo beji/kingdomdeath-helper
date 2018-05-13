@@ -3,7 +3,7 @@ import { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { createSurvivor } from "../actions/survivorActions";
-import { CreateSurvivorAction } from "../interfaces/survivorActions";
+import { CreateSurvivorAction } from "../interfaces/actions";
 import { FancyButton } from "./StyledComponents";
 
 interface ICreateSurvivorDispatchProps {

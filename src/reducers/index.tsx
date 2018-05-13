@@ -1,15 +1,11 @@
 import fightingArts from "data/final/fightingarts.json";
 import { Reducer } from "redux";
-import { removeFromHunt, updateGear, updateGearSlotAffinity, updateSurvivalLimit, updateSurvivor } from "../actions";
+import { removeFromHunt, updateGear, updateGearSlotAffinity, updateSurvivor } from "../actions";
 import items from "../data/ItemDataHelper";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../initialstate";
 import { Affinity, AffinityTypes, DefenseStats, IGearGrid, IItem, ISettlement, ISurvivor, StatType } from "../interfaces";
+import { AddToHuntAction, CreateSurvivorAction, ImportAction, KillSurvivorAction, RemoveFromHuntAction, ResetHuntAction, ReviveSurvivorAction, SetNameAction, UpdateGearGridAction, UpdateGearSlotAffinityAction, UpdateSurvivalLimitAction, UpdateSurvivorAction, UpdateSurvivorFightingArtsAction, UpdateSurvivorStatAction } from "../interfaces/actions";
 import ActionTypes from "../interfaces/actionTypes";
-import { UpdateGearGridAction, UpdateGearSlotAffinityAction } from "../interfaces/gearActions";
-import { AddToHuntAction, RemoveFromHuntAction, ResetHuntAction } from "../interfaces/huntActions";
-import { ImportAction } from "../interfaces/importAction";
-import { SetNameAction, UpdateSurvivalLimitAction } from "../interfaces/settlementActions";
-import { CreateSurvivorAction, KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorFightingArtsAction, UpdateSurvivorStatAction } from "../interfaces/survivorActions";
 import { clone } from "../util";
 
 type Actions = AddToHuntAction |

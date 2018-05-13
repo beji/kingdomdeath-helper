@@ -1,5 +1,5 @@
+import { SetNameAction, UpdateSurvivalLimitAction } from "../interfaces/actions";
 import ActionTypes from "../interfaces/actionTypes";
-import { SetNameAction, UpdateSurvivalLimitAction } from "../interfaces/settlementActions";
 
 export const setName = (name: string): SetNameAction => ({
     payload: name,

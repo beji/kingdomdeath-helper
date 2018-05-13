@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import styled from "styled-components";
 import { setName, updateSurvivalLimit } from "../actions/settlementActions";
 import { ISettlement } from "../interfaces";
-import { SetNameAction, UpdateSurvivalLimitAction } from "../interfaces/settlementActions";
+import { SetNameAction, UpdateSurvivalLimitAction } from "../interfaces/actions";
 import NameEdit from "./NameEdit";
 import NumberEdit from "./NumberEdit";
 

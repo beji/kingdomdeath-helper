@@ -1,5 +1,3 @@
-import Layer from "../components/Layer";
-
 export const enum LayerEvents {
     show_simple,
     hide,

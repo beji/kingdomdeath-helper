@@ -4,7 +4,7 @@ import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateSurvivor } from "../actions/survivorActions";
 import { BaseStats, DefenseStats, ID, ISettlement, ISurvivor, SpecialStats } from "../interfaces";
-import { UpdateSurvivorAction } from "../interfaces/survivorActions";
+import { UpdateSurvivorAction } from "../interfaces/actions";
 import { capitalize, clone, specialStatToString } from "../util";
 import Checkbox from "./Checkbox";
 import GenderEdit from "./GenderEdit";

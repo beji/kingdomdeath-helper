@@ -1,6 +1,6 @@
 import fightingArts from "data/final/fightingarts.json";
 import Fuse from "fuse.js";
-import { UpdateSurvivorFightingArtsAction } from "interfaces/survivorActions";
+import { UpdateSurvivorFightingArtsAction } from "interfaces/actions";
 import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";

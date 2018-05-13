@@ -1,5 +1,5 @@
-import ActionTypes from "./actionTypes";
+import ActionTypes from "../actionTypes";
+import { ISettlement } from "../settlement";
 import IAction from "./genericAction";
-import { ISettlement } from "./settlement";
 
 export type ImportAction = IAction<ActionTypes.IMPORT, ISettlement>;

@@ -1,7 +1,7 @@
-import ActionTypes from "./actionTypes";
+import ActionTypes from "../actionTypes";
+import { ID } from "../generics";
+import { FightingArt, IBaseStat, IDefenseStat, ISpecialStat, ISurvivor } from "../survivor";
 import IAction from "./genericAction";
-import { ID } from "./generics";
-import { IBaseStat, IDefenseStat, ISpecialStat, ISurvivor, FightingArt } from "./survivor";
 
 export type UpdateSurvivorAction = IAction<ActionTypes.UPDATE_SURVIVOR, ISurvivor>;
 

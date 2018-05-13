@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
 import items from "../data/ItemDataHelper";
 import { AffinityTypes, DefenseStats, IAffinity, ID, IGearGrid, IGridSlot, IItem, ISettlement, Item, ItemType, StatType } from "../interfaces";
-import { UpdateGearGridAction } from "../interfaces/gearActions";
+import { UpdateGearGridAction } from "../interfaces/actions";
 import layerSubject from "../layerSubject";
 import { capitalize } from "../util";
 import AffinityIcon from "./AffinityIcon";
