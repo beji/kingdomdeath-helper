@@ -5,8 +5,6 @@ import styled from "styled-components";
 import { showLayer } from "../actions";
 import { IFightingArt, ISimpleLayer, LayerType } from "../interfaces";
 import { ShowLayerAction } from "../interfaces/actions";
-import { LayerEvents, SimpleLayerEvent } from "../interfaces/layer";
-import layerSubject from "../layerSubject";
 import { colorMagentaLachs } from "./StyledComponents";
 
 interface IFightingArtItemOwnProps {

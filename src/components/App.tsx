@@ -7,7 +7,6 @@ import SurvivorCardPage from "../pages/suvivorcard";
 import BaseStatLayer from "./BaseStatLayer";
 import DefenseStatLayer from "./DefenseStatLayer";
 import ExportForm from "./ExportForm";
-import Layer from "./Layer";
 import NavBar from "./NavBar";
 import SimpleLayer from "./SimpleLayer";
 import SocketConnector from "./SocketConnector";
@@ -28,7 +27,6 @@ class App extends React.Component {
                         <Route path="/gear" component={GearOverviewPage} />
                         <ExportForm />
                         <SocketConnector />
-                        <Layer />
                         <SimpleLayer />
                         <BaseStatLayer />
                         <DefenseStatLayer />

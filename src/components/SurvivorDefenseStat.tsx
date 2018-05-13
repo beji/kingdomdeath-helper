@@ -5,13 +5,9 @@ import { showLayer } from "../actions";
 import { updateSurvivorStat } from "../actions/survivorActions";
 import { DefenseStats, IBaseStat, ID, IDefenseStat, IState } from "../interfaces";
 import { ShowLayerAction, UpdateSurvivorStatAction } from "../interfaces/actions";
-import { IDefenseStatLayer, LayerEvents, LayerType } from "../interfaces/layer";
-import layerSubject from "../layerSubject";
-import { capitalize } from "../util";
+import { IDefenseStatLayer, LayerType } from "../interfaces/layer";
 import Checkbox from "./Checkbox";
-import NumberEdit from "./NumberEdit";
-import { FancyButton } from "./StyledComponents";
-import { Label, StatEdit, StatEditWrapper, StatElement, StatWrapper } from "./SurvivorStatElements";
+import { StatElement, StatWrapper } from "./SurvivorStatElements";
 
 interface ISurvivorDefenseStatStatStateProps {
     survivor?: ID;
