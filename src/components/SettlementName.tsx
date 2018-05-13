@@ -1,5 +1,4 @@
 import React from "react";
-import { Component } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
@@ -44,7 +43,7 @@ const mapDispatchToProps = (dispatch: Dispatch<SetNameAction | UpdateSurvivalLim
     updateSurvivalLimit: (survivalLimit: number) => dispatch(updateSurvivalLimit(survivalLimit)),
 });
 
-class SettlementName extends Component<ISettlementNameProps> {
+class SettlementName extends React.Component<ISettlementNameProps> {
     private valuefield?: HTMLInputElement;
 
     public constructor(props: ISettlementNameProps) {
