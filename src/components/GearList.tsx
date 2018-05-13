@@ -72,17 +72,11 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
         this.setupInputRef = this.setupInputRef.bind(this);
     }
 
-    public componentDidMount() {
-        if (this.inputfield) {
-            this.inputfield.focus();
-        }
-    }
-
     public render() {
         return (
             <Wrapper>
                 {this.props.onCancel && <CloseIcon onClick={this.handleCloseIconClick}>X</CloseIcon>}
-                <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} innerRef={this.setupInputRef} />
+                <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} innerRef={this.setupInputRef} autoFocus={true}/>
                 <List>
                     {this.state.items.map((v, i) => <ListElement key={i} onClick={this.handleItemSelect.bind(this, v.id)} dangerouslySetInnerHTML={{ __html: v.name }} />)}
                 </List>
