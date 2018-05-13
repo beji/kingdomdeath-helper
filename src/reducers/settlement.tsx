@@ -156,6 +156,25 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             }
             return state;
         }
+        // Updates players name on gear grid
+        case ActionTypes.SET_PLAYER_NAME: {
+            if (action.payload) {
+                const { gridId, name } = action.payload;
+                return {
+                    ...state,
+                    geargrids: state.geargrids.map((grid) => {
+                        if (grid.id === gridId) {
+                            return {
+                                ...grid,
+                                playername: name,
+                            };
+                        }
+                        return grid;
+                    }),
+                };
+            }
+            return state;
+        }
         // Update Survival Limit
         case ActionTypes.UPDATE_SURVIVAL_LIMIT: {
             if (action.payload) {

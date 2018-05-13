@@ -1,7 +1,9 @@
+import { KeyboardEvent } from "react";
 import React from "react";
 import { createRef, Fragment, RefObject, SyntheticEvent } from "react";
 import styled from "styled-components";
 import { FancyButton } from "./StyledComponents";
+import HTML = Mocha.reporters.HTML;
 
 const StyledInput = styled.input`
     font-size: 1rem;
@@ -34,6 +36,7 @@ export default class NameEdit extends React.Component<INameEditProps, INameEditS
         this.state = {
             editName: false,
         };
+        this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleNameBlur = this.handleNameBlur.bind(this);
         this.handleNameClick = this.handleNameClick.bind(this);
         this.setupTextRef = this.setupTextRef.bind(this);
@@ -44,7 +47,7 @@ export default class NameEdit extends React.Component<INameEditProps, INameEditS
         if (editName) {
             return (
                 <Fragment>
-                    <StyledInput type="text" innerRef={this.setupTextRef} defaultValue={name} />
+                    <StyledInput type="text" innerRef={this.setupTextRef} defaultValue={name} onKeyPress={this.handleKeyPress} autoFocus={true} />
                     <FancyButtonRight onClick={this.handleNameBlur}>✓</FancyButtonRight>
                 </Fragment>
             );
@@ -64,13 +67,18 @@ export default class NameEdit extends React.Component<INameEditProps, INameEditS
             editName: true,
         });
     }
-    private handleNameBlur(e: SyntheticEvent<HTMLButtonElement>) {
+    private handleNameBlur() {
         if (this.textfield && this.textfield.value) {
             const newName = this.textfield.value;
             this.props.updateFunc(newName);
             this.setState({
                 editName: false,
             });
+        }
+    }
+    private handleKeyPress(e: KeyboardEvent<HTMLInputElement>) {
+        if (e.key === "Enter") {
+            this.handleNameBlur();
         }
     }
 

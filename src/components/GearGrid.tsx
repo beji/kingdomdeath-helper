@@ -1,11 +1,13 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
-import { updateSurvivor } from "../actions/survivorActions";
+import { setPlayerName, updateSurvivor } from "../actions";
 import { Affinity, AffinityTypes, ID, IGearGrid, IState } from "../interfaces";
+import { SetPlayerNameAction } from "../interfaces/actions";
 import AffinityIcon from "./AffinityIcon";
 import GridSlot from "./GridSlot";
 import Link from "./Link";
+import NameEdit from "./NameEdit";
 import { media } from "./StyledComponents";
 import SurvivorCard from "./SurvivorCard";
 
@@ -21,7 +23,15 @@ interface IGearGridOwnProps {
     id: ID;
 }
 
-interface IGearGridProps extends IGearGridStateProps, IGearGridOwnProps { }
+interface IGearGridDispatchProps {
+    setPlayerName: (name: string, gridId: ID) => SetPlayerNameAction;
+}
+
+interface IGearGridProps extends IGearGridStateProps, IGearGridOwnProps, IGearGridDispatchProps { }
+
+const mapDispatchToProps = (dispatch: Dispatch<SetPlayerNameAction>): IGearGridDispatchProps => ({
+    setPlayerName: (name: string, gridId: ID) => dispatch(setPlayerName(name, gridId)),
+});
 
 const mapStateToProps = (state: IState, ownProps: IGearGridOwnProps): IGearGridStateProps => {
     const geargrid = state.settlement.geargrids.find((v) => v.id === ownProps.id);
@@ -33,6 +43,7 @@ const mapStateToProps = (state: IState, ownProps: IGearGridOwnProps): IGearGridS
 class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
     public constructor(props: IGearGridProps) {
         super(props);
+        this.handleSetPlayerName = this.handleSetPlayerName.bind(this);
     }
 
     public render() {
@@ -67,7 +78,8 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
             return (
                 <PlayerCard>
                     <PlayerCardHeadline>
-                        <Link to={`/card/${id}`}>Huntslot {id}</Link>
+                        <div>Player: <NameEdit name={grid.playername || "not assigned"} updateFunc={this.handleSetPlayerName}/> </div>
+                        <Link to={`/card/${id}`}>Open slot on own page</Link>
                     </PlayerCardHeadline>
                     {grid.survivorId && <SurvivorCard key={grid.id} id={grid.survivorId} updateSurvivor={updateSurvivor} />}
                     <GridAffinities>
@@ -84,6 +96,10 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
             return "No valid grid id given!";
         }
     }
+
+    private handleSetPlayerName(newName: string) {
+        this.props.setPlayerName(newName, this.props.id);
+    }
 }
 
-export default connect(mapStateToProps)(GearGrid);
+export default connect(mapStateToProps, mapDispatchToProps)(GearGrid);
