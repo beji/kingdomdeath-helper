@@ -1,6 +1,6 @@
 import Fuse from "fuse.js";
 import React from "react";
-import { SyntheticEvent } from "react";
+import { KeyboardEvent, SyntheticEvent } from "react";
 import styled from "styled-components";
 import items from "../data/ItemDataHelper";
 import { ID, IItem, ItemType } from "../interfaces";
@@ -69,6 +69,7 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
         };
         this.handleCloseIconClick = this.handleCloseIconClick.bind(this);
         this.handleFilter = this.handleFilter.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
         this.setupInputRef = this.setupInputRef.bind(this);
     }
 
@@ -76,7 +77,7 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
         return (
             <Wrapper>
                 {this.props.onCancel && <CloseIcon onClick={this.handleCloseIconClick}>X</CloseIcon>}
-                <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} innerRef={this.setupInputRef} autoFocus={true}/>
+                <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} onKeyPress={this.handleKeyPress} innerRef={this.setupInputRef} autoFocus={true}/>
                 <List>
                     {this.state.items.map((v, i) => <ListElement key={i} onClick={this.handleItemSelect.bind(this, v.id)} dangerouslySetInnerHTML={{ __html: v.name }} />)}
                 </List>
@@ -114,6 +115,12 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
             });
         }
 
+    }
+
+    private handleKeyPress(event: KeyboardEvent<HTMLInputElement>) {
+        if (event.key === "Enter") {
+            this.props.onItemSelect(this.state.items[0].id);
+        }
     }
 }
 
