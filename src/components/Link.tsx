@@ -9,6 +9,7 @@ interface ILinkStateProps {
 
 interface ILinkOwnProps {
     to: string;
+    className?: string;
 }
 
 interface ILinkProps extends ILinkStateProps, ILinkOwnProps { }
@@ -20,7 +21,7 @@ const mapStateToProps = (state: ISettlement, ownProps: ILinkOwnProps): ILinkStat
 class Link extends React.Component<ILinkProps> {
     public render() {
         const { children, settlementId } = this.props;
-        return <RouterLink to={`${this.props.to}?id=${settlementId}`}>{children}</RouterLink>;
+        return <RouterLink className={this.props.className} to={`${this.props.to}?id=${settlementId}`}>{children}</RouterLink>;
     }
 }
 

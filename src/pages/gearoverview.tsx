@@ -1,10 +1,7 @@
 import Fuse from "fuse.js";
-import React from "react";
-import { SyntheticEvent } from "react";
+import React, { SyntheticEvent } from "react";
 import styled from "styled-components";
 import GearCard from "../components/GearCard";
-import Link from "../components/Link";
-import { FancyButton } from "../components/StyledComponents";
 import items from "../data/ItemDataHelper";
 import { IItem } from "../interfaces";
 
@@ -51,7 +48,6 @@ class GearOverviewPage extends React.Component<any, IGearOverviewPageState> {
     public render() {
         return (
             <div>
-                <div><Link to="/"><FancyButton>Home</FancyButton></Link></div>
                 <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} />
                 <CardGrid>{this.renderItemCards()}</CardGrid>
             </div>
