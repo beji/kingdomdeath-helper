@@ -11,6 +11,7 @@ import Layer from "./Layer";
 import NavBar from "./NavBar";
 import SimpleLayer from "./SimpleLayer";
 import SocketConnector from "./SocketConnector";
+import SpecialStatLayer from "./SpecialStatLayer";
 
 const AppWrapper = styled.div`
     margin: 2rem 1vw 1vh;
@@ -31,6 +32,7 @@ class App extends React.Component {
                         <SimpleLayer />
                         <BaseStatLayer />
                         <DefenseStatLayer />
+                        <SpecialStatLayer />
                     </AppWrapper>
                     <NavBar />
                 </React.Fragment>

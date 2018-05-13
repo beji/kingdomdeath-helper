@@ -1,24 +1,21 @@
-import { LayerEvents } from "interfaces/layer";
 import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
+import { showLayer } from "../actions";
 import { updateSurvivorStat } from "../actions/survivorActions";
 import { ID, IDefenseStat, ISpecialStat, IState, SpecialStats } from "../interfaces";
-import { UpdateSurvivorStatAction } from "../interfaces/actions";
-import layerSubject from "../layerSubject";
-import { specialStatToString } from "../util";
-import NumberEdit from "./NumberEdit";
-import { FancyButton } from "./StyledComponents";
-import { Label, StatEdit, StatEditWrapper, StatElement, StatWrapper } from "./SurvivorStatElements";
+import { ShowLayerAction, UpdateSurvivorStatAction } from "../interfaces/actions";
+import { ISpecialStatLayer, LayerType } from "../interfaces/layer";
+import { StatElement, StatWrapper } from "./SurvivorStatElements";
 
 interface ISpecialStatStateProps {
     stat?: ISpecialStat;
     survivor?: ID;
-    survivorname: string;
 }
 
 interface ISpecialStatDispatchProps {
     updateSurvivorStat: (stat: ISpecialStat | IDefenseStat, survivorId: ID) => UpdateSurvivorStatAction;
+    showLayer: (layer: ISpecialStatLayer) => ShowLayerAction;
 }
 
 interface ISpecialStatOwnProps {
@@ -28,7 +25,8 @@ interface ISpecialStatOwnProps {
 
 interface ISpecialStatProps extends ISpecialStatStateProps, ISpecialStatDispatchProps, ISpecialStatOwnProps { }
 
-const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction>): ISpecialStatDispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction | ShowLayerAction>): ISpecialStatDispatchProps => ({
+    showLayer: (layer: ISpecialStatLayer) => dispatch(showLayer(layer)),
     updateSurvivorStat: (stat: ISpecialStat | IDefenseStat, survivorId: ID) => dispatch(updateSurvivorStat(stat, survivorId)),
 });
 
@@ -38,13 +36,10 @@ const mapStateToProps = (state: IState, ownProps: ISpecialStatOwnProps): ISpecia
     return {
         stat: survivor ? survivor.specialstats.find((specialstat) => specialstat.stat === ownProps.statid) : undefined,
         survivor: survivor ? survivor.id : undefined,
-        survivorname: survivor ? survivor.name : "",
     };
 };
 
 class SurvivorSpecialStat extends React.Component<ISpecialStatProps> {
-
-    private valuefield?: HTMLInputElement;
 
     public constructor(props: ISpecialStatProps) {
         super(props);
@@ -52,9 +47,6 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps> {
             showFightingArtList: false,
         };
         this.handleEditClick = this.handleEditClick.bind(this);
-        this.handleEditConfirm = this.handleEditConfirm.bind(this);
-
-        this.setupValueRef = this.setupValueRef.bind(this);
         this.renderSpecialStatText = this.renderSpecialStatText.bind(this);
     }
 
@@ -76,42 +68,12 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps> {
     private handleEditClick(e: SyntheticEvent<HTMLSpanElement>) {
         if (this.props.stat) {
             const { stat, value } = this.props.stat;
-            layerSubject.next({
-                payload: {
-                    content: (
-                        <React.Fragment>
-                            <StatEditWrapper>
-                                <StatEdit>
-                                    <Label>Value</Label><NumberEdit value={value} innerRef={this.setupValueRef} />
-                                </StatEdit>
-                            </StatEditWrapper>
-                            <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
-                        </React.Fragment>
-                    ),
-                    headline: <React.Fragment>{this.props.survivor && this.props.survivorname}'s {specialStatToString(stat)}</React.Fragment>,
-                },
-                type: LayerEvents.show_simple,
+            this.props.showLayer({
+                stat,
+                survivor: this.props.id,
+                type: LayerType.specialstat,
             });
         }
-    }
-
-    private setupValueRef(elem: HTMLInputElement) {
-        this.valuefield = elem;
-    }
-    private handleEditConfirm(e: SyntheticEvent<HTMLButtonElement>) {
-        if (this.valuefield && this.props.stat) {
-            const nextStat = {
-                ...this.props.stat,
-                value: parseInt(this.valuefield.value, 10),
-            };
-            if (this.props && this.props.survivor) {
-                this.props.updateSurvivorStat(nextStat, this.props.survivor);
-            }
-        }
-        layerSubject.next({
-            payload: undefined,
-            type: LayerEvents.hide,
-        });
     }
 
     private renderSpecialStatText() {

@@ -1,8 +1,8 @@
 import { ISettlement } from "interfaces";
-import { IBaseStatLayer, IDefenseStatLayer, ISimpleLayer } from "interfaces/layer";
+import { IBaseStatLayer, IDefenseStatLayer, ISimpleLayer, ISpecialStatLayer } from "interfaces/layer";
 
 export interface IInterface {
-    layer?: ISimpleLayer | IBaseStatLayer | IDefenseStatLayer;
+    layer?: ISimpleLayer | IBaseStatLayer | IDefenseStatLayer | ISpecialStatLayer;
 }
 
 export interface IState {
