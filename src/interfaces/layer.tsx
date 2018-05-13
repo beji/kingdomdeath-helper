@@ -1,8 +1,9 @@
-import { BaseStats, ID } from "interfaces";
+import { BaseStats, DefenseStats, ID } from "interfaces";
 
 export enum LayerType {
     simple,
     basestat,
+    defensestat,
 }
 
 export interface ISimpleLayer {
@@ -15,6 +16,12 @@ export interface IBaseStatLayer {
     type: LayerType.basestat;
     survivor: ID;
     stat: BaseStats;
+}
+
+export interface IDefenseStatLayer {
+    type: LayerType.defensestat;
+    survivor: ID;
+    stat: DefenseStats;
 }
 
 export const enum LayerEvents {

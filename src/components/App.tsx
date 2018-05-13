@@ -5,6 +5,7 @@ import Home from "../pages";
 import GearOverviewPage from "../pages/gearoverview";
 import SurvivorCardPage from "../pages/suvivorcard";
 import BaseStatLayer from "./BaseStatLayer";
+import DefenseStatLayer from "./DefenseStatLayer";
 import ExportForm from "./ExportForm";
 import Layer from "./Layer";
 import NavBar from "./NavBar";
@@ -29,6 +30,7 @@ class App extends React.Component {
                         <Layer />
                         <SimpleLayer />
                         <BaseStatLayer />
+                        <DefenseStatLayer />
                     </AppWrapper>
                     <NavBar />
                 </React.Fragment>
