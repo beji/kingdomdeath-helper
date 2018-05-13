@@ -43,9 +43,9 @@ class SocketConnector extends React.Component<ISocketConnectorProps> {
 
     // tslint:disable-next-line:member-ordering
     public componentDidUpdate(prevProps: ISocketConnectorStateProps) {
-        if (JSON.stringify(prevProps) !== JSON.stringify(this.props.settlement)) {
+        if (JSON.stringify(prevProps.settlement) !== JSON.stringify(this.props.settlement)) {
             const roomId = getURLParam(window.location.href, "id");
-            console.log("emitting state_update", roomId, this.props.settlement ? this.props.settlement.id : null);
+            console.log("emitting state_update", prevProps, this.props.settlement);
             socket.emit("state_update", { room: roomId, payload: this.props.settlement } as IStatusUpdateMessage);
         }
     }

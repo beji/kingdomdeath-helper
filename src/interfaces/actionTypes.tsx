@@ -13,6 +13,8 @@ const enum ActionTypes {
     CREATE_SURVIVOR = "CREATE_SURVIVOR",
     RESET_HUNT = "RESET_HUNT",
     UPDATE_SURVIVOR_WEAPON_ART = "UPDATE_SURVIVOR_WEAPON_ART",
+    SHOW_LAYER = "SHOW_LAYER",
+    HIDE_LAYER = "HIDE_LAYER",
 }
 
 export default ActionTypes;

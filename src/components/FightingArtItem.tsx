@@ -1,13 +1,23 @@
-import { IFightingArt } from "interfaces";
 import React, { SyntheticEvent } from "react";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import styled from "styled-components";
+import { showLayer } from "../actions";
+import { IFightingArt, ISimpleLayer, LayerType } from "../interfaces";
+import { ShowLayerAction } from "../interfaces/actions";
 import { LayerEvents, SimpleLayerEvent } from "../interfaces/layer";
 import layerSubject from "../layerSubject";
 import { colorMagentaLachs } from "./StyledComponents";
 
-interface IFightingArtItemProps {
+interface IFightingArtItemOwnProps {
     art: IFightingArt;
 }
+
+interface IFightingArtItemDispatchProps {
+    showLayer: (layer: ISimpleLayer) => ShowLayerAction;
+}
+
+interface IFightingArtItemProps extends IFightingArtItemOwnProps, IFightingArtItemDispatchProps { }
 
 const FightingArtDescription = styled.div`
     margin-bottom: 2rem;
@@ -23,7 +33,12 @@ const FightingArtItemWrapper = styled.div`
         margin-right: 0.25rem;
     }
 `;
-export default class FightingArtItem extends React.Component<IFightingArtItemProps> {
+
+const mapDispatchToProps = (dispatch: Dispatch<ShowLayerAction>): IFightingArtItemDispatchProps => ({
+    showLayer: (layer: ISimpleLayer) => dispatch(showLayer(layer)),
+});
+
+class FightingArtItem extends React.Component<IFightingArtItemProps> {
     public constructor(props: IFightingArtItemProps) {
         super(props);
 
@@ -40,13 +55,12 @@ export default class FightingArtItem extends React.Component<IFightingArtItemPro
     }
     private showDescription(e: SyntheticEvent<HTMLElement>) {
         const { art } = this.props;
-
-        layerSubject.next({
-            payload: {
-                content: <FightingArtDescription>{art.description}</FightingArtDescription>,
-                headline: <React.Fragment>{art.name}</React.Fragment>,
-            },
-            type: LayerEvents.show_simple,
+        this.props.showLayer({
+            content: art.description,
+            headline: art.name,
+            type: LayerType.simple,
         });
     }
 }
+
+export default connect(null, mapDispatchToProps)(FightingArtItem);

@@ -5,7 +5,7 @@ import { removeFromHunt, updateGear, updateGearSlotAffinity, updateSurvivor } fr
 import items from "../data/ItemDataHelper";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../initialstate";
 import { Affinity, AffinityTypes, DefenseStats, IGearGrid, IItem, ISettlement, ISurvivor, StatType } from "../interfaces";
-import { AddToHuntAction, CreateSurvivorAction, ImportAction, KillSurvivorAction, RemoveFromHuntAction, ResetHuntAction, ReviveSurvivorAction, SetNameAction, UpdateGearGridAction, UpdateGearSlotAffinityAction, UpdateSurvivalLimitAction, UpdateSurvivorAction, UpdateSurvivorFightingArtsAction, UpdateSurvivorStatAction } from "../interfaces/actions";
+import { AddToHuntAction, CreateSurvivorAction, HideLayerAction, ImportAction, KillSurvivorAction, RemoveFromHuntAction, ResetHuntAction, ReviveSurvivorAction, SetNameAction, ShowLayerAction, UpdateGearGridAction, UpdateGearSlotAffinityAction, UpdateSurvivalLimitAction, UpdateSurvivorAction, UpdateSurvivorFightingArtsAction, UpdateSurvivorStatAction } from "../interfaces/actions";
 import ActionTypes from "../interfaces/actionTypes";
 import { clone } from "../util";
 
@@ -22,7 +22,9 @@ type Actions = AddToHuntAction |
     UpdateGearGridAction |
     UpdateGearSlotAffinityAction |
     UpdateSurvivorFightingArtsAction |
-    ResetHuntAction;
+    ResetHuntAction |
+    ShowLayerAction |
+    HideLayerAction;
 
 function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
     const updatedSurvivors = state.survivors.map(mapfunc);
@@ -524,7 +526,31 @@ const settlementReducer: Reducer<ISettlement> = (state: ISettlement | undefined,
 };
 
 const interfaceReducer = (state: IInterface | undefined, action: Actions): IInterface => {
-    return initialState.interface;
+
+    if (!state) {
+        return initialState.interface;
+    }
+
+    switch (action.type) {
+
+        case ActionTypes.SHOW_LAYER: {
+            if (action.payload) {
+                return {
+                    ...state,
+                    layer: clone(action.payload),
+                };
+            }
+            return state;
+        }
+        case ActionTypes.HIDE_LAYER: {
+            return {
+                ...state,
+                layer: undefined,
+            };
+        }
+        default: return state;
+    }
+
 };
 
 export default combineReducers({

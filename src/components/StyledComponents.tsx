@@ -32,7 +32,7 @@ export const CloseIcon = styled.div`
     }
 `;
 
-export const SimpleLayer = styled.div`
+export const SimpleLayerWrapper = styled.div`
     background:#fff;
     border:1px solid #ddd;
     border-radius: .5rem;

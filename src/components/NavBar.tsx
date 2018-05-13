@@ -30,7 +30,7 @@ const LinkBox = styled.div`
     text-align: right;
     justify-content: flex-end;
 `;
-const StyledLink = styled(Link)`
+const StyledLink = styled(Link) `
     color: #fff;
     text-decoration: none;
     display: inline-block;

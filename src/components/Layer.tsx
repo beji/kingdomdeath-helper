@@ -3,7 +3,7 @@ import { Subscription } from "rxjs/Subscription";
 import styled from "styled-components";
 import { LayerEvents, SimpleLayerEvent } from "../interfaces/layer";
 import layerSubject, { LayerSubjectMessage } from "../layerSubject";
-import { CloseIcon, colorMagentaLachs, SimpleLayer, SimpleLayerHeadline } from "./StyledComponents";
+import { CloseIcon, colorMagentaLachs, SimpleLayerHeadline, SimpleLayerWrapper } from "./StyledComponents";
 
 interface ILayerState {
     data?: LayerSubjectMessage;
@@ -37,11 +37,11 @@ export default class Layer extends React.Component<{}, ILayerState> {
                 case LayerEvents.show_simple: {
                     const { headline, content } = data.payload;
                     return (
-                        <SimpleLayer>
+                        <SimpleLayerWrapper>
                             <CloseIcon onClick={this.hideLayer}>X</CloseIcon>
                             {headline && <SimpleLayerHeadline>{headline}</SimpleLayerHeadline>}
                             {content}
-                        </SimpleLayer>
+                        </SimpleLayerWrapper>
                     );
                 }
                 default: return "";

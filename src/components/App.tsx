@@ -7,6 +7,7 @@ import SurvivorCardPage from "../pages/suvivorcard";
 import ExportForm from "./ExportForm";
 import Layer from "./Layer";
 import NavBar from "./NavBar";
+import SimpleLayer from "./SimpleLayer";
 import SocketConnector from "./SocketConnector";
 
 const AppWrapper = styled.div`
@@ -25,6 +26,7 @@ class App extends React.Component {
                         <ExportForm />
                         <SocketConnector />
                         <Layer />
+                        <SimpleLayer />
                     </AppWrapper>
                     <NavBar />
                 </React.Fragment>

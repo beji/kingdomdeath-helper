@@ -89,10 +89,7 @@ const geargrids: ReadonlyArray<IGearGrid> = Array.apply(null, { length: 4 }).map
 
 const initialState: IState = {
     interface: {
-        layer: {
-            content: undefined,
-            headline: undefined,
-        },
+        layer: undefined,
     },
     settlement: {
         geargrids,
