@@ -3,7 +3,7 @@ import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { updateSurvivorStat } from "../actions/survivorActions";
-import { ID, IDefenseStat, ISettlement, ISpecialStat, SpecialStats } from "../interfaces";
+import { ID, IDefenseStat, ISpecialStat, IState, SpecialStats } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/actions";
 import layerSubject from "../layerSubject";
 import { specialStatToString } from "../util";
@@ -32,8 +32,8 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction>): ISpec
     updateSurvivorStat: (stat: ISpecialStat | IDefenseStat, survivorId: ID) => dispatch(updateSurvivorStat(stat, survivorId)),
 });
 
-const mapStateToProps = (state: ISettlement, ownProps: ISpecialStatOwnProps): ISpecialStatStateProps => {
-    const survivor = state.survivors.find((v) => v.id === ownProps.id);
+const mapStateToProps = (state: IState, ownProps: ISpecialStatOwnProps): ISpecialStatStateProps => {
+    const survivor = state.settlement.survivors.find((v) => v.id === ownProps.id);
 
     return {
         stat: survivor ? survivor.specialstats.find((specialstat) => specialstat.stat === ownProps.statid) : undefined,

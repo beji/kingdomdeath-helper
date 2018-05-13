@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { setName, updateSurvivalLimit } from "../actions/settlementActions";
-import { ISettlement } from "../interfaces";
+import { IState } from "../interfaces";
 import { SetNameAction, UpdateSurvivalLimitAction } from "../interfaces/actions";
 import NameEdit from "./NameEdit";
 import NumberEdit from "./NumberEdit";
@@ -32,10 +32,10 @@ const StyledName = styled.div`
 
 interface ISettlementNameProps extends ISettlementNameDispatchProps, ISettlementNameStateProps { }
 
-const mapStateToProps = (state: ISettlement): ISettlementNameStateProps => {
+const mapStateToProps = (state: IState): ISettlementNameStateProps => {
     return {
-        name: state.name,
-        survivalLimit: state.survivalLimit,
+        name: state.settlement.name,
+        survivalLimit: state.settlement.survivalLimit,
     };
 };
 

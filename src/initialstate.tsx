@@ -1,5 +1,5 @@
 import uuid from "uuid/v4";
-import { Affinity, BaseStats, DefenseStats, Gender, IBaseStat, ID, IDefenseStat, IGearGrid, IItem, ISettlement, ISpecialStat, ISurvivor, Item, ItemType, SpecialStats, StatType } from "./interfaces";
+import { Affinity, BaseStats, DefenseStats, Gender, IBaseStat, ID, IDefenseStat, IGearGrid, IItem, ISettlement, ISpecialStat, IState, ISurvivor, Item, ItemType, SpecialStats, StatType } from "./interfaces";
 
 export const DEFAULT_SURVIVOR_NAME = "Rename me to get +1 Survival";
 
@@ -87,12 +87,20 @@ const geargrids: ReadonlyArray<IGearGrid> = Array.apply(null, { length: 4 }).map
     };
 });
 
-const initialState: ISettlement = {
-    geargrids,
-    id: uuid(),
-    name: "Everybody-will-die-town",
-    survivalLimit: 1,
-    survivors,
+const initialState: IState = {
+    interface: {
+        layer: {
+            content: undefined,
+            headline: undefined,
+        },
+    },
+    settlement: {
+        geargrids,
+        id: uuid(),
+        name: "Everybody-will-die-town",
+        survivalLimit: 1,
+        survivors,
+    },
 };
 
 export function newSurvivor(): ISurvivor {

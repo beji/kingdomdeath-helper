@@ -1,4 +1,4 @@
-import { ID, IFightingArt, ISettlement } from "interfaces";
+import { ID, IFightingArt, IState } from "interfaces";
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
@@ -31,8 +31,8 @@ const FightingArtsWrapper = styled.div`
     padding-right: 0.5vw;
 `;
 
-const mapStateToProps = (state: ISettlement, ownProps: IFightingArtsOwnProps): IFightingArtsStateProps => {
-    const survivor = state.survivors.find((s) => s.id === ownProps.id);
+const mapStateToProps = (state: IState, ownProps: IFightingArtsOwnProps): IFightingArtsStateProps => {
+    const survivor = state.settlement.survivors.find((s) => s.id === ownProps.id);
     const fightingArts = survivor && survivor.fightingArts ? survivor.fightingArts : [];
     return {
         fightingArts,

@@ -6,7 +6,7 @@ import GearGrid from "../components/GearGrid";
 import ResetHunt from "../components/ResetHunt";
 import SettlementName from "../components/SettlementName";
 import SurvivorListItem from "../components/SurvivorListItem";
-import { ID, ISettlement } from "../interfaces";
+import { ID, IState } from "../interfaces";
 
 const AppWrapper = styled.div`
 `;
@@ -31,14 +31,14 @@ interface IAppProps {
     id?: ID;
 }
 
-const mapStateToProps = (state: ISettlement): IAppProps => {
+const mapStateToProps = (state: IState): IAppProps => {
     return {
-        aliveCount: state.survivors.filter((survivor) => survivor.alive).length,
-        geargrids: state.geargrids.map((grid) => grid.id),
-        huntingSurvivors: state.survivors.filter((survivor) => survivor.hunting).map((survivor) => survivor.id),
-        id: state.id,
-        name: state.name,
-        survivors: state.survivors.map((survivor) => survivor.id),
+        aliveCount: state.settlement.survivors.filter((survivor) => survivor.alive).length,
+        geargrids: state.settlement.geargrids.map((grid) => grid.id),
+        huntingSurvivors: state.settlement.survivors.filter((survivor) => survivor.hunting).map((survivor) => survivor.id),
+        id: state.settlement.id,
+        name: state.settlement.name,
+        survivors: state.settlement.survivors.map((survivor) => survivor.id),
     };
 };
 

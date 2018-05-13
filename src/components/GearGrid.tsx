@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { updateSurvivor } from "../actions/survivorActions";
-import { Affinity, AffinityTypes, ID, IGearGrid, ISettlement } from "../interfaces";
+import { Affinity, AffinityTypes, ID, IGearGrid, IState } from "../interfaces";
 import AffinityIcon from "./AffinityIcon";
 import GridSlot from "./GridSlot";
 import Link from "./Link";
@@ -23,8 +23,8 @@ interface IGearGridOwnProps {
 
 interface IGearGridProps extends IGearGridStateProps, IGearGridOwnProps { }
 
-const mapStateToProps = (state: ISettlement, ownProps: IGearGridOwnProps): IGearGridStateProps => {
-    const geargrid = state.geargrids.find((v) => v.id === ownProps.id);
+const mapStateToProps = (state: IState, ownProps: IGearGridOwnProps): IGearGridStateProps => {
+    const geargrid = state.settlement.geargrids.find((v) => v.id === ownProps.id);
     return {
         grid: geargrid,
     };

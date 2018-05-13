@@ -3,7 +3,7 @@ import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { updateSurvivorStat } from "../actions/survivorActions";
-import { DefenseStats, IBaseStat, ID, IDefenseStat, ISettlement } from "../interfaces";
+import { DefenseStats, IBaseStat, ID, IDefenseStat, IState } from "../interfaces";
 import { UpdateSurvivorStatAction } from "../interfaces/actions";
 import layerSubject from "../layerSubject";
 import { capitalize } from "../util";
@@ -39,8 +39,8 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction>): ISurv
     updateSurvivorStat: (stat: IBaseStat | IDefenseStat, survivorId: ID) => dispatch(updateSurvivorStat(stat, survivorId)),
 });
 
-const mapStateToProps = (state: ISettlement, ownProps: ISurvivorDefenseStatOwnProps): ISurvivorDefenseStatStatStateProps => {
-    const survivor = state.survivors.find((v) => v.id === ownProps.id);
+const mapStateToProps = (state: IState, ownProps: ISurvivorDefenseStatOwnProps): ISurvivorDefenseStatStatStateProps => {
+    const survivor = state.settlement.survivors.find((v) => v.id === ownProps.id);
 
     return {
         stat: survivor ? survivor.defenseStats.find((defensestat) => defensestat.stat === ownProps.statid) : undefined,

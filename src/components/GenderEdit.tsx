@@ -2,7 +2,7 @@ import React from "react";
 import { SyntheticEvent } from "react";
 import { connect, Dispatch } from "react-redux";
 import { updateSurvivor } from "../actions/survivorActions";
-import { Gender, ID, ISettlement, ISurvivor } from "../interfaces";
+import { Gender, ID, IState, ISurvivor } from "../interfaces";
 import { UpdateSurvivorAction } from "../interfaces/actions";
 import { capitalize, clone } from "../util";
 
@@ -30,8 +30,8 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorAction>): IGenderEd
     updateSurvivor: (survivor: ISurvivor) => dispatch(updateSurvivor(survivor)),
 });
 
-const mapStateToProps = (state: ISettlement, ownProps: IGenderEditOwnProps): IGenderEditStateProps => {
-    const survivor = state.survivors.find((v) => v.id === ownProps.id);
+const mapStateToProps = (state: IState, ownProps: IGenderEditOwnProps): IGenderEditStateProps => {
+    const survivor = state.settlement.survivors.find((v) => v.id === ownProps.id);
     return {
         survivor: clone(survivor),
     };

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
-import { ID, IGearGrid, ISettlement, Item } from "../interfaces";
+import { ID, IGearGrid, IState, Item } from "../interfaces";
 import { UpdateGearGridAction } from "../interfaces/actions";
 import { clone } from "../util";
 import GearCard from "./GearCard";
@@ -35,8 +35,8 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateGearGridAction>): IGridSlot
     updateGear: (grid: IGearGrid) => dispatch(updateGear(grid)),
 });
 
-const mapStateToProps = (state: ISettlement, ownProps: IGridSlotOwnProps): IGridSlotStateProps => {
-    const geargrid = state.geargrids.find((v) => v.id === ownProps.gridId);
+const mapStateToProps = (state: IState, ownProps: IGridSlotOwnProps): IGridSlotStateProps => {
+    const geargrid = state.settlement.geargrids.find((v) => v.id === ownProps.gridId);
     let slotKey;
     if (geargrid) {
         geargrid.slots.forEach((v, i) => {

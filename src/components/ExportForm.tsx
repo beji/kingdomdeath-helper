@@ -3,7 +3,7 @@ import { Component, createRef, RefObject, SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { importSettlement } from "../actions/importAction";
-import { ISettlement } from "../interfaces";
+import { ISettlement, IState } from "../interfaces";
 import { ImportAction } from "../interfaces/actions";
 import { clone } from "../util";
 import { FancyButton } from "./StyledComponents";
@@ -16,8 +16,8 @@ interface IExportFormState {
     content: string;
 }
 
-const mapStateToProps = (state: ISettlement): IExportFormProps => {
-    return clone(state) as IExportFormProps;
+const mapStateToProps = (state: IState): IExportFormProps => {
+    return clone(state.settlement) as IExportFormProps;
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<ImportAction>) => ({

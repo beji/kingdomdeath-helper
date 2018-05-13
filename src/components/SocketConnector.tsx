@@ -2,7 +2,7 @@ import React from "react";
 import { connect, Dispatch } from "react-redux";
 import io from "socket.io-client";
 import { importSettlement } from "../actions/importAction";
-import { ISettlement } from "../interfaces";
+import { ISettlement, IState } from "../interfaces";
 import { ImportAction } from "../interfaces/actions";
 import { IRoomMessage, IStatusUpdateMessage } from "../interfaces/socketMessages";
 import { clone } from "../util";
@@ -27,9 +27,9 @@ function getURLParam(urlFragment: string, name: string) {
                 "^(?:.*[&\\?\\#]" + encodeURI(name).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 }
 
-const mapStateToProps = (state: ISettlement, ownProps: ISocketConnectorStateProps): ISocketConnectorStateProps => {
+const mapStateToProps = (state: IState, ownProps: ISocketConnectorStateProps): ISocketConnectorStateProps => {
     return {
-        settlement: clone(state),
+        settlement: clone(state.settlement),
     };
 };
 const mapDispatchToProps = (dispatch: Dispatch<ImportAction>): ISocketConnectorDispatchProps => ({

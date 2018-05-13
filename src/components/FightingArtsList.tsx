@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateSurvivorFightingArt } from "../actions";
-import { FightingArt, ID, IFightingArt, ISettlement } from "../interfaces";
+import { FightingArt, ID, IFightingArt, IState } from "../interfaces";
 import { colorMagentaLachs, FancyButton } from "./StyledComponents";
 
 interface IFightingArtslistState {
@@ -95,8 +95,8 @@ const CloseIcon = styled.div`
     }
 `;
 
-const mapStateToProps = (state: ISettlement, ownProps: IFightingArtslistOwnProps): IFightingArtslistStateProps => {
-    const survivor = state.survivors.find((s) => s.id === ownProps.id);
+const mapStateToProps = (state: IState, ownProps: IFightingArtslistOwnProps): IFightingArtslistStateProps => {
+    const survivor = state.settlement.survivors.find((s) => s.id === ownProps.id);
     if (survivor && survivor.fightingArts) {
         return {
             currentlySelectedArts: survivor.fightingArts.map((art) => art.id),

@@ -1,4 +1,4 @@
-import { ISettlement } from "interfaces";
+import { IState } from "interfaces";
 import React from "react";
 import { connect } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
@@ -14,8 +14,8 @@ interface ILinkOwnProps {
 
 interface ILinkProps extends ILinkStateProps, ILinkOwnProps { }
 
-const mapStateToProps = (state: ISettlement, ownProps: ILinkOwnProps): ILinkStateProps => ({
-    settlementId: state.id,
+const mapStateToProps = (state: IState, ownProps: ILinkOwnProps): ILinkStateProps => ({
+    settlementId: state.settlement.id,
 });
 
 class Link extends React.Component<ILinkProps> {

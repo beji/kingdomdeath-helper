@@ -21,9 +21,9 @@ describe("capitalize", () => {
 
 describe("clone", () => {
     it("should create a copy of an object", () => {
-        const cloned = clone(initialState);
-        expect(cloned.id).to.equal(initialState.id);
-        expect(cloned.name).to.equal(initialState.name);
+        const cloned = clone(initialState).settlement;
+        expect(cloned.id).to.equal(initialState.settlement.id);
+        expect(cloned.name).to.equal(initialState.settlement.name);
     });
     it("should not create a reference to an object", () => {
         const initial = {

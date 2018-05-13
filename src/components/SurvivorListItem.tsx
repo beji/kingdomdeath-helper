@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions";
 import { killSurvivor, reviveSurvivor, updateSurvivor } from "../actions/survivorActions";
-import { DefenseStats, IBaseStat, ID, IDefenseStat, IGearGrid, ISettlement, ISurvivor } from "../interfaces";
+import { DefenseStats, IBaseStat, ID, IDefenseStat, IGearGrid, IState, ISurvivor } from "../interfaces";
 import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/actions";
 import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/actions";
 import { clone } from "../util";
@@ -51,11 +51,11 @@ const mapDispatchToProps = (dispatch: Dispatch<AddToHuntAction | RemoveFromHuntA
     updateSurvivor: (survivor: ISurvivor) => dispatch(updateSurvivor(survivor)),
 });
 
-const mapStateToProps = (state: ISettlement, ownProps: ISurvivorListItemOwnProps): ISurvivorListItemStateProps => {
-    const survivor = state.survivors.find((v) => v.id === ownProps.id);
-    const { geargrids } = state;
+const mapStateToProps = (state: IState, ownProps: ISurvivorListItemOwnProps): ISurvivorListItemStateProps => {
+    const survivor = state.settlement.survivors.find((v) => v.id === ownProps.id);
+    const { geargrids } = state.settlement;
     return {
-        geargrids: state.geargrids,
+        geargrids: state.settlement.geargrids,
         huntSlots: geargrids.map((v, i) => {
             return { gridId: i, survivorId: geargrids[i].survivorId };
         }),

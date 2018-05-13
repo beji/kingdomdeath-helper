@@ -4,7 +4,7 @@ import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
 import items from "../data/ItemDataHelper";
-import { AffinityTypes, DefenseStats, IAffinity, ID, IGearGrid, IGridSlot, IItem, ISettlement, Item, ItemType, StatType } from "../interfaces";
+import { AffinityTypes, DefenseStats, IAffinity, ID, IGearGrid, IGridSlot, IItem, IState, Item, ItemType, StatType } from "../interfaces";
 import { UpdateGearGridAction } from "../interfaces/actions";
 import layerSubject from "../layerSubject";
 import { capitalize } from "../util";
@@ -36,8 +36,8 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateGearGridAction>): IGearCard
     updateGear: (grid: IGearGrid) => dispatch(updateGear(grid)),
 });
 
-const mapStateToProps = (state: ISettlement, ownProps: IGearCardOwnProps): IGearCardStateProps => {
-    const grid = state.geargrids.find((curr) => curr.slots.find((slot) => slot.id === ownProps.slotId) !== undefined);
+const mapStateToProps = (state: IState, ownProps: IGearCardOwnProps): IGearCardStateProps => {
+    const grid = state.settlement.geargrids.find((curr) => curr.slots.find((slot) => slot.id === ownProps.slotId) !== undefined);
     const item = items.find((itm: IItem) => itm.id === ownProps.id);
     const showDescButton = item ? item.desc.length > 40 : false;
     let slotKey;

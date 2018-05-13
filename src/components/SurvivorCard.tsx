@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateSurvivor } from "../actions/survivorActions";
-import { BaseStats, DefenseStats, ID, ISettlement, ISurvivor, SpecialStats } from "../interfaces";
+import { BaseStats, DefenseStats, ID, IState, ISurvivor, SpecialStats } from "../interfaces";
 import { UpdateSurvivorAction } from "../interfaces/actions";
 import { capitalize, clone, specialStatToString } from "../util";
 import Checkbox from "./Checkbox";
@@ -72,12 +72,12 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorAction>) => ({
     updateSurvivor: (survivor: ISurvivor) => dispatch(updateSurvivor(survivor)),
 });
 
-const mapStateToProps = (state: ISettlement, ownProps: ISurvivorCardProps): ISurvivorCardProps => {
-    const newSurvivor = state.survivors.find((v) => v.id === ownProps.id);
+const mapStateToProps = (state: IState, ownProps: ISurvivorCardProps): ISurvivorCardProps => {
+    const newSurvivor = state.settlement.survivors.find((v) => v.id === ownProps.id);
     return {
         firstnameEdit: false,
         id: ownProps.id,
-        survivalLimit: state.survivalLimit,
+        survivalLimit: state.settlement.survivalLimit,
         survivor: clone(newSurvivor),
         updateSurvivor,
     };

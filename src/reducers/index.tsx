@@ -1,5 +1,6 @@
 import fightingArts from "data/final/fightingarts.json";
-import { Reducer } from "redux";
+import { IInterface } from "interfaces/state";
+import { combineReducers, Reducer } from "redux";
 import { removeFromHunt, updateGear, updateGearSlotAffinity, updateSurvivor } from "../actions";
 import items from "../data/ItemDataHelper";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../initialstate";
@@ -39,10 +40,10 @@ function generateWithUpdatedGrid(state: ISettlement, mapfunc: (grid: IGearGrid) 
     };
 }
 
-const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: Actions): ISettlement => {
+const settlementReducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: Actions): ISettlement => {
 
     if (!state) {
-        return initialState;
+        return initialState.settlement;
     }
 
     switch (action.type) {
@@ -58,10 +59,10 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                 // If the survivor is currently hunting they might be just switching their hunting spot
                 // we need to keep them from occupying two spots at the same time
                 // so we just remove them from the hunt before (re-)adding them
-                const statePhaseOne = reducer(state, removeFromHunt(action.payload.id));
+                const statePhaseOne = settlementReducer(state, removeFromHunt(action.payload.id));
 
                 // If the targeted hunting spot is currently occupied the old hunter needs to get removed as well
-                const baseState = oldSurvivor ? reducer(statePhaseOne, removeFromHunt(oldSurvivor.id)) : statePhaseOne;
+                const baseState = oldSurvivor ? settlementReducer(statePhaseOne, removeFromHunt(oldSurvivor.id)) : statePhaseOne;
 
                 const nextState = generateWithUpdatedSurvivors(baseState, (survivor) => {
                     // mark the new survivor as hunting and move the gear stats from the old survivor to the new one
@@ -109,7 +110,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     geargrids: updatedGearGrids,
                 };
 
-                return newGrid ? reducer(returnState, updateGear(newGrid as IGearGrid)) : returnState;
+                return newGrid ? settlementReducer(returnState, updateGear(newGrid as IGearGrid)) : returnState;
             }
             return state;
         }
@@ -263,7 +264,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         // Kill a survivor. This should remove them from the hunt and update the gear grid accordingly
         case ActionTypes.KILL_SURVIVOR: {
             if (action.payload) {
-                const baseState = reducer(state, removeFromHunt(action.payload));
+                const baseState = settlementReducer(state, removeFromHunt(action.payload));
                 // Mark the survivor as dead (or not alive, to be more correct)
                 return generateWithUpdatedSurvivors(baseState, (survivor) => {
                     if (survivor.id === action.payload) {
@@ -359,7 +360,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                         return grid;
                     });
 
-                    return reducer(baseState, updateGearSlotAffinity(action.payload));
+                    return settlementReducer(baseState, updateGearSlotAffinity(action.payload));
                 }
             }
             return state;
@@ -477,7 +478,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     }
                     return grid;
                 });
-                return reducer(nextState, updateSurvivor(updatedSurvivor));
+                return settlementReducer(nextState, updateSurvivor(updatedSurvivor));
             }
             return state;
         }
@@ -522,4 +523,11 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
     }
 };
 
-export default reducer;
+const interfaceReducer = (state: IInterface | undefined, action: Actions): IInterface => {
+    return initialState.interface;
+};
+
+export default combineReducers({
+    interface: interfaceReducer,
+    settlement: settlementReducer,
+});
