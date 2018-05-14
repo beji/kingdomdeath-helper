@@ -355,7 +355,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             if (typeof action.payload !== "undefined") {
                 const { survivorId, slots } = action.payload;
 
-                if (survivorId) {
+                if (typeof survivorId !== "undefined") {
                     const nextState = generateWithUpdatedSurvivors(state, (survivor) => {
                         if (survivor.id === survivorId) {
                             // reset survivor stats
