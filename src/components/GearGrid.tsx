@@ -1,7 +1,7 @@
 import React from "react";
 import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
-import { setPlayerName, updateSurvivor } from "../actions";
+import { setPlayerName, updateSurvivor, updateSurvivorName } from "../actions";
 import { Affinity, AffinityTypes, ID, IGearGrid, IState } from "../interfaces";
 import { SetPlayerNameAction } from "../interfaces/actions";
 import AffinityIcon from "./AffinityIcon";
@@ -81,7 +81,7 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
                         <div>Player: <NameEdit name={grid.playername || "not assigned"} updateFunc={this.handleSetPlayerName} /> </div>
                         <Link to={`/card/${id}`}>Open slot on own page</Link>
                     </PlayerCardHeadline>
-                    {grid.survivorId && <SurvivorCard key={grid.id} id={grid.survivorId} updateSurvivor={updateSurvivor} />}
+                    {grid.survivorId && <SurvivorCard key={grid.id} id={grid.survivorId} />}
                     <GridAffinities>
                         <div>{grid.affinities && grid.affinities.reduce((acc, curr) => curr === 0 ? acc + 1 : acc, 0)}x <AffinityIcon affinity={Affinity.red} type={AffinityTypes.grid} /></div>
                         <div>{grid.affinities && grid.affinities.reduce((acc, curr) => curr === 1 ? acc + 1 : acc, 0)}x <AffinityIcon affinity={Affinity.green} type={AffinityTypes.grid} /></div>

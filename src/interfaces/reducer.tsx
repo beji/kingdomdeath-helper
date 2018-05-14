@@ -1,4 +1,4 @@
-import { AddToHuntAction, CreateSurvivorAction, HideLayerAction, ImportAction, KillSurvivorAction, RemoveFromHuntAction, ResetHuntAction, ReviveSurvivorAction, SetNameAction, SetPlayerNameAction, ShowLayerAction, UpdateGearGridAction, UpdateGearSlotAffinityAction, UpdateSurvivalLimitAction, UpdateSurvivorAction, UpdateSurvivorFightingArtsAction, UpdateSurvivorStatAction } from "./actions";
+import { AddToHuntAction, CreateSurvivorAction, HideLayerAction, ImportAction, KillSurvivorAction, RemoveFromHuntAction, ResetHuntAction, ReviveSurvivorAction, SetNameAction, SetPlayerNameAction, ShowLayerAction, UpdateGearGridAction, UpdateGearSlotAffinityAction, UpdateSurvivalLimitAction, UpdateSurvivorAction, UpdateSurvivorFightingArtsAction, UpdateSurvivorGenderAction, UpdateSurvivorNameAction, UpdateSurvivorStatAction } from "./actions";
 
 type Actions = AddToHuntAction |
     RemoveFromHuntAction |
@@ -16,6 +16,8 @@ type Actions = AddToHuntAction |
     UpdateSurvivorFightingArtsAction |
     ResetHuntAction |
     ShowLayerAction |
-    HideLayerAction;
+    HideLayerAction |
+    UpdateSurvivorNameAction |
+    UpdateSurvivorGenderAction;
 
 export default Actions;

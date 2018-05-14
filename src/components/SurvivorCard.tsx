@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
-import { updateSurvivor } from "../actions/survivorActions";
+import { updateSurvivor, updateSurvivorName } from "../actions/survivorActions";
 import { BaseStats, DefenseStats, ID, IState, ISurvivor, SpecialStats } from "../interfaces";
-import { UpdateSurvivorAction } from "../interfaces/actions";
+import { UpdateSurvivorAction, UpdateSurvivorNameAction } from "../interfaces/actions";
 import { capitalize, clone, specialStatToString } from "../util";
 import Checkbox from "./Checkbox";
 import GenderEdit from "./GenderEdit";
@@ -54,13 +54,21 @@ const StatSection = styled.section`
 const TextSection = StatSection.extend`
 `;
 
-interface ISurvivorCardProps {
-    id?: ID;
-    survivor?: ISurvivor;
-    firstnameEdit?: boolean;
-    survivalLimit?: number;
-    updateSurvivor: (survivor: ISurvivor) => UpdateSurvivorAction;
+interface ISurvivorCardOwnProps {
+    id: ID;
 }
+
+interface ISurvivorCardStateProps {
+    survivor?: ISurvivor;
+    survivalLimit?: number;
+}
+
+interface ISurvivorCardDispatchProps {
+    updateSurvivor: (survivor: ISurvivor) => UpdateSurvivorAction;
+    updateSurvivorName: (id: ID, name: string) => UpdateSurvivorNameAction;
+}
+
+interface ISurvivorCardProps extends ISurvivorCardOwnProps, ISurvivorCardStateProps, ISurvivorCardDispatchProps { }
 
 interface ISurvivorCardState {
     id?: ID;
@@ -68,18 +76,16 @@ interface ISurvivorCardState {
     firstnameEdit: boolean;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorAction>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorAction | UpdateSurvivorNameAction>): ISurvivorCardDispatchProps => ({
     updateSurvivor: (survivor: ISurvivor) => dispatch(updateSurvivor(survivor)),
+    updateSurvivorName: (id: ID, name: string) => dispatch(updateSurvivorName(id, name)),
 });
 
-const mapStateToProps = (state: IState, ownProps: ISurvivorCardProps): ISurvivorCardProps => {
+const mapStateToProps = (state: IState, ownProps: ISurvivorCardOwnProps): ISurvivorCardStateProps => {
     const newSurvivor = state.settlement.survivors.find((v) => v.id === ownProps.id);
     return {
-        firstnameEdit: false,
-        id: ownProps.id,
         survivalLimit: state.settlement.survivalLimit,
         survivor: clone(newSurvivor),
-        updateSurvivor,
     };
 };
 
@@ -150,11 +156,7 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
     }
     private nameUpdate(newName: string) {
         if (this.props.survivor) {
-            const updateData = {
-                ...this.props.survivor,
-                name: newName,
-            } as ISurvivor;
-            this.props.updateSurvivor(updateData);
+            this.props.updateSurvivorName(this.props.survivor.id, newName);
         }
     }
     private toggleBooleanStat(statKey: string) {

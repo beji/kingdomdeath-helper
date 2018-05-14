@@ -3,7 +3,7 @@ import { IState } from "interfaces";
 import "mocha";
 import { addToHunt, importSettlement, removeFromHunt } from "../../src/actions";
 import { setName } from "../../src/actions/settlementActions";
-import { createSurvivor, killSurvivor, updateSurvivor } from "../../src/actions/survivorActions";
+import { createSurvivor, killSurvivor, updateSurvivor, updateSurvivorName } from "../../src/actions/survivorActions";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../../src/initialstate";
 import { DefenseStats, IDefenseStat, ISurvivor } from "../../src/interfaces";
 import reducer from "../../src/reducers";
@@ -169,7 +169,7 @@ describe("The reducer", () => {
         });
     });
 
-    describe("UpdateSurvivorAction", () => {
+    describe("UpdateSurvivorNameAction", () => {
         it("should give one free survival on the first rename", () => {
             const survivor = newSurvivor();
             const state: IState = {
@@ -183,11 +183,7 @@ describe("The reducer", () => {
             const initialSurvival = state.settlement.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
 
             expect(initialSurvival.armor, "the survivor has zero survival before the rename").to.equal(0);
-            const update = {
-                ...survivor,
-                name: "New Name",
-            };
-            const result = reducer(state, updateSurvivor(update));
+            const result = reducer(state, updateSurvivorName(survivor.id, "New Name"));
 
             const resultSurvival = result.settlement.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
             expect(resultSurvival.armor, "the survivor has one survival after the rename").to.equal(1);
@@ -201,11 +197,7 @@ describe("The reducer", () => {
             const state = { ...initialState, survivors: [survivor] };
             const initialSurvival = state.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
             expect(initialSurvival.armor, "the survivor has zero survival before the rename").to.equal(0);
-            const update = {
-                ...survivor,
-                name: "New Name",
-            };
-            const result = reducer(state, updateSurvivor(update));
+            const result = reducer(state, updateSurvivorName(survivor.id, "New Name"));
             const resultSurvival = result.settlement.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
             expect(resultSurvival.armor, "the survivor has zero survival after the rename").to.equal(0);
         });

@@ -1,19 +1,17 @@
 import React from "react";
 import { SyntheticEvent } from "react";
 import { connect, Dispatch } from "react-redux";
-import { updateSurvivor } from "../actions/survivorActions";
+import { updateSurvivor, updateSurvivorGender } from "../actions/survivorActions";
 import { Gender, ID, IState, ISurvivor } from "../interfaces";
-import { UpdateSurvivorAction } from "../interfaces/actions";
+import { UpdateSurvivorAction, UpdateSurvivorGenderAction } from "../interfaces/actions";
 import { capitalize, clone } from "../util";
-
-// TODO: Rework this to not use the whole survivor after the UPDATE_SURVIVOR split
 
 interface IGenderEditState {
     editGender: boolean;
 }
 
 interface IGenderEditDispatchProps {
-    updateSurvivor: (survivor: ISurvivor) => UpdateSurvivorAction;
+    updateSurvivorGender: (id: ID, gender: Gender) => UpdateSurvivorGenderAction;
 }
 
 interface IGenderEditStateProps {
@@ -26,8 +24,8 @@ interface IGenderEditOwnProps {
 
 interface IGenderEditProps extends IGenderEditOwnProps, IGenderEditStateProps, IGenderEditDispatchProps { }
 
-const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorAction>): IGenderEditDispatchProps => ({
-    updateSurvivor: (survivor: ISurvivor) => dispatch(updateSurvivor(survivor)),
+const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorGenderAction>): IGenderEditDispatchProps => ({
+    updateSurvivorGender: (id: ID, gender: Gender) => dispatch(updateSurvivorGender(id, gender)),
 });
 
 const mapStateToProps = (state: IState, ownProps: IGenderEditOwnProps): IGenderEditStateProps => {
@@ -73,10 +71,7 @@ class GenderEdit extends React.Component<IGenderEditProps, IGenderEditState> {
         if (this.props.survivor) {
             const newGender = parseInt(e.currentTarget.value, 10) as Gender;
 
-            this.props.updateSurvivor({
-                ...this.props.survivor,
-                gender: newGender,
-            });
+            this.props.updateSurvivorGender(this.props.survivor.id, newGender);
 
             this.setState({
                 editGender: false,
