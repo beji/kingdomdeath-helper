@@ -124,6 +124,12 @@ export interface IFightingArt {
     readonly description: string;
 }
 
+export interface IDisorder {
+    readonly id: number;
+    readonly name: string;
+    readonly description: string;
+}
+
 export interface IDefenseStat {
     readonly [key: string]: ID | string | number | boolean;
     readonly armor: number;
