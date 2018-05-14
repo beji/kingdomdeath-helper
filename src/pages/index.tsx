@@ -6,7 +6,7 @@ import GearGrid from "../components/GearGrid";
 import ResetHunt from "../components/ResetHunt";
 import SettlementName from "../components/SettlementName";
 import SurvivorListItem from "../components/SurvivorListItem";
-import { ID, IState } from "../interfaces";
+import { Gender, ID, IState } from "../interfaces";
 
 const AppWrapper = styled.div`
 `;
@@ -27,13 +27,18 @@ interface IAppProps {
     survivors?: string[];
     name?: string;
     aliveCount?: number;
+    aliveFemale?: number;
+    aliveMale?: number;
     geargrids?: ID[];
     id?: ID;
 }
 
 const mapStateToProps = (state: IState): IAppProps => {
+    const { survivors } = state.settlement;
     return {
-        aliveCount: state.settlement.survivors.filter((survivor) => survivor.alive).length,
+        aliveCount: survivors.filter((survivor) => survivor.alive).length,
+        aliveFemale: survivors.filter((survivor) => survivor.alive && survivor.gender === Gender.female).length,
+        aliveMale: survivors.filter((survivor) => survivor.alive && survivor.gender === Gender.male).length,
         geargrids: state.settlement.geargrids.map((grid) => grid.id),
         huntingSurvivors: state.settlement.survivors.filter((survivor) => survivor.hunting).map((survivor) => survivor.id),
         id: state.settlement.id,
@@ -44,7 +49,7 @@ const mapStateToProps = (state: IState): IAppProps => {
 
 class App extends React.Component<IAppProps> {
     public render() {
-        const { geargrids, survivors, aliveCount } = this.props;
+        const { geargrids, survivors, aliveCount, aliveFemale, aliveMale } = this.props;
 
         return (
             <AppWrapper>
@@ -56,7 +61,8 @@ class App extends React.Component<IAppProps> {
                     <ResetHunt />
                 </div>
                 <div>
-                    Population: {aliveCount ? aliveCount : 0}, dead: {aliveCount && this.props.survivors ? this.props.survivors.length - aliveCount : "all of them apparently"}
+                    Population: {aliveCount ? aliveCount : 0} (&#x2642; {aliveMale}, &#x2640; {aliveFemale}),
+                    dead: {aliveCount && this.props.survivors ? this.props.survivors.length - aliveCount : "all of them apparently"}
                 </div>
                 <SurvivorList>
                     <thead>
