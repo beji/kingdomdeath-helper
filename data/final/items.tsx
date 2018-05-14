@@ -2,7 +2,7 @@ import { Affinity, AffinityTypes, BaseStats, IItem, Item, ItemType, StatType } f
 
 export const items: IItem[] = [
     {
-        desc: "consumable resource",
+        desc: "",
         id: 411,
         material: "",
         name: "???",
@@ -11,6 +11,7 @@ export const items: IItem[] = [
             ItemType.bone,
             ItemType.organ,
             ItemType.hide,
+            ItemType.consumable,
         ],
     },
     {
@@ -98,12 +99,15 @@ export const items: IItem[] = [
         types: [],
     },
     {
-        desc: "Organ, consumable resource",
+        desc: "",
         id: 191,
         material: "",
         name: "Beast Steak",
         obtained: "",
-        types: [],
+        types: [
+            ItemType.organ,
+            ItemType.consumable,
+        ],
     },
     {
         desc: "If settlement has Scarification, spend one endeaver to perform Horn Ceremony (1d10 = 1-2 Your brain in punctured and you die / 3-4 Nothing happens / 5+ Brain Stimulation. Gain benefits of Age 1 and Age 2 without gaining Hunt XP. This ignores any \"once a lifetime\" rules.",
@@ -124,12 +128,14 @@ export const items: IItem[] = [
         types: [],
     },
     {
-        desc: "Bone resource",
+        desc: "",
         id: 194,
         material: "",
         name: "Bird Beak",
         obtained: "",
-        types: [],
+        types: [
+            ItemType.bone,
+        ],
     },
     {
         desc: "Spend move to consume (1/showdown) - add 1 armor to all hit locations. Gain Priority Target token. Roll 1d10 = on 1 reduce survival to 0.",
@@ -150,21 +156,25 @@ export const items: IItem[] = [
         ],
     },
     {
-        desc: "Iron, skull, bone resource",
+        desc: "skull",
         id: 197,
         material: "",
         name: "Black Skull",
         obtained: "",
-        types: [],
+        types: [
+            ItemType.iron,
+            ItemType.bone,
+        ],
     },
     {
-        desc: "consumable resource",
+        desc: "",
         id: 198,
         material: "",
         name: "Bladder",
         obtained: "",
         types: [
             ItemType.organ,
+            ItemType.consumable,
         ],
     },
     {
