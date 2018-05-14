@@ -4,7 +4,7 @@ import { Reducer } from "redux";
 import { removeFromHunt, updateGear, updateGearSlotAffinity, updateSurvivor } from "../actions";
 import items from "../data/ItemDataHelper";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../initialstate";
-import { Affinity, AffinityTypes, DefenseStats, IGearGrid, IItem, ISettlement, ISurvivor, StatType } from "../interfaces";
+import { Affinity, AffinityTypes, DefenseStats, FightingArt, IGearGrid, IGridSlot, IItem, IItemStat, ISettlement, ISurvivor, StatType } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { clone } from "../util";
 
@@ -377,11 +377,11 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
 
                             // assign stats from gear
                             slots
-                                .filter((slot) => slot.content)
-                                .map((slot) => items.find((itm) => itm.id === slot.content) as IItem)
-                                .map((item) => {
+                                .filter((slot: IGridSlot) => slot.content)
+                                .map((slot: IGridSlot) => items.find((itm) => itm.id === slot.content) as IItem)
+                                .map((item: IItem) => {
                                     if (item && item.stats && updatedSurvivor) {
-                                        item.stats.map((cardStat) => {
+                                        item.stats.map((cardStat: IItemStat) => {
                                             const statTypes = ["defenseStats", "baseStats", "specialstats"]; // Array sorted by StatType enum
                                             const fieldToAddName = ["armor", "gear", "value"]; // Array sorted by StatType enum
                                             if (updatedSurvivor[statTypes[cardStat.type]]) {
@@ -424,7 +424,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                         const gridAffinities: Affinity[] = [];
                         const affinitySlots: string[] = [];
                         // calculate affinities in this grid
-                        let slots = gearGrid.slots.map((slot, slotKey) => {
+                        let slots = gearGrid.slots.map((slot: IGridSlot, slotKey: number) => {
                             if (slot.content) {
                                 const thisCard = items.find((item) => item.id === slot.content);
                                 const directions = [
@@ -539,9 +539,9 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                         ...basestat,
                         token: 0,
                     })),
-                    defenseStats: survivor.defenseStats.map((defensestat) => ({
-                        ...defensestat,
-                        modifier: 0,
+                    defenseStats: survivor.defenseStats.map((defstat) => ({
+                        ...defstat,
+                        modifier: defstat.stat === DefenseStats.brain || defstat.stat === DefenseStats.survival ? defstat.modifier : 0,
                     })),
                 })),
             };
@@ -556,7 +556,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                             if (survivor.id === id) {
                                 return {
                                     ...survivor,
-                                    fightingArts: arts.map((art) => fightingArts[art]),
+                                    fightingArts: arts.map((art: FightingArt) => fightingArts[art]),
                                 };
                             }
                             return survivor;

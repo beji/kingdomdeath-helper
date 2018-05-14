@@ -83,4 +83,4 @@ interface ISet {
     readonly name: string;
 }
 
-export { Affinity, AffinityTypes, IAffinity, IGearGrid, IGridSlot, IItem, Item, ItemType, ISet, Set };
+export { Affinity, AffinityTypes, IAffinity, IGearGrid, IGridSlot, IItem, IItemStat, Item, ItemType, ISet, Set };
