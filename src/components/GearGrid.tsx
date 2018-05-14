@@ -83,7 +83,7 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
                         <div>Player: <NameEdit name={grid.playername || "not assigned"} updateFunc={this.handleSetPlayerName} /> </div>
                         <Link to={`/card/${id}`}>Open slot on own page</Link>
                     </PlayerCardHeadline>
-                    {grid.survivorId && <SurvivorCard key={grid.id} id={grid.survivorId} />}
+                    {typeof grid.survivorId !== "undefined" && <SurvivorCard key={grid.id} id={grid.survivorId} />}
                     <GridAffinities>
                         <div>{grid.affinities && grid.affinities.reduce((acc, curr) => curr === 0 ? acc + 1 : acc, 0)}x <AffinityIcon affinity={Affinity.red} type={AffinityTypes.grid} /></div>
                         <div>{grid.affinities && grid.affinities.reduce((acc, curr) => curr === 1 ? acc + 1 : acc, 0)}x <AffinityIcon affinity={Affinity.green} type={AffinityTypes.grid} /></div>
