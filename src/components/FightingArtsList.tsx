@@ -129,7 +129,7 @@ class FightingArtslist extends React.Component<IFightingArtslistProps, IFighting
         return (
             <Wrapper>
                 {this.props.onCancel && <CloseIcon onClick={this.handleCloseIconClick}>X</CloseIcon>}
-                <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} autoFocus={true}/>
+                <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} autoFocus={true} />
                 <List>
                     {this.state.arts.map((art, idx) => <React.Fragment key={idx}>{this.renderListElement(art)}</React.Fragment>)}
                 </List>

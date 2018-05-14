@@ -78,7 +78,7 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
             return (
                 <PlayerCard>
                     <PlayerCardHeadline>
-                        <div>Player: <NameEdit name={grid.playername || "not assigned"} updateFunc={this.handleSetPlayerName}/> </div>
+                        <div>Player: <NameEdit name={grid.playername || "not assigned"} updateFunc={this.handleSetPlayerName} /> </div>
                         <Link to={`/card/${id}`}>Open slot on own page</Link>
                     </PlayerCardHeadline>
                     {grid.survivorId && <SurvivorCard key={grid.id} id={grid.survivorId} updateSurvivor={updateSurvivor} />}

@@ -471,6 +471,15 @@ enum ItemType {
     sythe,
     silk,
     twilightsword,
+    consumable,
+    organ,
+    fur,
+    scrap,
+    hide,
+    iron,
+    vermin,
+    herb,
+    noisy,
 }
 
 const enum Set {
