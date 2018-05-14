@@ -18,6 +18,10 @@ const FancyButtonRight = FancyButton.extend`
     border-bottom-left-radius: 0;
 `;
 
+const EditableTarget = styled.span`
+    cursor: pointer;
+`;
+
 interface INameEditProps {
     name: string;
     updateFunc: (name: string) => void;
@@ -53,7 +57,7 @@ export default class NameEdit extends React.Component<INameEditProps, INameEditS
             );
         } else {
             return (
-                <span onClick={this.handleNameClick}>{name}</span>
+                <EditableTarget onClick={this.handleNameClick}>{name}	&#9998;</EditableTarget>
             );
         }
     }
