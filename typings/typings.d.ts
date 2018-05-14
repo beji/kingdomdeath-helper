@@ -30,6 +30,12 @@ declare module "data/final/fightingarts.json" {
     export default arts;
 }
 
+declare module "data/final/disorder.json" {
+    import { IDisorder } from "src/interfaces";
+    const disorders: [IDisorder];
+    export default disorders;
+}
+
 declare module "*.json" {
     const value: any;
     export default value;
