@@ -1,8 +1,8 @@
-import { Affinity, AffinityTypes, BaseStats, DefenseStats, IItem, Set, StatType } from "../../src/interfaces";
+import { Affinity, AffinityTypes, BaseStats, DefenseStats, IItem, ItemType, Set, StatType } from "../../src/interfaces";
 
 export const armor: IItem[] = [
     {
-        desc: "Unique, Irreplaceable, Accessory. 2-aff-red/2-aff-blue At start of your act, if insane, gain +1 speed.",
+        desc: "2-aff-red/2-aff-blue At start of your act, if insane, gain +1 speed.",
         id: 2,
         material: "endeavor, 1x pelt, 6x bone, 4x organ",
         name: "Antelope Mask",
@@ -15,10 +15,10 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
-            5,
-            6,
-            7,
+            ItemType.armor,
+            ItemType.unique,
+            ItemType.irreplaceable,
+            ItemType.accessory,
         ],
     },
     {
@@ -26,7 +26,7 @@ export const armor: IItem[] = [
             bottom: Affinity.blue,
             right: Affinity.red,
         },
-        desc: "jewelry, Accessory. Armor 3 on head. At the start of your act, if you have any +1 strength tokens, reveal the next 4 monster hit locations and put them back in any order.",
+        desc: "Armor 3 on head. At the start of your act, if you have any +1 strength tokens, reveal the next 4 monster hit locations and put them back in any order.",
         id: 3,
         material: "1x legendary horns, 1x phoenix crest",
         name: "Apostle Crown",
@@ -39,16 +39,16 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
-            8,
-            7,
+            ItemType.armor,
+            ItemType.jewelry,
+            ItemType.accessory,
         ],
     },
     {
         affinity: {
             bottom: Affinity.red,
         },
-        desc: "item, bone, heavy. If adjacent to the monster when you suffer a severe body injury, the monster suffers a wound. Limit, once per round.",
+        desc: "If adjacent to the monster when you suffer a severe body injury, the monster suffers a wound. Limit, once per round.",
         id: 4,
         material: "1x stout vertebrae, 1x scrap",
         name: "Armor Spikes",
@@ -174,7 +174,7 @@ export const armor: IItem[] = [
             left: Affinity.green,
             right: Affinity.green,
         },
-        desc: "jewelry, amber. Accessory. 3x 0.5-aff-blue = If you are the monster controller when the monster draws AI, draw 1 extra card. Select 1 to play and discard the other.",
+        desc: "3x 0.5-aff-blue = If you are the monster controller when the monster draws AI, draw 1 extra card. Select 1 to play and discard the other.",
         id: 8,
         material: "legless ball, 3x eyeballs, 2x stomach",
         name: "Blue Ring",
@@ -190,6 +190,7 @@ export const armor: IItem[] = [
             0,
             8,
             11,
+            ItemType.accessory,
         ],
     },
     {
@@ -339,7 +340,7 @@ export const armor: IItem[] = [
         ],
     },
     {
-        desc: "Unique, irreplaceable, accessory (not armor). If you have NO affinities, gain +4 luck and suffer -4 to all severe injury rolls.",
+        desc: "If you have NO affinities, gain +4 luck and suffer -4 to all severe injury rolls.",
         id: 15,
         material: "endeavor, -1 population, 6x bone, 4x organ",
         name: "Death Mask",
@@ -352,13 +353,13 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
             5,
             6,
+            ItemType.accessory,
         ],
     },
     {
-        desc: "armor,set,metal. You are not knocked down from suffering a heavy injury.",
+        desc: "You are not knocked down from suffering a heavy injury.",
         id: 16,
         material: "2x veined wing, 1x organ, 1x iron",
         name: "Dragon Belt",
@@ -380,7 +381,7 @@ export const armor: IItem[] = [
         ],
     },
     {
-        desc: "armor,set,metal. Gain +2 movement during your act.",
+        desc: "Gain +2 movement during your act.",
         id: 17,
         material: "1x kings claws, 1x husk, 1x organ, 1x iron",
         name: "Dragon Boots",
@@ -402,7 +403,7 @@ export const armor: IItem[] = [
         ],
     },
     {
-        desc: "armor,set,metal",
+        desc: "",
         id: 18,
         material: "1x cabled vein, 1x husk, 1x leather, 1x iron",
         name: "Dragon Gloves",
@@ -419,10 +420,12 @@ export const armor: IItem[] = [
         ],
         types: [
             0,
+            ItemType.set,
+            ItemType.metal,
         ],
     },
     {
-        desc: "armor,set,metal. At the start of the showdown, you beat your chest mightily and gain survival up to the survival limit.",
+        desc: "At the start of the showdown, you beat your chest mightily and gain survival up to the survival limit.",
         id: 19,
         material: "1x horn fragment, 1x iron, 1x hardened ribs, 1x leather",
         name: "Dragon Mantle",
@@ -444,7 +447,7 @@ export const armor: IItem[] = [
         ],
     },
     {
-        desc: "armor,set,bone,metal. Gain +1 to all severe heady injury roll results. Ignore shattered jaw severe injury result.",
+        desc: "Gain +1 to all severe heady injury roll results. Ignore shattered jaw severe injury result.",
         id: 20,
         material: "1x horn fragment, 2x bone, 1x husk",
         name: "Dragonskull Helm",
@@ -511,7 +514,7 @@ export const armor: IItem[] = [
         },
     },
     {
-        desc: "set,melee,metal. Block 2. Add 2 to all hit locations (as shown). While you carry this, reduce star damage from monster level by 1.",
+        desc: "Block 2. Add 2 to all hit locations (as shown). While you carry this, reduce star damage from monster level by 1.",
         id: 22,
         material: "1x beacon shield, 1x underplate fungus, 1x sleeping virus flower, 1x elixir of life",
         name: "Fetorsaurus",
@@ -545,6 +548,7 @@ export const armor: IItem[] = [
         ],
         types: [
             0,
+            ItemType.set,
             5,
             32,
         ],
@@ -555,7 +559,7 @@ export const armor: IItem[] = [
         },
     },
     {
-        desc: "armor,heavy. +1 Accuracy. 3x 1-aff-green = While you are being attacked, the monster has -1 speed.",
+        desc: "+1 Accuracy. 3x 1-aff-green = While you are being attacked, the monster has -1 speed.",
         id: 23,
         material: "(2x bone OR 1x skull), 1x lantern bloom",
         name: "Flower Knight Helm",
@@ -573,7 +577,7 @@ export const armor: IItem[] = [
         ],
     },
     {
-        desc: "Unique, irreplaceable, accessory (not armor). At the start of your act, if insane gain +1 action. During settlement phase, you may archive this item to build the mask maker location.",
+        desc: "At the start of your act, if insane gain +1 action. During settlement phase, you may archive this item to build the mask maker location.",
         id: 24,
         material: "Either defeat lvl 3 Butcher and roll 10 or combo of lvl 1-2 and also crit wound his head",
         name: "Forsaker Mask",
@@ -586,13 +590,13 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
             5,
             6,
+            ItemType.accessory,
         ],
     },
     {
-        desc: "Unique, irreplaceable, accessory (not armor). 2-aff-red/2-aff-green/2-aff-blue = at start of action, if insane then gain +1 survival.",
+        desc: "2-aff-red/2-aff-green/2-aff-blue = at start of action, if insane then gain +1 survival.",
         id: 25,
         material: "endeavor, 1x founding stone, 6x bone, 4x organ",
         name: "God Mask",
@@ -605,13 +609,13 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
             5,
             6,
+            ItemType.accessory,
         ],
     },
     {
-        desc: "armor, set, gormskin, heavy. Other survivors may move through but not end movement in a space you occupy.",
+        desc: "Other survivors may move through but not end movement in a space you occupy.",
         id: 26,
         material: "1x stout hide, 1x bone",
         name: "Gorment Boots",
@@ -631,7 +635,7 @@ export const armor: IItem[] = [
         ],
     },
     {
-        desc: "armor, set, gormskin, heavy. 1x 0.5-aff-blue / 1x 0.5-aff-green = If your courage is higher than the monster level, ignore Intimidate actions.",
+        desc: "1x 0.5-aff-blue / 1x 0.5-aff-green = If your courage is higher than the monster level, ignore Intimidate actions.",
         id: 27,
         material: "1x stout hide, 1x handed skull",
         name: "Gorment Mask",
@@ -651,7 +655,7 @@ export const armor: IItem[] = [
         ],
     },
     {
-        desc: "armor, set, gormskin, heavy. 2x 1-aff-green = You may Guard without spending survival (see Gorment Suit for Guard).",
+        desc: "2x 1-aff-green = You may Guard without spending survival (see Gorment Suit for Guard).",
         id: 28,
         material: "1x stout hide, 1x bone",
         name: "Gorment Sleeves",
@@ -671,7 +675,7 @@ export const armor: IItem[] = [
         ],
     },
     {
-        desc: "armor, set, gormskin, heavy. 1x 1-aff-blue / 1x 0.5-aff-green / 1x 1-aff-green = Guard: at the end of your attack, if you are standing and have a shield, spend 1 survival to move 3 spaces directly away from monster and Block 1 for free.",
+        desc: "1x 1-aff-blue / 1x 0.5-aff-green / 1x 1-aff-green = Guard: at the end of your attack, if you are standing and have a shield, spend 1 survival to move 3 spaces directly away from monster and Block 1 for free.",
         id: 29,
         material: "3x stout hide, 1x stout kidney",
         name: "Gorment Suit",
@@ -696,7 +700,7 @@ export const armor: IItem[] = [
         ],
     },
     {
-        desc: "armor,set,bone,heavy,metal. You may use the Tumble fighting art (even if you don't know it). You successfully tumble on 2+ instead of 6+.",
+        desc: "You may use the Tumble fighting art (even if you don't know it). You successfully tumble on 2+ instead of 6+.",
         id: 30,
         material: "1x iron, 1x Flower Knight Badge, 1x calcified greaves, 3x bone",
         name: "Green Boots",
@@ -717,7 +721,7 @@ export const armor: IItem[] = [
         ],
     },
     {
-        desc: "armor,set,metal,other. +1 evasion. After drawing hit locations from an attack, you may discard First Strike hit location card.",
+        desc: "+1 evasion. After drawing hit locations from an attack, you may discard First Strike hit location card.",
         id: 31,
         material: "1x elytra, 1x gormite, 1x scell, 1x lantern bloom",
         name: "Green Faulds",
@@ -737,7 +741,7 @@ export const armor: IItem[] = [
         ],
     },
     {
-        desc: "armor,set,metal. +2 strength. +6 luck when attempting to wound Parry locations.",
+        desc: "+2 strength. +6 luck when attempting to wound Parry locations.",
         id: 32,
         material: "1x hunter's heart, 1x iron, 1x jiggling lard",
         name: "Green Gloves",
@@ -756,7 +760,7 @@ export const armor: IItem[] = [
         ],
     },
     {
-        desc: "armor,set,bone,metal. +1 luck. When a monster attacks you, you may elect to take a hit on the head and roll 1d10. On 6+, ignore the hit. If adjacent, monster suffers 1 wound.",
+        desc: "+1 luck. When a monster attacks you, you may elect to take a hit on the head and roll 1d10. On 6+, ignore the hit. If adjacent, monster suffers 1 wound.",
         id: 33,
         material: "1x scell, 1x beetle horn, 1x DBK Errant Badge",
         name: "Green Helm",
@@ -776,7 +780,7 @@ export const armor: IItem[] = [
         ],
     },
     {
-        desc: "armor,set,metal,gormskin. At the start of the showdown, draw 3 tactics cards. When you attack, the extra weight grants leverage. Your weapon gains the club keyword.",
+        desc: "At the start of the showdown, draw 3 tactics cards. When you attack, the extra weight grants leverage. Your weapon gains the club keyword.",
         id: 34,
         material: "1x Lion Knights left claw, 2x iron, 3x leather, 1x scarab shell",
         name: "Green Plate",
@@ -861,7 +865,7 @@ export const armor: IItem[] = [
         },
     },
     {
-        desc: "Mask. Accessory. Gain +1 strength. At the start of the showdown, if you are fighting the Lion Knight, choose your Role card.",
+        desc: "Gain +1 strength. At the start of the showdown, if you are fighting the Lion Knight, choose your Role card.",
         id: 37,
         material: "non-craftable.",
         name: "Hideous Disguise",
@@ -875,7 +879,8 @@ export const armor: IItem[] = [
         ],
         types: [
             0,
-            16,
+            ItemType.mask,
+            ItemType.accessory,
         ],
     },
     {
@@ -1067,7 +1072,7 @@ export const armor: IItem[] = [
         ],
     },
     {
-        desc: "Accessory (not armor)",
+        desc: "",
         id: 49,
         material: "1x shimmering mane",
         name: "Lion Headdress",
@@ -1080,7 +1085,7 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+            ItemType.accessory,
         ],
     },
     {
@@ -1095,7 +1100,7 @@ export const armor: IItem[] = [
         ],
     },
     {
-        desc: "Unique, Irreplaceable, Accessory. 1-aff-red/1-aff-green = if insane, you may spend negative attribute tokens in place of survival.",
+        desc: "1-aff-red/1-aff-green = if insane, you may spend negative attribute tokens in place of survival.",
         id: 51,
         material: "endeavor, 1x skull, 6x bone, 4x organ",
         name: "Man Mask",
@@ -1183,7 +1188,7 @@ export const armor: IItem[] = [
         ],
     },
     {
-        desc: "Unique, Irreplaceable, Accessory. 4x 1-aff-red = if insane, you may dodge 1 additional time per round.",
+        desc: "4x 1-aff-red = if insane, you may dodge 1 additional time per round.",
         id: 56,
         material: "endeavor, 1x small feather, 6x bone, 4x organ",
         name: "Phoenix Mask",
@@ -1466,7 +1471,7 @@ export const armor: IItem[] = [
         ],
     },
     {
-        desc: "item, gorm. Accessory. 2x 1-aff-green / 1x 0.5-aff-green = At the end of the showdown, remove any permanent injuries you suffered this showdown.",
+        desc: "2x 1-aff-green / 1x 0.5-aff-green = At the end of the showdown, remove any permanent injuries you suffered this showdown.",
         id: 69,
         material: "1x stomach lining, 1x jiggling lard",
         name: "Regeneration Suit",
@@ -1482,6 +1487,7 @@ export const armor: IItem[] = [
             0,
             9,
             18,
+            ItemType.accessory,
         ],
     },
     {
@@ -1529,7 +1535,7 @@ export const armor: IItem[] = [
         },
     },
     {
-        desc: "armor,set,leather. Takes the place of the leather mask and cuirass in the leather set. No special properties.",
+        desc: "Takes the place of the leather mask and cuirass in the leather set. No special properties.",
         id: 71,
         material: "3x hide, 1x scrap",
         name: "Scout's Tunic",
@@ -1954,7 +1960,7 @@ export const armor: IItem[] = [
                 ],
             },
         },
-        desc: "Accessory (not armor).",
+        desc: "",
         id: 90,
         material: "endeavor, 1x shimmering mane, 6x bone, 4x organ",
         name: "White Lion Mask",
@@ -1970,9 +1976,9 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
             5,
             6,
+            ItemType.accessory,
         ],
     },
     {

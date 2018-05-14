@@ -413,6 +413,7 @@ const enum Item {
     unknown,
     thousand_year_sunspot,
     threethousand_year_sunspot,
+    stone_noses,
 }
 
 enum ItemType {
@@ -470,6 +471,15 @@ enum ItemType {
     sythe,
     silk,
     twilightsword,
+    consumable,
+    organ,
+    fur,
+    scrap,
+    hide,
+    iron,
+    vermin,
+    herb,
+    noisy,
 }
 
 const enum Set {

@@ -1,0 +1,267 @@
+[
+  {
+    "id": 0,
+    "name": "Absent Seizures",
+    "description": "No one knows where your mind goes when you're gone, not even you. The first time you would suffer a brain injury each showdown, you are instead knocked down and forget a fighting art (erase it)."
+  },
+  {
+    "id": 1,
+    "name": "Aichmophobia",
+    "description": "Sharp things make you uncomfortable. It's just a matter of time before someone cuts themselves. You cannot activate or depart with axes, swords, spears, daggers, scythes, or katars in your gear grid."
+  },
+  {
+    "id": 2,
+    "name": "Anxiety",
+    "description": "You are afraid of being afraid. You're a nervous wreck, and monsters can smell this fear in your scent. At the start of each showdown, gain the priority target token unless you have stinky gear in your gear grid."
+  },
+  {
+    "id": 3,
+    "name": "Apathetic",
+    "description": "You've given up. Nothing seems to matter. You have no concern for your own wellbeing. You cannot use or gain survival. You cannot gain courage. Cure this disorder if you have 8+ understanding."
+  },
+  {
+    "id": 4,
+    "name": "Arithmophilia",
+    "description": "You love numbers. Your life must exist in perfect arithmetical harmony. When you gain this disorder, roll 1d5. Your movement is that number. Ignore all other movement modifiers."
+  },
+  {
+    "id": 5,
+    "name": "Binge Eating Disorder",
+    "description": "Eating is the only thing that helps you escape your miserable life. You cannot depart unless you have consumable gear in your gear grid. You must consume if a choice to consume arises."
+  },
+  {
+    "id": 6,
+    "name": "Bloodthirsty",
+    "description": "You have a need to draw blood from your foes. You cannot use weapons that cause no wounds."
+  },
+  {
+    "id": 7,
+    "name": "Controlophobia",
+    "description": "You are deeply afraid of being the monster controller. While you are the monster controller, double any damage you suffer."
+  },
+  {
+    "id": 8,
+    "name": "Coprolalia",
+    "description": "You have compulsive tics in the form of sporadic muttering, cursing, whimpering, and screaming. All your gear is Noisy. You are always a threat unless you are knocked down, even if an effect says otherwise."
+  },
+  {
+    "id": 9,
+    "name": "Delicious",
+    "description": "Predators of all shapes and sizes find your scent irresistible. You are still considered a threat when you are knocked down (unless you have an effect that says otherwise)."
+  },
+  {
+    "id": 10,
+    "name": "Destined",
+    "description": "You have a grand destiny that you must fulfill. If you do not depart each year, lose all survival and insanity. You may always depart."
+  },
+  {
+    "id": 11,
+    "name": "Emotionless",
+    "description": "You don't have any emotions. You've hidden this from everyone by mimicking their social interactions. You cannot gain +1 strength tokens."
+  },
+  {
+    "id": 12,
+    "name": "Enfeebled",
+    "description": "You are a delicate flower, wilting in the darkness. It takes one less bleeding token to kill you."
+  },
+  {
+    "id": 13,
+    "name": "Fair Fighter",
+    "description": "Combat must be honorable, blow for blow. You may not attack from a monster's blind spot. If a monster performs a Trap against you, you are enraged and ignore it. Treat card as a woundable hit location. Spend 1 survival to do this. 1x/round."
+  },
+  {
+    "id": 14,
+    "name": "Fear of the Dark",
+    "description": "You cannot bear the oppressive darkness any longer. You retire. If you gain this disorder during a hunt or showdown, you put on a brave face until you return to the settlement, vowing never to leave the lantern hoard again."
+  },
+  {
+    "id": 15,
+    "name": "Flower Addiction",
+    "description": "An insatiable hunger has bloomed in you, delicate and sickeningly sweet. You may only depart to hunt the Flower Knight. After you depart, cure this disorder."
+  },
+  {
+    "id": 16,
+    "name": "Ghostly Beauty",
+    "description": "You cannot experience fear if you do not exist. Double all insanity you gain. Double all survival you spend."
+  },
+  {
+    "id": 17,
+    "name": "Hemophobia",
+    "description": "The mere sight of blood makes you lightheaded, and serious gore can knock you out! During the showdown, whenever a survivor (including you) gains a bleeding token, you are knocked down."
+  },
+  {
+    "id": 18,
+    "name": "Hoarder",
+    "description": "You compulsively collect and stash anything you can get your hands on. Every little bit you add to your secret hoard makes your existence feel more real. Whenever you are a returning survivor, archive 1 resource and gain +1 courage."
+  },
+  {
+    "id": 19,
+    "name": "Honorable",
+    "description": "You believe in honor and fairness when conducting yourself on the battlefield. It is these strong principles that have kept you alive, and you will not abandon them under any circumstances. You cannot attack a monster from its blind spot."
+  },
+  {
+    "id": 20,
+    "name": "Hyper-Sensitivity",
+    "description": "Your will to survive has become indefatigable. You may dodge one additional time per round. Whenever you are hit by an attack, you must dodge at least once, if possible."
+  },
+  {
+    "id": 21,
+    "name": "Hyperactive",
+    "description": "Whether you are running, fiddling with your gear, or pacing, you are always moving. During the showdown, you must move at least 1 space every round."
+  },
+  {
+    "id": 22,
+    "name": "Immortal",
+    "description": "You are immortal! You will live forever and cannot be killed. While you are insane, convert all damage dealt to your hit locations to brain damage. You are so busy reveling in your own glory that you cannot spend survival while insane."
+  },
+  {
+    "id": 23,
+    "name": "Indecision",
+    "description": "Past decisions haunt you ceaselessly. You are crippled by indecision, and even the most trivial choices grip you with terror. If you are the event revealer of hunt events that call on you to make a roll, roll twice and use the lower result."
+  },
+  {
+    "id": 24,
+    "name": "Megalophobia",
+    "description": "Even large, looming shadows make you jumpy. You may not depart for hunts or showdowns with monsters that occupy more than 4 spaces on the showdown board."
+  },
+  {
+    "id": 25,
+    "name": "Monster Panic",
+    "description": "Monsters make you feel bad. Really, really bad. Whenever you suffer brain damage from an Intimidate action, suffer 1 additional brain damage."
+  },
+  {
+    "id": 26,
+    "name": "Motion Sickness",
+    "description": "Moving quickly makes you vomit. Whenever you suffer knockback, gain 1 bleeding token."
+  },
+  {
+    "id": 27,
+    "name": "Narcissistic",
+    "description": "There is nothing in the world more beautiful than yourself. You may not wear armor at the head location. If wearing any armor at the head location when you gain this disorder, you must either give it to another survivor or archive it."
+  },
+  {
+    "id": 28,
+    "name": "Overprotective",
+    "description": "You love the feeling of being needed. When an adjacent survivor is knocked down, you are also knocked down as you rush to their aid."
+  },
+  {
+    "id": 29,
+    "name": "Performance Anxiety",
+    "description": "You're not ready to love. You cannot be nominated for intimacy. Cure this disorder if you have 8+ courage."
+  },
+  {
+    "id": 30,
+    "name": "Post-Traumatic Stress",
+    "description": "The last hunt was harrowing. All you can do is cower and relive the trauma. Only time can heal your wounds. Next settlement phase, you do not contribute or participate in any endeavors. Skip the next hunt to recover"
+  },
+  {
+    "id": 31,
+    "name": "Prey",
+    "description": "You are prey. All there is for you is death. You may not spend survival unless you are insane."
+  },
+  {
+    "id": 32,
+    "name": "Prima Donna",
+    "description": "The double-edged sword of fame is the only weapon you require. Each survivor turn, you must take your act first (roll off each turn if multiple survivors have this disorder)."
+  },
+  {
+    "id": 33,
+    "name": "Quixotic",
+    "description": "You carry the weight of your settlement on your shoulders. Everyone is counting on you to save them, and you will rise to the challenge. If you are insane when you depart, gain +1 survival and +1 strength token."
+  },
+  {
+    "id": 34,
+    "name": "Rageholic",
+    "description": "Your rage boils out of control, causing you to see red at the slightest provocation. Whenever you suffer a severe injury, also suffer the frenzy brain trauma."
+  },
+  {
+    "id": 35,
+    "name": "Revenge",
+    "description": "When a fellow hunter perishes, you lose control. When a survivor died during the showdown, suffer the Frenzy brain trauma."
+  },
+  {
+    "id": 36,
+    "name": "Secretive",
+    "description": "You love secrets. So much, in fact, that you pretend to have many. When you are a returning survivor, you quickly become preoccupied with your own affairs. You must skip your next hunt to deal with them."
+  },
+  {
+    "id": 37,
+    "name": "Seizures",
+    "description": "Lingering damage from your head injuries has caused you to experience periods of uncontrollable shaking and absence of thought. During the showdown, whever you suffer damage to your head location, you are knocked down."
+  },
+  {
+    "id": 38,
+    "name": "Shallow Lungs",
+    "description": "Yelling makes you feel light-headed. When you Encourage, you are knocked down."
+  },
+  {
+    "id": 39,
+    "name": "Social Anxiety",
+    "description": "You hate being around groups. The mass of people in your settlement irritate you. You must depart on every hunt. You may always depart, and cannot retire."
+  },
+  {
+    "id": 40,
+    "name": "Spiral Ganglia",
+    "description": "The roads in your mind cross and reveal a strange new path. At the start of the showdown, gain the Darkness Awareness survivor status card (Slenderman)"
+  },
+  {
+    "id": 41,
+    "name": "Squeamish",
+    "description": "You can't handle bad smells. You cannot depart with any stinky gear in your gear grid. If a status or effect would cause you to become stinky, lose all your survival."
+  },
+  {
+    "id": 42,
+    "name": "Stage Fright",
+    "description": "You hate being the center of attention. Whenever you become Doomed or gain the priority target token, lose 1 survival."
+  },
+  {
+    "id": 43,
+    "name": "Stark Raving",
+    "description": "Freedom awaits those pushed this far beyond the breaking point. You are always insane, regardless of your insanity."
+  },
+  {
+    "id": 44,
+    "name": "Sun-Drunk",
+    "description": "When your emotions rise, you can only think of violence. When you have any +1 strenght tokens, you cannot Dash, Dodge, or Run Away."
+  },
+  {
+    "id": 45,
+    "name": "Superstitious",
+    "description": "Evil magic will be your undoing. You do not believe in abusing the other. You cannot activate or depart with Other gear in your gear grid."
+  },
+  {
+    "id": 46,
+    "name": "Tiny Arachnophobia",
+    "description": "You are irrationally scared by tiny spiders and the things they produce. You cannot carry any gear with the amber keyword. You cannot gain any resources with the silk keyword."
+  },
+  {
+    "id": 47,
+    "name": "Traumatized",
+    "description": "Your experiences have left you shaken and paralyzed by fear. Whenever you end your act adjacent to a monster, you are knocked down."
+  },
+  {
+    "id": 48,
+    "name": "Tunnel Vision",
+    "description": "If you're not killing something, you're wasting your time. When you spend an action, you may only activate weapons."
+  },
+  {
+    "id": 49,
+    "name": "Unlucky",
+    "description": "Your mother always said you were born under a bad sign. You cannot critically wound."
+  },
+  {
+    "id": 50,
+    "name": "Vermin Obsession",
+    "description": "You love insects. While there is a Bug Spot terrain tile on the showdown board, you are so overwhelmed that you are Doomed."
+  },
+  {
+    "id": 51,
+    "name": "Vestiphobia",
+    "description": "Even the lightest armor rubs harshly against your skin and constricts your ability to move. You cannot wear armor on the body hit location. If you are wearing armor at this location when you gain this disorder, archive it as you tear it off!"
+  },
+  {
+    "id": 52,
+    "name": "Weak Spot",
+    "description": "You have an imaginary infirmity. When you gain this disorder, roll a random hit location and record it. You cannot depart unless you have armor at this hit location."
+  }
+]
