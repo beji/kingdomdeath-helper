@@ -34,7 +34,9 @@ const mapDispatchToProps = (dispatch: Dispatch<SetPlayerNameAction>): IGearGridD
 });
 
 const mapStateToProps = (state: IState, ownProps: IGearGridOwnProps): IGearGridStateProps => {
-    const geargrid = state.settlement.geargrids.find((v) => v.id === ownProps.id);
+    const geargrid = state.settlement.geargrids.find((v) => {
+        return v.id === ownProps.id;
+    });
     return {
         grid: geargrid,
     };
