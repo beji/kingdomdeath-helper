@@ -4,10 +4,9 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions";
-import { killSurvivor, reviveSurvivor, updateSurvivor } from "../actions/survivorActions";
+import { killSurvivor, reviveSurvivor, updateSurvivorName } from "../actions/survivorActions";
 import { DefenseStats, IBaseStat, ID, IDefenseStat, IGearGrid, IState, ISurvivor } from "../interfaces";
-import { AddToHuntAction, RemoveFromHuntAction } from "../interfaces/actions";
-import { KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction } from "../interfaces/actions";
+import { AddToHuntAction, KillSurvivorAction, RemoveFromHuntAction, ReviveSurvivorAction, UpdateSurvivorNameAction } from "../interfaces/actions";
 import { clone } from "../util";
 import GenderEdit from "./GenderEdit";
 import NameEdit from "./NameEdit";
@@ -28,9 +27,9 @@ interface ISurvivorListItemStateProps {
 interface ISurvivorListItemDispatchProps {
     addToHunt: (id: ID, gridId: number) => AddToHuntAction;
     removeFromHunt: (id: ID) => RemoveFromHuntAction;
-    updateSurvivor: (survivor: ISurvivor) => UpdateSurvivorAction;
     killSurvivor: (id: ID) => KillSurvivorAction;
     reviveSurvivor: (id: ID) => ReviveSurvivorAction;
+    updateSurvivorName: (id: ID, name: string) => UpdateSurvivorNameAction;
 }
 
 interface ISurvivorListItemOwnProps {
@@ -44,12 +43,12 @@ const Cell = styled.td`
     padding: 0.25vh 0.25vw;
 `;
 
-const mapDispatchToProps = (dispatch: Dispatch<AddToHuntAction | RemoveFromHuntAction | UpdateSurvivorAction | KillSurvivorAction | ReviveSurvivorAction>): ISurvivorListItemDispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<AddToHuntAction | RemoveFromHuntAction | KillSurvivorAction | ReviveSurvivorAction | UpdateSurvivorNameAction>): ISurvivorListItemDispatchProps => ({
     addToHunt: (id: ID, gridId: number) => dispatch(addToHunt(id, gridId)),
     killSurvivor: (id: ID) => dispatch(killSurvivor(id)),
     removeFromHunt: (id: ID) => dispatch(removeFromHunt(id)),
     reviveSurvivor: (id: ID) => dispatch(reviveSurvivor(id)),
-    updateSurvivor: (survivor: ISurvivor) => dispatch(updateSurvivor(survivor)),
+    updateSurvivorName: (id: ID, name: string) => dispatch(updateSurvivorName(id, name)),
 });
 
 const mapStateToProps = (state: IState, ownProps: ISurvivorListItemOwnProps): ISurvivorListItemStateProps => {
@@ -123,11 +122,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
 
     private handleNameUpdate(newName: string) {
         if (this.props.survivor) {
-            const updateData = {
-                ...this.props.survivor,
-                name: newName,
-            } as ISurvivor;
-            this.props.updateSurvivor(updateData);
+            this.props.updateSurvivorName(this.props.survivor.id, newName);
         }
     }
 

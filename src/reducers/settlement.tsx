@@ -185,11 +185,56 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             }
             return state;
         }
-        // Updates
-        // a) The name of a survivor
-        // b) The gender of a survivor
-        // TODO: Rework this into different actions
+        case ActionTypes.UPDATE_SURVIVOR_NAME: {
+            if (action.payload) {
+                const { id, name } = action.payload;
+                if (name !== "") {
+                    return generateWithUpdatedSurvivors(state, (survivor) => {
+                        if (survivor.id === id) {
+                            if (survivor.name === DEFAULT_SURVIVOR_NAME && name !== DEFAULT_SURVIVOR_NAME) {
+                                return {
+                                    ...survivor,
+                                    defenseStats: survivor.defenseStats.map((defensestat) => {
+                                        if (defensestat.stat === DefenseStats.survival) {
+                                            return {
+                                                ...defensestat,
+                                                armor: defensestat.armor + 1,
+                                            };
+                                        }
+                                        return defensestat;
+                                    }),
+                                    name,
+                                };
+                            }
+                            return {
+                                ...survivor,
+                                name,
+                            };
+                        }
+                        return survivor;
+                    });
+                }
+
+            }
+            return state;
+        }
+        case ActionTypes.UPDATE_SURVIVOR_GENDER: {
+            if (action.payload) {
+                const { id, gender } = action.payload;
+                return generateWithUpdatedSurvivors(state, (survivor) => {
+                    if (survivor.id === id) {
+                        return {
+                            ...survivor,
+                            gender,
+                        };
+                    }
+                    return survivor;
+                });
+            }
+            return state;
+        }
         case ActionTypes.UPDATE_SURVIVOR: {
+            console.warn("UPDATE_SURVIVOR should be deprecated, rework whatever calls this!");
             if (action.payload) {
                 const survivorToUpdate = action.payload as ISurvivor;
                 return generateWithUpdatedSurvivors(state, (survivor) => {
