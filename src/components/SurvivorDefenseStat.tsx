@@ -3,24 +3,24 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { showLayer } from "../actions";
 import { updateSurvivorStat } from "../actions/survivorActions";
-import { DefenseStats, IBaseStat, ID, IDefenseStat, IState } from "../interfaces";
+import { DefenseStats, IBaseStat, IDefenseStat, IState, UUID } from "../interfaces";
 import { ShowLayerAction, UpdateSurvivorStatAction } from "../interfaces/actions";
 import { IDefenseStatLayer, LayerType } from "../interfaces/layer";
 import Checkbox from "./Checkbox";
 import { StatElement, StatWrapper } from "./SurvivorStatElements";
 
 interface ISurvivorDefenseStatStatStateProps {
-    survivor?: ID;
+    survivor?: UUID;
     stat?: IDefenseStat;
 }
 
 interface ISurvivorDefenseStatDispatchProps {
-    updateSurvivorStat: (stat: IBaseStat | IDefenseStat, survivorId: ID) => UpdateSurvivorStatAction;
+    updateSurvivorStat: (stat: IBaseStat | IDefenseStat, survivorId: UUID) => UpdateSurvivorStatAction;
     showLayer: (layer: IDefenseStatLayer) => ShowLayerAction;
 }
 
 interface ISurvivorDefenseStatOwnProps {
-    id: ID;
+    id: UUID;
     statid: DefenseStats;
     renderWounds?: boolean;
     concatToDisplay?: string;
@@ -34,7 +34,7 @@ interface ISurvivorDefenseStatProps extends ISurvivorDefenseStatStatStateProps, 
 
 const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction | ShowLayerAction>): ISurvivorDefenseStatDispatchProps => ({
     showLayer: (layer: IDefenseStatLayer) => dispatch(showLayer(layer)),
-    updateSurvivorStat: (stat: IBaseStat | IDefenseStat, survivorId: ID) => dispatch(updateSurvivorStat(stat, survivorId)),
+    updateSurvivorStat: (stat: IBaseStat | IDefenseStat, survivorId: UUID) => dispatch(updateSurvivorStat(stat, survivorId)),
 });
 
 const mapStateToProps = (state: IState, ownProps: ISurvivorDefenseStatOwnProps): ISurvivorDefenseStatStatStateProps => {

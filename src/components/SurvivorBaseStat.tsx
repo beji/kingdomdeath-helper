@@ -2,13 +2,13 @@ import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { showLayer } from "../actions";
-import { BaseStats, IBaseStat, ID, IState } from "../interfaces";
+import { BaseStats, IBaseStat, IState, UUID } from "../interfaces";
 import { ShowLayerAction } from "../interfaces/actions";
 import { IBaseStatLayer, LayerType } from "../interfaces/layer";
 import { StatElement, StatWrapper } from "./SurvivorStatElements";
 
 interface IBaseStatStateProps {
-    survivor?: ID;
+    survivor?: UUID;
     survivorname?: string;
     stat?: IBaseStat;
 }
@@ -18,7 +18,7 @@ interface IBaseStatDispatchProps {
 }
 
 interface IBaseStatOwnProps {
-    id: ID;
+    id: UUID;
     statid: BaseStats;
 }
 

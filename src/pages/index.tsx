@@ -6,7 +6,7 @@ import GearGrid from "../components/GearGrid";
 import ResetHunt from "../components/ResetHunt";
 import SettlementName from "../components/SettlementName";
 import SurvivorListItem from "../components/SurvivorListItem";
-import { Gender, ID, IState } from "../interfaces";
+import { Gender, IState, UUID } from "../interfaces";
 
 const AppWrapper = styled.div`
 `;
@@ -29,8 +29,8 @@ interface IAppProps {
     aliveCount?: number;
     aliveFemale?: number;
     aliveMale?: number;
-    geargrids?: ID[];
-    id?: ID;
+    geargrids?: UUID[];
+    id?: UUID;
 }
 
 const mapStateToProps = (state: IState): IAppProps => {
@@ -90,7 +90,7 @@ class App extends React.Component<IAppProps> {
             </AppWrapper>);
     }
 
-    private renderSurvivorListItem(idx: number, id: ID) {
+    private renderSurvivorListItem(idx: number, id: UUID) {
         return (
             <SurvivorListItem
                 key={idx}

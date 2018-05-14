@@ -3,7 +3,7 @@ import React from "react";
 import { KeyboardEvent, SyntheticEvent } from "react";
 import styled from "styled-components";
 import items from "../data/ItemDataHelper";
-import { ID, IItem, ItemType } from "../interfaces";
+import { IItem, ItemType, UUID } from "../interfaces";
 import { CloseIcon, colorMagentaLachs } from "./StyledComponents";
 
 interface IGearListState {
@@ -85,7 +85,7 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
         );
     }
 
-    private handleItemSelect(itemId: ID) {
+    private handleItemSelect(itemId: UUID) {
         this.props.onItemSelect(itemId);
     }
 

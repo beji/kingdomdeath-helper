@@ -1,4 +1,4 @@
-import { ID } from "./generics";
+import { UUID } from "./generics";
 import { Item, ItemType, Set } from "./ItemEnums";
 import { BaseStats, DefenseStats, StatType } from "./survivor";
 
@@ -16,15 +16,15 @@ const enum AffinityTypes {
 
 interface IGearGrid {
     readonly affinities: Affinity[];
-    readonly id: ID;
+    readonly id: UUID;
     readonly playername?: string;
-    readonly survivorId?: ID;
+    readonly survivorId?: UUID;
     readonly slots: ReadonlyArray<IGridSlot>;
 }
 
 interface IGridSlot {
     readonly content?: Item;
-    readonly id: ID;
+    readonly id: UUID;
     readonly affinities?: ReadonlyArray<Affinity>;
     readonly affinityActive: boolean;
     readonly setActive: boolean;

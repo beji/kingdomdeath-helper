@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateSurvivor, updateSurvivorName } from "../actions/survivorActions";
-import { BaseStats, DefenseStats, ID, IState, ISurvivor, SpecialStats } from "../interfaces";
+import { BaseStats, DefenseStats, IState, ISurvivor, SpecialStats, UUID } from "../interfaces";
 import { UpdateSurvivorAction, UpdateSurvivorNameAction } from "../interfaces/actions";
 import { capitalize, clone, specialStatToString } from "../util";
 import Checkbox from "./Checkbox";
@@ -55,7 +55,7 @@ const TextSection = StatSection.extend`
 `;
 
 interface ISurvivorCardOwnProps {
-    id: ID;
+    id: UUID;
 }
 
 interface ISurvivorCardStateProps {
@@ -65,20 +65,20 @@ interface ISurvivorCardStateProps {
 
 interface ISurvivorCardDispatchProps {
     updateSurvivor: (survivor: ISurvivor) => UpdateSurvivorAction;
-    updateSurvivorName: (id: ID, name: string) => UpdateSurvivorNameAction;
+    updateSurvivorName: (id: UUID, name: string) => UpdateSurvivorNameAction;
 }
 
 interface ISurvivorCardProps extends ISurvivorCardOwnProps, ISurvivorCardStateProps, ISurvivorCardDispatchProps { }
 
 interface ISurvivorCardState {
-    id?: ID;
+    id?: UUID;
     survivor?: ISurvivor;
     firstnameEdit: boolean;
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorAction | UpdateSurvivorNameAction>): ISurvivorCardDispatchProps => ({
     updateSurvivor: (survivor: ISurvivor) => dispatch(updateSurvivor(survivor)),
-    updateSurvivorName: (id: ID, name: string) => dispatch(updateSurvivorName(id, name)),
+    updateSurvivorName: (id: UUID, name: string) => dispatch(updateSurvivorName(id, name)),
 });
 
 const mapStateToProps = (state: IState, ownProps: ISurvivorCardOwnProps): ISurvivorCardStateProps => {
