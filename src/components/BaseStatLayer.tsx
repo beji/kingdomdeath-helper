@@ -117,7 +117,7 @@ class BaseStatLayer extends React.Component<IBaseStatLayerProps> {
                 permanent: parseInt(this.permfield.value, 10),
                 token: parseInt(this.tokenfield.value, 10),
             };
-            if (this.props && this.props.survivor) {
+            if (this.props && typeof this.props.survivor !== "undefined") {
                 this.props.updateSurvivorStat(nextStat, this.props.survivor);
             }
         }

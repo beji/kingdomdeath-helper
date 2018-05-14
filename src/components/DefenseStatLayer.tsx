@@ -97,7 +97,7 @@ class DefenseStatLayer extends React.Component<IDefenseStatLayerProps> {
                 ...this.props.stat,
                 modifier: parseInt(this.modifierfield.value, 10),
             };
-            if (this.props.survivor) {
+            if (typeof this.props.survivor !== "undefined") {
                 this.props.updateSurvivorStat(nextStat, this.props.survivor);
             }
         }

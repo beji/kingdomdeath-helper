@@ -96,7 +96,7 @@ class SpecialStatLayer extends React.Component<ISpecialStatLayerProps> {
                 ...this.props.stat,
                 value: parseInt(this.valueRef.value, 10),
             };
-            if (this.props.survivor) {
+            if (typeof this.props.survivor !== "undefined") {
                 this.props.updateSurvivorStat(nextStat, this.props.survivor);
             }
         }
