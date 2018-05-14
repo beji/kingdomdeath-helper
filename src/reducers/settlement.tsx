@@ -6,7 +6,7 @@ import items from "../data/ItemDataHelper";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../initialstate";
 import { Affinity, AffinityTypes, DefenseStats, FightingArt, IGearGrid, IGridSlot, IItem, IItemStat, ISettlement, ISurvivor, StatType } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
-import { clone } from "../util";
+import { clone, getNewSurvivorID } from "../util";
 
 function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
     const updatedSurvivors = state.survivors.map(mapfunc);
@@ -33,7 +33,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
     switch (action.type) {
         // Set a survivor to the specified hunting slot, this will also migrate any stats gained from gear in the current slot to the survivor and remove the current hunter from the slot
         case ActionTypes.ADD_TO_HUNT: {
-            if (action.payload) {
+            if (typeof action.payload !== "undefined") {
                 // The slot might be occupied by a survivor, that survivor will loose their stat bonuses gained by the gear
                 const { survivorId } = state.geargrids[action.payload.gridId];
 
@@ -100,7 +100,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         }
         // Remove a survivor from the hunt
         case ActionTypes.REMOVE_FROM_HUNT: {
-            if (action.payload) {
+            if (typeof action.payload !== "undefined") {
                 let idxToUpdate = -1;
 
                 // Set the survivor to not hunting and also remove the reference to the gear grid, it only applies to hunters
@@ -158,7 +158,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         }
         // Updates players name on gear grid
         case ActionTypes.SET_PLAYER_NAME: {
-            if (action.payload) {
+            if (typeof action.payload !== "undefined") {
                 const { gridId, name } = action.payload;
                 return {
                     ...state,
@@ -177,7 +177,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         }
         // Update Survival Limit
         case ActionTypes.UPDATE_SURVIVAL_LIMIT: {
-            if (action.payload) {
+            if (typeof action.payload !== "undefined") {
                 return {
                     ...state,
                     survivalLimit: action.payload,
@@ -186,7 +186,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             return state;
         }
         case ActionTypes.UPDATE_SURVIVOR_NAME: {
-            if (action.payload) {
+            if (typeof action.payload !== "undefined") {
                 const { id, name } = action.payload;
                 if (name !== "") {
                     return generateWithUpdatedSurvivors(state, (survivor) => {
@@ -219,7 +219,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             return state;
         }
         case ActionTypes.UPDATE_SURVIVOR_GENDER: {
-            if (action.payload) {
+            if (typeof action.payload !== "undefined") {
                 const { id, gender } = action.payload;
                 return generateWithUpdatedSurvivors(state, (survivor) => {
                     if (survivor.id === id) {
@@ -235,7 +235,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         }
         case ActionTypes.UPDATE_SURVIVOR: {
             console.warn("UPDATE_SURVIVOR should be deprecated, rework whatever calls this!");
-            if (action.payload) {
+            if (typeof action.payload !== "undefined") {
                 const survivorToUpdate = action.payload as ISurvivor;
                 return generateWithUpdatedSurvivors(state, (survivor) => {
                     // Survivors gain one free survival on the first rename (faked by checking for the DEFAULT_SURVIVOR_NAME, could be cheated)
@@ -264,7 +264,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         }
         // Updates the survivor base- and defenseStats
         case ActionTypes.UPDATE_SURVIVOR_STAT: {
-            if (action.payload) {
+            if (typeof action.payload !== "undefined") {
                 const newStat = action.payload;
                 return generateWithUpdatedSurvivors(state, (survivor) => {
 
@@ -311,7 +311,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         }
         // Kill a survivor. This should remove them from the hunt and update the gear grid accordingly
         case ActionTypes.KILL_SURVIVOR: {
-            if (action.payload) {
+            if (typeof action.payload !== "undefined") {
                 const baseState = reducer(state, removeFromHunt(action.payload));
                 // Mark the survivor as dead (or not alive, to be more correct)
                 return generateWithUpdatedSurvivors(baseState, (survivor) => {
@@ -330,7 +330,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         }
         // Revives a dead survivor
         case ActionTypes.REVIVE_SURVIVOR: {
-            if (action.payload) {
+            if (typeof action.payload !== "undefined") {
                 return generateWithUpdatedSurvivors(state, (survivor) => {
                     if (survivor.id === action.payload) {
                         return {
@@ -347,12 +347,12 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
         case ActionTypes.CREATE_SURVIVOR: {
             return {
                 ...state,
-                survivors: state.survivors.concat(newSurvivor()),
+                survivors: state.survivors.concat(newSurvivor(getNewSurvivorID(state))),
             };
         }
         // Updates geargrid with updated grid from payload
         case ActionTypes.UPDATE_GEARGRID: {
-            if (action.payload) {
+            if (typeof action.payload !== "undefined") {
                 const { survivorId, slots } = action.payload;
 
                 if (survivorId) {
@@ -414,7 +414,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             return state;
         }
         case ActionTypes.UPDATE_GEARSLOT_AFFINITY: {
-            if (action.payload) {
+            if (typeof action.payload !== "undefined") {
                 const gearGrid = action.payload;
                 const currentSurvivor = state.survivors.find((survivor) => survivor.id === gearGrid.survivorId);
                 const updatedSurvivor: any = { ...currentSurvivor };
@@ -549,7 +549,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             };
         }
         case ActionTypes.UPDATE_SURVIVOR_WEAPON_ART: {
-            if (action.payload) {
+            if (typeof action.payload !== "undefined") {
                 const { id, arts } = action.payload;
                 if (arts.length <= 3) {
                     return {

@@ -1,4 +1,4 @@
-import { BaseStats, DefenseStats, Gender, ISpecialStat, SpecialStats } from "./interfaces";
+import { BaseStats, DefenseStats, Gender, ISettlement, ISpecialStat, SpecialStats } from "./interfaces";
 
 // tslint:disable:no-bitwise
 
@@ -38,4 +38,8 @@ export function specialStatToString(stat: SpecialStats) {
         case SpecialStats.weapon_proficiency: return "Weapon Proficiency";
         default: return capitalize(SpecialStats[stat]);
     }
+}
+
+export function getNewSurvivorID(state: ISettlement) {
+    return state.survivors.length;
 }

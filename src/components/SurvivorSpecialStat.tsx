@@ -3,23 +3,23 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { showLayer } from "../actions";
 import { updateSurvivorStat } from "../actions/survivorActions";
-import { IDefenseStat, ISpecialStat, IState, SpecialStats, UUID } from "../interfaces";
+import { ID, IDefenseStat, ISpecialStat, IState, SpecialStats } from "../interfaces";
 import { ShowLayerAction, UpdateSurvivorStatAction } from "../interfaces/actions";
 import { ISpecialStatLayer, LayerType } from "../interfaces/layer";
 import { StatElement, StatWrapper } from "./SurvivorStatElements";
 
 interface ISpecialStatStateProps {
     stat?: ISpecialStat;
-    survivor?: UUID;
+    survivor?: ID;
 }
 
 interface ISpecialStatDispatchProps {
-    updateSurvivorStat: (stat: ISpecialStat | IDefenseStat, survivorId: UUID) => UpdateSurvivorStatAction;
+    updateSurvivorStat: (stat: ISpecialStat | IDefenseStat, survivorId: ID) => UpdateSurvivorStatAction;
     showLayer: (layer: ISpecialStatLayer) => ShowLayerAction;
 }
 
 interface ISpecialStatOwnProps {
-    id: UUID;
+    id: ID;
     statid: SpecialStats;
 }
 
@@ -27,7 +27,7 @@ interface ISpecialStatProps extends ISpecialStatStateProps, ISpecialStatDispatch
 
 const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction | ShowLayerAction>): ISpecialStatDispatchProps => ({
     showLayer: (layer: ISpecialStatLayer) => dispatch(showLayer(layer)),
-    updateSurvivorStat: (stat: ISpecialStat | IDefenseStat, survivorId: UUID) => dispatch(updateSurvivorStat(stat, survivorId)),
+    updateSurvivorStat: (stat: ISpecialStat | IDefenseStat, survivorId: ID) => dispatch(updateSurvivorStat(stat, survivorId)),
 });
 
 const mapStateToProps = (state: IState, ownProps: ISpecialStatOwnProps): ISpecialStatStateProps => {

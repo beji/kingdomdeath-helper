@@ -23,8 +23,8 @@ const SurvivorList = styled.table`
 `;
 
 interface IAppProps {
-    huntingSurvivors?: UUID[];
-    survivors?: UUID[];
+    huntingSurvivors?: ID[];
+    survivors?: ID[];
     name?: string;
     aliveCount?: number;
     aliveFemale?: number;
@@ -90,7 +90,7 @@ class App extends React.Component<IAppProps> {
             </AppWrapper>);
     }
 
-    private renderSurvivorListItem(idx: number, id: UUID) {
+    private renderSurvivorListItem(idx: number, id: ID) {
         return (
             <SurvivorListItem
                 key={idx}

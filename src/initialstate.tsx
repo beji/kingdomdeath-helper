@@ -1,5 +1,5 @@
 import uuid from "uuid/v4";
-import { Affinity, BaseStats, DefenseStats, Gender, IBaseStat, IDefenseStat, IGearGrid, IItem, ISettlement, ISpecialStat, IState, ISurvivor, Item, ItemType, SpecialStats, StatType, UUID } from "./interfaces";
+import { BaseStats, DefenseStats, Gender, IBaseStat, ID, IDefenseStat, IGearGrid, ISpecialStat, IState, ISurvivor, SpecialStats, StatType } from "./interfaces";
 
 export const DEFAULT_SURVIVOR_NAME = "Rename me to get +1 Survival";
 
@@ -64,7 +64,7 @@ const survivors: ReadonlyArray<ISurvivor> = Array.apply(null, { length: 8 }).map
         gridId: n < 4 ? n : undefined,
         hunting: n < 4,
         huntxp: 0,
-        id: uuid(),
+        id: n,
         lifetimeReroll: false,
         name: `Survivor ${n}`,
         skipNextHunt: false,
@@ -72,7 +72,7 @@ const survivors: ReadonlyArray<ISurvivor> = Array.apply(null, { length: 8 }).map
     } as ISurvivor;
 });
 
-const huntingSurvivors: UUID[] = survivors.filter((survivor) => survivor.hunting).map((survivor) => survivor.id);
+const huntingSurvivors: ID[] = survivors.filter((survivor) => survivor.hunting).map((survivor) => survivor.id);
 
 const geargrids: ReadonlyArray<IGearGrid> = Array.apply(null, { length: 4 }).map(Number.call, Number).map((n: number) => {
     return {
@@ -101,7 +101,7 @@ const initialState: IState = {
     },
 };
 
-export function newSurvivor(): ISurvivor {
+export function newSurvivor(id: number): ISurvivor {
     return {
         alive: true,
         baseStats: getBaseStats(),
@@ -110,7 +110,7 @@ export function newSurvivor(): ISurvivor {
         gridId: undefined,
         hunting: false,
         huntxp: 0,
-        id: uuid(),
+        id,
         lifetimeReroll: false,
         name: DEFAULT_SURVIVOR_NAME,
         skipNextHunt: false,

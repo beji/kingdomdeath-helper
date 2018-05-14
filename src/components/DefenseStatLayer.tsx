@@ -2,7 +2,7 @@ import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { hideLayer, updateSurvivorStat } from "../actions";
-import { DefenseStats, IBaseStat, IDefenseStat, IState, LayerType, UUID } from "../interfaces";
+import { DefenseStats, IBaseStat, ID, IDefenseStat, IState, LayerType } from "../interfaces";
 import { HideLayerAction, UpdateSurvivorStatAction } from "../interfaces/actions";
 import { capitalize } from "../util";
 import NumberEdit from "./NumberEdit";
@@ -10,14 +10,14 @@ import { CloseIcon, FancyButton, SimpleLayerHeadline, SimpleLayerWrapper } from 
 import { Label, StatEdit, StatEditWrapper } from "./SurvivorStatElements";
 
 interface IDefenseStatLayerStateProps {
-    survivor?: UUID;
+    survivor?: ID;
     survivorname?: string;
     stat?: IDefenseStat;
 }
 
 interface IDefenseStatLayerDispatchProps {
     hideLayer: () => HideLayerAction;
-    updateSurvivorStat: (stat: IBaseStat | IDefenseStat, survivorId: UUID) => UpdateSurvivorStatAction;
+    updateSurvivorStat: (stat: IBaseStat | IDefenseStat, survivorId: ID) => UpdateSurvivorStatAction;
 }
 
 interface IDefenseStatLayerProps extends IDefenseStatLayerStateProps, IDefenseStatLayerDispatchProps { }
@@ -46,7 +46,7 @@ const mapStateToProps = (state: IState): IDefenseStatLayerStateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<HideLayerAction | UpdateSurvivorStatAction>): IDefenseStatLayerDispatchProps => ({
     hideLayer: () => dispatch(hideLayer()),
-    updateSurvivorStat: (stat: IBaseStat | IDefenseStat, survivorId: UUID) => dispatch(updateSurvivorStat(stat, survivorId)),
+    updateSurvivorStat: (stat: IBaseStat | IDefenseStat, survivorId: ID) => dispatch(updateSurvivorStat(stat, survivorId)),
 });
 
 class DefenseStatLayer extends React.Component<IDefenseStatLayerProps> {

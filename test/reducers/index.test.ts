@@ -7,7 +7,7 @@ import { createSurvivor, killSurvivor, updateSurvivor, updateSurvivorName } from
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../../src/initialstate";
 import { DefenseStats, IDefenseStat, ISurvivor } from "../../src/interfaces";
 import reducer from "../../src/reducers";
-import { clone } from "../../src/util";
+import { clone, getNewSurvivorID } from "../../src/util";
 
 describe("The reducer", () => {
 
@@ -171,7 +171,7 @@ describe("The reducer", () => {
 
     describe("UpdateSurvivorNameAction", () => {
         it("should give one free survival on the first rename", () => {
-            const survivor = newSurvivor();
+            const survivor = newSurvivor(getNewSurvivorID(initialState.settlement));
             const state: IState = {
                 ...initialState,
                 settlement: {
@@ -191,7 +191,7 @@ describe("The reducer", () => {
 
         it("should give not give free survival on renames that are not the first", () => {
             const survivor = {
-                ...newSurvivor(),
+                ...newSurvivor(getNewSurvivorID(initialState.settlement)),
                 name: "Rudolf",
             };
             const state = { ...initialState, survivors: [survivor] };

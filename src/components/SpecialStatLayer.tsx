@@ -2,7 +2,7 @@ import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { hideLayer, updateSurvivorStat } from "../actions";
-import { ISpecialStat, IState, LayerType, UUID } from "../interfaces";
+import { ID, ISpecialStat, IState, LayerType } from "../interfaces";
 import { HideLayerAction, UpdateSurvivorStatAction } from "../interfaces/actions";
 import { specialStatToString } from "../util";
 import NumberEdit from "./NumberEdit";
@@ -10,14 +10,14 @@ import { CloseIcon, FancyButton, SimpleLayerHeadline, SimpleLayerWrapper } from 
 import { Label, StatEdit, StatEditWrapper } from "./SurvivorStatElements";
 
 interface ISpecialStatLayerStateProps {
-    survivor?: UUID;
+    survivor?: ID;
     survivorname?: string;
     stat?: ISpecialStat;
 }
 
 interface ISpecialStatLayerDispatchProps {
     hideLayer: () => HideLayerAction;
-    updateSurvivorStat: (stat: ISpecialStat, survivorId: UUID) => UpdateSurvivorStatAction;
+    updateSurvivorStat: (stat: ISpecialStat, survivorId: ID) => UpdateSurvivorStatAction;
 }
 
 interface ISpecialStatLayerProps extends ISpecialStatLayerStateProps, ISpecialStatLayerDispatchProps { }
@@ -46,7 +46,7 @@ const mapStateToProps = (state: IState): ISpecialStatLayerStateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<HideLayerAction | UpdateSurvivorStatAction>): ISpecialStatLayerDispatchProps => ({
     hideLayer: () => dispatch(hideLayer()),
-    updateSurvivorStat: (stat: ISpecialStat, survivorId: UUID) => dispatch(updateSurvivorStat(stat, survivorId)),
+    updateSurvivorStat: (stat: ISpecialStat, survivorId: ID) => dispatch(updateSurvivorStat(stat, survivorId)),
 });
 
 class SpecialStatLayer extends React.Component<ISpecialStatLayerProps> {

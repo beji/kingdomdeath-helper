@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateSurvivorFightingArt } from "../actions";
-import { FightingArt, IFightingArt, IState, UUID } from "../interfaces";
+import { FightingArt, ID, IFightingArt, IState } from "../interfaces";
 import { colorMagentaLachs, FancyButton } from "./StyledComponents";
 
 interface IFightingArtslistState {
@@ -18,7 +18,7 @@ interface IFightingArtslistState {
 interface IFightingArtslistOwnProps {
     onfightingArtselect?: any;
     onCancel?: any;
-    id: UUID;
+    id: ID;
 }
 
 interface IFightingArtslistStateProps {
@@ -26,7 +26,7 @@ interface IFightingArtslistStateProps {
 }
 
 interface IFightingArtslistDispatchProps {
-    updateSurvivorFightingArt: (id: UUID, arts: FightingArt[]) => UpdateSurvivorFightingArtsAction;
+    updateSurvivorFightingArt: (id: ID, arts: FightingArt[]) => UpdateSurvivorFightingArtsAction;
 }
 
 interface IFightingArtslistProps extends IFightingArtslistStateProps, IFightingArtslistDispatchProps, IFightingArtslistOwnProps { }
@@ -108,7 +108,7 @@ const mapStateToProps = (state: IState, ownProps: IFightingArtslistOwnProps): IF
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorFightingArtsAction>): IFightingArtslistDispatchProps => ({
-    updateSurvivorFightingArt: (id: UUID, arts: FightingArt[]) => dispatch(updateSurvivorFightingArt(id, arts)),
+    updateSurvivorFightingArt: (id: ID, arts: FightingArt[]) => dispatch(updateSurvivorFightingArt(id, arts)),
 });
 
 class FightingArtslist extends React.Component<IFightingArtslistProps, IFightingArtslistState> {

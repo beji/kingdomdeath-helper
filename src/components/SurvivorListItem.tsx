@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions";
 import { killSurvivor, reviveSurvivor, updateSurvivorName } from "../actions/survivorActions";
-import { DefenseStats, IBaseStat, IDefenseStat, IGearGrid, IState, ISurvivor, UUID } from "../interfaces";
+import { DefenseStats, IBaseStat, ID, IDefenseStat, IGearGrid, IState, ISurvivor } from "../interfaces";
 import { AddToHuntAction, KillSurvivorAction, RemoveFromHuntAction, ReviveSurvivorAction, UpdateSurvivorNameAction } from "../interfaces/actions";
 import { clone } from "../util";
 import GenderEdit from "./GenderEdit";
@@ -20,20 +20,20 @@ interface ISurvivorListItemStateProps {
     huntSlots: Array<{
         gridId: number,
         playername: string;
-        survivorId?: UUID,
+        survivorId?: ID,
     }>;
 }
 
 interface ISurvivorListItemDispatchProps {
-    addToHunt: (id: UUID, gridId: number) => AddToHuntAction;
-    removeFromHunt: (id: UUID) => RemoveFromHuntAction;
-    killSurvivor: (id: UUID) => KillSurvivorAction;
-    reviveSurvivor: (id: UUID) => ReviveSurvivorAction;
-    updateSurvivorName: (id: UUID, name: string) => UpdateSurvivorNameAction;
+    addToHunt: (id: ID, gridId: number) => AddToHuntAction;
+    removeFromHunt: (id: ID) => RemoveFromHuntAction;
+    killSurvivor: (id: ID) => KillSurvivorAction;
+    reviveSurvivor: (id: ID) => ReviveSurvivorAction;
+    updateSurvivorName: (id: ID, name: string) => UpdateSurvivorNameAction;
 }
 
 interface ISurvivorListItemOwnProps {
-    id: UUID;
+    id: ID;
 }
 
 interface ISurvivorListItemProps extends ISurvivorListItemOwnProps, ISurvivorListItemStateProps, ISurvivorListItemDispatchProps { }
@@ -44,11 +44,11 @@ const Cell = styled.td`
 `;
 
 const mapDispatchToProps = (dispatch: Dispatch<AddToHuntAction | RemoveFromHuntAction | KillSurvivorAction | ReviveSurvivorAction | UpdateSurvivorNameAction>): ISurvivorListItemDispatchProps => ({
-    addToHunt: (id: UUID, gridId: number) => dispatch(addToHunt(id, gridId)),
-    killSurvivor: (id: UUID) => dispatch(killSurvivor(id)),
-    removeFromHunt: (id: UUID) => dispatch(removeFromHunt(id)),
-    reviveSurvivor: (id: UUID) => dispatch(reviveSurvivor(id)),
-    updateSurvivorName: (id: UUID, name: string) => dispatch(updateSurvivorName(id, name)),
+    addToHunt: (id: ID, gridId: number) => dispatch(addToHunt(id, gridId)),
+    killSurvivor: (id: ID) => dispatch(killSurvivor(id)),
+    removeFromHunt: (id: ID) => dispatch(removeFromHunt(id)),
+    reviveSurvivor: (id: ID) => dispatch(reviveSurvivor(id)),
+    updateSurvivorName: (id: ID, name: string) => dispatch(updateSurvivorName(id, name)),
 });
 
 const mapStateToProps = (state: IState, ownProps: ISurvivorListItemOwnProps): ISurvivorListItemStateProps => {
@@ -106,14 +106,14 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
         }
     }
 
-    private renderBaseStats(baseStats: ReadonlyArray<IBaseStat>, id: UUID) {
+    private renderBaseStats(baseStats: ReadonlyArray<IBaseStat>, id: ID) {
         return baseStats.map((basestat, idx) => {
             return (
                 <Cell key={idx}><SurvivorBaseStat id={id} statid={basestat.stat} /></Cell>);
         });
     }
 
-    private renderDefStats(defenseStats: ReadonlyArray<IDefenseStat>, id: UUID) {
+    private renderDefStats(defenseStats: ReadonlyArray<IDefenseStat>, id: ID) {
         return defenseStats.filter((defStat) => defStat.stat === DefenseStats.brain || defStat.stat === DefenseStats.survival).map((defStat, idx) => {
             return (
                 <Cell key={idx}><SurvivorDefenseStat id={id} statid={defStat.stat} renderWounds={false} /></Cell>);

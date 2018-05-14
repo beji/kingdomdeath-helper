@@ -1,4 +1,4 @@
-import { UUID } from "./generics";
+import { ID, UUID } from "./generics";
 
 export enum Gender {
     male,
@@ -159,7 +159,7 @@ export interface ISpecialStat {
 
 export interface ISurvivor {
     readonly [key: string]: any; // UUID | string | number | boolean | undefined | ReadonlyArray<IBaseStat> | ReadonlyArray<IDefenseStat> | ReadonlyArray<ISpecialStat> | ReadonlyArray<IFightingArt>;
-    readonly id: UUID;
+    readonly id: ID;
     readonly gridId: string | undefined;
     readonly name: string;
     readonly gender: Gender;

@@ -1,4 +1,4 @@
-import { ID, UUID } from "./generics";
+import { ID } from "./generics";
 import { Item, ItemType, Set } from "./ItemEnums";
 import { BaseStats, DefenseStats, StatType } from "./survivor";
 
@@ -18,7 +18,7 @@ interface IGearGrid {
     readonly affinities: Affinity[];
     readonly id: ID;
     readonly playername?: string;
-    readonly survivorId?: UUID;
+    readonly survivorId?: ID;
     readonly slots: ReadonlyArray<IGridSlot>;
 }
 
