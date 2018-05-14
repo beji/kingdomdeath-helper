@@ -77,7 +77,7 @@ class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISu
                     ...this.props.stat,
                     [woundType]: !this.props.stat[woundType],
                 };
-                if (this.props.survivor) {
+                if (typeof this.props.survivor !== "undefined") {
                     this.props.updateSurvivorStat(newState, this.props.survivor);
                 }
             }
