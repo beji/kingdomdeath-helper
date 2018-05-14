@@ -1,10 +1,10 @@
-import { UUID } from "interfaces";
+import { ID, UUID } from "interfaces";
 import React from "react";
 import { RouteComponentProps } from "react-router";
 import GearGrid from "../components/GearGrid";
 
 interface IPageMatchParams {
-    cardnumber: UUID;
+    cardnumber: ID;
 }
 
 interface ISurvivorCardPageProps extends RouteComponentProps<IPageMatchParams> { }

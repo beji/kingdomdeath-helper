@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
-import { IGearGrid, IState, Item, UUID } from "../interfaces";
+import { ID, IGearGrid, IState, Item } from "../interfaces";
 import { UpdateGearGridAction } from "../interfaces/actions";
 import { clone } from "../util";
 import GearCard from "./GearCard";
@@ -25,8 +25,8 @@ interface IGridSlotDispatchProps {
 }
 
 interface IGridSlotOwnProps {
-    gridId: UUID;
-    slotId: UUID;
+    gridId: ID;
+    slotId: ID;
 }
 
 interface IGridSlotProps extends IGridSlotStateProps, IGridSlotOwnProps, IGridSlotDispatchProps { }

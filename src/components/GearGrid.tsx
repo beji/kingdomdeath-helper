@@ -2,7 +2,7 @@ import React from "react";
 import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
 import { setPlayerName, updateSurvivor, updateSurvivorName } from "../actions";
-import { Affinity, AffinityTypes, IGearGrid, IState, UUID } from "../interfaces";
+import { Affinity, AffinityTypes, ID, IGearGrid, IState, UUID } from "../interfaces";
 import { SetPlayerNameAction } from "../interfaces/actions";
 import AffinityIcon from "./AffinityIcon";
 import GridSlot from "./GridSlot";
@@ -20,17 +20,17 @@ interface IGearGridStateProps {
 }
 
 interface IGearGridOwnProps {
-    id: UUID;
+    id: ID;
 }
 
 interface IGearGridDispatchProps {
-    setPlayerName: (name: string, gridId: UUID) => SetPlayerNameAction;
+    setPlayerName: (name: string, gridId: ID) => SetPlayerNameAction;
 }
 
 interface IGearGridProps extends IGearGridStateProps, IGearGridOwnProps, IGearGridDispatchProps { }
 
 const mapDispatchToProps = (dispatch: Dispatch<SetPlayerNameAction>): IGearGridDispatchProps => ({
-    setPlayerName: (name: string, gridId: UUID) => dispatch(setPlayerName(name, gridId)),
+    setPlayerName: (name: string, gridId: ID) => dispatch(setPlayerName(name, gridId)),
 });
 
 const mapStateToProps = (state: IState, ownProps: IGearGridOwnProps): IGearGridStateProps => {

@@ -6,7 +6,7 @@ import GearGrid from "../components/GearGrid";
 import ResetHunt from "../components/ResetHunt";
 import SettlementName from "../components/SettlementName";
 import SurvivorListItem from "../components/SurvivorListItem";
-import { Gender, IState, UUID } from "../interfaces";
+import { Gender, ID, IState, UUID } from "../interfaces";
 
 const AppWrapper = styled.div`
 `;
@@ -29,7 +29,7 @@ interface IAppProps {
     aliveCount?: number;
     aliveFemale?: number;
     aliveMale?: number;
-    geargrids?: UUID[];
+    geargrids?: ID[];
     id?: UUID;
 }
 

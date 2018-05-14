@@ -1,8 +1,8 @@
-import { IGearGrid, UUID } from "../interfaces";
+import { ID, IGearGrid, UUID } from "../interfaces";
 import { SetPlayerNameAction, UpdateGearGridAction, UpdateGearSlotAffinityAction } from "../interfaces/actions";
 import ActionTypes from "../interfaces/actionTypes";
 
-export const setPlayerName = (name: string, gridId: UUID): SetPlayerNameAction => ({
+export const setPlayerName = (name: string, gridId: ID): SetPlayerNameAction => ({
     payload: {
         gridId,
         name,

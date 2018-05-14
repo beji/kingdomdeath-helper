@@ -77,15 +77,15 @@ const huntingSurvivors: UUID[] = survivors.filter((survivor) => survivor.hunting
 const geargrids: ReadonlyArray<IGearGrid> = Array.apply(null, { length: 4 }).map(Number.call, Number).map((n: number) => {
     return {
         affinities: [],
-        id: uuid(),
+        id: n,
         playername: `Slot ${n + 1}`,
-        slots: Array.apply(null, { length: 9 }).map(() => {
+        slots: Array.apply(null, { length: 9 }).map(Number.call, Number).map((x: number) => {
             return {
-                id: uuid(),
+                id: x,
             };
         }),
         survivorId: huntingSurvivors[n],
-    };
+    } as IGearGrid;
 });
 
 const initialState: IState = {
