@@ -403,11 +403,11 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
 
                     const baseState = generateWithUpdatedGrid(nextState, (grid) => {
                         if (action.payload && grid.id === action.payload.id) {
-                            return action.payload;
+                            return clone(action.payload);
                         }
                         return grid;
                     });
-
+                    console.log(baseState.geargrids[3].slots);
                     return reducer(baseState, updateGearSlotAffinity(action.payload));
                 }
             }

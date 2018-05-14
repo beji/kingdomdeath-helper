@@ -27,6 +27,7 @@ interface IGearCardStateProps {
 
 interface IGearCardOwnProps {
     id: Item;
+    gridId?: ID;
     slotId?: ID;
 }
 
@@ -38,7 +39,7 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateGearGridAction>): IGearCard
 });
 
 const mapStateToProps = (state: IState, ownProps: IGearCardOwnProps): IGearCardStateProps => {
-    const grid = state.settlement.geargrids.find((curr) => curr.slots.find((slot) => slot.id === ownProps.slotId) !== undefined);
+    const grid = ownProps.gridId ? state.settlement.geargrids[ownProps.gridId] : undefined;
     const item = items.find((itm: IItem) => itm.id === ownProps.id);
     const showDescButton = item ? item.desc.length > 40 : false;
     let slotKey;
