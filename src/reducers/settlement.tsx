@@ -541,6 +541,8 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     })),
                     defenseStats: survivor.defenseStats.map((defstat) => ({
                         ...defstat,
+                        heavyWound: false,
+                        lightWound: false,
                         modifier: defstat.stat === DefenseStats.brain || defstat.stat === DefenseStats.survival ? defstat.modifier : 0,
                     })),
                 })),
