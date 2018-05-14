@@ -407,7 +407,6 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                         }
                         return grid;
                     });
-                    console.log(baseState.geargrids[3].slots);
                     return reducer(baseState, updateGearSlotAffinity(action.payload));
                 }
             }
