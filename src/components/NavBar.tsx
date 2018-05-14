@@ -48,9 +48,9 @@ export default class Navbar extends React.Component {
                 <Head>Kingdom: Death - Helper </Head>
                 <LinkBox>
                     <StyledLink to="/">Home</StyledLink>
-                    <StyledLink to="/gear">Gear</StyledLink>
-                    <StyledLink to="/disorders">Disorders</StyledLink>
-                    <StyledLink to="/arts">Fighting arts</StyledLink>
+                    <StyledLink to="/view/gear">Gear</StyledLink>
+                    <StyledLink to="/view/disorders">Disorders</StyledLink>
+                    <StyledLink to="/view/arts">Fighting arts</StyledLink>
                 </LinkBox>
             </NavbarWrapper>
         );
