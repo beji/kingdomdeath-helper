@@ -1,4 +1,4 @@
-import { ID, IFightingArt, IState } from "interfaces";
+import { IFightingArt, IState, UUID } from "interfaces";
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
@@ -11,7 +11,7 @@ interface IFightingArtsStateProps {
 }
 
 interface IFightingArtsOwnProps {
-    id: ID;
+    id: UUID;
 }
 
 interface IFightingArtsProps extends IFightingArtsStateProps, IFightingArtsOwnProps { }

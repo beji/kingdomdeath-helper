@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { showLayer } from "../actions";
 import { updateGear } from "../actions/gearActions";
 import items from "../data/ItemDataHelper";
-import { AffinityTypes, DefenseStats, IAffinity, ID, IGearGrid, IGridSlot, IItem, ISimpleLayer, IState, Item, ItemType, LayerType, StatType } from "../interfaces";
+import { AffinityTypes, DefenseStats, IAffinity, IGearGrid, IGridSlot, IItem, ISimpleLayer, IState, Item, ItemType, LayerType, StatType, UUID } from "../interfaces";
 import { ShowLayerAction, UpdateGearGridAction } from "../interfaces/actions";
 import { capitalize } from "../util";
 import AffinityIcon from "./AffinityIcon";
@@ -27,7 +27,7 @@ interface IGearCardStateProps {
 
 interface IGearCardOwnProps {
     id: Item;
-    slotId?: ID;
+    slotId?: UUID;
 }
 
 interface IGearCardProps extends IGearCardOwnProps, IGearCardDispatchProps, IGearCardStateProps { }

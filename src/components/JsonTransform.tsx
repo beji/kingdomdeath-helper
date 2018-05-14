@@ -11,7 +11,7 @@ class JsonTransform extends React.Component {
             <div>
                 <h1>JSON</h1>
                 {JSON.stringify(this.transformItems())}
-                <h1>ID</h1>
+                <h1>UUID</h1>
                 {JSON.stringify(this.getItemIDs())}
             </div>
         );

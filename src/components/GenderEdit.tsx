@@ -2,7 +2,7 @@ import React from "react";
 import { SyntheticEvent } from "react";
 import { connect, Dispatch } from "react-redux";
 import { updateSurvivor, updateSurvivorGender } from "../actions/survivorActions";
-import { Gender, ID, IState, ISurvivor } from "../interfaces";
+import { Gender, IState, ISurvivor, UUID } from "../interfaces";
 import { UpdateSurvivorAction, UpdateSurvivorGenderAction } from "../interfaces/actions";
 import { capitalize, clone } from "../util";
 
@@ -11,7 +11,7 @@ interface IGenderEditState {
 }
 
 interface IGenderEditDispatchProps {
-    updateSurvivorGender: (id: ID, gender: Gender) => UpdateSurvivorGenderAction;
+    updateSurvivorGender: (id: UUID, gender: Gender) => UpdateSurvivorGenderAction;
 }
 
 interface IGenderEditStateProps {
@@ -19,13 +19,13 @@ interface IGenderEditStateProps {
 }
 
 interface IGenderEditOwnProps {
-    id: ID;
+    id: UUID;
 }
 
 interface IGenderEditProps extends IGenderEditOwnProps, IGenderEditStateProps, IGenderEditDispatchProps { }
 
 const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorGenderAction>): IGenderEditDispatchProps => ({
-    updateSurvivorGender: (id: ID, gender: Gender) => dispatch(updateSurvivorGender(id, gender)),
+    updateSurvivorGender: (id: UUID, gender: Gender) => dispatch(updateSurvivorGender(id, gender)),
 });
 
 const mapStateToProps = (state: IState, ownProps: IGenderEditOwnProps): IGenderEditStateProps => {

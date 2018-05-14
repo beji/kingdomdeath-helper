@@ -1,9 +1,9 @@
 import { IGearGrid } from "./gear";
-import { ID } from "./generics";
+import { UUID } from "./generics";
 import { ISurvivor } from "./survivor";
 
 interface ISettlement {
-    readonly id: ID;
+    readonly id: UUID;
     readonly name: string;
     readonly survivalLimit: number;
     readonly survivors: ReadonlyArray<ISurvivor>;
