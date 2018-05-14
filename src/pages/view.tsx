@@ -60,37 +60,23 @@ class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
 
     public constructor(props: IViewPageProps) {
         super(props);
-        this.state = {
-            items: [],
-            type: "",
-        };
+
         this.handleFilter = this.handleFilter.bind(this);
+        this.setSortedItems = this.setSortedItems.bind(this);
+
+        const type = this.setSortedItems(props);
+        this.state = {
+            items: this.sortedItems,
+            type,
+        };
     }
 
     public componentWillReceiveProps(nextProps: IViewPageProps) {
-        const { match } = nextProps;
-
-        switch (match.params.type) {
-            case "gear": {
-                this.sortedItems = items as IItem[];
-                break;
-            }
-            case "arts": {
-                this.sortedItems = arts as IFightingArt[];
-                break;
-            }
-            default: {
-                this.sortedItems = disorders as IDisorder[];
-            }
-        }
-        const sortColumnName = "name";
-        this.sortedItems.sort((x: any, y: any) => {
-            return ((x[sortColumnName] === y[sortColumnName]) ? 0 : ((x[sortColumnName] > y[sortColumnName]) ? 1 : -1));
-        });
+        const type = this.setSortedItems(nextProps);
 
         this.setState({
             items: this.sortedItems,
-            type: match.params.type,
+            type,
         });
     }
 
@@ -136,6 +122,30 @@ class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
             });
         }
 
+    }
+
+    private setSortedItems(props: IViewPageProps): string {
+        const { match } = props;
+
+        switch (match.params.type) {
+            case "gear": {
+                this.sortedItems = items as IItem[];
+                break;
+            }
+            case "arts": {
+                this.sortedItems = arts as IFightingArt[];
+                break;
+            }
+            default: {
+                this.sortedItems = disorders as IDisorder[];
+            }
+        }
+        const sortColumnName = "name";
+        this.sortedItems.sort((x: any, y: any) => {
+            return ((x[sortColumnName] === y[sortColumnName]) ? 0 : ((x[sortColumnName] > y[sortColumnName]) ? 1 : -1));
+        });
+
+        return match.params.type;
     }
 }
 
