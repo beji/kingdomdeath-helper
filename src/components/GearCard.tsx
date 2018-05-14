@@ -218,7 +218,7 @@ class GearCard extends React.Component<IGearCardProps> {
             const isShield = item.stats && item.stats.length === 5;
             return (
                 <StyledCard onDragStart={this.handleDragStart} draggable={true}>
-                    {slotId && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
+                    {typeof slotId !== "undefined" && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
                     <CardHeadline>{name}</CardHeadline>
                     <CardTypes>{types && types.map((type, idx) => <span key={idx}>{(ItemType)[type]} </span>)}</CardTypes>
                     {showDescButton && <FancyButton onClick={this.showDescription}>Description</FancyButton>}
