@@ -413,6 +413,7 @@ const enum Item {
     unknown,
     thousand_year_sunspot,
     threethousand_year_sunspot,
+    stone_noses,
 }
 
 enum ItemType {

@@ -1,4 +1,4 @@
-import { Affinity, AffinityTypes, BaseStats, IItem, ItemType, StatType } from "../../src/interfaces";
+import { Affinity, AffinityTypes, BaseStats, IItem, Item, ItemType, StatType } from "../../src/interfaces";
 
 export const items: IItem[] = [
     {
@@ -2173,5 +2173,16 @@ export const items: IItem[] = [
         name: "Wishbone",
         obtained: "",
         types: [],
+    },
+    {
+        desc: "On Arrival, gain +1 survival, +1 insanity",
+        id: Item.stone_noses,
+        material: "",
+        name: "Stone Noses",
+        obtained: "",
+        types: [
+            ItemType.item,
+            ItemType.jewelry,
+        ],
     },
 ];
