@@ -5,7 +5,7 @@ export const DEFAULT_SURVIVOR_NAME = "Rename me to get +1 Survival";
 
 const getSurvivorBaseStat = (stat: BaseStats): IBaseStat => ({
     gear: 0,
-    permanent: 0,
+    permanent: stat === BaseStats.movement ? 5 : 0,
     stat,
     token: 0,
     type: StatType.base,
