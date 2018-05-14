@@ -1,10 +1,10 @@
-import { IState } from "interfaces";
+import { IState, UUID } from "interfaces";
 import React from "react";
 import { connect } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 
 interface ILinkStateProps {
-    settlementId?: string;
+    settlementId?: UUID;
 }
 
 interface ILinkOwnProps {

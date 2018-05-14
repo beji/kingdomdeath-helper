@@ -4,7 +4,7 @@ import { RouteComponentProps } from "react-router";
 import GearGrid from "../components/GearGrid";
 
 interface IPageMatchParams {
-    cardnumber: string;
+    cardnumber: UUID;
 }
 
 interface ISurvivorCardPageProps extends RouteComponentProps<IPageMatchParams> { }
@@ -14,7 +14,7 @@ class SurvivorCardPage extends React.Component<ISurvivorCardPageProps> {
         const { match } = this.props;
         return (
             <React.Fragment>
-                <GearGrid id={match.params.cardnumber as UUID} />
+                <GearGrid id={match.params.cardnumber} />
             </React.Fragment>);
     }
 }

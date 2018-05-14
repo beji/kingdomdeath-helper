@@ -23,8 +23,8 @@ const SurvivorList = styled.table`
 `;
 
 interface IAppProps {
-    huntingSurvivors?: string[];
-    survivors?: string[];
+    huntingSurvivors?: UUID[];
+    survivors?: UUID[];
     name?: string;
     aliveCount?: number;
     aliveFemale?: number;
