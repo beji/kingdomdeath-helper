@@ -18,15 +18,23 @@ const CardWrapper = styled.div`
     width:25%;
     padding:.5rem;
     font-size:.875rem;
+    text-align: center;
     @media only screen
       and (min-device-width: 375px)
       and (max-device-width: 667px) {
         width: 50%;
     }
 `;
+const TextWrapper = styled.div`
+    width:100%;
+`;
 const Headline = styled.div`
     font-weight:bold;
     margin:.25rem 0;
+`;
+const Description = styled.div`
+    font-size:.875rem;
+    margin-bottom:.5rem;
 `;
 const FilterInput = styled.input`
     border: 2px solid #aaa;
@@ -106,10 +114,10 @@ class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
                 );
             } else {
                 return (
-                    <div key={idx}>
+                    <TextWrapper key={idx}>
                         <Headline>{item.name}</Headline>
-                        <div>{item.description}</div>
-                    </div>
+                        <Description>{item.description}</Description>
+                    </TextWrapper>
                 );
             }
         });
