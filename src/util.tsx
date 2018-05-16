@@ -43,3 +43,10 @@ export function specialStatToString(stat: SpecialStats) {
 export function getNewSurvivorID(state: ISettlement) {
     return state.survivors.length;
 }
+
+export function getURLParam(urlFragment: string, name: string) {
+    return decodeURIComponent(
+        urlFragment.replace(
+            new RegExp(
+                "^(?:.*[&\\?\\#]" + encodeURI(name).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+}

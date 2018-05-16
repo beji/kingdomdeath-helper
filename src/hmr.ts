@@ -2,11 +2,15 @@
 
 import express from "express";
 import http from "http";
+import { ISettlement } from "interfaces";
 import morgan from "morgan";
 import path from "path";
+import { AnyAction } from "redux";
 import socketIo from "socket.io";
 import { ICompiler } from "webpack";
-import { IRoomMessage, IStatusUpdateMessage } from "./interfaces/socketMessages";
+import initialState from "./initialstate";
+import { IRoomMessage, IStatusUpdateMessage, SocketMessages } from "./interfaces/socketMessages";
+import settlementReducer from "./reducers/settlement";
 
 const app = express();
 const server = new http.Server(app);
@@ -15,20 +19,32 @@ const io = socketIo(server);
 
 const statestore: any = {};
 
-io.on("connection", (socket) => {
+io.on(SocketMessages.CONNECT, (socket) => {
     console.log("a user connected");
-    socket.on("disconnect", () => {
+    socket.on(SocketMessages.DISCONNECT, () => {
         console.log("user disconnected");
     });
-    socket.on("room", (data: IRoomMessage) => {
+    socket.on(SocketMessages.JOIN, (data: IRoomMessage) => {
         console.log("socket joining room", data.room);
         socket.join(data.room);
-        socket.emit("state_update_received", statestore[data.room]);
+        if (!statestore[data.room]) {
+            statestore[data.room] = {
+                ...initialState.settlement,
+                id: data.room,
+            } as ISettlement;
+            console.log(`room ${data.room} initialized`);
+        } else {
+            socket.emit(SocketMessages.FULL_SYNC, statestore[data.room]);
+        }
     });
-    socket.on("state_update", (data: IStatusUpdateMessage) => {
-        console.log("state update for room", data.room);
-        statestore[data.room] = data.payload;
-        socket.broadcast.to(data.room).emit("state_update_received", data.payload);
+    socket.on(SocketMessages.STATE_UPDATE, (data: IStatusUpdateMessage) => {
+        console.log(`atomic update for ${data.room}`);
+        const nextState = settlementReducer(statestore[data.room] as ISettlement, data.payload as AnyAction);
+        if (JSON.stringify(nextState) !== JSON.stringify(statestore[data.room])) {
+            console.log("nextState !== stored state!");
+            statestore[data.room] = nextState;
+            socket.broadcast.to(data.room).emit(SocketMessages.STATE_UPDATE, data.payload);
+        }
     });
 });
 

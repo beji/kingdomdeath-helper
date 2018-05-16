@@ -1,8 +1,7 @@
-import { AddToHuntAction, CreateSurvivorAction, HideLayerAction, ImportAction, KillSurvivorAction, RemoveFromHuntAction, ResetHuntAction, ReviveSurvivorAction, SetNameAction, SetPlayerNameAction, ShowLayerAction, UpdateGearGridAction, UpdateGearSlotAffinityAction, UpdateSurvivalLimitAction, UpdateSurvivorAction, UpdateSurvivorFightingArtsAction, UpdateSurvivorGenderAction, UpdateSurvivorNameAction, UpdateSurvivorStatAction } from "./actions";
+import { AddToHuntAction, CreateSurvivorAction, HideLayerAction, ImportAction, KillSurvivorAction, RemoteAction, RemoveFromHuntAction, ResetHuntAction, ReviveSurvivorAction, SetNameAction, SetPlayerNameAction, ShowLayerAction, UpdateGearGridAction, UpdateGearSlotAffinityAction, UpdateSurvivalLimitAction, UpdateSurvivorAction, UpdateSurvivorFightingArtsAction, UpdateSurvivorGenderAction, UpdateSurvivorNameAction, UpdateSurvivorStatAction } from "./actions";
 
-type Actions = AddToHuntAction |
+export type RemoteableActions = AddToHuntAction |
     RemoveFromHuntAction |
-    ImportAction |
     SetNameAction |
     SetPlayerNameAction |
     UpdateSurvivalLimitAction |
@@ -15,9 +14,13 @@ type Actions = AddToHuntAction |
     UpdateGearSlotAffinityAction |
     UpdateSurvivorFightingArtsAction |
     ResetHuntAction |
-    ShowLayerAction |
-    HideLayerAction |
     UpdateSurvivorNameAction |
     UpdateSurvivorGenderAction;
+
+type Actions = RemoteableActions |
+    ImportAction |
+    ShowLayerAction |
+    HideLayerAction |
+    RemoteAction;
 
 export default Actions;

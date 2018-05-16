@@ -1,6 +1,7 @@
-import { compose, createStore } from "redux";
+import { applyMiddleware, compose, createStore } from "redux";
 import initialState from "./initialstate";
 import rootReducer from "./reducers";
+import { socketMiddleware } from "./socketmiddleware";
 
 interface IExtendedWindow extends Window {
     __REDUX_DEVTOOLS_EXTENSION__?: any;
@@ -14,7 +15,7 @@ const composeEnhancers = (global !== null && global.__REDUX_DEVTOOLS_EXTENSION_C
     : compose;
 
 export default function configureStore() {
-    const store = createStore(rootReducer, initialState, composeEnhancers());
+    const store = createStore(rootReducer, initialState, composeEnhancers(applyMiddleware(socketMiddleware)));
 
     if (module.hot) {
         // Enable Webpack hot module replacement for reducers

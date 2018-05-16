@@ -1,13 +1,12 @@
+import Actions, { RemoteableActions } from "interfaces/reducer";
 import React from "react";
 import { connect, Dispatch } from "react-redux";
-import io from "socket.io-client";
-import { importSettlement } from "../actions/importAction";
+import { importSettlement, remoteAction } from "../actions/importAction";
+import socket from "../clientsocket";
 import { ISettlement, IState } from "../interfaces";
-import { ImportAction } from "../interfaces/actions";
-import { IRoomMessage, IStatusUpdateMessage } from "../interfaces/socketMessages";
-import { clone } from "../util";
-
-const socket = io();
+import { ImportAction, RemoteAction } from "../interfaces/actions";
+import { IRoomMessage, IStatusUpdateMessage, SocketMessages } from "../interfaces/socketMessages";
+import { clone, getURLParam } from "../util";
 
 // const roomId = getURLParam(window.location.href, "id");
 
@@ -16,24 +15,19 @@ interface ISocketConnectorStateProps {
 }
 interface ISocketConnectorDispatchProps {
     importSettlement: (imported: ISettlement) => ImportAction;
+    remoteAction: (action: RemoteableActions) => RemoteAction;
 }
 
 interface ISocketConnectorProps extends ISocketConnectorStateProps, ISocketConnectorDispatchProps { }
-
-function getURLParam(urlFragment: string, name: string) {
-    return decodeURIComponent(
-        urlFragment.replace(
-            new RegExp(
-                "^(?:.*[&\\?\\#]" + encodeURI(name).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-}
 
 const mapStateToProps = (state: IState, ownProps: ISocketConnectorStateProps): ISocketConnectorStateProps => {
     return {
         settlement: clone(state.settlement),
     };
 };
-const mapDispatchToProps = (dispatch: Dispatch<ImportAction>): ISocketConnectorDispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<ImportAction | RemoteAction>): ISocketConnectorDispatchProps => ({
     importSettlement: (imported: ISettlement) => dispatch(importSettlement(imported)),
+    remoteAction: (action: RemoteableActions) => dispatch(remoteAction(action)),
 });
 
 class SocketConnector extends React.Component<ISocketConnectorProps> {
@@ -41,32 +35,26 @@ class SocketConnector extends React.Component<ISocketConnectorProps> {
         super(props);
     }
 
-    // tslint:disable-next-line:member-ordering
-    public componentDidUpdate(prevProps: ISocketConnectorStateProps) {
-        if (JSON.stringify(prevProps.settlement) !== JSON.stringify(this.props.settlement)) {
-            const roomId = getURLParam(window.location.href, "id");
-            console.log("emitting state_update", prevProps, this.props.settlement);
-            socket.emit("state_update", { room: roomId, payload: this.props.settlement } as IStatusUpdateMessage);
-        }
-    }
-
     public componentDidMount() {
-        socket.on("state_update_received", (data: ISettlement) => {
-            console.log("state update received", data);
-            if (data !== null && JSON.stringify(data) !== JSON.stringify(this.props.settlement)) {
-                console.log("new state", data);
-                this.props.importSettlement(data);
-            }
+        socket.on(SocketMessages.STATE_UPDATE, (data: RemoteableActions) => {
+            console.log("STATE UPDATE!!!", data);
+            console.log("new state", data);
+            this.props.remoteAction(data);
+        });
+
+        socket.on(SocketMessages.FULL_SYNC, (data: ISettlement) => {
+            console.log("Full Sync incoming!");
+            this.props.importSettlement(data);
         });
 
         const roomId = getURLParam(window.location.href, "id");
 
         if (roomId !== "") {
-            socket.emit("room", { room: roomId } as IRoomMessage);
+            socket.emit(SocketMessages.JOIN, { room: roomId } as IRoomMessage);
             console.log("roomId", roomId);
         } else if (this.props.settlement) {
             window.history.pushState({}, "Kingdom Death", `/?id=${this.props.settlement.id}`);
-            socket.emit("room", { room: this.props.settlement.id } as IRoomMessage);
+            socket.emit(SocketMessages.JOIN, { room: this.props.settlement.id } as IRoomMessage);
             console.log("roomId", this.props.settlement.id);
         }
 

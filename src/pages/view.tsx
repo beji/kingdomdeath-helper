@@ -3,7 +3,7 @@ import React, { SyntheticEvent } from "react";
 import { RouteComponentProps } from "react-router";
 import styled from "styled-components";
 import disorders from "../../data/final/disorder.json";
-import arts from "../../data/final/fightingarts.json";
+import arts from "../../data/final/fightingarts";
 import GearCard from "../components/GearCard";
 import items from "../data/ItemDataHelper";
 import { IDisorder, IFightingArt, IItem } from "../interfaces";

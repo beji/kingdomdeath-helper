@@ -1,10 +1,10 @@
-import fightingArts from "data/final/fightingarts.json";
 import Fuse from "fuse.js";
 import { UpdateSurvivorFightingArtsAction } from "interfaces/actions";
 import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
+import fightingArts from "../../data/final/fightingarts";
 import { updateSurvivorFightingArt } from "../actions";
 import { FightingArt, ID, IFightingArt, IState } from "../interfaces";
 import { colorMagentaLachs, FancyButton } from "./StyledComponents";

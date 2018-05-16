@@ -24,12 +24,6 @@ declare module "data/raw/*.json" {
     export default items;
 }
 
-declare module "data/final/fightingarts.json" {
-    import { IFightingArt } from "src/interfaces";
-    const arts: [IFightingArt];
-    export default arts;
-}
-
 declare module "data/final/disorder.json" {
     import { IDisorder } from "src/interfaces";
     const disorders: [IDisorder];

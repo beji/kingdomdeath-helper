@@ -1,6 +1,6 @@
-import fightingArts from "data/final/fightingarts.json";
 import Actions from "interfaces/reducer";
 import { Reducer } from "redux";
+import fightingArts from "../../data/final/fightingarts";
 import { removeFromHunt, updateGear, updateGearSlotAffinity, updateSurvivor } from "../actions";
 import items from "../data/ItemDataHelper";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../initialstate";
@@ -565,6 +565,15 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     };
                 }
                 return state;
+            }
+            return state;
+        }
+        case ActionTypes.REMOTE_UPDATE: {
+            if (action.payload) {
+                const nextState = reducer(state, action.payload);
+                if (JSON.stringify(nextState) !== JSON.stringify(state)) {
+                    return nextState;
+                }
             }
             return state;
         }
