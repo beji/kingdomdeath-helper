@@ -7,7 +7,6 @@ RUN chmod +x /usr/local/bin/yarn
 RUN yarn install --production=false
 RUN yarn run build
 RUN yarn run test-only
-RUN ./node_modules/.bin/tsc
 # CMD ["./node_modules/.bin/yarn", "run", "prod"]
 
 FROM node:10.0-alpine

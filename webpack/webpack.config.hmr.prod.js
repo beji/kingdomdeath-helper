@@ -7,11 +7,10 @@ module.exports =
     {
         name: 'server',
         mode: 'production',
-        entry: './src/server.tsx',
+        entry: './src/hmr.ts',
         output: {
-            path: path.join(__dirname, '..', 'dist'),
-            filename: 'server.js',
-            libraryTarget: 'commonjs2',
+            path: path.join(__dirname, '..', 'src'),
+            filename: 'hmr.js'
         },
         resolve: {
             extensions: ['.ts', '.tsx', '.js', '.jsx'],
@@ -28,14 +27,7 @@ module.exports =
                     loader: 'tslint-loader',
                     options: { failOnHint: true },
                     exclude: /node_modules/
-                },
-                {
-                    test: [/\.tsx?$/, /\.ts?$/],
-                    enforce: 'pre',
-                    loader: 'stylelint-custom-processor-loader',
-                    options: { failOnHint: true },
-                    exclude: /node_modules/
-                },                              
+                },                     
                 {
                     test: [/\.tsx?$/, /\.ts?$/],
                     loader: 'ts-loader'
@@ -43,5 +35,8 @@ module.exports =
             ],
         },
         target: 'node',
+        node: {
+            __dirname: false,
+        },        
         externals: [nodeExternals()]
     }

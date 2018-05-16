@@ -83,12 +83,9 @@ if (process.env.NODE_ENV !== "production") {
         }
     });
 } else {
-    const SERVER_RENDERER_PATH = path.join(__dirname, "../dist/server.js");
-    const CLIENT_ASSETS_DIR = path.join(__dirname, "../public");
-    const CLIENT_STATS_PATH = path.join(CLIENT_ASSETS_DIR, "stats.json");
-    const serverRenderer = require(SERVER_RENDERER_PATH).default;
-    const stats = require(CLIENT_STATS_PATH);
-    app.use("/assets/", express.static(CLIENT_ASSETS_DIR));
+    const serverRenderer = require("../dist/server").default;
+    const stats = require("../public/stats.json");
+    app.use("/assets/", express.static(path.join(__dirname, "../public")));
     app.use(serverRenderer(stats));
     app.use((req, res, next) => {
         if (req.url === "/favicon.ico") {

@@ -6,3 +6,4 @@ yarn-error.log
 .vscode
 .git
 .nyc_output
+src/hmr.js
