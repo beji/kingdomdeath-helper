@@ -5,7 +5,7 @@ import socket from "./clientsocket";
 import { getURLParam } from "./util";
 
 export const socketMiddleware = (store: any) => (next: any) => (action: Actions) => {
-    const roomId = getURLParam(window.location.href, "id");
+    const roomId = getURLParam("id");
     if (roomId && roomId !== "" && action.type !== ActionTypes.IMPORT && action.type !== ActionTypes.REMOTE_UPDATE) {
         console.log("emitting atomic_state_update with", action);
         socket.emit(SocketMessages.STATE_UPDATE, {

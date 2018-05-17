@@ -45,7 +45,7 @@ export function getNewSurvivorID(state: ISettlement) {
     return state.survivors.length;
 }
 
-export function getURLParam(urlFragment: string, name: string) {
+export function getURLParam(name: string, urlFragment: string = window.location.href) {
     return decodeURIComponent(
         urlFragment.replace(
             new RegExp(
