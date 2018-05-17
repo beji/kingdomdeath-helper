@@ -36,6 +36,7 @@ export function specialStatToString(stat: SpecialStats) {
     switch (stat) {
         case SpecialStats.huntxp: return "Hunt XP";
         case SpecialStats.weapon_proficiency: return "Weapon Proficiency";
+        case SpecialStats.bleed_token: return "Bleed Token";
         default: return capitalize(SpecialStats[stat]);
     }
 }
