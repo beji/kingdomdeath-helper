@@ -36,6 +36,7 @@ export function specialStatToString(stat: SpecialStats) {
     switch (stat) {
         case SpecialStats.huntxp: return "Hunt XP";
         case SpecialStats.weapon_proficiency: return "Weapon Proficiency";
+        case SpecialStats.bleed_token: return "Bleed Token";
         default: return capitalize(SpecialStats[stat]);
     }
 }
@@ -44,7 +45,7 @@ export function getNewSurvivorID(state: ISettlement) {
     return state.survivors.length;
 }
 
-export function getURLParam(urlFragment: string, name: string) {
+export function getURLParam(name: string, urlFragment: string = window.location.href) {
     return decodeURIComponent(
         urlFragment.replace(
             new RegExp(

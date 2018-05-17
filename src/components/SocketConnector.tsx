@@ -8,7 +8,7 @@ import { ImportAction, RemoteAction } from "../interfaces/actions";
 import { IRoomMessage, IStatusUpdateMessage, SocketMessages } from "../interfaces/socketMessages";
 import { clone, getURLParam } from "../util";
 
-// const roomId = getURLParam(window.location.href, "id");
+// const roomId = getURLParam("id");
 
 interface ISocketConnectorStateProps {
     settlement?: ISettlement;
@@ -47,7 +47,7 @@ class SocketConnector extends React.Component<ISocketConnectorProps> {
             this.props.importSettlement(data);
         });
 
-        const roomId = getURLParam(window.location.href, "id");
+        const roomId = getURLParam("id");
 
         if (roomId !== "") {
             socket.emit(SocketMessages.JOIN, { room: roomId } as IRoomMessage);
