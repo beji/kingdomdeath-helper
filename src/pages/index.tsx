@@ -5,7 +5,7 @@ import CreateSurvivor from "../components/CreateSurvivor";
 import GearGrid from "../components/GearGrid";
 import ResetHunt from "../components/ResetHunt";
 import SettlementName from "../components/SettlementName";
-import SurvivorListItem from "../components/SurvivorListItem";
+import SurvivorListItem, { Cell } from "../components/SurvivorListItem";
 import { Gender, ID, IState, UUID } from "../interfaces";
 
 const AppWrapper = styled.div`
@@ -18,8 +18,32 @@ const SurvivorCardsWrapper = styled.div`
     margin: -1vh -1vw;
 `;
 
-const SurvivorList = styled.table`
-    border-collapse: collapse;
+const SurvivorList = styled.div`
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    margin: 2vh 0;
+`;
+
+const SurvivorListHead = styled.div`
+    display: none;
+    flex: wrap;
+    margin: 0;
+    padding: 0;
+    @media only screen
+      and (min-device-width: 667px) {
+        display: flex;
+        flex: wrap;
+    }
+`;
+
+const SurvivorListHeadCell = Cell.extend`
+    flex: 1;
+    flex-shrink: 0;
+    width: 100%;
+    overflow: hidden;
+    font-weight: bold;
+    border-color: #fff;
 `;
 
 interface IAppProps {
@@ -65,26 +89,22 @@ class App extends React.Component<IAppProps> {
                     dead: {aliveCount && this.props.survivors ? this.props.survivors.length - aliveCount : "all of them apparently"}
                 </div>
                 <SurvivorList>
-                    <thead>
-                        <tr>
-                            <th>Alive</th>
-                            <th>Name</th>
-                            <th>Gender</th>
-                            <th>Insanity</th>
-                            <th>Survival</th>
-                            <th>Accuracy</th>
-                            <th>Evasion</th>
-                            <th>Luck</th>
-                            <th>Movement</th>
-                            <th>Speed</th>
-                            <th>Strength</th>
-                            <th>Hunting</th>
-                            <th>Kill/Revive</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {survivors && survivors.map((id, idx) => this.renderSurvivorListItem(idx, id))}
-                    </tbody>
+                    <SurvivorListHead>
+                        <SurvivorListHeadCell>Name</SurvivorListHeadCell>
+                        <SurvivorListHeadCell>Alive</SurvivorListHeadCell>
+                        <SurvivorListHeadCell>Gender</SurvivorListHeadCell>
+                        <SurvivorListHeadCell>Insanity</SurvivorListHeadCell>
+                        <SurvivorListHeadCell>Survival</SurvivorListHeadCell>
+                        <SurvivorListHeadCell>Accuracy</SurvivorListHeadCell>
+                        <SurvivorListHeadCell>Evasion</SurvivorListHeadCell>
+                        <SurvivorListHeadCell>Luck</SurvivorListHeadCell>
+                        <SurvivorListHeadCell>Movement</SurvivorListHeadCell>
+                        <SurvivorListHeadCell>Speed</SurvivorListHeadCell>
+                        <SurvivorListHeadCell>StrengSurvivorListHeadCell</SurvivorListHeadCell>
+                        <SurvivorListHeadCell>Hunting</SurvivorListHeadCell>
+                        <SurvivorListHeadCell>Kill/Revive</SurvivorListHeadCell>
+                    </SurvivorListHead>
+                    {survivors && survivors.map((id, idx) => this.renderSurvivorListItem(idx, id))}
                 </SurvivorList>
                 <CreateSurvivor />
             </AppWrapper>);

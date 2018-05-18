@@ -5,12 +5,12 @@ import { Dispatch } from "redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions";
 import { killSurvivor, reviveSurvivor, updateSurvivorName } from "../actions/survivorActions";
-import { DefenseStats, IBaseStat, ID, IDefenseStat, IGearGrid, IState, ISurvivor } from "../interfaces";
+import { BaseStats, DefenseStats, IBaseStat, ID, IDefenseStat, IGearGrid, IState, ISurvivor } from "../interfaces";
 import { AddToHuntAction, KillSurvivorAction, RemoveFromHuntAction, ReviveSurvivorAction, UpdateSurvivorNameAction } from "../interfaces/actions";
-import { clone } from "../util";
+import { capitalize, clone, darken } from "../util";
 import GenderEdit from "./GenderEdit";
 import NameEdit from "./NameEdit";
-import { FancyButton } from "./StyledComponents";
+import { colorMagentaLachs, FancyButton } from "./StyledComponents";
 import SurvivorBaseStat from "./SurvivorBaseStat";
 import SurvivorDefenseStat from "./SurvivorDefenseStat";
 
@@ -38,9 +38,47 @@ interface ISurvivorListItemOwnProps {
 
 interface ISurvivorListItemProps extends ISurvivorListItemOwnProps, ISurvivorListItemStateProps, ISurvivorListItemDispatchProps { }
 
-const Cell = styled.td`
-    border: 1px solid #333;
-    padding: 0.25vh 0.25vw;
+export const Cell = styled.div`
+    width: 100%;
+    overflow: hidden;
+    padding: 1vh 1vw;
+    border: 1px solid #ccc;
+    text-align: center;
+    @media only screen
+      and (min-device-width: 667px) {
+        flex: 1;
+        flex-shrink: 0;
+        text-align: left;
+    }
+`;
+
+const NameCell = Cell.extend`
+    background-color: ${colorMagentaLachs};
+    color: #fff;
+    border-color: ${darken(colorMagentaLachs, 0.2)};
+`;
+
+const ItemWrapper = styled.div`
+    margin-bottom: 2vh;
+    padding: 0;
+    @media only screen
+      and (min-device-width: 667px) {
+        display: flex;
+        flex: wrap;
+        margin: 0;
+    }
+`;
+
+const SmallSpaceLabel = styled.div`
+    display: block;
+    font-weight: bold;
+    :after{
+        content: ":";
+    }
+    @media only screen
+      and (min-device-width: 667px) {
+        display: none;
+    }
 `;
 
 const mapDispatchToProps = (dispatch: Dispatch<AddToHuntAction | RemoveFromHuntAction | KillSurvivorAction | ReviveSurvivorAction | UpdateSurvivorNameAction>): ISurvivorListItemDispatchProps => ({
@@ -83,23 +121,27 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
             const { name, id, gender, gridId, alive, hunting, baseStats, defenseStats } = this.props.survivor;
 
             return (
-                <tr>
-                    <Cell>{!alive && <Fragment>✝</Fragment>}</Cell>
-                    <Cell>
+                <ItemWrapper>
+                    <NameCell>
+                        <SmallSpaceLabel>Name</SmallSpaceLabel>
                         <NameEdit name={name} updateFunc={this.handleNameUpdate} />
-                    </Cell>
+                    </NameCell>
+                    <Cell><SmallSpaceLabel>Alive</SmallSpaceLabel>{!alive && <Fragment>✝</Fragment>}</Cell>
                     <Cell>
+                        <SmallSpaceLabel>Gender</SmallSpaceLabel>
                         <GenderEdit id={id} />
                     </Cell>
                     {this.renderDefStats(defenseStats, id)}
                     {this.renderBaseStats(baseStats, id)}
                     <Cell>
+                        <SmallSpaceLabel>Hunting</SmallSpaceLabel>
                         {alive && (<div><select value={hunting ? gridId : "remove"} onChange={this.handleHuntBoxChange}><option value="remove">not hunting</option>{huntSlots.map((v, i) => <option key={i} value={i}>Grid: {v.playername}</option>)}</select></div>)}
                     </Cell>
                     <Cell>
+                        <SmallSpaceLabel>Kill/Revive</SmallSpaceLabel>
                         {alive ? <FancyButton onClick={this.handleKillClick}>Kill</FancyButton> : <FancyButton onClick={this.handleReviveClick}>Revive</FancyButton>}
                     </Cell>
-                </tr>
+                </ItemWrapper>
             );
         } else {
             return "";
@@ -109,14 +151,20 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
     private renderBaseStats(baseStats: ReadonlyArray<IBaseStat>, id: ID) {
         return baseStats.map((basestat, idx) => {
             return (
-                <Cell key={idx}><SurvivorBaseStat id={id} statid={basestat.stat} /></Cell>);
+                <Cell key={idx}>
+                    <SmallSpaceLabel>{capitalize(BaseStats[basestat.stat])}</SmallSpaceLabel>
+                    <SurvivorBaseStat id={id} statid={basestat.stat} />
+                </Cell>);
         });
     }
 
     private renderDefStats(defenseStats: ReadonlyArray<IDefenseStat>, id: ID) {
         return defenseStats.filter((defStat) => defStat.stat === DefenseStats.brain || defStat.stat === DefenseStats.survival).map((defStat, idx) => {
             return (
-                <Cell key={idx}><SurvivorDefenseStat id={id} statid={defStat.stat} renderWounds={false} /></Cell>);
+                <Cell key={idx}>
+                    <SmallSpaceLabel>{capitalize(DefenseStats[defStat.stat])}</SmallSpaceLabel>
+                    <SurvivorDefenseStat id={id} statid={defStat.stat} renderWounds={false} />
+                </Cell>);
         });
     }
 
