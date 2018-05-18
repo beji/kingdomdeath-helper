@@ -4,40 +4,69 @@ import { darken } from "../util";
 import Link from "./Link";
 import { colorMagentaLachs } from "./StyledComponents";
 
-const barHeight = 2;
-
 const NavbarWrapper = styled.nav`
     background-color: ${colorMagentaLachs};
     color: #fff;
     box-shadow: inset 0 0 0 1px rgba(16,22,26,.2), 0 0 0 rgba(16,22,26,0), 0 1px 1px rgba(16,22,26,.4);;
     margin-bottom: 1rem;
-    height: ${barHeight}rem;
-    padding-left: .5vw;
-    padding-right: .5vw;
-    display: flex;
+    padding: 0.1rem 0.5vw;
     align-items: center;
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
+    display: flex;
+    flex-flow: wrap;
 `;
 const Head = styled.div`
     flex: 1;
+    width: 50%;
 `;
 const LinkBox = styled.div`
-    flex: 1;
-    display: flex;
-    text-align: right;
-    justify-content: flex-end;
+    display: none;
+    .nav-trigger:checked ~ &{
+        display: block;
+        width: 100%;
+    }
+    @media only screen
+      and (min-device-width: 667px) {
+        flex: 1;
+        display: flex;
+        text-align: right;
+        justify-content: flex-end;
+    }
 `;
+const NavTrigger = styled.input`
+    display: none;
+`;
+const NavTriggerLabel = styled.label`
+    height: 1rem;
+    width: 1rem;
+    color: #fff;
+    display: block;
+    flex: 1;
+    break-after: always;
+    width: 50%;
+    text-align: right;
+    @media only screen
+      and (min-device-width: 667px) {
+        display: none;
+    }
+`;
+
 const StyledLink = styled(Link) `
+    display: block;
     color: #fff;
     text-decoration: none;
-    display: inline-block;
+    text-align: center;
     padding: 0.75vh 0.5vw;
     border-radius: 3px;
     &:hover{
         background-color: ${darken(colorMagentaLachs, 0.2)};
+    }
+    @media only screen
+      and (min-device-width: 667px) {
+        display: inline-block;
     }
 `;
 
@@ -46,7 +75,9 @@ export default class Navbar extends React.Component {
         return (
             <NavbarWrapper>
                 <Head>Kingdom: Death - Helper </Head>
-                <LinkBox>
+                <NavTrigger type="checkbox" className="nav-trigger" id="nav-trigger"/>
+                <NavTriggerLabel htmlFor="nav-trigger">☰</NavTriggerLabel>
+                <LinkBox className="nav-content">
                     <StyledLink to="/">Home</StyledLink>
                     <StyledLink to="/view/gear">Gear</StyledLink>
                     <StyledLink to="/view/disorders">Disorders</StyledLink>
