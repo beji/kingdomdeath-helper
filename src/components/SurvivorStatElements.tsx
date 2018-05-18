@@ -43,7 +43,7 @@ const StatElement = styled.div`
           right: 0;
           width: 0;
           height: 0;
-          border-top: 10px solid limegreen;
+          border-top: 10px solid #2FA12D;
           border-left: 10px solid transparent;
     }
 `;

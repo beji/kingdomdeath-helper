@@ -53,9 +53,13 @@ export const Cell = styled.div`
 `;
 
 const NameCell = Cell.extend`
-    background-color: ${colorMagentaLachs};
-    color: #fff;
     border-color: ${darken(colorMagentaLachs, 0.2)};
+    border-width: 0.2rem;
+    @media only screen
+      and (min-device-width: 667px) {
+          border-color: #ccc;
+          border-width: 1px;
+    }
 `;
 
 const ItemWrapper = styled.div`
