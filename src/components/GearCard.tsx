@@ -33,7 +33,7 @@ interface IGearCardOwnProps {
 
 interface IGearCardProps extends IGearCardOwnProps, IGearCardDispatchProps, IGearCardStateProps { }
 
-const mapDispatchToProps = (dispatch: Dispatch<UpdateGearGridAction>): IGearCardDispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<UpdateGearGridAction | ShowLayerAction>): IGearCardDispatchProps => ({
     showLayer: (layer: ISimpleLayer) => dispatch(showLayer(layer)),
     updateGear: (grid: IGearGrid) => dispatch(updateGear(grid)),
 });

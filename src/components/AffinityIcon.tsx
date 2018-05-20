@@ -62,14 +62,14 @@ const CompleteIcon = styled<IAffinityIconProps>(styledLegacy.div) `
 `;
 
 const HalfIcon = CompleteIcon.extend`
-    ${(props) => props.direction === "right" || props.direction === "left" ? "height" : "width"}: 1.5em;
-    ${(props) => props.direction === "right" || props.direction === "left" ? "width" : "height"}: .75em;
-    ${(props) => props.direction}: 0;
-    position:absolute;
+    ${/* sc-property */ (props) => props.direction === "right" || props.direction === "left" ? "height" : "width"}: 1.5em;
+    ${/* sc-property */ (props) => props.direction === "right" || props.direction === "left" ? "width" : "height"}: .75em;
+    ${/* sc-property */ (props) => props.direction}: 0;
+    position: absolute;
     &:after {
-        border-${(props) => props.direction}: none;
-        ${(props) => props.direction === "right" || props.direction === "left" ? "height" : "width"}: 1.25em;
-        ${(props) => props.direction === "right" || props.direction === "left" ? "width" : "height"}: .5em;
+        border-${/* sc-custom 'left' */ (props) => props.direction}: none;
+        ${/* sc-property */ (props) => props.direction === "right" || props.direction === "left" ? "height" : "width"}: 1.25em;
+        ${/* sc-property */ (props) => props.direction === "right" || props.direction === "left" ? "width" : "height"}: .5em;
     }
     ${(props) => {
         if (props.direction === "right" || props.direction === "left") {

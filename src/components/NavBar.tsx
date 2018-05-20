@@ -7,7 +7,7 @@ import { colorMagentaLachs } from "./StyledComponents";
 const NavbarWrapper = styled.nav`
     background-color: ${colorMagentaLachs};
     color: #fff;
-    box-shadow: inset 0 0 0 1px rgba(16,22,26,.2), 0 0 0 rgba(16,22,26,0), 0 1px 1px rgba(16,22,26,.4);;
+    box-shadow: inset 0 0 0 1px rgba(16,22,26,.2), 0 0 0 rgba(16,22,26,0), 0 1px 1px rgba(16,22,26,.4);
     margin-bottom: 1rem;
     padding: 0.1rem 0.5vw;
     align-items: center;
@@ -41,7 +41,6 @@ const NavTrigger = styled.input`
 `;
 const NavTriggerLabel = styled.label`
     height: 1rem;
-    width: 1rem;
     color: #fff;
     display: block;
     flex: 1;
