@@ -1,8 +1,4 @@
-export interface IFightingArt {
-    name: string;
-    id: number;
-    description: string;
-}
+import { IFightingArt } from "interfaces";
 
 const fightingArts: IFightingArt[] = [
     {
