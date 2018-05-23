@@ -52,7 +52,7 @@ describe("The reducer", () => {
                         }
                         return survivor;
                     }),
-                }
+                },
             };
             const firstSurvivor = stateWithHunter.settlement.survivors[0];
             const action = addToHunt(firstSurvivor.id, 0);
@@ -211,7 +211,7 @@ describe("The reducer", () => {
                 ...initialState,
                 settlement: {
                     ...initialState.settlement,
-                    survivors: [survivor]
+                    survivors: [survivor],
                 },
             };
             const initialSurvival = state.settlement.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
@@ -225,7 +225,7 @@ describe("The reducer", () => {
 
     describe("SetPlayerNameAction", () => {
         it("should update the player name of a hunting slot", () => {
-            const name = "horst"
+            const name = "horst";
             const state = clone(initialState);
             const action = setPlayerName(name, 0);
             const result = reducer(state, action);
@@ -233,7 +233,7 @@ describe("The reducer", () => {
         });
 
         it("should allow to set an empty name", () => {
-            const name = "horst"
+            const name = "horst";
             const state = clone(initialState);
             const action = setPlayerName(name, 0);
             const stateWithNamedSlot = reducer(state, action);
@@ -242,7 +242,7 @@ describe("The reducer", () => {
             expect(result.settlement.geargrids[0].playername).to.equal("");
         });
         it("should not affect the interface state", () => {
-            const name = "horst"
+            const name = "horst";
             const state = clone(initialState);
             const action = setPlayerName(name, 0);
             const result = reducer(state, action);
