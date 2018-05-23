@@ -47,13 +47,13 @@ export default class NumberEdit extends React.Component<INumberEditProps> {
     }
     public render() {
         const { addToDisplay, value } = this.props;
-
+        console.log("rendering numberfragment", value);
         return (
             <Fragment>
                 <FancyButtonLeft onClick={this.handleValueChange.bind(this, -1)}>-</FancyButtonLeft>
-                <StyledInput type="text" innerRef={this.setupDisplayRef} defaultValue={(value + (addToDisplay || 0)).toString()} />
+                <StyledInput type="text" innerRef={this.setupDisplayRef} value={(value + (addToDisplay || 0)).toString()} readOnly={true}/>
                 <FancyButtonRight onClick={this.handleValueChange.bind(this, 1)}>+</FancyButtonRight>
-                <HiddenInput type="text" innerRef={this.setupInputRef} defaultValue={value.toString()} />
+                <HiddenInput type="text" innerRef={this.setupInputRef} value={value.toString()} readOnly={true}/>
             </Fragment>
         );
     }
