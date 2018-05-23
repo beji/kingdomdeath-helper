@@ -9,6 +9,8 @@ import { DefenseStats, IDefenseStat, ISurvivor } from "../../src/interfaces";
 import reducer from "../../src/reducers";
 import { clone, getNewSurvivorID } from "../../src/util";
 
+const testInterfaceUnchanged = (oldState: IState, newState: IState) => expect(JSON.stringify(oldState.interface), "the interface state did not change").to.equal(JSON.stringify(newState.interface));
+
 describe("The reducer", () => {
 
     it("should return the initial state if given no state", () => {
@@ -17,6 +19,7 @@ describe("The reducer", () => {
         const result = reducer(undefined, dummyAction);
         expect(result.settlement.name).to.equal(state.settlement.name);
         expect(result.settlement.id).to.equal(state.settlement.id);
+        testInterfaceUnchanged(state, result);
     });
 
     describe("AddToHuntAction", () => {
@@ -56,6 +59,7 @@ describe("The reducer", () => {
             const finalState = reducer(stateWithHunter, action);
             const finallyHunting = finalState.settlement.survivors.filter((survivor) => survivor.hunting).length;
             expect(finallyHunting, "one survivor is hunting").to.equal(1);
+            testInterfaceUnchanged(state, finalState);
         });
 
         it("should not allow more than four survivors in a hunt", () => {
@@ -111,6 +115,7 @@ describe("The reducer", () => {
             const finalState = reducer(state, action);
             const firstHunterAfter = finalState.settlement.survivors.find((survivor) => survivor.id === firstHunting.id) as ISurvivor;
             expect(firstHunterAfter.hunting, "the survivor is not hunting").to.equal(false);
+            testInterfaceUnchanged(state, finalState);
         });
     });
 
@@ -126,6 +131,7 @@ describe("The reducer", () => {
             expect(result.settlement.id, "the id should have changed").to.equal(newState.id);
             newState.name = "I should not affect the state!";
             expect(result.settlement.name, "The new state should be a proper copy").to.not.equal(newState.name);
+            testInterfaceUnchanged(state, result);
         });
     });
 
@@ -135,6 +141,7 @@ describe("The reducer", () => {
             const action = setName("");
             const result = reducer(state, action);
             expect(result.settlement.name).to.not.equal("");
+            testInterfaceUnchanged(state, result);
         });
         it("should update the name of the settlement", () => {
             const state = clone(initialState);
@@ -158,6 +165,7 @@ describe("The reducer", () => {
             const result = reducer(state, killAction);
             expect(result.settlement.survivors[0].hunting, "the dead survivor is not hunting").to.equal(false);
             expect(result.settlement.survivors[0].alive, "the dead survivor is not alive").to.equal(false);
+            testInterfaceUnchanged(state, result);
         });
     });
 
@@ -169,6 +177,7 @@ describe("The reducer", () => {
             expect(result.settlement.survivors.length).to.equal(state.settlement.survivors.length + 1);
             const lastSurvivor = result.settlement.survivors[result.settlement.survivors.length - 1];
             expect(lastSurvivor.name).to.equal(DEFAULT_SURVIVOR_NAME);
+            testInterfaceUnchanged(state, result);
         });
     });
 
@@ -190,6 +199,7 @@ describe("The reducer", () => {
 
             const resultSurvival = result.settlement.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
             expect(resultSurvival.armor, "the survivor has one survival after the rename").to.equal(1);
+            testInterfaceUnchanged(state, result);
         });
 
         it("should give not give free survival on renames that are not the first", () => {
@@ -209,6 +219,7 @@ describe("The reducer", () => {
             const result = reducer(state, updateSurvivorName(survivor.id, "New Name"));
             const resultSurvival = result.settlement.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
             expect(resultSurvival.armor, "the survivor has zero survival after the rename").to.equal(0);
+            testInterfaceUnchanged(state, result);
         });
     });
 });
