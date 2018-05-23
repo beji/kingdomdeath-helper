@@ -201,9 +201,10 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
                     return survivor;
                 });
             }
+            return state;
         }
         case ActionTypes.UPDATE_SURVIVOR_GENDER: {
-            const { id, gender } = (action as UpdateSurvivorGenderAction).payload;
+            const { id, gender } = action.payload;
             return generateWithUpdatedSurvivors(state, (survivor) => {
                 if (survivor.id === id) {
                     return {
