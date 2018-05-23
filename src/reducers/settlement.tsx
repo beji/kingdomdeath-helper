@@ -525,7 +525,14 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
                     }
                     return grid;
                 });
-                return reducer(nextState, updateSurvivor(updatedSurvivor));
+
+                return generateWithUpdatedSurvivors(nextState, (survivor) => {
+                    // Survivors gain one free survival on the first rename (faked by checking for the DEFAULT_SURVIVOR_NAME, could be cheated)
+                    if (survivor.id === updatedSurvivor.id) {
+                        return updatedSurvivor;
+                    }
+                    return survivor;
+                });
             }
             return state;
         }
