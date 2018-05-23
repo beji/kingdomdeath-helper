@@ -58,6 +58,7 @@
     "@types/webpack": "^4.4.0",
     "@types/webpack-env": "^1.13.5",
     "chai": "^4.1.2",
+    "choma": "^1.2.1",
     "cross-env": "^5.1.5",
     "mocha": "^5.2.0",
     "npm-run-all": "^4.1.2",
