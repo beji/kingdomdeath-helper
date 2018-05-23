@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { IState } from "interfaces";
 import "mocha";
-import { addToHunt, importSettlement, removeFromHunt } from "../../src/actions";
+import { addToHunt, importSettlement, removeFromHunt, setPlayerName } from "../../src/actions";
 import { setName } from "../../src/actions/settlementActions";
 import { createSurvivor, killSurvivor, updateSurvivor, updateSurvivorName } from "../../src/actions/survivorActions";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../../src/initialstate";
@@ -221,5 +221,32 @@ describe("The reducer", () => {
             expect(resultSurvival.armor, "the survivor has zero survival after the rename").to.equal(0);
             testInterfaceUnchanged(state, result);
         });
+    });
+
+    describe("SetPlayerNameAction", () => {
+        it("should update the player name of a hunting slot", () => {
+            const name = "horst"
+            const state = clone(initialState);
+            const action = setPlayerName(name, 0);
+            const result = reducer(state, action);
+            expect(result.settlement.geargrids[0].playername).to.equal(name);
+        });
+
+        it("should allow to set an empty name", () => {
+            const name = "horst"
+            const state = clone(initialState);
+            const action = setPlayerName(name, 0);
+            const stateWithNamedSlot = reducer(state, action);
+            const emptyAction = setPlayerName("", 0);
+            const result = reducer(state, emptyAction);
+            expect(result.settlement.geargrids[0].playername).to.equal("");
+        });   
+        it("should not affect the interface state", () => {
+            const name = "horst"
+            const state = clone(initialState);
+            const action = setPlayerName(name, 0);
+            const result = reducer(state, action);
+            testInterfaceUnchanged(state, result);
+        });   
     });
 });
