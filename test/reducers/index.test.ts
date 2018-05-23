@@ -38,17 +38,20 @@ describe("The reducer", () => {
 
             const stateWithHunter = {
                 ...state,
-                survivors: state.settlement.survivors.map((survivor, idx) => {
-                    if (idx === 0) {
-                        return {
-                            ...survivor,
-                            hunting: true,
-                        };
-                    }
-                    return survivor;
-                }),
+                settlement: {
+                    ...state.settlement,
+                    survivors: state.settlement.survivors.map((survivor, idx) => {
+                        if (idx === 0) {
+                            return {
+                                ...survivor,
+                                hunting: true,
+                            };
+                        }
+                        return survivor;
+                    }),                    
+                }
             };
-            const firstSurvivor = stateWithHunter.survivors[0];
+            const firstSurvivor = stateWithHunter.settlement.survivors[0];
             const action = addToHunt(firstSurvivor.id, 0);
             const finalState = reducer(stateWithHunter, action);
             const finallyHunting = finalState.settlement.survivors.filter((survivor) => survivor.hunting).length;
@@ -194,8 +197,14 @@ describe("The reducer", () => {
                 ...newSurvivor(getNewSurvivorID(initialState.settlement)),
                 name: "Rudolf",
             };
-            const state = { ...initialState, survivors: [survivor] };
-            const initialSurvival = state.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
+            const state = {
+                ...initialState,
+                settlement: {
+                    ...initialState.settlement,
+                    survivors: [survivor]
+                },
+            };
+            const initialSurvival = state.settlement.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
             expect(initialSurvival.armor, "the survivor has zero survival before the rename").to.equal(0);
             const result = reducer(state, updateSurvivorName(survivor.id, "New Name"));
             const resultSurvival = result.settlement.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
