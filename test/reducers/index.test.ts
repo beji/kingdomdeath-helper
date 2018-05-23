@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { IState } from "interfaces";
 import "mocha";
 import { addToHunt, importSettlement, removeFromHunt, setPlayerName } from "../../src/actions";
-import { setName } from "../../src/actions/settlementActions";
+import { setName, updateSurvivalLimit } from "../../src/actions/settlementActions";
 import { createSurvivor, killSurvivor, updateSurvivor, updateSurvivorName } from "../../src/actions/survivorActions";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../../src/initialstate";
 import { DefenseStats, IDefenseStat, ISurvivor } from "../../src/interfaces";
@@ -248,5 +248,27 @@ describe("The reducer", () => {
             const result = reducer(state, action);
             testInterfaceUnchanged(state, result);
         });   
+    });
+
+    describe("UpdateSurvivalLimitAction", () => {
+        it("should set a new survival limit", () => {
+            const state = clone(initialState);
+            const action = updateSurvivalLimit(5);
+            const result = reducer(state, action);
+            expect(result.settlement.survivalLimit).to.equal(5);
+        });
+        it("should not allow numbers <= 0", () => {
+            const state = clone(initialState);
+            const resultWithNegative = reducer(state, updateSurvivalLimit(-1));
+            expect(resultWithNegative.settlement.survivalLimit).to.equal(state.settlement.survivalLimit);
+            const resultWithNull = reducer(state, updateSurvivalLimit(0));
+            expect(resultWithNull.settlement.survivalLimit).to.equal(state.settlement.survivalLimit);            
+        });
+        it("should not affect the interface state", () => {
+            const state = clone(initialState);
+            const action = updateSurvivalLimit(5);
+            const result = reducer(state, action);
+            testInterfaceUnchanged(state, result);
+        });           
     });
 });

@@ -180,7 +180,7 @@ const reducer: Reducer<ISettlement> = (state: ISettlement | undefined, action: A
             if (typeof action.payload !== "undefined") {
                 return {
                     ...state,
-                    survivalLimit: action.payload,
+                    survivalLimit: action.payload > 0 ? action.payload : state.survivalLimit,
                 };
             }
             return state;
