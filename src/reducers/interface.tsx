@@ -1,10 +1,10 @@
 import Actions from "interfaces/reducer";
 import { IInterface } from "interfaces/state";
+import { Reducer } from "redux";
 import initialState from "../initialstate";
 import ActionTypes from "../interfaces/actionTypes";
-import { clone } from "../util";
 
-const reducer = (state: IInterface | undefined, action: Actions): IInterface => {
+const reducer: Reducer<IInterface, Actions> = (state: IInterface | undefined, action: Actions): IInterface => {
 
     if (!state) {
         return initialState.interface;
@@ -13,13 +13,10 @@ const reducer = (state: IInterface | undefined, action: Actions): IInterface => 
     switch (action.type) {
 
         case ActionTypes.SHOW_LAYER: {
-            if (action.payload) {
-                return {
-                    ...state,
-                    layer: action.payload,
-                };
-            }
-            return state;
+            return {
+                ...state,
+                layer: action.payload,
+            };
         }
         case ActionTypes.HIDE_LAYER: {
             return {

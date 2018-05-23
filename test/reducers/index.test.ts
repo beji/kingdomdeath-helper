@@ -1,13 +1,15 @@
 import { expect } from "chai";
 import { IState } from "interfaces";
 import "mocha";
-import { addToHunt, importSettlement, removeFromHunt } from "../../src/actions";
-import { setName } from "../../src/actions/settlementActions";
+import { addToHunt, importSettlement, removeFromHunt, setPlayerName } from "../../src/actions";
+import { setName, updateSurvivalLimit } from "../../src/actions/settlementActions";
 import { createSurvivor, killSurvivor, updateSurvivor, updateSurvivorName } from "../../src/actions/survivorActions";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../../src/initialstate";
 import { DefenseStats, IDefenseStat, ISurvivor } from "../../src/interfaces";
 import reducer from "../../src/reducers";
 import { clone, getNewSurvivorID } from "../../src/util";
+
+const testInterfaceUnchanged = (oldState: IState, newState: IState) => expect(JSON.stringify(oldState.interface), "the interface state did not change").to.equal(JSON.stringify(newState.interface));
 
 describe("The reducer", () => {
 
@@ -17,6 +19,7 @@ describe("The reducer", () => {
         const result = reducer(undefined, dummyAction);
         expect(result.settlement.name).to.equal(state.settlement.name);
         expect(result.settlement.id).to.equal(state.settlement.id);
+        testInterfaceUnchanged(state, result);
     });
 
     describe("AddToHuntAction", () => {
@@ -38,21 +41,25 @@ describe("The reducer", () => {
 
             const stateWithHunter = {
                 ...state,
-                survivors: state.settlement.survivors.map((survivor, idx) => {
-                    if (idx === 0) {
-                        return {
-                            ...survivor,
-                            hunting: true,
-                        };
-                    }
-                    return survivor;
-                }),
+                settlement: {
+                    ...state.settlement,
+                    survivors: state.settlement.survivors.map((survivor, idx) => {
+                        if (idx === 0) {
+                            return {
+                                ...survivor,
+                                hunting: true,
+                            };
+                        }
+                        return survivor;
+                    }),
+                }
             };
-            const firstSurvivor = stateWithHunter.survivors[0];
+            const firstSurvivor = stateWithHunter.settlement.survivors[0];
             const action = addToHunt(firstSurvivor.id, 0);
             const finalState = reducer(stateWithHunter, action);
             const finallyHunting = finalState.settlement.survivors.filter((survivor) => survivor.hunting).length;
             expect(finallyHunting, "one survivor is hunting").to.equal(1);
+            testInterfaceUnchanged(state, finalState);
         });
 
         it("should not allow more than four survivors in a hunt", () => {
@@ -108,6 +115,7 @@ describe("The reducer", () => {
             const finalState = reducer(state, action);
             const firstHunterAfter = finalState.settlement.survivors.find((survivor) => survivor.id === firstHunting.id) as ISurvivor;
             expect(firstHunterAfter.hunting, "the survivor is not hunting").to.equal(false);
+            testInterfaceUnchanged(state, finalState);
         });
     });
 
@@ -123,6 +131,7 @@ describe("The reducer", () => {
             expect(result.settlement.id, "the id should have changed").to.equal(newState.id);
             newState.name = "I should not affect the state!";
             expect(result.settlement.name, "The new state should be a proper copy").to.not.equal(newState.name);
+            testInterfaceUnchanged(state, result);
         });
     });
 
@@ -132,6 +141,7 @@ describe("The reducer", () => {
             const action = setName("");
             const result = reducer(state, action);
             expect(result.settlement.name).to.not.equal("");
+            testInterfaceUnchanged(state, result);
         });
         it("should update the name of the settlement", () => {
             const state = clone(initialState);
@@ -155,6 +165,7 @@ describe("The reducer", () => {
             const result = reducer(state, killAction);
             expect(result.settlement.survivors[0].hunting, "the dead survivor is not hunting").to.equal(false);
             expect(result.settlement.survivors[0].alive, "the dead survivor is not alive").to.equal(false);
+            testInterfaceUnchanged(state, result);
         });
     });
 
@@ -166,6 +177,7 @@ describe("The reducer", () => {
             expect(result.settlement.survivors.length).to.equal(state.settlement.survivors.length + 1);
             const lastSurvivor = result.settlement.survivors[result.settlement.survivors.length - 1];
             expect(lastSurvivor.name).to.equal(DEFAULT_SURVIVOR_NAME);
+            testInterfaceUnchanged(state, result);
         });
     });
 
@@ -187,6 +199,7 @@ describe("The reducer", () => {
 
             const resultSurvival = result.settlement.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
             expect(resultSurvival.armor, "the survivor has one survival after the rename").to.equal(1);
+            testInterfaceUnchanged(state, result);
         });
 
         it("should give not give free survival on renames that are not the first", () => {
@@ -194,12 +207,68 @@ describe("The reducer", () => {
                 ...newSurvivor(getNewSurvivorID(initialState.settlement)),
                 name: "Rudolf",
             };
-            const state = { ...initialState, survivors: [survivor] };
-            const initialSurvival = state.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
+            const state = {
+                ...initialState,
+                settlement: {
+                    ...initialState.settlement,
+                    survivors: [survivor]
+                },
+            };
+            const initialSurvival = state.settlement.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
             expect(initialSurvival.armor, "the survivor has zero survival before the rename").to.equal(0);
             const result = reducer(state, updateSurvivorName(survivor.id, "New Name"));
             const resultSurvival = result.settlement.survivors[0].defenseStats.find((stat) => stat.stat === DefenseStats.survival) as IDefenseStat;
             expect(resultSurvival.armor, "the survivor has zero survival after the rename").to.equal(0);
+            testInterfaceUnchanged(state, result);
+        });
+    });
+
+    describe("SetPlayerNameAction", () => {
+        it("should update the player name of a hunting slot", () => {
+            const name = "horst"
+            const state = clone(initialState);
+            const action = setPlayerName(name, 0);
+            const result = reducer(state, action);
+            expect(result.settlement.geargrids[0].playername).to.equal(name);
+        });
+
+        it("should allow to set an empty name", () => {
+            const name = "horst"
+            const state = clone(initialState);
+            const action = setPlayerName(name, 0);
+            const stateWithNamedSlot = reducer(state, action);
+            const emptyAction = setPlayerName("", 0);
+            const result = reducer(state, emptyAction);
+            expect(result.settlement.geargrids[0].playername).to.equal("");
+        });
+        it("should not affect the interface state", () => {
+            const name = "horst"
+            const state = clone(initialState);
+            const action = setPlayerName(name, 0);
+            const result = reducer(state, action);
+            testInterfaceUnchanged(state, result);
+        });
+    });
+
+    describe("UpdateSurvivalLimitAction", () => {
+        it("should set a new survival limit", () => {
+            const state = clone(initialState);
+            const action = updateSurvivalLimit(5);
+            const result = reducer(state, action);
+            expect(result.settlement.survivalLimit).to.equal(5);
+        });
+        it("should not allow numbers <= 0", () => {
+            const state = clone(initialState);
+            const resultWithNegative = reducer(state, updateSurvivalLimit(-1));
+            expect(resultWithNegative.settlement.survivalLimit).to.equal(state.settlement.survivalLimit);
+            const resultWithNull = reducer(state, updateSurvivalLimit(0));
+            expect(resultWithNull.settlement.survivalLimit).to.equal(state.settlement.survivalLimit);
+        });
+        it("should not affect the interface state", () => {
+            const state = clone(initialState);
+            const action = updateSurvivalLimit(5);
+            const result = reducer(state, action);
+            testInterfaceUnchanged(state, result);
         });
     });
 });

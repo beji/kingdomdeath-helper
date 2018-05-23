@@ -9,6 +9,7 @@ import { AnyAction } from "redux";
 import socketIo from "socket.io";
 import { ICompiler } from "webpack";
 import initialState from "./initialstate";
+import Actions from "./interfaces/reducer";
 import { IRoomMessage, IStatusUpdateMessage, SocketMessages } from "./interfaces/socketMessages";
 import settlementReducer from "./reducers/settlement";
 
@@ -39,7 +40,7 @@ io.on(SocketMessages.CONNECT, (socket) => {
     });
     socket.on(SocketMessages.STATE_UPDATE, (data: IStatusUpdateMessage) => {
         console.log(`atomic update for ${data.room}`);
-        const nextState = settlementReducer(statestore[data.room] as ISettlement, data.payload as AnyAction);
+        const nextState = settlementReducer(statestore[data.room] as ISettlement, data.payload as Actions);
         if (JSON.stringify(nextState) !== JSON.stringify(statestore[data.room])) {
             console.log("nextState !== stored state!");
             statestore[data.room] = nextState;
