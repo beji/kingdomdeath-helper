@@ -378,6 +378,7 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
                 });
                 return reducer(baseState, updateGearSlotAffinity(action.payload));
             }
+            return state;
         }
         case ActionTypes.UPDATE_GEARSLOT_AFFINITY: {
             const gearGrid = action.payload;
@@ -541,6 +542,7 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
             if (JSON.stringify(nextState) !== JSON.stringify(state)) {
                 return nextState;
             }
+            return state;
         }
         default: return state;
     }
