@@ -51,7 +51,7 @@ describe("The reducer", () => {
                             };
                         }
                         return survivor;
-                    }),                    
+                    }),
                 }
             };
             const firstSurvivor = stateWithHunter.settlement.survivors[0];
@@ -240,14 +240,14 @@ describe("The reducer", () => {
             const emptyAction = setPlayerName("", 0);
             const result = reducer(state, emptyAction);
             expect(result.settlement.geargrids[0].playername).to.equal("");
-        });   
+        });
         it("should not affect the interface state", () => {
             const name = "horst"
             const state = clone(initialState);
             const action = setPlayerName(name, 0);
             const result = reducer(state, action);
             testInterfaceUnchanged(state, result);
-        });   
+        });
     });
 
     describe("UpdateSurvivalLimitAction", () => {
@@ -262,13 +262,13 @@ describe("The reducer", () => {
             const resultWithNegative = reducer(state, updateSurvivalLimit(-1));
             expect(resultWithNegative.settlement.survivalLimit).to.equal(state.settlement.survivalLimit);
             const resultWithNull = reducer(state, updateSurvivalLimit(0));
-            expect(resultWithNull.settlement.survivalLimit).to.equal(state.settlement.survivalLimit);            
+            expect(resultWithNull.settlement.survivalLimit).to.equal(state.settlement.survivalLimit);
         });
         it("should not affect the interface state", () => {
             const state = clone(initialState);
             const action = updateSurvivalLimit(5);
             const result = reducer(state, action);
             testInterfaceUnchanged(state, result);
-        });           
+        });
     });
 });
