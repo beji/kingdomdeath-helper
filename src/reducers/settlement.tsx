@@ -7,7 +7,6 @@ import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../initialstat
 import { Affinity, AffinityTypes, DefenseStats, FightingArt, IGearGrid, IGridSlot, IItem, IItemStat, ISettlement, ISurvivor, StatType } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { clone, getNewSurvivorID } from "../util";
-import { UpdateSurvivorGenderAction } from "interfaces/actions";
 
 function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
     const updatedSurvivors = state.survivors.map(mapfunc);
