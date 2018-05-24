@@ -4,13 +4,13 @@ import styled from "styled-components";
 import Home from "../pages";
 import SurvivorCardPage from "../pages/suvivorcard";
 import ViewPage from "../pages/view";
-import BaseStatLayer from "./BaseStatLayer";
-import DefenseStatLayer from "./DefenseStatLayer";
 import ExportForm from "./ExportForm";
+import BaseStatLayer from "./layers/BaseStatLayer";
+import DefenseStatLayer from "./layers/DefenseStatLayer";
+import SimpleLayer from "./layers/SimpleLayer";
+import SpecialStatLayer from "./layers/SpecialStatLayer";
 import NavBar from "./NavBar";
-import SimpleLayer from "./SimpleLayer";
 import SocketConnector from "./SocketConnector";
-import SpecialStatLayer from "./SpecialStatLayer";
 
 const AppWrapper = styled.div`
     margin: 2rem 1vw 1vh;

@@ -1,13 +1,13 @@
 import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { hideLayer, updateSurvivorStat } from "../actions";
-import { BaseStats, IBaseStat, ID, IDefenseStat, IState, LayerType } from "../interfaces";
-import { HideLayerAction, UpdateSurvivorStatAction } from "../interfaces/actions";
-import { capitalize } from "../util";
-import NumberEdit from "./NumberEdit";
-import { CloseIcon, FancyButton, SimpleLayerHeadline, SimpleLayerWrapper } from "./StyledComponents";
-import { Label, StatEdit, StatEditWrapper } from "./SurvivorStatElements";
+import { hideLayer, updateSurvivorStat } from "../../actions";
+import { BaseStats, IBaseStat, ID, IDefenseStat, IState, LayerType } from "../../interfaces";
+import { HideLayerAction, UpdateSurvivorStatAction } from "../../interfaces/actions";
+import { capitalize } from "../../util";
+import NumberEdit from "../NumberEdit";
+import { CloseIcon, FancyButton, SimpleLayerHeadline, SimpleLayerWrapper } from "../StyledComponents";
+import { Label, StatEdit, StatEditWrapper } from "../SurvivorStatElements";
 
 interface IBaseStatLayerStateProps {
     survivor?: ID;

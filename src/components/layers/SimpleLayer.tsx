@@ -1,11 +1,11 @@
 import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { hideLayer } from "../actions";
-import { ISimpleLayer, IState, LayerType } from "../interfaces";
-import { HideLayerAction } from "../interfaces/actions";
-import { clone } from "../util";
-import { CloseIcon, SimpleLayerHeadline, SimpleLayerWrapper } from "./StyledComponents";
+import { hideLayer } from "../../actions";
+import { ISimpleLayer, IState, LayerType } from "../../interfaces";
+import { HideLayerAction } from "../../interfaces/actions";
+import { clone } from "../../util";
+import { CloseIcon, SimpleLayerHeadline, SimpleLayerWrapper } from "../StyledComponents";
 
 interface ISimpleLayerStateProps {
     layer?: ISimpleLayer;
