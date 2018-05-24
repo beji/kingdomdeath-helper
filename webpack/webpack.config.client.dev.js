@@ -2,6 +2,7 @@ const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 const env = process.env.NODE_ENV;
 const webpack = require('webpack');
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 module.exports = 
     {
@@ -38,12 +39,13 @@ module.exports =
                 },                
                 {
                     test: [/\.tsx?$/, /\.ts?$/],
-                    loader: 'ts-loader'
+                    loader: 'awesome-typescript-loader'
                 }
             ],
         },
         target: 'web',
         plugins: [
+            new HardSourceWebpackPlugin(),
             new webpack.HotModuleReplacementPlugin()
         ]
     }

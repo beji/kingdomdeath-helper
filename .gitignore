@@ -6,3 +6,4 @@ coverage
 tsfmt.json
 yarn-error.log
 src/hmr.js
+/.awcache

@@ -39,7 +39,7 @@ module.exports =
                 },                
                 {
                     test: [/\.tsx?$/, /\.ts?$/],
-                    loader: 'ts-loader'
+                    loader: 'awesome-typescript-loader'
                 }
             ],
         },
