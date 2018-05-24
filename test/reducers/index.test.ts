@@ -3,7 +3,7 @@ import { IState } from "interfaces";
 import "mocha";
 import { addToHunt, importSettlement, removeFromHunt, setPlayerName } from "../../src/actions";
 import { setName, updateSurvivalLimit } from "../../src/actions/settlementActions";
-import { createSurvivor, killSurvivor, updateSurvivor, updateSurvivorName } from "../../src/actions/survivorActions";
+import { createSurvivor, killSurvivor, updateSurvivor, updateSurvivorDisorders, updateSurvivorName } from "../../src/actions/survivorActions";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../../src/initialstate";
 import { DefenseStats, IDefenseStat, ISurvivor } from "../../src/interfaces";
 import reducer from "../../src/reducers";
@@ -268,6 +268,33 @@ describe("The reducer", () => {
             const state = clone(initialState);
             const action = updateSurvivalLimit(5);
             const result = reducer(state, action);
+            testInterfaceUnchanged(state, result);
+        });
+    });
+
+    describe("UpdateSurvivorDisorders", () => {
+        it("should add disorders to a survivor", () => {
+            const state = clone(initialState);
+            const result = reducer(state, updateSurvivorDisorders(0, [1, 3]));
+            const disorders = result.settlement.survivors[0].disorders;
+            // tslint:disable-next-line:no-unused-expression
+            expect(disorders).to.exist;
+            if ( disorders ) {
+                expect(disorders[0].id).to.equal(1);
+                expect(disorders[1].id).to.equal(3);
+            }
+        });
+
+        it("should not allow to set more than 3 disorders", () => {
+            const state = clone(initialState);
+            const result = reducer(state, updateSurvivorDisorders(0, [1, 2, 3, 4]));
+            const disorders = result.settlement.survivors[0].disorders;
+            // tslint:disable-next-line:no-unused-expression
+            expect(disorders).to.not.exist;
+        });
+        it("should not affect the interface state", () => {
+            const state = clone(initialState);
+            const result = reducer(state, updateSurvivorDisorders(0, [1, 3]));
             testInterfaceUnchanged(state, result);
         });
     });

@@ -1,3 +1,4 @@
+import { IDisorder } from "interfaces";
 import { ID, UUID } from "../generics";
 import { IFightingArt } from "./fightingarts";
 import { IBaseStat, IDefenseStat, ISpecialStat } from "./stats";
@@ -26,4 +27,5 @@ export interface ISurvivor {
     readonly huntxp: number;
     readonly specialstats: ReadonlyArray<ISpecialStat>;
     readonly fightingArts?: ReadonlyArray<IFightingArt>;
+    readonly disorders?: ReadonlyArray<IDisorder>;
 }

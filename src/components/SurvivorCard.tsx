@@ -11,6 +11,7 @@ import GenderEdit from "./GenderEdit";
 import NameEdit from "./NameEdit";
 import SurvivorBaseStat from "./SurvivorBaseStat";
 import SurvivorDefenseStat from "./SurvivorDefenseStat";
+import SurvivorDisorders from "./SurvivorDisorders";
 import SurvivorFightingArts from "./SurvivorFightingArts";
 import SurvivorSpecialStat from "./SurvivorSpecialStat";
 import { StatLabel, SurvivorStat } from "./SurvivorStatElements";
@@ -134,6 +135,7 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
                     <TextSection>
                         {survival && <SurvivorStat><StatLabel>{capitalize(DefenseStats[survival.stat])}</StatLabel><SurvivorDefenseStat id={id} statid={survival.stat} concatToDisplay={`/ ${this.props.survivalLimit}`} /></SurvivorStat>}
                         <SurvivorFightingArts id={id} />
+                        <SurvivorDisorders id={id}/>
                     </TextSection>
                     <StatSection>
                         {survivor.specialstats.map((specialStat, idx) => (<SurvivorStat key={idx}><StatLabel>{specialStatToString(specialStat.stat)}</StatLabel><SurvivorSpecialStat id={id} statid={specialStat.stat} /></SurvivorStat>))}

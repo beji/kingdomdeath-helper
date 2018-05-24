@@ -1,10 +1,11 @@
 import Actions from "interfaces/reducer";
 import { Reducer } from "redux";
+import disorderList from "../../data/final/disorder.json";
 import fightingArts from "../../data/final/fightingarts";
-import { removeFromHunt, updateGear, updateGearSlotAffinity, updateSurvivor } from "../actions";
+import { removeFromHunt, updateGear, updateGearSlotAffinity } from "../actions";
 import items from "../data/ItemDataHelper";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../initialstate";
-import { Affinity, AffinityTypes, DefenseStats, FightingArt, IGearGrid, IGridSlot, IItem, IItemStat, ISettlement, ISurvivor, StatType } from "../interfaces";
+import { Affinity, AffinityTypes, DefenseStats, Disorders, FightingArt, IGearGrid, IGridSlot, IItem, IItemStat, ISettlement, ISurvivor, StatType } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { clone, getNewSurvivorID } from "../util";
 
@@ -540,6 +541,24 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
             const nextState = reducer(state, action.payload);
             if (JSON.stringify(nextState) !== JSON.stringify(state)) {
                 return nextState;
+            }
+            return state;
+        }
+        case ActionTypes.UPDATE_DISORDERS: {
+            const { id, disorders } = action.payload;
+            if (disorders.length <= 3) {
+                return {
+                    ...state,
+                    survivors: state.survivors.map((survivor) => {
+                        if (survivor.id === id) {
+                            return {
+                                ...survivor,
+                                disorders: disorders.map((disorder: Disorders) => disorderList[disorder]),
+                            };
+                        }
+                        return survivor;
+                    }),
+                };
             }
             return state;
         }

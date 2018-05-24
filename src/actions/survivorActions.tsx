@@ -1,5 +1,5 @@
-import { FightingArt, Gender, IBaseStat, ID, IDefenseStat, ISpecialStat, ISurvivor } from "../interfaces";
-import { CreateSurvivorAction, KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorFightingArtsAction, UpdateSurvivorGenderAction, UpdateSurvivorNameAction, UpdateSurvivorStatAction } from "../interfaces/actions";
+import { Disorders, FightingArt, Gender, IBaseStat, ID, IDefenseStat, ISpecialStat, ISurvivor } from "../interfaces";
+import { CreateSurvivorAction, KillSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorDisordersAction, UpdateSurvivorFightingArtsAction, UpdateSurvivorGenderAction, UpdateSurvivorNameAction, UpdateSurvivorStatAction } from "../interfaces/actions";
 import ActionTypes from "../interfaces/actionTypes";
 
 export const updateSurvivor = (survivor: ISurvivor): UpdateSurvivorAction => ({
@@ -52,4 +52,12 @@ export const updateSurvivorGender = (id: ID, gender: Gender): UpdateSurvivorGend
         id,
     },
     type: ActionTypes.UPDATE_SURVIVOR_GENDER,
+});
+
+export const updateSurvivorDisorders = (id: ID, disorders: Disorders[]): UpdateSurvivorDisordersAction => ({
+    payload: {
+        disorders,
+        id,
+    },
+    type: ActionTypes.UPDATE_DISORDERS,
 });
