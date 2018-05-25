@@ -8,7 +8,6 @@ const NavbarWrapper = styled.nav`
     background-color: ${colorMagentaLachs};
     color: #fff;
     box-shadow: inset 0 0 0 1px rgba(16,22,26,.2), 0 0 0 rgba(16,22,26,0), 0 1px 1px rgba(16,22,26,.4);
-    margin-bottom: 1rem;
     padding: 0.1rem 0.5vw;
     align-items: center;
     position: fixed;
@@ -58,7 +57,7 @@ const StyledLink = styled(Link) `
     color: #fff;
     text-decoration: none;
     text-align: center;
-    padding: 0.75vh 0.5vw;
+    padding: 0.5rem 0.5vw;
     border-radius: 3px;
     &:hover{
         background-color: ${darken(colorMagentaLachs, 0.2)};

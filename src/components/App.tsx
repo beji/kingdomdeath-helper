@@ -13,7 +13,7 @@ import NavBar from "./NavBar";
 import SocketConnector from "./SocketConnector";
 
 const AppWrapper = styled.div`
-    margin: 2rem 1vw 1vh;
+    margin: 2.5rem 1vw 1vh;
 `;
 
 class App extends React.Component {
