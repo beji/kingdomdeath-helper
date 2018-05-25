@@ -35,7 +35,7 @@ export const updateSurvivorFightingArt = (id: ID, arts: FightingArt[]): UpdateSu
         arts,
         id,
     },
-    type: ActionTypes.UPDATE_SURVIVOR_WEAPON_ART,
+    type: ActionTypes.UPDATE_SURVIVOR_FIGHTNG_ART,
 });
 
 export const updateSurvivorName = (id: ID, name: string): UpdateSurvivorNameAction => ({

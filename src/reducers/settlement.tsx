@@ -519,7 +519,7 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
                 })),
             };
         }
-        case ActionTypes.UPDATE_SURVIVOR_WEAPON_ART: {
+        case ActionTypes.UPDATE_SURVIVOR_FIGHTNG_ART: {
             const { id, arts } = action.payload;
             if (arts.length <= 3) {
                 return {

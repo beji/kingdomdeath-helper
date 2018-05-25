@@ -17,6 +17,6 @@ export type ReviveSurvivorAction = IAction<ActionTypes.REVIVE_SURVIVOR, ID>;
 
 export type CreateSurvivorAction = IAction<ActionTypes.CREATE_SURVIVOR, undefined>;
 
-export type UpdateSurvivorFightingArtsAction = IAction<ActionTypes.UPDATE_SURVIVOR_WEAPON_ART, { id: ID, arts: FightingArt[] }>;
+export type UpdateSurvivorFightingArtsAction = IAction<ActionTypes.UPDATE_SURVIVOR_FIGHTNG_ART, { id: ID, arts: FightingArt[] }>;
 
 export type UpdateSurvivorDisordersAction = IAction<ActionTypes.UPDATE_DISORDERS, { id: ID, disorders: Disorders[] }>;
