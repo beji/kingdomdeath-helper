@@ -3,7 +3,6 @@ import React from "react";
 import { createRef, Fragment, RefObject, SyntheticEvent } from "react";
 import styled from "styled-components";
 import { FancyButton } from "./StyledComponents";
-import HTML = Mocha.reporters.HTML;
 
 const StyledInput = styled.input`
     font-size: 1rem;
