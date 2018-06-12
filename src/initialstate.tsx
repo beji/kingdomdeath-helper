@@ -1,3 +1,4 @@
+import { Innovations } from "interfaces/innovations";
 import uuid from "uuid/v4";
 import { BaseStats, DefenseStats, Gender, IBaseStat, ID, IDefenseStat, IGearGrid, ISpecialStat, IState, ISurvivor, SpecialStats, StatType } from "./interfaces";
 
@@ -95,7 +96,7 @@ const initialState: IState = {
     settlement: {
         geargrids,
         id: uuid(),
-        innovations: [],
+        innovations: [Innovations.language],
         name: "Everybody-will-die-town",
         survivalLimit: 1,
         survivors,
