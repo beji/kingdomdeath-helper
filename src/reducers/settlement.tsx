@@ -562,6 +562,26 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
             }
             return state;
         }
+        case ActionTypes.ADD_INNOVATION: {
+            const id = action.payload;
+            if (state.innovations.includes(id)) {
+                return state;
+            }
+            return {
+                ...state,
+                innovations: Array.prototype.concat(state.innovations, [id]),
+            };
+        }
+        case ActionTypes.REMOVE_INNOVATION: {
+            const id = action.payload;
+            if (!state.innovations.includes(id)) {
+                return state;
+            }
+            return {
+                ...state,
+                innovations: state.innovations.filter((innovation) => innovation !== id),
+            };
+        }
         default: return state;
     }
 };

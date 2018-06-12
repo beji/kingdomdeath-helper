@@ -95,6 +95,7 @@ const initialState: IState = {
     settlement: {
         geargrids,
         id: uuid(),
+        innovations: [],
         name: "Everybody-will-die-town",
         survivalLimit: 1,
         survivors,

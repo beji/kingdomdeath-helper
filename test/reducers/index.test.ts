@@ -1,9 +1,10 @@
 import { expect } from "chai";
 import { IState } from "interfaces";
+import { Innovations } from "interfaces/innovations";
 import "mocha";
 import { addToHunt, importSettlement, removeFromHunt, setPlayerName } from "../../src/actions";
-import { setName, updateSurvivalLimit } from "../../src/actions/settlementActions";
-import { createSurvivor, killSurvivor, updateSurvivor, updateSurvivorDisorders, updateSurvivorName } from "../../src/actions/survivorActions";
+import { addInnovation, removeInnovation, setName, updateSurvivalLimit } from "../../src/actions/settlementActions";
+import { createSurvivor, killSurvivor, updateSurvivorDisorders, updateSurvivorName } from "../../src/actions/survivorActions";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../../src/initialstate";
 import { DefenseStats, IDefenseStat, ISurvivor } from "../../src/interfaces";
 import reducer from "../../src/reducers";
@@ -236,7 +237,6 @@ describe("The reducer", () => {
             const name = "horst";
             const state = clone(initialState);
             const action = setPlayerName(name, 0);
-            const stateWithNamedSlot = reducer(state, action);
             const emptyAction = setPlayerName("", 0);
             const result = reducer(state, emptyAction);
             expect(result.settlement.geargrids[0].playername).to.equal("");
@@ -298,4 +298,47 @@ describe("The reducer", () => {
             testInterfaceUnchanged(state, result);
         });
     });
+
+    describe("AddInnovationAction", () => {
+        it("should add a new innovation to the settlement", () => {
+            const state = clone(initialState);
+            const result = reducer(state, addInnovation(Innovations.albedo));
+            expect(result.settlement.innovations.indexOf(Innovations.albedo)).to.not.equal(-1);
+        });
+
+        it("should not add the same innovation twice", () => {
+            const state = clone(initialState);
+            const step1 = reducer(state, addInnovation(Innovations.albedo));
+            const step1count = step1.settlement.innovations.length;
+            const step2 = reducer(step1, addInnovation(Innovations.albedo));
+            expect(step2.settlement.innovations.length).to.equal(step1count);
+        });
+
+        it("should not affect the interface state", () => {
+            const state = clone(initialState);
+            const result = reducer(state, addInnovation(Innovations.albedo));
+            testInterfaceUnchanged(state, result);
+        });
+    });
+
+    describe("RemoveInnovationAction", () => {
+        it("should remove an innovation from the settlement", () => {
+            const state = {
+                ...initialState,
+                settlement: {
+                    ...initialState.settlement,
+                    innovations: [Innovations.albedo],
+                },
+            };
+            const result = reducer(state, removeInnovation(Innovations.albedo));
+            expect(result.settlement.innovations.indexOf(Innovations.albedo)).to.equal(-1);
+        });
+
+        it("should not affect the interface state", () => {
+            const state = clone(initialState);
+            const result = reducer(state, removeInnovation(Innovations.albedo));
+            testInterfaceUnchanged(state, result);
+        });
+    });
+
 });
