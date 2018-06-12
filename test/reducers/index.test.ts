@@ -279,7 +279,7 @@ describe("The reducer", () => {
             const disorders = result.settlement.survivors[0].disorders;
             // tslint:disable-next-line:no-unused-expression
             expect(disorders).to.exist;
-            if ( disorders ) {
+            if (disorders) {
                 expect(disorders[0].id).to.equal(1);
                 expect(disorders[1].id).to.equal(3);
             }

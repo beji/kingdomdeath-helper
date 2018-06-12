@@ -14,7 +14,7 @@ interface ISurvivorDisordersStateProps {
     disorders: ReadonlyArray<IDisorder>;
 }
 
-interface ISurvivorDisordersProps extends ISurvivorDisordersOwnProps, ISurvivorDisordersStateProps {}
+interface ISurvivorDisordersProps extends ISurvivorDisordersOwnProps, ISurvivorDisordersStateProps { }
 
 interface ISurvivorDisordersState {
     showList: boolean;
@@ -53,21 +53,21 @@ class SurvivorDisorders extends React.Component<ISurvivorDisordersProps, ISurviv
     public render() {
         const { id, disorders } = this.props;
         const { showList } = this.state;
-        if (disorders.length > 0 ) {
+        if (disorders.length > 0) {
             return (
                 <DisordersWrapper>
                     <ItemWrapper>
-                        {disorders.map((disorder, idx) => <DisorderItem key={idx} disorder={disorder}/>)}
+                        {disorders.map((disorder, idx) => <DisorderItem key={idx} disorder={disorder} />)}
                     </ItemWrapper>
                     <FancyButton onClick={this.showList}>Manage Disorders</FancyButton>
-                    {showList && <DisordersList id={id} onCancel={this.hideList}/>}
+                    {showList && <DisordersList id={id} onCancel={this.hideList} />}
                 </DisordersWrapper>
             );
         } else {
             return (
                 <DisordersWrapper>
                     <FancyButton onClick={this.showList}>Manage Disorders</FancyButton>
-                    {showList && <DisordersList id={id} onCancel={this.hideList}/>}
+                    {showList && <DisordersList id={id} onCancel={this.hideList} />}
                 </DisordersWrapper>
             );
         }

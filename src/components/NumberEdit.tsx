@@ -51,9 +51,9 @@ export default class NumberEdit extends React.Component<INumberEditProps> {
         return (
             <Fragment>
                 <FancyButtonLeft onClick={this.handleValueChange.bind(this, -1)}>-</FancyButtonLeft>
-                <StyledInput type="text" innerRef={this.setupDisplayRef} value={(value + (addToDisplay || 0)).toString()} readOnly={true}/>
+                <StyledInput type="text" innerRef={this.setupDisplayRef} value={(value + (addToDisplay || 0)).toString()} readOnly={true} />
                 <FancyButtonRight onClick={this.handleValueChange.bind(this, 1)}>+</FancyButtonRight>
-                <HiddenInput type="text" innerRef={this.setupInputRef} value={value.toString()} readOnly={true}/>
+                <HiddenInput type="text" innerRef={this.setupInputRef} value={value.toString()} readOnly={true} />
             </Fragment>
         );
     }

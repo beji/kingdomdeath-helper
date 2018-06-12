@@ -52,7 +52,7 @@ const NavTriggerLabel = styled.label`
     }
 `;
 
-const StyledLink = styled(Link) `
+const StyledLink = styled(Link)`
     display: block;
     color: #fff;
     text-decoration: none;
@@ -73,7 +73,7 @@ export default class Navbar extends React.Component {
         return (
             <NavbarWrapper>
                 <Head>Kingdom: Death - Helper </Head>
-                <NavTrigger type="checkbox" className="nav-trigger" id="nav-trigger"/>
+                <NavTrigger type="checkbox" className="nav-trigger" id="nav-trigger" />
                 <NavTriggerLabel htmlFor="nav-trigger">☰</NavTriggerLabel>
                 <LinkBox className="nav-content">
                     <StyledLink to="/">Home</StyledLink>
