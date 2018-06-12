@@ -80,6 +80,7 @@ export default class Navbar extends React.Component {
                     <StyledLink to="/view/gear">Gear</StyledLink>
                     <StyledLink to="/view/disorders">Disorders</StyledLink>
                     <StyledLink to="/view/arts">Fighting arts</StyledLink>
+                    <StyledLink to="/innovations">Innovations</StyledLink>
                 </LinkBox>
             </NavbarWrapper>
         );
