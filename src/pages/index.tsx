@@ -100,7 +100,7 @@ class App extends React.Component<IAppProps> {
                         <SurvivorListHeadCell>Luck</SurvivorListHeadCell>
                         <SurvivorListHeadCell>Movement</SurvivorListHeadCell>
                         <SurvivorListHeadCell>Speed</SurvivorListHeadCell>
-                        <SurvivorListHeadCell>StrengSurvivorListHeadCell</SurvivorListHeadCell>
+                        <SurvivorListHeadCell>Strength</SurvivorListHeadCell>
                         <SurvivorListHeadCell>Hunting</SurvivorListHeadCell>
                         <SurvivorListHeadCell>Kill/Revive</SurvivorListHeadCell>
                     </SurvivorListHead>
