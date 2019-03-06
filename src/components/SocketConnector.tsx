@@ -1,6 +1,8 @@
 import Actions, { RemoteableActions } from "interfaces/reducer";
+import QRCode from "qrcode.react";
 import React from "react";
 import { connect, Dispatch } from "react-redux";
+import styled from "styled-components";
 import { importSettlement, remoteAction } from "../actions/importAction";
 import socket from "../clientsocket";
 import { ISettlement, IState } from "../interfaces";
@@ -9,6 +11,10 @@ import { IRoomMessage, IStatusUpdateMessage, SocketMessages } from "../interface
 import { clone, getURLParam } from "../util";
 
 // const roomId = getURLParam("id");
+
+const QRWrapper = styled.div`
+    margin: 2.5rem 1vw 1vh;
+`;
 
 interface ISocketConnectorStateProps {
     settlement?: ISettlement;
@@ -61,7 +67,7 @@ class SocketConnector extends React.Component<ISocketConnectorProps> {
     }
 
     public render() {
-        return (<div>Connector {this.props.settlement && this.props.settlement.id}!</div>);
+        return (<QRWrapper> {this.props.settlement && window && <QRCode size={256} value={`${window.location.protocol}//${window.location.hostname}/?id=${this.props.settlement.id}`} />}</QRWrapper>);
     }
 }
 
