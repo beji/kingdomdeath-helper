@@ -68,7 +68,7 @@ class SpecialStatLayer extends React.Component<ISpecialStatLayerProps> {
             return (
                 <SimpleLayerWrapper>
                     <CloseIcon onClick={this.hideLayer}>X</CloseIcon>
-                    <SimpleLayerHeadline>{this.props.survivor && this.props.survivorname}'s {specialStatToString(stat)}</SimpleLayerHeadline>
+                    <SimpleLayerHeadline>{survivorname}'s {specialStatToString(stat)}</SimpleLayerHeadline>
                     <StatEditWrapper>
                         <StatEdit>
                             <Label>Value</Label><NumberEdit value={value} innerRef={this.setupValueRef} />

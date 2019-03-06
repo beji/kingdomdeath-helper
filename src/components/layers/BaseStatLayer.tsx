@@ -73,7 +73,7 @@ class BaseStatLayer extends React.Component<IBaseStatLayerProps> {
             return (
                 <SimpleLayerWrapper>
                     <CloseIcon onClick={this.hideLayer}>X</CloseIcon>
-                    <SimpleLayerHeadline>{this.props.survivorname && this.props.survivorname}'s {capitalize(BaseStats[stat])}</SimpleLayerHeadline>
+                    <SimpleLayerHeadline>{survivorname}'s {capitalize(BaseStats[stat])}</SimpleLayerHeadline>
                     <StatEditWrapper>
                         <StatEdit>
                             <Label>Permanent</Label><NumberEdit value={permanent} innerRef={this.setupPermRef} />

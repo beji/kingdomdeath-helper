@@ -68,7 +68,7 @@ class DefenseStatLayer extends React.Component<IDefenseStatLayerProps> {
             return (
                 <SimpleLayerWrapper>
                     <CloseIcon onClick={this.hideLayer}>X</CloseIcon>
-                    <SimpleLayerHeadline>{this.props.survivor && this.props.survivorname}'s {capitalize(DefenseStats[stat])}</SimpleLayerHeadline>
+                    <SimpleLayerHeadline>{survivorname}'s {capitalize(DefenseStats[stat])}</SimpleLayerHeadline>
                     <StatEditWrapper>
                         <StatEdit>
                             <Label>Stat</Label><NumberEdit value={modifier} innerRef={this.setupModifierRef} addToDisplay={armor} />
