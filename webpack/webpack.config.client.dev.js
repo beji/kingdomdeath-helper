@@ -46,6 +46,9 @@ module.exports =
         target: 'web',
         plugins: [
             new HardSourceWebpackPlugin(),
-            new webpack.HotModuleReplacementPlugin()
+            new webpack.HotModuleReplacementPlugin(),
+            new webpack.EnvironmentPlugin({
+                NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
+            })
         ]
     }

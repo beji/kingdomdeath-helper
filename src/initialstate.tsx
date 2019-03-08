@@ -56,7 +56,9 @@ const getSpecialStats = (): ISpecialStat[] => ([
     getSpecialStat(SpecialStats.weapon_proficiency),
 ]).sort((a, b) => (a.stat - b.stat));
 
-const survivors: ReadonlyArray<ISurvivor> = Array.apply(null, { length: 8 }).map(Number.call, Number).map((n: number) => {
+const initialSurvivorCount = process.env.NODE_ENV === "production" ? 4 : 8;
+
+const survivors: ReadonlyArray<ISurvivor> = Array.apply(null, { length: initialSurvivorCount }).map(Number.call, Number).map((n: number) => {
     return {
         alive: n < 4 || n % 3 === 0,
         baseStats: getBaseStats(),
@@ -67,7 +69,7 @@ const survivors: ReadonlyArray<ISurvivor> = Array.apply(null, { length: 8 }).map
         huntxp: 0,
         id: n,
         lifetimeReroll: false,
-        name: `Survivor ${n}`,
+        name: process.env.NODE_ENV === "production" ? DEFAULT_SURVIVOR_NAME : `Survivor ${n}`,
         skipNextHunt: false,
         specialstats: getSpecialStats(),
     } as ISurvivor;
