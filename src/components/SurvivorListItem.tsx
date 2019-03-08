@@ -1,12 +1,11 @@
-import React from "react";
-import { Component, Fragment, SyntheticEvent } from "react";
+import React, { Component, Fragment, SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { addToHunt, removeFromHunt } from "../actions";
-import { killSurvivor, reviveSurvivor, updateSurvivorName } from "../actions/survivorActions";
+import { killSurvivor, removeSurvivor, reviveSurvivor, updateSurvivorName } from "../actions/survivorActions";
 import { BaseStats, DefenseStats, IBaseStat, ID, IDefenseStat, IGearGrid, IState, ISurvivor } from "../interfaces";
-import { AddToHuntAction, KillSurvivorAction, RemoveFromHuntAction, ReviveSurvivorAction, UpdateSurvivorNameAction } from "../interfaces/actions";
+import { AddToHuntAction, KillSurvivorAction, RemoveFromHuntAction, RemoveSurvivorAction, ReviveSurvivorAction, UpdateSurvivorNameAction } from "../interfaces/actions";
 import { capitalize, clone, darken } from "../util";
 import GenderEdit from "./GenderEdit";
 import NameEdit from "./NameEdit";
@@ -29,6 +28,7 @@ interface ISurvivorListItemDispatchProps {
     removeFromHunt: (id: ID) => RemoveFromHuntAction;
     killSurvivor: (id: ID) => KillSurvivorAction;
     reviveSurvivor: (id: ID) => ReviveSurvivorAction;
+    removeSurvivor: (id: ID) => RemoveSurvivorAction;
     updateSurvivorName: (id: ID, name: string) => UpdateSurvivorNameAction;
 }
 
@@ -85,10 +85,11 @@ const SmallSpaceLabel = styled.div`
     }
 `;
 
-const mapDispatchToProps = (dispatch: Dispatch<AddToHuntAction | RemoveFromHuntAction | KillSurvivorAction | ReviveSurvivorAction | UpdateSurvivorNameAction>): ISurvivorListItemDispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<AddToHuntAction | RemoveFromHuntAction | KillSurvivorAction | ReviveSurvivorAction | UpdateSurvivorNameAction | RemoveSurvivorAction>): ISurvivorListItemDispatchProps => ({
     addToHunt: (id: ID, gridId: number) => dispatch(addToHunt(id, gridId)),
     killSurvivor: (id: ID) => dispatch(killSurvivor(id)),
     removeFromHunt: (id: ID) => dispatch(removeFromHunt(id)),
+    removeSurvivor: (id: ID) => dispatch(removeSurvivor(id)),
     reviveSurvivor: (id: ID) => dispatch(reviveSurvivor(id)),
     updateSurvivorName: (id: ID, name: string) => dispatch(updateSurvivorName(id, name)),
 });
@@ -117,6 +118,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
         this.handleKillClick = this.handleKillClick.bind(this);
         this.handleReviveClick = this.handleReviveClick.bind(this);
         this.handleNameUpdate = this.handleNameUpdate.bind(this);
+        this.handleRemoveClick = this.handleRemoveClick.bind(this);
     }
 
     public render() {
@@ -142,8 +144,9 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
                         {alive && (<div><select value={hunting ? gridId : "remove"} onChange={this.handleHuntBoxChange}><option value="remove">not hunting</option>{huntSlots.map((v, i) => <option key={i} value={i}>Grid: {v.playername}</option>)}</select></div>)}
                     </Cell>
                     <Cell>
-                        <SmallSpaceLabel>Kill/Revive</SmallSpaceLabel>
+                        <SmallSpaceLabel>Kill/Revive/Remove</SmallSpaceLabel>
                         {alive ? <FancyButton onClick={this.handleKillClick}>Kill</FancyButton> : <FancyButton onClick={this.handleReviveClick}>Revive</FancyButton>}
+                        {!hunting && <FancyButton onClick={this.handleRemoveClick}>Remove</FancyButton>}
                     </Cell>
                 </ItemWrapper>
             );
@@ -193,6 +196,14 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
     }
     private handleReviveClick(e: SyntheticEvent<HTMLButtonElement>) {
         this.props.reviveSurvivor(this.props.id);
+    }
+
+    private handleRemoveClick(e: SyntheticEvent<HTMLButtonElement>) {
+        if (this.props.survivor) {
+            if (window.confirm("You sure? this can't be undone!")) {
+                this.props.removeSurvivor(this.props.survivor.id);
+            }
+        }
     }
 }
 

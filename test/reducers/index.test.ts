@@ -4,7 +4,7 @@ import { Innovations } from "interfaces/innovations";
 import "mocha";
 import { addToHunt, importSettlement, removeFromHunt, setPlayerName } from "../../src/actions";
 import { addInnovation, removeInnovation, setName, updateSurvivalLimit } from "../../src/actions/settlementActions";
-import { createSurvivor, killSurvivor, updateSurvivorDisorders, updateSurvivorName } from "../../src/actions/survivorActions";
+import { createSurvivor, killSurvivor, updateSurvivorDisorders, updateSurvivorName, removeSurvivor } from "../../src/actions/survivorActions";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../../src/initialstate";
 import { DefenseStats, IDefenseStat, ISurvivor } from "../../src/interfaces";
 import reducer from "../../src/reducers";
@@ -340,5 +340,23 @@ describe("The reducer", () => {
             testInterfaceUnchanged(state, result);
         });
     });
+
+    describe("RemoveSurvivoraction", () => {
+        it("should remove a survivor from the settlement", () => {
+            const id = 3;
+            const initialSurvivorCount = initialState.settlement.survivors.length
+            const result = reducer(initialState, removeSurvivor(id));
+
+            expect(result.settlement.survivors.length).to.equal(initialSurvivorCount - 1);
+            expect(result.settlement.survivors.find((survivor) => survivor.id === 3)).to.undefined
+        });
+        it("should not do anything if the id does not exist", () => {
+            const id = 35;
+            const initialSurvivorCount = initialState.settlement.survivors.length
+            const result = reducer(initialState, removeSurvivor(id));
+
+            expect(result.settlement.survivors.length).to.equal(initialSurvivorCount);
+        })
+    })
 
 });

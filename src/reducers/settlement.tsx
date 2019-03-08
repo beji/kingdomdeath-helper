@@ -582,6 +582,16 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
                 innovations: state.innovations.filter((innovation) => innovation !== id),
             };
         }
+        case ActionTypes.REMOVE_SURVIVOR: {
+            const id = action.payload;
+            if (typeof state.survivors.find((survivor) => survivor.id === id) === "undefined") {
+                return state;
+            }
+            return {
+                ...state,
+                survivors: state.survivors.filter((survivor) => survivor.id !== id),
+            };
+        }
         default: return state;
     }
 };

@@ -20,3 +20,5 @@ export type CreateSurvivorAction = IAction<ActionTypes.CREATE_SURVIVOR, undefine
 export type UpdateSurvivorFightingArtsAction = IAction<ActionTypes.UPDATE_SURVIVOR_FIGHTNG_ART, { id: ID, arts: FightingArt[] }>;
 
 export type UpdateSurvivorDisordersAction = IAction<ActionTypes.UPDATE_DISORDERS, { id: ID, disorders: Disorders[] }>;
+
+export type RemoveSurvivorAction = IAction<ActionTypes.REMOVE_SURVIVOR, ID>;
