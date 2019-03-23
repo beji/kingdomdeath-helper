@@ -288,7 +288,7 @@ class GearCard extends React.Component<IGearCardProps> {
     }
 
     private showDescription(e: SyntheticEvent<HTMLButtonElement>) {
-        const { item, slotId } = this.props;
+        const { item } = this.props;
         if (item) {
             const { desc, name } = item;
             this.props.showLayer({
