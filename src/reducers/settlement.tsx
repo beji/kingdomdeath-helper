@@ -5,25 +5,10 @@ import fightingArts from "../../data/final/fightingarts";
 import { removeFromHunt, updateGear, updateGearSlotAffinity } from "../actions";
 import items from "../data/ItemDataHelper";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../initialstate";
-import { Affinity, AffinityTypes, DefenseStats, Disorders, FightingArt, IGearGrid, IGridSlot, IItem, IItemStat, ISettlement, ISurvivor, StatType } from "../interfaces";
+import { Affinity, AffinityTypes, DefenseStats, Disorders, FightingArt, IGearGrid, IGridSlot, IItem, IItemStat, ISettlement, ISurvivor, Set as GearSet, StatType, Item } from "../interfaces";
 import ActionTypes from "../interfaces/actionTypes";
 import { clone, getNewSurvivorID } from "../util";
-
-function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
-    const updatedSurvivors = state.survivors.map(mapfunc);
-    return {
-        ...state,
-        survivors: updatedSurvivors,
-    };
-}
-
-function generateWithUpdatedGrid(state: ISettlement, mapfunc: (grid: IGearGrid) => IGearGrid) {
-    const updatedGrids = state.geargrids.map(mapfunc);
-    return {
-        ...state,
-        geargrids: updatedGrids,
-    };
-}
+import { generateWithUpdatedGrid, generateWithUpdatedSurvivors, getGearItem } from "./_helper";
 
 const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, action: Actions): ISettlement => {
 
@@ -430,7 +415,7 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
                     // calculate active card affinities
                     slots = slots.map((slot) => {
                         const { affinities, content } = slot;
-                        const thisCard = items.find((item) => item.id === slot.content);
+                        const thisCard = getGearItem(slot.content);
                         let affinityActive = false;
 
                         // calculate if affinity bonus on current card is active
@@ -500,6 +485,46 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
                 }
                 return survivor;
             });
+        }
+        case ActionTypes.UPDATE_GEARSLOT_GEARSET: {
+            const gearGrid = action.payload;
+            const currentSurvivor = state.survivors.find((survivor) => survivor.id === gearGrid.survivorId);
+            const updatedSurvivor: any = { ...currentSurvivor };
+
+            const nextState = generateWithUpdatedGrid(state, (grid) => {
+                if (grid.id === gearGrid.id) {
+                    const setItems: {[key: number]: Item[]} = {};
+                    const { slots } = gearGrid;
+
+                    // Calculate sets in gearGrid
+                    const gearSetsInGrid = [...new Set(slots.map((slot) => {
+                            const item = getGearItem(slot.content);
+                            if (item && item.set) {
+                                // Add item.id to setItems
+                                setItems[item.set as unknown as number] = [
+                                  ...setItems[item.set as unknown as number],
+                                  item.id,
+                                ];
+                                return item.set;
+                            }
+                        })),
+                    ];
+
+                    return {
+                      ...gearGrid,
+                      gearSets: gearSetsInGrid,
+                    };
+                }
+                return grid;
+            });
+
+            return generateWithUpdatedSurvivors(nextState, (survivor) => {
+              // Survivors gain one free survival on the first rename (faked by checking for the DEFAULT_SURVIVOR_NAME, could be cheated)
+              if (survivor.id === updatedSurvivor.id) {
+                  return updatedSurvivor;
+              }
+              return survivor;
+          });
         }
         case ActionTypes.RESET_HUNT: {
             return {

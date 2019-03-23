@@ -16,6 +16,7 @@ const enum AffinityTypes {
 
 interface IGearGrid {
     readonly affinities: Affinity[];
+    readonly gearSets?: any;
     readonly id: ID;
     readonly playername?: string;
     readonly survivorId?: ID;

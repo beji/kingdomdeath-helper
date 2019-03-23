@@ -1,4 +1,30 @@
-import { AddInnovationAction, AddToHuntAction, CreateSurvivorAction, HideLayerAction, ImportAction, KillSurvivorAction, RemoteAction, RemoveFromHuntAction, RemoveInnovationAction, ResetHuntAction, ReviveSurvivorAction, SetNameAction, SetPlayerNameAction, ShowLayerAction, UpdateGearGridAction, UpdateGearSlotAffinityAction, UpdateSurvivalLimitAction, UpdateSurvivorAction, UpdateSurvivorDisordersAction, UpdateSurvivorFightingArtsAction, UpdateSurvivorGenderAction, UpdateSurvivorNameAction, UpdateSurvivorStatAction, RemoveSurvivorAction } from "./actions";
+import {
+  AddInnovationAction,
+  AddToHuntAction,
+  CreateSurvivorAction,
+  HideLayerAction,
+  ImportAction,
+  KillSurvivorAction,
+  RemoteAction,
+  RemoveFromHuntAction,
+  RemoveInnovationAction,
+  RemoveSurvivorAction,
+  ResetHuntAction,
+  ReviveSurvivorAction,
+  SetNameAction,
+  SetPlayerNameAction,
+  ShowLayerAction,
+  UpdateGearGridAction,
+  UpdateGearSlotAffinityAction,
+  UpdateGearSlotGearSetAction,
+  UpdateSurvivalLimitAction,
+  UpdateSurvivorAction,
+  UpdateSurvivorDisordersAction,
+  UpdateSurvivorFightingArtsAction,
+  UpdateSurvivorGenderAction,
+  UpdateSurvivorNameAction,
+  UpdateSurvivorStatAction,
+} from "./actions";
 
 export type RemoteableActions = AddToHuntAction |
     RemoveFromHuntAction |
@@ -12,6 +38,7 @@ export type RemoteableActions = AddToHuntAction |
     CreateSurvivorAction |
     UpdateGearGridAction |
     UpdateGearSlotAffinityAction |
+    UpdateGearSlotGearSetAction |
     UpdateSurvivorFightingArtsAction |
     ResetHuntAction |
     UpdateSurvivorNameAction |
