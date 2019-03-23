@@ -1,5 +1,5 @@
-import items from "../data/ItemDataHelper";
-import { IGearGrid, IItem, ISettlement, ISurvivor, Item } from "../interfaces";
+import items, { set as gearSets } from "../data/ItemDataHelper";
+import { GearSet, IGearGrid, IGearSetBonus, IItem, IItemStat, ISettlement, ISurvivor, Item } from "../interfaces";
 
 export function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
   const updatedSurvivors = state.survivors.map(mapfunc);
@@ -23,4 +23,30 @@ export function getGearItem(itemId: Item | undefined): IItem | undefined {
   } else {
     return undefined;
   }
+}
+
+export function getGearSetItems(setId: GearSet): Item[] {
+  return items
+      .filter((item) => item.set && item.set.id === setId)
+      .map((item) => item.id)
+      .sort();
+}
+
+export function getGearSetBonus(setId: GearSet): IGearSetBonus | undefined {
+  return gearSets.filter((gearSet) => gearSet.id === setId)[0].bonus;
+}
+
+export function updateStatOnSurvior(stat: IItemStat, survivor: ISurvivor): ISurvivor {
+  const updatedSurvivor = { ...survivor };
+  const statTypes = ["defenseStats", "baseStats", "specialstats"]; // Array sorted by StatType enum
+  const fieldToAddName = ["armor", "gear", "value"]; // Array sorted by StatType enum
+  if (updatedSurvivor[statTypes[stat.type]]) {
+      updatedSurvivor[statTypes[stat.type]].some((survivorStat: any) => {
+          if (stat.stat === survivorStat.stat) {
+              survivorStat[fieldToAddName[stat.type]] += stat.amount;
+          }
+          return stat.stat === survivorStat.stat;
+      });
+  }
+  return updatedSurvivor;
 }

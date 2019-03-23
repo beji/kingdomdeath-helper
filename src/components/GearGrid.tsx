@@ -2,7 +2,8 @@ import React from "react";
 import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
 import { setPlayerName, updateSurvivor, updateSurvivorName } from "../actions";
-import { Affinity, AffinityTypes, ID, IGearGrid, IState, UUID } from "../interfaces";
+import { set as gearSets } from "../data/ItemDataHelper";
+import { Affinity, AffinityTypes, GearSet, ID, IGearGrid, IState } from "../interfaces";
 import { SetPlayerNameAction } from "../interfaces/actions";
 import AffinityIcon from "./AffinityIcon";
 import GridSlot from "./GridSlot";
@@ -74,6 +75,10 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
             justify-content: space-around;
             margin: .25rem;
         `;
+        const GearSets = styled.div`
+            padding: .25rem;
+            text-align:center;
+        `;
 
         if (this.props.grid) {
             const { grid, id } = this.props;
@@ -92,6 +97,9 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
                     <StyledGrid>
                         {Object.keys(grid.slots).map((v, i, slots) => <GridSlot key={i} gridId={grid.id} slotId={grid.slots[i].id} />)}
                     </StyledGrid>
+                    <GearSets>
+                        {grid.gearSets && grid.gearSets.length > 0 && (<>Full gearsets: {grid.gearSets.map((setId: GearSet) => gearSets[setId].name)}</>)}
+                    </GearSets>
                 </PlayerCard>
             );
         } else {

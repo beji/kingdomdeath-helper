@@ -1,5 +1,5 @@
 import { ID } from "./generics";
-import { Item, ItemType, Set } from "./ItemEnums";
+import { GearSet, Item, ItemType } from "./ItemEnums";
 import { BaseStats, DefenseStats, StatType } from "./survivor";
 
 enum Affinity {
@@ -29,7 +29,7 @@ interface IGridSlot {
     readonly affinities?: ReadonlyArray<Affinity>;
     readonly affinityActive: boolean;
     readonly setActive: boolean;
-    readonly sets?: ReadonlyArray<Set>;
+    readonly sets?: ReadonlyArray<GearSet>;
 }
 
 interface IItemStat {
@@ -71,17 +71,19 @@ interface IItem {
         }
     };
     readonly set?: {
-        readonly id: Set;
+        readonly id: GearSet;
     };
 }
 
-interface ISet {
-    readonly id: Set;
-    readonly bonus?: {
-        readonly desc: string;
-        readonly stats?: ReadonlyArray<IItemStat>;
-    };
+interface IGearSet {
+    readonly id: GearSet;
+    readonly bonus?: IGearSetBonus;
     readonly name: string;
 }
 
-export { Affinity, AffinityTypes, IAffinity, IGearGrid, IGridSlot, IItem, IItemStat, Item, ItemType, ISet, Set };
+interface IGearSetBonus {
+  readonly desc: string;
+  readonly stats?: ReadonlyArray<IItemStat>;
+}
+
+export { Affinity, AffinityTypes, IAffinity, IGearGrid, IGearSetBonus, IGridSlot, IItem, IItemStat, Item, ItemType, IGearSet, GearSet };
