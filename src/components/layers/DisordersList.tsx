@@ -16,7 +16,6 @@ interface IDisorderslistState {
 
 interface IDisorderslistOwnProps {
     onDisorderselect?: any;
-    onCancel?: any;
 }
 
 interface IDisorderslistStateProps {
