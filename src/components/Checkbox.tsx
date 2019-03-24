@@ -28,7 +28,7 @@ interface ICheckboxProps {
 
 class Checkbox extends React.Component<ICheckboxProps> {
     public render() {
-        const { highlight, onChange, value } = this.props;
+        const { highlight = false, onChange, value } = this.props;
         return (
             <Wrapper>
                 {!highlight && <StyledCheckbox onClick={onChange} className={value ? "active" : ""} />}

@@ -1,6 +1,6 @@
 import { KeyboardEvent } from "react";
 import React from "react";
-import { createRef, Fragment, RefObject, SyntheticEvent } from "react";
+import { Fragment, SyntheticEvent } from "react";
 import styled from "styled-components";
 import { FancyButton } from "./StyledComponents";
 
