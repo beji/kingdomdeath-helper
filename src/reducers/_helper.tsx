@@ -1,7 +1,7 @@
 import items, { set as gearSets } from "../data/ItemDataHelper";
 import { GearSet, IGearGrid, IGearSetBonus, IItem, IItemStat, ISettlement, ISurvivor, Item } from "../interfaces";
 
-export function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor) {
+export function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survivor: ISurvivor) => ISurvivor): ISettlement {
   const updatedSurvivors = state.survivors.map(mapfunc);
   return {
       ...state,
@@ -9,7 +9,7 @@ export function generateWithUpdatedSurvivors(state: ISettlement, mapfunc: (survi
   };
 }
 
-export function generateWithUpdatedGrid(state: ISettlement, mapfunc: (grid: IGearGrid) => IGearGrid) {
+export function generateWithUpdatedGrid(state: ISettlement, mapfunc: (grid: IGearGrid) => IGearGrid): ISettlement {
   const updatedGrids = state.geargrids.map(mapfunc);
   return {
       ...state,

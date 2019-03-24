@@ -352,8 +352,7 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
                     }
                     return grid;
                 });
-                const affinityState = reducer(baseState, updateGearSlotAffinity(action.payload));
-                return reducer(affinityState, updateGearSlotSet(action.payload));
+                return reducer(reducer(baseState, updateGearSlotAffinity(action.payload)), updateGearSlotSet(action.payload));
             }
             return state;
         }
@@ -462,7 +461,7 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
                     });
 
                     return {
-                        ...gearGrid,
+                        ...grid,
                         affinities: gridAffinities,
                         slots,
                     };
@@ -489,7 +488,7 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
                     const { slots } = gearGrid;
 
                     // Calculate sets in gearGrid
-                    const gearSetsInGrid: GearSet[] = [...new Set<GearSet>(slots
+                    const gearSetsInGrid: ReadonlyArray<GearSet> = [...new Set<GearSet>(slots
                         .map((slot) => {
                             const item = getGearItem(slot.content);
                             if ( item && item.set ) {
@@ -520,7 +519,7 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
 
                     // Return grid with array of full sets
                     return {
-                      ...gearGrid,
+                      ...grid,
                       gearSets: fullSets,
                     };
                 }
