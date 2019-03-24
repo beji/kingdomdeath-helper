@@ -1,4 +1,4 @@
-import { Affinity, AffinityTypes, BaseStats, DefenseStats, IItem, ItemType, Set, StatType } from "../../src/interfaces";
+import { Affinity, AffinityTypes, BaseStats, DefenseStats, IItem, Item, ItemType, Set, StatType } from "../../src/interfaces";
 
 export const armor: IItem[] = [
     {
@@ -2001,5 +2001,12 @@ export const armor: IItem[] = [
         types: [
             0,
         ],
+    },
+    {
+      desc: "You love this rock more than your life.",
+      id: Item.beloved_rock,
+      material: "",
+      name: "Beloved Rock",
+      obtained: "Hunt Event",
     },
 ];
