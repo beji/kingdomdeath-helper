@@ -5,6 +5,7 @@ export enum LayerType {
     basestat,
     defensestat,
     specialstat,
+    disorderlist,
 }
 
 export interface ISimpleLayer {
@@ -29,4 +30,9 @@ export interface ISpecialStatLayer {
     type: LayerType.specialstat;
     survivor: ID;
     stat: SpecialStats;
+}
+
+export interface IDisorderListLayer {
+    type: LayerType.disorderlist;
+    survivor: ID;
 }

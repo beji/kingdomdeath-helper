@@ -13,6 +13,7 @@ import ViewPage from "../pages/view";
 import ExportForm from "./ExportForm";
 import BaseStatLayer from "./layers/BaseStatLayer";
 import DefenseStatLayer from "./layers/DefenseStatLayer";
+import DisordersList from "./layers/DisordersList";
 import SimpleLayer from "./layers/SimpleLayer";
 import SpecialStatLayer from "./layers/SpecialStatLayer";
 import NavBar from "./NavBar";
@@ -71,6 +72,7 @@ class App extends React.Component<IAppProps> {
                         <BaseStatLayer />
                         <DefenseStatLayer />
                         <SpecialStatLayer />
+                        <DisordersList />
                     </AppWrapper>
                     <NavBar />
                 </React.Fragment>

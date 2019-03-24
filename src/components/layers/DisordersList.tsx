@@ -1,12 +1,12 @@
 import disorders from "data/final/disorder.json";
 import Fuse from "fuse.js";
-import { Disorders, ID, IDisorder, IState } from "interfaces";
-import { UpdateSurvivorDisordersAction } from "interfaces/actions";
 import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { updateSurvivorDisorders } from "../actions";
-import { CloseIcon, FancyButton, FilterInput, List, ListElement, ListWrapper, SelectedListElement } from "./StyledComponents";
+import { hideLayer, updateSurvivorDisorders } from "../../actions";
+import { Disorders, ID, IDisorder, IState, LayerType } from "../../interfaces";
+import { HideLayerAction, UpdateSurvivorDisordersAction } from "../../interfaces/actions";
+import { CloseIcon, FancyButton, FilterInput, List, ListElement, ListWrapper, SelectedListElement } from "./../StyledComponents";
 
 interface IDisorderslistState {
     disordersToAdd: Disorders[];
@@ -17,39 +17,47 @@ interface IDisorderslistState {
 interface IDisorderslistOwnProps {
     onDisorderselect?: any;
     onCancel?: any;
-    id: ID;
 }
 
 interface IDisorderslistStateProps {
     currentlySelectedDisorders?: Disorders[];
+    id?: ID;
 }
 
 interface IDisorderslistDispatchProps {
+    hideLayer: () => HideLayerAction;
     updateSurvivorDisorder: (id: ID, arts: Disorders[]) => UpdateSurvivorDisordersAction;
 }
 
 interface IDisorderslistProps extends IDisorderslistStateProps, IDisorderslistDispatchProps, IDisorderslistOwnProps { }
 
-const mapStateToProps = (state: IState, ownProps: IDisorderslistOwnProps): IDisorderslistStateProps => {
-    const survivor = state.settlement.survivors.find((s) => s.id === ownProps.id);
-    if (survivor && survivor.disorders) {
-        return {
-            currentlySelectedDisorders: survivor.disorders.map((disorder) => disorder.id),
-        };
+const mapStateToProps = (state: IState): IDisorderslistStateProps => {
+    if (state.interface.layer && state.interface.layer.type === LayerType.disorderlist) {
+        if (typeof state.interface.layer.survivor !== "undefined") {
+            const sid = state.interface.layer.survivor;
+            const survivor = state.settlement.survivors.find((s) => s.id === sid);
+            if (survivor && survivor.disorders) {
+                return {
+                    currentlySelectedDisorders: survivor.disorders.map((disorder) => disorder.id),
+                    id: sid,
+                };
+            }
+        }
     }
     return {
         currentlySelectedDisorders: undefined,
+        id: undefined,
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorDisordersAction>): IDisorderslistDispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorDisordersAction | HideLayerAction>): IDisorderslistDispatchProps => ({
+    hideLayer: () => dispatch(hideLayer()),
     updateSurvivorDisorder: (id: ID, arts: Disorders[]) => dispatch(updateSurvivorDisorders(id, arts)),
 });
 
 class Disorderslist extends React.Component<IDisorderslistProps, IDisorderslistState> {
     constructor(props: IDisorderslistProps) {
         super(props);
-        this.handleCloseIconClick = this.handleCloseIconClick.bind(this);
         this.renderListElement = this.renderListElement.bind(this);
         this.submit = this.submit.bind(this);
         this.handleFilter = this.handleFilter.bind(this);
@@ -61,16 +69,20 @@ class Disorderslist extends React.Component<IDisorderslistProps, IDisorderslistS
     }
 
     public render() {
-        return (
-            <ListWrapper>
-                {this.props.onCancel && <CloseIcon onClick={this.handleCloseIconClick}>X</CloseIcon>}
-                <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} autoFocus={true} />
-                <List>
-                    {this.state.disorders.map((disorder, idx) => <React.Fragment key={idx}>{this.renderListElement(disorder)}</React.Fragment>)}
-                </List>
-                <FancyButton onClick={this.submit}>Submit</FancyButton>
-            </ListWrapper>
-        );
+        if (typeof this.props.id !== "undefined") {
+            return (
+                <ListWrapper>
+                    <CloseIcon onClick={this.props.hideLayer}>X</CloseIcon>
+                    <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} autoFocus={true} />
+                    <List>
+                        {this.state.disorders.map((disorder, idx) => <React.Fragment key={idx}>{this.renderListElement(disorder)}</React.Fragment>)}
+                    </List>
+                    <FancyButton onClick={this.submit}>Submit</FancyButton>
+                </ListWrapper>
+            );
+        } else {
+            return "";
+        }
     }
 
     private renderListElement(art: IDisorder) {
@@ -100,15 +112,12 @@ class Disorderslist extends React.Component<IDisorderslistProps, IDisorderslistS
     }
 
     private submit(e: SyntheticEvent<HTMLButtonElement>) {
-        const { disordersToAdd, disordersToRemove } = this.state;
-        const arts = (this.props.currentlySelectedDisorders || []).concat(disordersToAdd).filter((art) => !disordersToRemove.includes(art));
-        this.props.updateSurvivorDisorder(this.props.id, arts);
-        this.props.onCancel();
-
-    }
-
-    private handleCloseIconClick() {
-        this.props.onCancel();
+        if (typeof this.props.id !== "undefined") {
+            const { disordersToAdd, disordersToRemove } = this.state;
+            const arts = (this.props.currentlySelectedDisorders || []).concat(disordersToAdd).filter((art) => !disordersToRemove.includes(art));
+            this.props.updateSurvivorDisorder(this.props.id, arts);
+            this.props.hideLayer();
+        }
     }
 
     private handleFilter(event: SyntheticEvent<HTMLInputElement>) {
