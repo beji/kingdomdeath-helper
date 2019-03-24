@@ -36,9 +36,9 @@ const mapStateToProps = (state: IState): IDisorderslistStateProps => {
         if (typeof state.interface.layer.survivor !== "undefined") {
             const sid = state.interface.layer.survivor;
             const survivor = state.settlement.survivors.find((s) => s.id === sid);
-            if (survivor && survivor.disorders) {
+            if (survivor) {
                 return {
-                    currentlySelectedDisorders: survivor.disorders.map((disorder) => disorder.id),
+                    currentlySelectedDisorders: survivor.disorders ? survivor.disorders.map((disorder) => disorder.id) : [],
                     id: sid,
                 };
             }
