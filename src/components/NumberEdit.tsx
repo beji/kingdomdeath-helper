@@ -1,5 +1,5 @@
 import React from "react";
-import { Fragment, SyntheticEvent } from "react";
+import { Fragment } from "react";
 import styled from "styled-components";
 import { FancyButton } from "./StyledComponents";
 

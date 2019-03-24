@@ -17,10 +17,6 @@ interface IDisorderItemDispatchProps {
 
 interface IDisorderItemProps extends IDisorderItemOwnProps, IDisorderItemDispatchProps { }
 
-const DisorderDescription = styled.div`
-    margin-bottom: 2rem;
-`;
-
 const DisorderItemWrapper = styled.div`
     cursor: pointer;
     margin-top: 1vh;

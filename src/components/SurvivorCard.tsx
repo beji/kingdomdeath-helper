@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateSurvivor, updateSurvivorName } from "../actions/survivorActions";
-import { BaseStats, DefenseStats, ID, IState, ISurvivor, SpecialStats, UUID } from "../interfaces";
+import { BaseStats, DefenseStats, ID, IState, ISurvivor } from "../interfaces";
 import { UpdateSurvivorAction, UpdateSurvivorNameAction } from "../interfaces/actions";
 import { capitalize, clone, specialStatToString } from "../util";
 import Checkbox from "./Checkbox";
