@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import { colors } from "../theme";
 import { colorMagentaLachs } from "./StyledComponents";
 
 const SurvivorStat = styled.div`
     flex: 1;
     text-align:center;
     padding:.25rem;
-    border: 1px solid #aaa;
+    border: 1px solid ${colors.hintedBorder};
     @media only screen
       and (min-device-width: 375px)
       and (max-device-width: 667px) {

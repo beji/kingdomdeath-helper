@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { updateGear } from "../actions/gearActions";
 import { ID, IGearGrid, IState, Item } from "../interfaces";
 import { UpdateGearGridAction } from "../interfaces/actions";
+import { colors } from "../theme";
 import { clone } from "../util";
 import GearCard from "./GearCard";
 import GearList from "./GearList";
@@ -67,7 +68,7 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
 
     public render() {
         const StyledElement = styled.div`
-            border:1px solid #444;
+            border:1px solid ${colors.hintedBorder};
             width:33.33333%;
             min-height:10vh;
             text-align:center;

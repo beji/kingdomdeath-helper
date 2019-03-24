@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { setName, updateSurvivalLimit } from "../actions/settlementActions";
 import { IState } from "../interfaces";
 import { SetNameAction, UpdateSurvivalLimitAction } from "../interfaces/actions";
+import { colors, serifFont } from "../theme";
 import NameEdit from "./NameEdit";
 import NumberEdit from "./NumberEdit";
 
@@ -19,9 +20,11 @@ interface ISettlementNameStateProps {
 }
 const Wrapper = styled.section`
     margin-bottom:.25rem;
+    color: ${colors.text};
 `;
 const StyledName = styled.div`
     span {
+        ${serifFont}
         font-weight: bold;
         font-size: 2rem;
         margin-bottom: 1.5vh;

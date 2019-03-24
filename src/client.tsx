@@ -1,24 +1,27 @@
 import React from "react";
-import { hydrate, render } from "react-dom";
-import { hot } from "react-hot-loader";
+import { hydrate } from "react-dom";
 import { Provider } from "react-redux";
 import { injectGlobal } from "styled-components";
 import App from "./components/App";
 import normalize from "./normalize";
 import configureStore from "./store";
+import { colors, textFont } from "./theme";
 
 // tslint:disable-next-line:no-unused-expression
 injectGlobal`
     ${normalize}
     * {
       box-sizing: border-box;
-      font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+      ${textFont}
+    }
+    body {
+        background-color: ${colors.page};
     }
 `;
 
 hydrate(
     <Provider store={configureStore()}>
-        <App />
+        <App/>
     </Provider>,
     document.getElementById("content"));
 

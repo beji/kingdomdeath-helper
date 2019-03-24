@@ -5,9 +5,8 @@ import { UpdateSurvivorDisordersAction } from "interfaces/actions";
 import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import styled from "styled-components";
 import { updateSurvivorDisorders } from "../actions";
-import { colorMagentaLachs, FancyButton } from "./StyledComponents";
+import { CloseIcon, FancyButton, FilterInput, List, ListElement, ListWrapper, SelectedListElement } from "./StyledComponents";
 
 interface IDisorderslistState {
     disordersToAdd: Disorders[];
@@ -30,70 +29,6 @@ interface IDisorderslistDispatchProps {
 }
 
 interface IDisorderslistProps extends IDisorderslistStateProps, IDisorderslistDispatchProps, IDisorderslistOwnProps { }
-
-const FilterInput = styled.input`
-    border: 2px solid #aaa;
-    font-size:1rem;
-    padding:.25rem;
-    width: 80%;
-`;
-
-const Wrapper = styled.div`
-    background:#eee;
-    border:1px solid ${colorMagentaLachs};
-    left:50%;
-    line-height:1rem;
-    padding:.5rem;
-    position:fixed;
-    top:50%;
-    transform:translate3d(-50%, -50%, 0);
-    width:30vw;
-    height: 50vh;
-    z-index:10;
-    @media only screen
-      and (min-device-width: 375px)
-      and (max-device-width: 667px) {
-        width: 95%;
-    }
-`;
-const List = styled.div`
-    overflow-y:auto;
-    height: 70%;
-    margin: 1rem 0;
-`;
-const ListElement = styled.div`
-    border:1px solid #aaa;
-    cursor:pointer;
-    margin:.25rem;
-    padding:.5rem;
-    &:hover {
-        background:#ddd;
-        border-color:${colorMagentaLachs}
-    }
-`;
-
-const SelectedListElement = ListElement.extend`
-    border: 3px solid ${colorMagentaLachs};
-`;
-
-const CloseIcon = styled.div`
-    background:#ccc;
-    border:1px solid #444;
-    border-radius:50%;
-    cursor:pointer;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size:1rem;
-    height:2rem;
-    line-height:2rem;
-    position:absolute;
-    right:-1rem;
-    text-align:center;
-    top:-1rem;
-    width:2rem;
-    &:hover {
-        background:${colorMagentaLachs}
-    }
-`;
 
 const mapStateToProps = (state: IState, ownProps: IDisorderslistOwnProps): IDisorderslistStateProps => {
     const survivor = state.settlement.survivors.find((s) => s.id === ownProps.id);
@@ -127,14 +62,14 @@ class Disorderslist extends React.Component<IDisorderslistProps, IDisorderslistS
 
     public render() {
         return (
-            <Wrapper>
+            <ListWrapper>
                 {this.props.onCancel && <CloseIcon onClick={this.handleCloseIconClick}>X</CloseIcon>}
                 <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} autoFocus={true} />
                 <List>
                     {this.state.disorders.map((disorder, idx) => <React.Fragment key={idx}>{this.renderListElement(disorder)}</React.Fragment>)}
                 </List>
                 <FancyButton onClick={this.submit}>Submit</FancyButton>
-            </Wrapper>
+            </ListWrapper>
         );
     }
 

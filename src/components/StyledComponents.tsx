@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { colors, serifFont, textFont } from "../theme";
 import { darken } from "../util";
 
 const colorMagentaLachs = "#A12D6A";
@@ -13,12 +14,25 @@ export const media = {
     `,
 };
 
+export const Card = styled.div`
+    color: ${colors.text};
+    border: 1px solid ${colors.cardBorder};
+    border-radius:.5rem;
+    padding: 1vh 1vw;
+    background-color: ${colors.card};
+    box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.75);
+    &:hover{
+        border-color: ${colorMagentaLachs}
+    }
+`;
+
 export const CloseIcon = styled.div`
-    background:#ccc;
-    border:1px solid #444;
+    background:#212121;
+    color: #aaa;
+    border:1px solid ${colors.hintedBorder};
     border-radius:50%;
     cursor:pointer;
-    font-family: Arial, Helvetica, sans-serif;
+    ${textFont}
     font-size:1rem;
     height:2rem;
     line-height:2rem;
@@ -32,11 +46,7 @@ export const CloseIcon = styled.div`
     }
 `;
 
-export const SimpleLayerWrapper = styled.div`
-    background:#fff;
-    border:1px solid #ddd;
-    border-radius: .5rem;
-    box-shadow:3px 3px 10px;
+export const SimpleLayerWrapper = styled(Card)`
     display:flex;
     justify-content: space-between;
     flex-wrap:wrap;
@@ -56,6 +66,7 @@ export const SimpleLayerWrapper = styled.div`
 
 export const SimpleLayerHeadline = styled.div`
     font-weight:bold;
+    ${serifFont}
     padding:.5rem;
     text-align:center;
     width:100%;
@@ -76,4 +87,55 @@ export const FancyButton = styled.button`
     &:hover{
         background-color: ${darken(colorMagentaLachs, 0.2)};
     }
+`;
+
+export const FilterInput = styled.input`
+    font-size:1rem;
+    padding:.25rem;
+    width: 80%;
+    background-color: ${colors.cardBorder};
+    border: 1px solid ${colors.cardBorder};
+    &::placeholder{
+        color: ${colors.hintedBorder}
+    }
+`;
+
+export const ListWrapper = styled(Card)`
+    left:50%;
+    line-height:1rem;
+    padding:.5rem;
+    position:fixed;
+    top:50%;
+    transform:translate3d(-50%, -50%, 0);
+    width:30vw;
+    height: 50vh;
+    z-index:10;
+    @media only screen
+      and (min-device-width: 375px)
+      and (max-device-width: 667px) {
+        width: 95%;
+    }
+`;
+export const List = styled.div`
+    overflow-y:auto;
+    height: 70%;
+    margin: 1rem 0;
+`;
+export const ListElement = styled.div`
+    border:1px solid #aaa;
+    cursor:pointer;
+    margin:.25rem;
+    padding:.5rem;
+    &:hover {
+        background:${colors.cardBorder};
+        border-color:${colorMagentaLachs}
+    }
+`;
+
+export const SelectedListElement = ListElement.extend`
+    border: 3px solid ${colorMagentaLachs};
+`;
+
+export const StyledText = styled.div`
+    color: ${colors.text}
 `;

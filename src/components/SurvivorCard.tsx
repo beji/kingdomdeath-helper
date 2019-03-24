@@ -3,12 +3,14 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { updateSurvivor, updateSurvivorName } from "../actions/survivorActions";
-import { BaseStats, DefenseStats, ID, IState, ISurvivor, SpecialStats, UUID } from "../interfaces";
+import { BaseStats, DefenseStats, ID, IState, ISurvivor } from "../interfaces";
 import { UpdateSurvivorAction, UpdateSurvivorNameAction } from "../interfaces/actions";
+import { colors } from "../theme";
 import { capitalize, clone, specialStatToString } from "../util";
 import Checkbox from "./Checkbox";
 import GenderEdit from "./GenderEdit";
 import NameEdit from "./NameEdit";
+import { Card } from "./StyledComponents";
 import SurvivorBaseStat from "./SurvivorBaseStat";
 import SurvivorDefenseStat from "./SurvivorDefenseStat";
 import SurvivorDisorders from "./SurvivorDisorders";
@@ -16,10 +18,8 @@ import SurvivorFightingArts from "./SurvivorFightingArts";
 import SurvivorSpecialStat from "./SurvivorSpecialStat";
 import { StatLabel, SurvivorStat } from "./SurvivorStatElements";
 
-const StyledCard = styled.div`
-    border: 1px solid #333;
+const StyledCard = styled(Card)`
     flex: 1 1 45%;
-    padding: 1vh 1vw;
 `;
 
 const Label = styled.span`
@@ -32,7 +32,7 @@ const Label = styled.span`
 `;
 const NameWrapper = styled.section`
     display: flex;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid ${colors.hintedBorder};
     margin-bottom: 0.5vh;
     padding-bottom: 0.5vh;
 `;

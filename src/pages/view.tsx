@@ -5,8 +5,10 @@ import styled from "styled-components";
 import disorders from "../../data/final/disorder.json";
 import arts from "../../data/final/fightingarts";
 import GearCard from "../components/GearCard";
+import { Card, FilterInput } from "../components/StyledComponents";
 import items from "../data/ItemDataHelper";
 import { IDisorder, IFightingArt, IItem } from "../interfaces";
+import { colors, serifFont } from "../theme";
 import { capitalize } from "../util";
 
 const CardGrid = styled.div`
@@ -14,7 +16,7 @@ const CardGrid = styled.div`
     flex-wrap:wrap;
     max-width:1440px;
 `;
-const CardWrapper = styled.div`
+const GearCardWrapper = styled.div`
     width:25%;
     padding:.5rem;
     font-size:.875rem;
@@ -25,23 +27,18 @@ const CardWrapper = styled.div`
         width: 50%;
     }
 `;
-const TextWrapper = styled.div`
-    width:100%;
+const TextWrapper = styled(Card)`
+    margin: 1vh 1vw;
+    width:30%;
 `;
 const Headline = styled.div`
+    ${serifFont}
     font-weight:bold;
     margin:.25rem 0;
 `;
 const Description = styled.div`
     font-size:.875rem;
     margin-bottom:.5rem;
-`;
-const FilterInput = styled.input`
-    border: 2px solid #aaa;
-    font-size:1rem;
-    margin: 0 auto;
-    padding:.25rem;
-    width: 80%;
 `;
 
 interface IViewPageState {
@@ -94,9 +91,9 @@ class ViewPage extends React.Component<IViewPageProps, IViewPageState> {
         return this.state.items.map((item, idx) => {
             if (this.state.type === "gear") {
                 return (
-                    <CardWrapper key={idx}>
+                    <GearCardWrapper key={idx}>
                         <GearCard id={item.id} />
-                    </CardWrapper>
+                    </GearCardWrapper>
                 );
             } else {
                 return (

@@ -6,6 +6,7 @@ import { addToHunt, removeFromHunt } from "../actions";
 import { killSurvivor, removeSurvivor, reviveSurvivor, updateSurvivorName } from "../actions/survivorActions";
 import { BaseStats, DefenseStats, IBaseStat, ID, IDefenseStat, IGearGrid, IState, ISurvivor } from "../interfaces";
 import { AddToHuntAction, KillSurvivorAction, RemoveFromHuntAction, RemoveSurvivorAction, ReviveSurvivorAction, UpdateSurvivorNameAction } from "../interfaces/actions";
+import { colors } from "../theme";
 import { capitalize, clone, darken } from "../util";
 import GenderEdit from "./GenderEdit";
 import NameEdit from "./NameEdit";
@@ -42,7 +43,7 @@ export const Cell = styled.div`
     width: 100%;
     overflow: hidden;
     padding: 1vh 1vw;
-    border: 1px solid #ccc;
+    border: 1px solid ${colors.hintedBorder};
     text-align: center;
     @media only screen
       and (min-device-width: 667px) {
@@ -57,7 +58,7 @@ const NameCell = Cell.extend`
     border-width: 0.2rem;
     @media only screen
       and (min-device-width: 667px) {
-          border-color: #ccc;
+          border-color: ${colors.hintedBorder};
           border-width: 1px;
     }
 `;
@@ -131,8 +132,8 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
                     <NameCell>
                         <SmallSpaceLabel>Name</SmallSpaceLabel>
                         <NameEdit name={name} updateFunc={this.handleNameUpdate} />
+                        {!alive && <Fragment>✝</Fragment>}
                     </NameCell>
-                    <Cell><SmallSpaceLabel>Alive</SmallSpaceLabel>{!alive && <Fragment>✝</Fragment>}</Cell>
                     <Cell>
                         <SmallSpaceLabel>Gender</SmallSpaceLabel>
                         <GenderEdit id={id} />

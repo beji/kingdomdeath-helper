@@ -6,9 +6,10 @@ import { updateGear } from "../actions/gearActions";
 import items from "../data/ItemDataHelper";
 import { AffinityTypes, DefenseStats, IAffinity, ID, IGearGrid, IGridSlot, IItem, ISimpleLayer, IState, Item, ItemType, LayerType, StatType } from "../interfaces";
 import { ShowLayerAction, UpdateGearGridAction } from "../interfaces/actions";
+import { colors, serifFont } from "../theme";
 import { capitalize } from "../util";
 import AffinityIcon from "./AffinityIcon";
-import { colorMagentaLachs, FancyButton } from "./StyledComponents";
+import { Card, colorMagentaLachs, FancyButton } from "./StyledComponents";
 
 interface IGearCardDispatchProps {
     updateGear: (gearGrid: IGearGrid) => UpdateGearGridAction;
@@ -66,16 +67,15 @@ const mapStateToProps = (state: IState, ownProps: IGearCardOwnProps): IGearCardS
     };
 };
 
-const StyledCard = styled.div`
+const StyledCard = styled(Card)`
     line-height: 1rem;
-    border: 1px solid #999;
-    background:#ddd;
     padding:1rem;
     margin:.5rem;
     min-height: 8rem;
     position:relative;
 `;
 const CardHeadline = styled.div`
+    ${serifFont};
     font-weight:bold;
     padding-left:1rem;
     text-align:center;
@@ -184,7 +184,7 @@ const MadeAt = styled.div`
 
 const CloseIcon = styled.div`
     background:#ccc;
-    border:1px solid #444;
+    border:1px solid ${colors.hintedBorder};
     border-radius:50%;
     cursor:pointer;
     height:1.25rem;

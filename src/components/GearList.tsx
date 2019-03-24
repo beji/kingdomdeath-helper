@@ -1,10 +1,8 @@
 import Fuse from "fuse.js";
-import React from "react";
-import { KeyboardEvent, SyntheticEvent } from "react";
-import styled from "styled-components";
+import React, { KeyboardEvent, SyntheticEvent } from "react";
 import items from "../data/ItemDataHelper";
 import { IItem, ItemType, UUID } from "../interfaces";
-import { CloseIcon, colorMagentaLachs } from "./StyledComponents";
+import { CloseIcon, FilterInput, List, ListElement, ListWrapper } from "./StyledComponents";
 
 interface IGearListState {
     filter: ItemType[];
@@ -15,47 +13,6 @@ interface IGearListProps {
     onItemSelect?: any;
     onCancel?: any;
 }
-
-const Wrapper = styled.div`
-    background:#eee;
-    border:1px solid ${colorMagentaLachs};
-    left:50%;
-    line-height:1rem;
-    padding:.5rem;
-    position:fixed;
-    top:50%;
-    transform:translate3d(-50%, -50%, 0);
-    width:30vw;
-    height: 50vh;
-    z-index:10;
-    @media only screen
-      and (min-device-width: 375px)
-      and (max-device-width: 667px) {
-        width: 95%;
-    }
-`;
-const List = styled.div`
-    overflow-y:auto;
-    height: 90%;
-    margin: 1rem 0;
-`;
-const ListElement = styled.div`
-    border:1px solid #aaa;
-    cursor:pointer;
-    margin:.25rem;
-    padding:.5rem;
-    &:hover {
-        background:#ddd;
-        border-color:${colorMagentaLachs}
-    }
-`;
-
-const FilterInput = styled.input`
-    border: 2px solid #aaa;
-    font-size:1rem;
-    padding:.25rem;
-    width: 80%;
-`;
 
 class GearList extends React.Component<IGearListProps, IGearListState> {
 
@@ -75,13 +32,13 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
 
     public render() {
         return (
-            <Wrapper>
+            <ListWrapper>
                 {this.props.onCancel && <CloseIcon onClick={this.handleCloseIconClick}>X</CloseIcon>}
                 <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} onKeyPress={this.handleKeyPress} innerRef={this.setupInputRef} autoFocus={true} />
                 <List>
                     {this.state.items.map((v, i) => <ListElement key={i} onClick={this.handleItemSelect.bind(this, v.id)} dangerouslySetInnerHTML={{ __html: v.name }} />)}
                 </List>
-            </Wrapper>
+            </ListWrapper>
         );
     }
 

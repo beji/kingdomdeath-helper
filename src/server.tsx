@@ -6,6 +6,7 @@ const htmlhead = `<!doctype html>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Kingdom: Death - Helper</title>
+    <link href="https://fonts.googleapis.com/css?family=Bitter:700|Open+Sans:400,700" rel="stylesheet">
 </head>
 <body>
 <div id="content">`;
