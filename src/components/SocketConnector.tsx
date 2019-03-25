@@ -7,7 +7,7 @@ import { importSettlement, remoteAction } from "../actions/importAction";
 import socket from "../clientsocket";
 import { ISettlement, IState } from "../interfaces";
 import { ImportAction, RemoteAction } from "../interfaces/actions";
-import { IRoomMessage, IStatusUpdateMessage, SocketMessages } from "../interfaces/socketMessages";
+import { IRoomMessage, SocketMessages } from "../interfaces/socketMessages";
 import { clone, getURLParam } from "../util";
 
 // const roomId = getURLParam("id");

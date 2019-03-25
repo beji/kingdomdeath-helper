@@ -1,9 +1,9 @@
 import React from "react";
 import { SyntheticEvent } from "react";
 import { connect, Dispatch } from "react-redux";
-import { updateSurvivor, updateSurvivorGender } from "../actions/survivorActions";
+import { updateSurvivorGender } from "../actions/survivorActions";
 import { Gender, ID, IState, ISurvivor } from "../interfaces";
-import { UpdateSurvivorAction, UpdateSurvivorGenderAction } from "../interfaces/actions";
+import { UpdateSurvivorGenderAction } from "../interfaces/actions";
 import { capitalize, clone } from "../util";
 
 interface IGenderEditState {
