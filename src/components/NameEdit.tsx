@@ -12,7 +12,7 @@ const StyledInput = styled.input`
     padding-right: 1.5rem;
 `;
 
-const FancyButtonRight = FancyButton.extend`
+const FancyButtonRight = styled(FancyButton)`
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 `;
@@ -50,7 +50,7 @@ export default class NameEdit extends React.Component<INameEditProps, INameEditS
         if (editName) {
             return (
                 <Fragment>
-                    <StyledInput type="text" innerRef={this.setupTextRef} defaultValue={name} onKeyPress={this.handleKeyPress} autoFocus={true} />
+                    <StyledInput type="text" ref={this.setupTextRef} defaultValue={name} onKeyPress={this.handleKeyPress} autoFocus={true} />
                     <FancyButtonRight onClick={this.handleNameBlur}>✓</FancyButtonRight>
                 </Fragment>
             );

@@ -1,14 +1,14 @@
 import React from "react";
 import { hydrate } from "react-dom";
 import { Provider } from "react-redux";
-import { injectGlobal } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 import App from "./components/App";
 import normalize from "./normalize";
 import configureStore from "./store";
 import { colors, textFont } from "./theme";
 
 // tslint:disable-next-line:no-unused-expression
-injectGlobal`
+const GlobalStyle = createGlobalStyle`
     ${normalize}
     * {
       box-sizing: border-box;
@@ -21,6 +21,7 @@ injectGlobal`
 
 hydrate(
     <Provider store={configureStore()}>
+        <GlobalStyle />
         <App/>
     </Provider>,
     document.getElementById("content"));

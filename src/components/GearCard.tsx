@@ -1,5 +1,6 @@
 import React, { SyntheticEvent } from "react";
-import { connect, Dispatch } from "react-redux";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import styled from "styled-components";
 import { showLayer } from "../actions";
 import { updateGear } from "../actions/gearActions";
@@ -51,8 +52,8 @@ const mapStateToProps = (state: IState, ownProps: IGearCardOwnProps): IGearCardS
         grid.slots.forEach((slot, idx) => {
             if (slot.id === ownProps.slotId) {
                 slotKey = idx;
-                affinityActive = slot.affinityActive;
-                setActive = slot.setActive;
+                affinityActive = slot.affinityActive as boolean;
+                setActive = slot.setActive as boolean;
             }
         });
     }

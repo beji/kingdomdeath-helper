@@ -39,7 +39,7 @@ const SurvivorListHead = styled.div`
     }
 `;
 
-const SurvivorListHeadCell = Cell.extend`
+const SurvivorListHeadCell = styled(Cell)`
     flex: 1;
     flex-shrink: 0;
     width: 100%;

@@ -2,19 +2,19 @@ import { ID } from "./generics";
 import { GearSet, Item, ItemType } from "./ItemEnums";
 import { BaseStats, DefenseStats, StatType } from "./survivor";
 
-enum Affinity {
+export enum Affinity {
     red,
     green,
     blue,
 }
 
-const enum AffinityTypes {
+export const enum AffinityTypes {
     card,
     grid,
     connect,
 }
 
-interface IGearGrid {
+export interface IGearGrid {
     readonly affinities: ReadonlyArray<Affinity>;
     readonly gearSets?: ReadonlyArray<GearSet>;
     readonly id: ID;
@@ -23,33 +23,33 @@ interface IGearGrid {
     readonly slots: ReadonlyArray<IGridSlot>;
 }
 
-interface IGridSlot {
+export interface IGridSlot {
     readonly content?: Item;
     readonly id: ID;
     readonly affinities?: ReadonlyArray<Affinity>;
-    readonly affinityActive: boolean;
-    readonly setActive: boolean;
+    readonly affinityActive?: boolean;
+    readonly setActive?: boolean;
     readonly sets?: ReadonlyArray<GearSet>;
 }
 
-interface IItemStat {
+export interface IItemStat {
     readonly amount: number;
     readonly type: StatType;
     readonly stat: DefenseStats | BaseStats;
 }
 
-interface IWeapon {
+export interface IWeapon {
     readonly speed: number;
     readonly accuracy: number;
     readonly strength: number;
 }
 
-interface IAffinity {
+export interface IAffinity {
     readonly color: Affinity;
     readonly connection: AffinityTypes;
 }
 
-interface IItem {
+export interface IItem {
     readonly id: Item;
     readonly name: string;
     readonly desc: string;
@@ -75,15 +75,15 @@ interface IItem {
     };
 }
 
-interface IGearSet {
+export interface IGearSet {
     readonly id: GearSet;
     readonly bonus?: IGearSetBonus;
     readonly name: string;
 }
 
-interface IGearSetBonus {
+export interface IGearSetBonus {
   readonly desc: string;
   readonly stats?: ReadonlyArray<IItemStat>;
 }
 
-export { Affinity, AffinityTypes, IAffinity, IGearGrid, IGearSetBonus, IGridSlot, IItem, IItemStat, Item, ItemType, IGearSet, GearSet };
+export { Item, ItemType, GearSet };

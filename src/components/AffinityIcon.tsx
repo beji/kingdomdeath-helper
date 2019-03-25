@@ -1,6 +1,5 @@
 import React from "react";
-import styledLegacy from "styled-components";
-import styled from "styled-components-ts"; // use styled here for code highlighting to work correct
+import styled from "styled-components";
 import { Affinity, AffinityTypes } from "../interfaces";
 
 interface IAffinityIconProps {
@@ -9,7 +8,7 @@ interface IAffinityIconProps {
     type?: AffinityTypes;
 }
 
-const PuzzleIcon = styled<IAffinityIconProps>(styledLegacy.div)`
+const PuzzleIcon = styled.div<IAffinityIconProps>`
     background:${(props) => (Affinity)[props.affinity]};
     border-radius:2px;
     display:inline-block;
@@ -41,7 +40,7 @@ const PuzzleIcon = styled<IAffinityIconProps>(styledLegacy.div)`
     }
 `;
 
-const CompleteIcon = styled<IAffinityIconProps>(styledLegacy.div)`
+const CompleteIcon = styled.div<IAffinityIconProps>`
     background:${(props) => (Affinity)[props.affinity]};
     display:inline-block;
     height:1em;
@@ -61,7 +60,7 @@ const CompleteIcon = styled<IAffinityIconProps>(styledLegacy.div)`
     }
 `;
 
-const HalfIcon = CompleteIcon.extend`
+const HalfIcon = styled(CompleteIcon)`
     ${/* sc-property */ (props) => props.direction === "right" || props.direction === "left" ? "height" : "width"}: 1.5em;
     ${/* sc-property */ (props) => props.direction === "right" || props.direction === "left" ? "width" : "height"}: .75em;
     ${/* sc-property */ (props) => props.direction}: 0;

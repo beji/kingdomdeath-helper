@@ -6,14 +6,6 @@ const colorMagentaLachs = "#A12D6A";
 
 export { colorMagentaLachs };
 
-export const media = {
-    mobile: (...args: any[]) => css`
-        @media (max-width: 420px) {
-          ${ css.call(undefined, ...args)}
-        }
-    `,
-};
-
 export const Card = styled.div`
     color: ${colors.text};
     border: 1px solid ${colors.cardBorder};
@@ -132,7 +124,7 @@ export const ListElement = styled.div`
     }
 `;
 
-export const SelectedListElement = ListElement.extend`
+export const SelectedListElement = styled(ListElement)`
     border: 3px solid ${colorMagentaLachs};
 `;
 

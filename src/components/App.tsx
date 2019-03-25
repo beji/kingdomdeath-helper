@@ -1,10 +1,10 @@
 import { IState } from "interfaces";
 import { HideLayerAction } from "interfaces/actions";
 import React, { SyntheticEvent } from "react";
-import { connect, Dispatch } from "react-redux";
+import { connect } from "react-redux";
 import { BrowserRouter, Route } from "react-router-dom";
-import styledLegacy from "styled-components";
-import styled from "styled-components-ts"; // use styled here for code highlighting to work correct
+import { Dispatch } from "redux";
+import styled from "styled-components";
 import { hideLayer } from "../actions";
 import Home from "../pages";
 import InnovationsPage from "../pages/innovations";
@@ -21,7 +21,7 @@ import SpecialStatLayer from "./layers/SpecialStatLayer";
 import NavBar from "./NavBar";
 import SocketConnector from "./SocketConnector";
 
-const AppWrapper = styledLegacy.div`
+const AppWrapper = styled.div`
     margin: 2.5rem 1vw 1vh;
 `;
 
@@ -35,8 +35,8 @@ interface IAppDispatchProps {
 
 interface IAppProps extends IAppStateProps, IAppDispatchProps { }
 
-const BlurWrapper = styled<IAppStateProps>(styledLegacy.div)`
-    ${({layerActive}: IAppStateProps) => layerActive && "filter: blur(5px) brightness(50%)"}
+const BlurWrapper = styled.div<IAppStateProps>`
+    ${({ layerActive }) => layerActive && "filter: blur(5px) brightness(50%)"}
 `;
 
 const mapStateToProps = (state: IState): IAppStateProps => (

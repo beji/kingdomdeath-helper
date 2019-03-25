@@ -1,7 +1,8 @@
 import Actions, { RemoteableActions } from "interfaces/reducer";
 import QRCode from "qrcode.react";
 import React from "react";
-import { connect, Dispatch } from "react-redux";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import styled from "styled-components";
 import { importSettlement, remoteAction } from "../actions/importAction";
 import socket from "../clientsocket";

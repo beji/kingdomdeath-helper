@@ -58,7 +58,8 @@ const getSpecialStats = (): ISpecialStat[] => ([
 
 const initialSurvivorCount = process.env.NODE_ENV === "production" ? 4 : 8;
 
-const survivors: ReadonlyArray<ISurvivor> = Array.apply(null, { length: initialSurvivorCount }).map(Number.call, Number).map((n: number) => {
+// tslint:disable-next-line: variable-name
+const survivors: ReadonlyArray<ISurvivor> = Array.apply(null, Array(initialSurvivorCount)).map((_e, n) => {
     return {
         alive: n < 4 || n % 3 === 0,
         baseStats: getBaseStats(),
@@ -77,13 +78,15 @@ const survivors: ReadonlyArray<ISurvivor> = Array.apply(null, { length: initialS
 
 const huntingSurvivors: ID[] = survivors.filter((survivor) => survivor.hunting).map((survivor) => survivor.id);
 
-const geargrids: ReadonlyArray<IGearGrid> = Array.apply(null, { length: 4 }).map(Number.call, Number).map((n: number) => {
+// tslint:disable-next-line: variable-name
+const geargrids: ReadonlyArray<IGearGrid> = Array.apply(null, Array(4)).map((_el, n) => {
     return {
         affinities: [],
         gearSets: [],
         id: n,
         playername: `Slot ${n + 1}`,
-        slots: Array.apply(null, { length: 9 }).map(Number.call, Number).map((x: number) => {
+        // tslint:disable-next-line: variable-name
+        slots: Array.apply(null, Array(9)).map(Number.call, Number).map((_ele, x) => {
             return {
                 id: x,
             };

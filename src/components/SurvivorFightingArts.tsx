@@ -1,5 +1,6 @@
 import React from "react";
-import { connect, Dispatch } from "react-redux";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import styled from "styled-components";
 import { showLayer } from "../actions";
 import { ID, IFightingArt, IFightingartListLayer, IState, LayerType } from "../interfaces";

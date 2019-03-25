@@ -52,7 +52,7 @@ const StatSection = styled.section`
     margin: .5rem 0;
 `;
 
-const TextSection = StatSection.extend`
+const TextSection = styled(StatSection)`
 `;
 
 interface ISurvivorCardOwnProps {

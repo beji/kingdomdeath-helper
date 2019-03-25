@@ -344,15 +344,16 @@ describe("The reducer", () => {
     describe("RemoveSurvivoraction", () => {
         it("should remove a survivor from the settlement", () => {
             const id = 3;
-            const initialSurvivorCount = initialState.settlement.survivors.length
+            const initialSurvivorCount = initialState.settlement.survivors.length;
             const result = reducer(initialState, removeSurvivor(id));
 
             expect(result.settlement.survivors.length).to.equal(initialSurvivorCount - 1);
-            expect(result.settlement.survivors.find((survivor) => survivor.id === 3)).to.undefined
+            // tslint:disable-next-line: no-unused-expression
+            expect(result.settlement.survivors.find((survivor) => survivor.id === 3)).to.undefined;
         });
         it("should not do anything if the id does not exist", () => {
             const id = 35;
-            const initialSurvivorCount = initialState.settlement.survivors.length
+            const initialSurvivorCount = initialState.settlement.survivors.length;
             const result = reducer(initialState, removeSurvivor(id));
 
             expect(result.settlement.survivors.length).to.equal(initialSurvivorCount);

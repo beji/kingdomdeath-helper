@@ -2,7 +2,6 @@ const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 const env = process.env.NODE_ENV;
 const webpack = require('webpack');
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 module.exports = 
     {
@@ -45,7 +44,6 @@ module.exports =
         },
         target: 'web',
         plugins: [
-            new HardSourceWebpackPlugin(),
             new webpack.HotModuleReplacementPlugin(),
             new webpack.EnvironmentPlugin({
                 NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
