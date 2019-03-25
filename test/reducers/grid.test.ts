@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { updateGearSlotAffinity, updateGearSlotSet, updateGear } from "../../src/actions";
+import { updateGear, updateGearSlotAffinity, updateGearSlotSet } from "../../src/actions";
 import items from "../../src/data/ItemDataHelper";
 import initialState from "../../src/initialstate";
 import { Affinity, BaseStats, DefenseStats, GearSet, IGearGrid, IItem, ISurvivor, Item } from "../../src/interfaces";

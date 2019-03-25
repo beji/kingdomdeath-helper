@@ -17,7 +17,7 @@ const StyledCheckbox = styled.div`
         background: ${colorMagentaLachs};
     }
 `;
-const HighlightedCheckbox = StyledCheckbox.extend`
+const HighlightedCheckbox = styled(StyledCheckbox)`
     border-width:3px;
 `;
 

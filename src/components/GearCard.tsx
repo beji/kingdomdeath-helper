@@ -1,5 +1,6 @@
 import React, { SyntheticEvent } from "react";
-import { connect, Dispatch } from "react-redux";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import styled from "styled-components";
 import { showLayer } from "../actions";
 import { updateGear } from "../actions/gearActions";
@@ -51,8 +52,8 @@ const mapStateToProps = (state: IState, ownProps: IGearCardOwnProps): IGearCardS
         grid.slots.forEach((slot, idx) => {
             if (slot.id === ownProps.slotId) {
                 slotKey = idx;
-                affinityActive = slot.affinityActive;
-                setActive = slot.setActive;
+                affinityActive = slot.affinityActive as boolean;
+                setActive = slot.setActive as boolean;
             }
         });
     }
@@ -81,7 +82,7 @@ const CardHeadline = styled.div`
     text-align:center;
 `;
 const CardDescription = styled.div`
-    background:#ccc;
+    border: 1px solid #fff;
     font-size:.75rem;
     margin-bottom: .25rem;
     padding: .25rem;
@@ -155,22 +156,23 @@ const WeaponSpeed = styled.div`
 `;
 
 const AffinityWrapper = styled.div`
-    background:#ccc;
-    color: #939393;
+    border: 1px solid #fff;
     font-size:.875rem;
     padding:.125rem;
     text-align:left;
+    filter: brightness(60%);
     &.active {
-      color: #000;
+        filter: brightness(100%);
     }
     &:empty {
       background:transparent;
       padding:0;
+      border: 0;
     }
 `;
 
 const AffinityRequirments = styled.span`
-    border: 1px solid #757575;
+    border: 1px solid ${colors.hintedBorder};
     background: #aaa;
     display: inline-block;
     padding: .125rem;

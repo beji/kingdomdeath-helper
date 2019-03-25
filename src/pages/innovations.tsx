@@ -1,5 +1,6 @@
 import React from "react";
-import { connect, Dispatch } from "react-redux";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import styled from "styled-components";
 import innovations from "../../data/final/innovations";
 import { addInnovation, removeInnovation, showLayer } from "../actions";

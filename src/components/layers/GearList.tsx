@@ -1,6 +1,7 @@
 import Fuse from "fuse.js";
 import React, { KeyboardEvent, SyntheticEvent } from "react";
-import { connect, Dispatch } from "react-redux";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import { hideLayer, updateGear } from "../../actions";
 import items from "../../data/ItemDataHelper";
 import { ID, IGearGrid, IItem, IState, Item, ItemType, LayerType } from "../../interfaces";
@@ -71,7 +72,7 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
             return (
                 <ListWrapper>
                     <CloseIcon onClick={this.props.hideLayer}>X</CloseIcon>
-                    <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} onKeyPress={this.handleKeyPress} innerRef={this.setupInputRef} autoFocus={true} />
+                    <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} onKeyPress={this.handleKeyPress} ref={this.setupInputRef} autoFocus={true} />
                     <List>
                         {this.state.items.map((v, i) => <ListElement key={i} onClick={this.handleItemSelect.bind(this, v.id)} dangerouslySetInnerHTML={{ __html: v.name }} />)}
                     </List>

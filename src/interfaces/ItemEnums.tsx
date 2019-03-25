@@ -1,4 +1,4 @@
-const enum Item {
+export const enum Item {
     bone_sword,
     founding_stone,
     antelope_mask,
@@ -417,7 +417,7 @@ const enum Item {
     beloved_rock,
 }
 
-enum ItemType {
+export enum ItemType {
     armor,
     generic,
     rawhide,
@@ -483,10 +483,8 @@ enum ItemType {
     noisy,
 }
 
-const enum GearSet {
+export const enum GearSet {
     rawhide,
     dragon_armor,
     white_lion,
 }
-
-export { Item, ItemType, GearSet };

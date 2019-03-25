@@ -8,3 +8,29 @@ export const colors = {
     page: "#3D3D3D",
     text: "#fcfcfc",
 };
+
+export const theme = {
+  card: {
+    background: "#646464",
+    border: {
+      base: "#8E9293",
+      highlight: "#505050",
+    },
+    text: "#fcfcfc",
+  },
+  gear: {
+    background: "#C7A888",
+    border: {
+      base: "#646464",
+      highlight: "#949494",
+    },
+    text: "#252525",
+  },
+  page: {
+    background: "#3D3D3D",
+    font: {
+      serif: "font-family: 'Bitter', serif;",
+      text: "font-family: 'Open Sans', sans-serif;",
+    },
+  },
+};

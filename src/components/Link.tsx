@@ -1,5 +1,5 @@
 import { IState, UUID } from "interfaces";
-import React from "react";
+import React, { ReactNode } from "react";
 import { connect } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
@@ -12,9 +12,8 @@ interface ILinkStateProps {
 interface ILinkOwnProps {
     to: string;
     className?: string;
+    children?: ReactNode;
 }
-
-interface ILinkProps extends ILinkStateProps, ILinkOwnProps { }
 
 const mapStateToProps = (state: IState, ownProps: ILinkOwnProps): ILinkStateProps => ({
     settlementId: state.settlement.id,
@@ -26,7 +25,7 @@ const StyledRouterLink = styled(RouterLink)`
     }
 `;
 
-class Link extends React.Component<ILinkProps> {
+class Link extends React.Component<ILinkStateProps & ILinkOwnProps> {
     public render() {
         const { children, settlementId } = this.props;
         return <StyledRouterLink className={this.props.className} to={`${this.props.to}?id=${settlementId}`}>{children}</StyledRouterLink>;

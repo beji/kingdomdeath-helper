@@ -53,7 +53,7 @@ export const Cell = styled.div`
     }
 `;
 
-const NameCell = Cell.extend`
+const NameCell = styled(Cell)`
     border-color: ${darken(colorMagentaLachs, 0.2)};
     border-width: 0.2rem;
     @media only screen

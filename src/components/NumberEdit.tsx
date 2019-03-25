@@ -16,13 +16,13 @@ const StyledInput = styled.input`
     border: 1px solid ${colors.cardBorder};
 `;
 
-const FancyButtonLeft = FancyButton.extend`
+const FancyButtonLeft = styled(FancyButton)`
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     width:1.5rem;
 `;
 
-const FancyButtonRight = FancyButton.extend`
+const FancyButtonRight = styled(FancyButton)`
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     width:1.5rem;
@@ -54,9 +54,9 @@ export default class NumberEdit extends React.Component<INumberEditProps> {
         return (
             <Fragment>
                 <FancyButtonLeft onClick={this.handleValueChange.bind(this, -1)}>-</FancyButtonLeft>
-                <StyledInput type="text" innerRef={this.setupDisplayRef} value={(value + (addToDisplay || 0)).toString()} readOnly={true} />
+                <StyledInput type="text" ref={this.setupDisplayRef} value={(value + (addToDisplay || 0)).toString()} readOnly={true} />
                 <FancyButtonRight onClick={this.handleValueChange.bind(this, 1)}>+</FancyButtonRight>
-                <HiddenInput type="text" innerRef={this.setupInputRef} value={value.toString()} readOnly={true} />
+                <HiddenInput type="text" ref={this.setupInputRef} value={value.toString()} readOnly={true} />
             </Fragment>
         );
     }
