@@ -16,7 +16,7 @@ const isTab = (obj: {}): obj is Tab => {
     return isReactElement(obj) && typeof obj.props !== "undefined" && typeof (obj.props as any).label !== "undefined";
 };
 
-const getTabs = (children: React.ReactNode) => React.Children.map(children, (child: React.ReactChild): Tab | null => {
+const getTabs = (children: React.ReactNode) => React.Children.map(children as React.ReactElement[], (child: React.ReactChild): Tab | null => {
     if (isReactElement(child) && isTab(child)) {
         return child;
     }
@@ -60,15 +60,15 @@ class TabList extends React.Component<{}, ITabListState> {
     }
     public render() {
         const { children } = this.props;
-        const tabs = getTabs(children).filter((child) => child !== null);
+        const tabs = getTabs(children).filter((child): child is Tab => child !== null);
         console.log(children, tabs);
         return (
             <Wrapper>
                 <div>
-                    {tabs.map((tab, index) => tab && this.renderTabSelector(tab, index))}
+                    {tabs.map((tab: Tab, index: number) => tab && this.renderTabSelector(tab, index))}
                 </div>
                 <div>
-                    {tabs.map((tab, index) => tab && this.renderTabContent(tab, index))}
+                    {tabs.map((tab: Tab, index: number) => tab && this.renderTabContent(tab, index))}
                 </div>
             </Wrapper>
         );
