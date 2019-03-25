@@ -1,9 +1,10 @@
 import React from "react";
 import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
-import { setPlayerName } from "../actions";
-import { Affinity, AffinityTypes, ID, IGearGrid, IState } from "../interfaces";
-import { SetPlayerNameAction } from "../interfaces/actions";
+import { setPlayerName, showLayer } from "../actions";
+import { set as gearSets } from "../data/ItemDataHelper";
+import { Affinity, AffinityTypes, GearSet, ID, IGearGrid, ISimpleLayer, IState, LayerType } from "../interfaces";
+import { SetPlayerNameAction, ShowLayerAction } from "../interfaces/actions";
 import { colors } from "../theme";
 import AffinityIcon from "./AffinityIcon";
 import GridSlot from "./GridSlot";
@@ -26,12 +27,14 @@ interface IGearGridOwnProps {
 
 interface IGearGridDispatchProps {
     setPlayerName: (name: string, gridId: ID) => SetPlayerNameAction;
+    showLayer: (layer: ISimpleLayer) => ShowLayerAction;
 }
 
 interface IGearGridProps extends IGearGridStateProps, IGearGridOwnProps, IGearGridDispatchProps { }
 
-const mapDispatchToProps = (dispatch: Dispatch<SetPlayerNameAction>): IGearGridDispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<SetPlayerNameAction| ShowLayerAction>): IGearGridDispatchProps => ({
     setPlayerName: (name: string, gridId: ID) => dispatch(setPlayerName(name, gridId)),
+    showLayer: (layer: ISimpleLayer) => dispatch(showLayer(layer)),
 });
 
 const mapStateToProps = (state: IState, ownProps: IGearGridOwnProps): IGearGridStateProps => {
@@ -78,6 +81,10 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
             justify-content: space-around;
             margin: .25rem;
         `;
+        const GearSets = styled.div`
+            padding: .25rem;
+            text-align:center;
+        `;
 
         if (this.props.grid) {
             const { grid, id } = this.props;
@@ -96,6 +103,10 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
                     <StyledGrid>
                         {Object.keys(grid.slots).map((v, i, slots) => <GridSlot key={i} gridId={grid.id} slotId={grid.slots[i].id} />)}
                     </StyledGrid>
+                    <GearSets>
+                        {/* tslint:disable-next-line: jsx-no-lambda */}
+                        {grid.gearSets && grid.gearSets.length > 0 && (<>Full gearsets: {grid.gearSets.map((setId: GearSet) => (<a onClick={() => this.showGearSetDescription(setId)}>{gearSets[setId].name}</a>))}</>)}
+                    </GearSets>
                 </PlayerCard>
             );
         } else {
@@ -105,6 +116,17 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
 
     private handleSetPlayerName(newName: string) {
         this.props.setPlayerName(newName, this.props.id);
+    }
+
+    private showGearSetDescription(setId: GearSet) {
+        const { bonus } = gearSets[setId];
+        if (bonus) {
+            this.props.showLayer({
+                content: bonus.desc,
+                headline: name,
+                type: LayerType.simple,
+            });
+        }
     }
 }
 

@@ -1,5 +1,5 @@
 import { ID, IGearGrid, UUID } from "../interfaces";
-import { SetPlayerNameAction, UpdateGearGridAction, UpdateGearSlotAffinityAction } from "../interfaces/actions";
+import { SetPlayerNameAction, UpdateGearGridAction, UpdateGearSlotAffinityAction, UpdateGearSlotGearSetAction } from "../interfaces/actions";
 import ActionTypes from "../interfaces/actionTypes";
 
 export const setPlayerName = (name: string, gridId: ID): SetPlayerNameAction => ({
@@ -18,4 +18,9 @@ export const updateGear = (gearGrid: IGearGrid): UpdateGearGridAction => ({
 export const updateGearSlotAffinity = (gearGrid: IGearGrid): UpdateGearSlotAffinityAction => ({
     payload: gearGrid,
     type: ActionTypes.UPDATE_GEARSLOT_AFFINITY,
+});
+
+export const updateGearSlotSet = (gearGrid: IGearGrid): UpdateGearSlotGearSetAction => ({
+  payload: gearGrid,
+  type: ActionTypes.UPDATE_GEARSLOT_GEARSET,
 });

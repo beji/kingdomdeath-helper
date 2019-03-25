@@ -1,4 +1,4 @@
-import { Affinity, AffinityTypes, BaseStats, DefenseStats, IItem, Item, ItemType, Set, StatType } from "../../src/interfaces";
+import { Affinity, AffinityTypes, BaseStats, DefenseStats, GearSet, IItem, Item, ItemType, StatType } from "../../src/interfaces";
 
 export const armor: IItem[] = [
     {
@@ -365,7 +365,7 @@ export const armor: IItem[] = [
         name: "Dragon Belt",
         obtained: "Dragon Armory",
         set: {
-            id: Set.dragon_armor,
+            id: GearSet.dragon_armor,
         },
         stats: [
             {
@@ -387,7 +387,7 @@ export const armor: IItem[] = [
         name: "Dragon Boots",
         obtained: "Dragon Armory",
         set: {
-            id: Set.dragon_armor,
+            id: GearSet.dragon_armor,
         },
         stats: [
             {
@@ -409,7 +409,7 @@ export const armor: IItem[] = [
         name: "Dragon Gloves",
         obtained: "Dragon Armory",
         set: {
-            id: Set.dragon_armor,
+            id: GearSet.dragon_armor,
         },
         stats: [
             {
@@ -431,7 +431,7 @@ export const armor: IItem[] = [
         name: "Dragon Mantle",
         obtained: "Dragon Armory",
         set: {
-            id: Set.dragon_armor,
+            id: GearSet.dragon_armor,
         },
         stats: [
             {
@@ -453,7 +453,7 @@ export const armor: IItem[] = [
         name: "Dragonskull Helm",
         obtained: "Dragon Armory",
         set: {
-            id: Set.dragon_armor,
+            id: GearSet.dragon_armor,
         },
         stats: [
             {
@@ -1248,7 +1248,7 @@ export const armor: IItem[] = [
         name: "Rawhide Boots",
         obtained: "Skinnery",
         set: {
-            id: Set.rawhide,
+            id: GearSet.rawhide,
         },
         stats: [
             {
@@ -1271,7 +1271,7 @@ export const armor: IItem[] = [
         name: "Rawhide Gloves",
         obtained: "Skinnery",
         set: {
-            id: Set.rawhide,
+            id: GearSet.rawhide,
         },
         stats: [
             {
@@ -1303,7 +1303,7 @@ export const armor: IItem[] = [
         name: "Rawhide Headband",
         obtained: "Skinnery",
         set: {
-            id: Set.rawhide,
+            id: GearSet.rawhide,
         },
         stats: [
             {
@@ -1323,7 +1323,7 @@ export const armor: IItem[] = [
         name: "Rawhide Pants",
         obtained: "Skinnery",
         set: {
-            id: Set.rawhide,
+            id: GearSet.rawhide,
         },
         stats: [
             {
@@ -1367,7 +1367,7 @@ export const armor: IItem[] = [
         name: "Rawhide Vest",
         obtained: "Skinnery",
         set: {
-            id: Set.rawhide,
+            id: GearSet.rawhide,
         },
         stats: [
             {
@@ -1535,7 +1535,7 @@ export const armor: IItem[] = [
         },
     },
     {
-        desc: "Takes the place of the leather mask and cuirass in the leather set. No special properties.",
+        desc: "Takes the place of the leather mask and cuirass in the leather GearSet. No special properties.",
         id: 71,
         material: "3x hide, 1x scrap",
         name: "Scout's Tunic",
@@ -1852,7 +1852,7 @@ export const armor: IItem[] = [
         name: "White Lion Boots",
         obtained: "Catarium",
         set: {
-            id: Set.white_lion,
+            id: GearSet.white_lion,
         },
         stats: [
             {
@@ -1875,7 +1875,7 @@ export const armor: IItem[] = [
         name: "White Lion Coat",
         obtained: "Catarium",
         set: {
-            id: Set.white_lion,
+            id: GearSet.white_lion,
         },
         stats: [
             {
@@ -1895,7 +1895,7 @@ export const armor: IItem[] = [
         name: "White Lion Gauntlets",
         obtained: "Catarium",
         set: {
-            id: Set.white_lion,
+            id: GearSet.white_lion,
         },
         stats: [
             {
@@ -1931,7 +1931,7 @@ export const armor: IItem[] = [
         name: "White Lion Helm",
         obtained: "Catarium",
         set: {
-            id: Set.white_lion,
+            id: GearSet.white_lion,
         },
         stats: [
             {
@@ -1966,7 +1966,7 @@ export const armor: IItem[] = [
         name: "White Lion Mask",
         obtained: "Mask Maker",
         set: {
-            id: Set.white_lion,
+            id: GearSet.white_lion,
         },
         stats: [
             {

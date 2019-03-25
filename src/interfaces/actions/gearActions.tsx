@@ -8,3 +8,5 @@ export type SetPlayerNameAction = IAction<ActionTypes.SET_PLAYER_NAME, { name: s
 export type UpdateGearGridAction = IAction<ActionTypes.UPDATE_GEARGRID, IGearGrid>;
 
 export type UpdateGearSlotAffinityAction = IAction<ActionTypes.UPDATE_GEARSLOT_AFFINITY, IGearGrid>;
+
+export type UpdateGearSlotGearSetAction = IAction<ActionTypes.UPDATE_GEARSLOT_GEARSET, IGearGrid>;
