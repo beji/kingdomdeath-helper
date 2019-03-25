@@ -1,8 +1,8 @@
-import { IBaseStatLayer, IDefenseStatLayer, IDisorderListLayer, ISimpleLayer, ISpecialStatLayer } from "interfaces";
+import { IBaseStatLayer, IDefenseStatLayer, IDisorderListLayer, IFightingartListLayer, IGearListLayer, ISimpleLayer, ISpecialStatLayer } from "interfaces";
 import { HideLayerAction, ShowLayerAction } from "interfaces/actions";
 import ActionTypes from "interfaces/actionTypes";
 
-export const showLayer = (layer: ISimpleLayer | IBaseStatLayer | IDefenseStatLayer | ISpecialStatLayer | IDisorderListLayer): ShowLayerAction => ({
+export const showLayer = (layer: ISimpleLayer | IBaseStatLayer | IDefenseStatLayer | ISpecialStatLayer | IDisorderListLayer | IFightingartListLayer | IGearListLayer): ShowLayerAction => ({
     payload: layer,
     type: ActionTypes.SHOW_LAYER,
 });

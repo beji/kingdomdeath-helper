@@ -1,12 +1,12 @@
+import fightingArts from "data/final/fightingarts";
 import Fuse from "fuse.js";
-import { UpdateSurvivorFightingArtsAction } from "interfaces/actions";
+import { HideLayerAction, UpdateSurvivorFightingArtsAction } from "interfaces/actions";
 import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import fightingArts from "../../data/final/fightingarts";
-import { updateSurvivorFightingArt } from "../actions";
-import { FightingArt, ID, IFightingArt, IState } from "../interfaces";
-import { CloseIcon, FancyButton, FilterInput, List, ListElement, ListWrapper, SelectedListElement } from "./StyledComponents";
+import { hideLayer, updateSurvivorFightingArt } from "../../actions";
+import { FightingArt, ID, IFightingArt, IState, LayerType } from "../../interfaces";
+import { CloseIcon, FancyButton, FilterInput, List, ListElement, ListWrapper, SelectedListElement } from "../StyledComponents";
 
 interface IFightingArtslistState {
     artsToAdd: FightingArt[];
@@ -16,40 +16,49 @@ interface IFightingArtslistState {
 
 interface IFightingArtslistOwnProps {
     onfightingArtselect?: any;
-    onCancel?: any;
-    id: ID;
 }
 
 interface IFightingArtslistStateProps {
     currentlySelectedArts?: FightingArt[];
+    survivor?: ID;
 }
 
 interface IFightingArtslistDispatchProps {
+    hideLayer: () => HideLayerAction;
     updateSurvivorFightingArt: (id: ID, arts: FightingArt[]) => UpdateSurvivorFightingArtsAction;
 }
 
 interface IFightingArtslistProps extends IFightingArtslistStateProps, IFightingArtslistDispatchProps, IFightingArtslistOwnProps { }
 
-const mapStateToProps = (state: IState, ownProps: IFightingArtslistOwnProps): IFightingArtslistStateProps => {
-    const survivor = state.settlement.survivors.find((s) => s.id === ownProps.id);
-    if (survivor && survivor.fightingArts) {
-        return {
-            currentlySelectedArts: survivor.fightingArts.map((art) => art.id),
-        };
+const mapStateToProps = (state: IState): IFightingArtslistStateProps => {
+    if (state.interface.layer && state.interface.layer.type === LayerType.fightingartlist) {
+        console.log("typ passt");
+        if (typeof state.interface.layer.survivor !== "undefined") {
+            const sid = state.interface.layer.survivor;
+            console.log("survivor ist auch da", sid);
+            const survivor = state.settlement.survivors.find((s) => s.id === sid);
+            if (survivor) {
+                return {
+                    currentlySelectedArts: typeof survivor.fightingArts !== "undefined" ? survivor.fightingArts.map((art) => art.id) : [],
+                    survivor: survivor.id,
+                };
+            }
+        }
     }
+
     return {
         currentlySelectedArts: undefined,
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorFightingArtsAction>): IFightingArtslistDispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorFightingArtsAction | HideLayerAction>): IFightingArtslistDispatchProps => ({
+    hideLayer: () => dispatch(hideLayer()),
     updateSurvivorFightingArt: (id: ID, arts: FightingArt[]) => dispatch(updateSurvivorFightingArt(id, arts)),
 });
 
 class FightingArtslist extends React.Component<IFightingArtslistProps, IFightingArtslistState> {
     constructor(props: IFightingArtslistProps) {
         super(props);
-        this.handleCloseIconClick = this.handleCloseIconClick.bind(this);
         this.renderListElement = this.renderListElement.bind(this);
         this.submit = this.submit.bind(this);
         this.handleFilter = this.handleFilter.bind(this);
@@ -61,16 +70,20 @@ class FightingArtslist extends React.Component<IFightingArtslistProps, IFighting
     }
 
     public render() {
-        return (
-            <ListWrapper>
-                {this.props.onCancel && <CloseIcon onClick={this.handleCloseIconClick}>X</CloseIcon>}
-                <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} autoFocus={true} />
-                <List>
-                    {this.state.arts.map((art, idx) => <React.Fragment key={idx}>{this.renderListElement(art)}</React.Fragment>)}
-                </List>
-                <FancyButton onClick={this.submit}>Submit</FancyButton>
-            </ListWrapper>
-        );
+        if (typeof this.props.survivor !== "undefined") {
+            return (
+                <ListWrapper>
+                    <CloseIcon onClick={this.props.hideLayer}>X</CloseIcon>
+                    <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} autoFocus={true} />
+                    <List>
+                        {this.state.arts.map((art, idx) => <React.Fragment key={idx}>{this.renderListElement(art)}</React.Fragment>)}
+                    </List>
+                    <FancyButton onClick={this.submit}>Submit</FancyButton>
+                </ListWrapper>
+            );
+        } else {
+            return "";
+        }
     }
 
     private renderListElement(art: IFightingArt) {
@@ -100,15 +113,12 @@ class FightingArtslist extends React.Component<IFightingArtslistProps, IFighting
     }
 
     private submit(e: SyntheticEvent<HTMLButtonElement>) {
-        const { artsToAdd, artsToRemove } = this.state;
-        const arts = (this.props.currentlySelectedArts || []).concat(artsToAdd).filter((art) => !artsToRemove.includes(art));
-        this.props.updateSurvivorFightingArt(this.props.id, arts);
-        this.props.onCancel();
-
-    }
-
-    private handleCloseIconClick() {
-        this.props.onCancel();
+        if (typeof this.props.survivor !== "undefined") {
+            const { artsToAdd, artsToRemove } = this.state;
+            const arts = (this.props.currentlySelectedArts || []).concat(artsToAdd).filter((art) => !artsToRemove.includes(art));
+            this.props.updateSurvivorFightingArt(this.props.survivor, arts);
+            this.props.hideLayer();
+        }
     }
 
     private handleFilter(event: SyntheticEvent<HTMLInputElement>) {

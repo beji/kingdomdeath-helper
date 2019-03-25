@@ -32,6 +32,7 @@ const TextWrapper = styled(Card)`
     width:30%;
 `;
 const Headline = styled.div`
+    color: ${colors.text};
     ${serifFont}
     font-weight:bold;
     margin:.25rem 0;

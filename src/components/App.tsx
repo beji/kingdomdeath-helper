@@ -14,6 +14,8 @@ import ExportForm from "./ExportForm";
 import BaseStatLayer from "./layers/BaseStatLayer";
 import DefenseStatLayer from "./layers/DefenseStatLayer";
 import DisordersList from "./layers/DisordersList";
+import FightingArtsList from "./layers/FightingArtsList";
+import GearList from "./layers/GearList";
 import SimpleLayer from "./layers/SimpleLayer";
 import SpecialStatLayer from "./layers/SpecialStatLayer";
 import NavBar from "./NavBar";
@@ -73,6 +75,8 @@ class App extends React.Component<IAppProps> {
                         <DefenseStatLayer />
                         <SpecialStatLayer />
                         <DisordersList />
+                        <FightingArtsList />
+                        <GearList />
                     </AppWrapper>
                     <NavBar />
                 </React.Fragment>
