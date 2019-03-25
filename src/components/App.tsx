@@ -4,7 +4,7 @@ import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter, Route } from "react-router-dom";
 import { Dispatch } from "redux";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { hideLayer } from "../actions";
 import Home from "../pages";
 import InnovationsPage from "../pages/innovations";
@@ -20,6 +20,8 @@ import SimpleLayer from "./layers/SimpleLayer";
 import SpecialStatLayer from "./layers/SpecialStatLayer";
 import NavBar from "./NavBar";
 import SocketConnector from "./SocketConnector";
+
+import theme from "../theme";
 
 const AppWrapper = styled.div`
     margin: 2.5rem 1vw 1vh;
@@ -60,26 +62,28 @@ class App extends React.Component<IAppProps> {
         const layerActive = this.props.layerActive || false;
         return (
             <BrowserRouter>
-                <React.Fragment>
-                    <AppWrapper>
-                        <BlurWrapper layerActive={this.props.layerActive} onClick={this.hideLayer}>
-                            <Route exact={true} path="/" component={Home} />
-                            <Route path="/card/:cardnumber" component={SurvivorCardPage} />
-                            <Route path="/view/:type" component={ViewPage} />
-                            <Route path="/innovations" component={InnovationsPage} />
-                            <ExportForm />
-                            <SocketConnector />
-                        </BlurWrapper>
-                        <SimpleLayer />
-                        <BaseStatLayer />
-                        <DefenseStatLayer />
-                        <SpecialStatLayer />
-                        <DisordersList />
-                        <FightingArtsList />
-                        <GearList />
-                    </AppWrapper>
-                    <NavBar />
-                </React.Fragment>
+                <ThemeProvider theme={theme}>
+                    <>
+                        <AppWrapper>
+                            <BlurWrapper layerActive={this.props.layerActive} onClick={this.hideLayer}>
+                                <Route exact={true} path="/" component={Home} />
+                                <Route path="/card/:cardnumber" component={SurvivorCardPage} />
+                                <Route path="/view/:type" component={ViewPage} />
+                                <Route path="/innovations" component={InnovationsPage} />
+                                <ExportForm />
+                                <SocketConnector />
+                            </BlurWrapper>
+                            <SimpleLayer />
+                            <BaseStatLayer />
+                            <DefenseStatLayer />
+                            <SpecialStatLayer />
+                            <DisordersList />
+                            <FightingArtsList />
+                            <GearList />
+                        </AppWrapper>
+                        <NavBar />
+                    </>
+                </ThemeProvider>
             </BrowserRouter>);
     }
 

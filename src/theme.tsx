@@ -14,7 +14,8 @@ export const theme = {
     background: "#646464",
     border: {
       base: "#8E9293",
-      highlight: "#505050",
+      highlight: "#A12D6A",
+      hint: "#505050",
     },
     text: "#fcfcfc",
   },
@@ -34,3 +35,5 @@ export const theme = {
     },
   },
 };
+
+export default theme;
