@@ -72,7 +72,7 @@ const StyledCard = styled(Card)`
     line-height: 1rem;
     padding:1rem;
     margin:.5rem;
-    min-height: 8rem;
+    min-height: 10rem;
     position:relative;
 `;
 const CardHeadline = styled.div`
