@@ -1,9 +1,10 @@
-import { ID, IDisorder, IState } from "interfaces";
 import React from "react";
-import { connect } from "react-redux";
+import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
+import { showLayer } from "../actions";
+import { ID, IDisorder, IDisorderListLayer, IState, LayerType } from "../interfaces";
+import { ShowLayerAction } from "../interfaces/actions";
 import DisorderItem from "./DisorderItem";
-import DisordersList from "./DisordersList";
 import { FancyButton } from "./StyledComponents";
 
 interface ISurvivorDisordersOwnProps {
@@ -14,11 +15,11 @@ interface ISurvivorDisordersStateProps {
     disorders: ReadonlyArray<IDisorder>;
 }
 
-interface ISurvivorDisordersProps extends ISurvivorDisordersOwnProps, ISurvivorDisordersStateProps { }
-
-interface ISurvivorDisordersState {
-    showList: boolean;
+interface ISurvivorDisordersDispatchProps {
+    showLayer: (layer: IDisorderListLayer) => ShowLayerAction;
 }
+
+interface ISurvivorDisordersProps extends ISurvivorDisordersOwnProps, ISurvivorDisordersStateProps, ISurvivorDisordersDispatchProps { }
 
 const DisordersWrapper = styled.div`
     flex: 1;
@@ -39,20 +40,19 @@ const mapStateToProps = (state: IState, ownProps: ISurvivorDisordersOwnProps): I
     };
 };
 
-class SurvivorDisorders extends React.Component<ISurvivorDisordersProps, ISurvivorDisordersState> {
+const mapDispatchToProps = (dispatch: Dispatch<ShowLayerAction>): ISurvivorDisordersDispatchProps => ({
+    showLayer: (layer: IDisorderListLayer) => dispatch(showLayer(layer)),
+});
+
+class SurvivorDisorders extends React.Component<ISurvivorDisordersProps> {
     public constructor(props: ISurvivorDisordersProps) {
         super(props);
 
         this.showList = this.showList.bind(this);
         this.hideList = this.hideList.bind(this);
-
-        this.state = {
-            showList: false,
-        };
     }
     public render() {
         const { id, disorders } = this.props;
-        const { showList } = this.state;
         if (disorders.length > 0) {
             return (
                 <DisordersWrapper>
@@ -60,14 +60,12 @@ class SurvivorDisorders extends React.Component<ISurvivorDisordersProps, ISurviv
                         {disorders.map((disorder, idx) => <DisorderItem key={idx} disorder={disorder} />)}
                     </ItemWrapper>
                     <FancyButton onClick={this.showList}>Manage Disorders</FancyButton>
-                    {showList && <DisordersList id={id} onCancel={this.hideList} />}
                 </DisordersWrapper>
             );
         } else {
             return (
                 <DisordersWrapper>
                     <FancyButton onClick={this.showList}>Manage Disorders</FancyButton>
-                    {showList && <DisordersList id={id} onCancel={this.hideList} />}
                 </DisordersWrapper>
             );
         }
@@ -75,8 +73,9 @@ class SurvivorDisorders extends React.Component<ISurvivorDisordersProps, ISurviv
     }
 
     private showList() {
-        this.setState({
-            showList: true,
+        this.props.showLayer({
+            survivor: this.props.id,
+            type: LayerType.disorderlist,
         });
     }
 
@@ -88,4 +87,4 @@ class SurvivorDisorders extends React.Component<ISurvivorDisordersProps, ISurviv
 
 }
 
-export default connect(mapStateToProps)(SurvivorDisorders);
+export default connect(mapStateToProps, mapDispatchToProps)(SurvivorDisorders);

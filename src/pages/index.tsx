@@ -5,8 +5,10 @@ import CreateSurvivor from "../components/CreateSurvivor";
 import GearGrid from "../components/GearGrid";
 import ResetHunt from "../components/ResetHunt";
 import SettlementName from "../components/SettlementName";
+import { Card, StyledText } from "../components/StyledComponents";
 import SurvivorListItem, { Cell } from "../components/SurvivorListItem";
 import { Gender, ID, IState, UUID } from "../interfaces";
+import { colors } from "../theme";
 
 const AppWrapper = styled.div`
 `;
@@ -18,7 +20,7 @@ const SurvivorCardsWrapper = styled.div`
     margin: -1vh -1vw;
 `;
 
-const SurvivorList = styled.div`
+const SurvivorList = styled(Card)`
     display: block;
     max-width: 100%;
     overflow-x: auto;
@@ -43,7 +45,7 @@ const SurvivorListHeadCell = Cell.extend`
     width: 100%;
     overflow: hidden;
     font-weight: bold;
-    border-color: #fff;
+    border-color: ${colors.hintedBorder};
 `;
 
 interface IAppProps {
@@ -84,14 +86,13 @@ class App extends React.Component<IAppProps> {
                 <div>
                     <ResetHunt />
                 </div>
-                <div>
+                <StyledText>
                     Population: {aliveCount ? aliveCount : 0} (&#x2642; {aliveMale}, &#x2640; {aliveFemale}),
                     dead: {aliveCount && this.props.survivors ? this.props.survivors.length - aliveCount : "all of them apparently"}
-                </div>
+                </StyledText>
                 <SurvivorList>
                     <SurvivorListHead>
                         <SurvivorListHeadCell>Name</SurvivorListHeadCell>
-                        <SurvivorListHeadCell>Alive</SurvivorListHeadCell>
                         <SurvivorListHeadCell>Gender</SurvivorListHeadCell>
                         <SurvivorListHeadCell>Insanity</SurvivorListHeadCell>
                         <SurvivorListHeadCell>Survival</SurvivorListHeadCell>

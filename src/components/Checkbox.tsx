@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { colors } from "../theme";
 import { colorMagentaLachs } from "./StyledComponents";
 
 const Wrapper = styled.div`
     display: inline-block;
 `;
 const StyledCheckbox = styled.div`
-    border:1px solid #444;
+    border:1px solid ${colors.text};
     cursor:pointer;
     display: inline-block;
     margin:0 .25vh;

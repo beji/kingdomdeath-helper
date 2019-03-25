@@ -1,9 +1,10 @@
-import { ID, IFightingArt, IState } from "interfaces";
 import React from "react";
-import { connect } from "react-redux";
+import { connect, Dispatch } from "react-redux";
 import styled from "styled-components";
+import { showLayer } from "../actions";
+import { ID, IFightingArt, IFightingartListLayer, IState, LayerType } from "../interfaces";
+import { ShowLayerAction } from "../interfaces/actions";
 import FightingArtItem from "./FightingArtItem";
-import FightingArtsList from "./FightingArtsList";
 import { FancyButton } from "./StyledComponents";
 
 interface IFightingArtsStateProps {
@@ -14,11 +15,11 @@ interface IFightingArtsOwnProps {
     id: ID;
 }
 
-interface IFightingArtsProps extends IFightingArtsStateProps, IFightingArtsOwnProps { }
-
-interface IFightingArtsState {
-    showFightingArtList: boolean;
+interface IFightingArtsDispatchProps {
+    showLayer: (layer: IFightingartListLayer) => ShowLayerAction;
 }
+
+interface IFightingArtsProps extends IFightingArtsStateProps, IFightingArtsOwnProps, IFightingArtsDispatchProps { }
 
 const FightingArtItemsWrapper = styled.div`
     text-align: left;
@@ -39,19 +40,17 @@ const mapStateToProps = (state: IState, ownProps: IFightingArtsOwnProps): IFight
     };
 };
 
-class SurvivorFightingArts extends React.Component<IFightingArtsProps, IFightingArtsState> {
+const mapDispatchToProps = (dispatch: Dispatch<ShowLayerAction>): IFightingArtsDispatchProps => ({
+    showLayer: (layer: IFightingartListLayer) => dispatch(showLayer(layer)),
+});
+
+class SurvivorFightingArts extends React.Component<IFightingArtsProps> {
     public constructor(props: IFightingArtsProps) {
         super(props);
 
         this.showFightingArtList = this.showFightingArtList.bind(this);
-        this.hideFightingArtList = this.hideFightingArtList.bind(this);
-
-        this.state = {
-            showFightingArtList: false,
-        };
     }
     public render() {
-        const { showFightingArtList } = this.state;
         const { fightingArts } = this.props;
         if (fightingArts.length > 0) {
             return (
@@ -60,30 +59,23 @@ class SurvivorFightingArts extends React.Component<IFightingArtsProps, IFighting
                         {fightingArts.map((art, idx) => <FightingArtItem key={idx} art={art} />)}
                     </FightingArtItemsWrapper>
                     <FancyButton onClick={this.showFightingArtList}>Manage Fighting Arts</FancyButton>
-                    {showFightingArtList && <FightingArtsList id={this.props.id} onCancel={this.hideFightingArtList} />}
                 </FightingArtsWrapper>
             );
         } else {
             return (
                 <FightingArtsWrapper>
                     <FancyButton onClick={this.showFightingArtList}>Manage Fighting Arts</FancyButton>
-                    {showFightingArtList && <FightingArtsList id={this.props.id} onCancel={this.hideFightingArtList} />}
                 </FightingArtsWrapper>
             );
         }
     }
 
     private showFightingArtList() {
-        this.setState({
-            showFightingArtList: true,
-        });
-    }
-
-    private hideFightingArtList() {
-        this.setState({
-            showFightingArtList: false,
+        this.props.showLayer({
+            survivor: this.props.id,
+            type: LayerType.fightingartlist,
         });
     }
 }
 
-export default connect(mapStateToProps)(SurvivorFightingArts);
+export default connect(mapStateToProps, mapDispatchToProps)(SurvivorFightingArts);

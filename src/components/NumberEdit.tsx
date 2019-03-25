@@ -1,6 +1,7 @@
 import React from "react";
 import { Fragment } from "react";
 import styled from "styled-components";
+import { colors } from "../theme";
 import { FancyButton } from "./StyledComponents";
 
 const StyledInput = styled.input`
@@ -11,6 +12,8 @@ const StyledInput = styled.input`
     text-align:center;
     vertical-align: middle;
     width: 2.5rem;
+    background-color: ${colors.cardBorder};
+    border: 1px solid ${colors.cardBorder};
 `;
 
 const FancyButtonLeft = FancyButton.extend`

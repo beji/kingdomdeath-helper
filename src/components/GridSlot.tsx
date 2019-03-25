@@ -2,17 +2,16 @@ import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
-import { updateGear } from "../actions/gearActions";
-import { ID, IGearGrid, IState, Item } from "../interfaces";
-import { UpdateGearGridAction } from "../interfaces/actions";
+import { showLayer, updateGear } from "../actions";
+import { ID, IGearGrid, IGearListLayer, IState, Item, LayerType } from "../interfaces";
+import { ShowLayerAction, UpdateGearGridAction } from "../interfaces/actions";
+import { colors } from "../theme";
 import { clone } from "../util";
 import GearCard from "./GearCard";
-import GearList from "./GearList";
 import { FancyButton } from "./StyledComponents";
 
 interface IGridSlotState {
     active: boolean;
-    showGearList: boolean;
 }
 
 interface IGridSlotStateProps {
@@ -21,7 +20,8 @@ interface IGridSlotStateProps {
 }
 
 interface IGridSlotDispatchProps {
-    updateGear: (gearGrid: IGearGrid) => UpdateGearGridAction;
+    showLayer: (layer: IGearListLayer) => ShowLayerAction;
+    updateGear: (grid: IGearGrid) => UpdateGearGridAction;
 }
 
 interface IGridSlotOwnProps {
@@ -31,7 +31,8 @@ interface IGridSlotOwnProps {
 
 interface IGridSlotProps extends IGridSlotStateProps, IGridSlotOwnProps, IGridSlotDispatchProps { }
 
-const mapDispatchToProps = (dispatch: Dispatch<UpdateGearGridAction>): IGridSlotDispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<ShowLayerAction | UpdateGearGridAction>): IGridSlotDispatchProps => ({
+    showLayer: (layer: IGearListLayer) => dispatch(showLayer(layer)),
     updateGear: (grid: IGearGrid) => dispatch(updateGear(grid)),
 });
 
@@ -56,18 +57,15 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
         super(props);
         this.state = {
             active: false,
-            showGearList: false,
         };
 
         this.handleGridDrop = this.handleGridDrop.bind(this);
         this.handleGearListOpen = this.handleGearListOpen.bind(this);
-        this.handleGearListCancel = this.handleGearListCancel.bind(this);
-        this.handleGearListItemSelect = this.handleGearListItemSelect.bind(this);
     }
 
     public render() {
         const StyledElement = styled.div`
-            border:1px solid #444;
+            border:1px solid ${colors.hintedBorder};
             width:33.33333%;
             min-height:10vh;
             text-align:center;
@@ -77,7 +75,7 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
             }
         `;
         const { slotId, grid, slotKey } = this.props;
-        const { active, showGearList } = this.state;
+        const { active } = this.state;
         const content = grid && grid.slots[this.props.slotKey as number].content;
         return (
             <StyledElement
@@ -89,45 +87,18 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
             >
                 {content !== undefined && grid && <GearCard id={content} slotId={slotId} gridId={grid.id} />}
                 {content === undefined && <FancyButton onClick={this.handleGearListOpen}>+</FancyButton>}
-                {showGearList && <GearList onItemSelect={this.handleGearListItemSelect} onCancel={this.handleGearListCancel} />}
             </StyledElement>
         );
     }
 
     private generateHandler = (value: any, method: any) => (...e: Array<SyntheticEvent<HTMLDivElement>>) => method(value, ...e);
 
-    private handleGearListItemSelect(itemId: Item) {
-        if (this.props.grid) {
-            const { grid, slotId } = this.props;
-            const newGrid = {
-                ...grid,
-                slots: grid.slots.map((slot) => {
-                    if (slot.id === slotId) {
-                        return {
-                            ...slot,
-                            content: itemId,
-                        };
-                    }
-                    return slot;
-                }),
-            };
-            this.props.updateGear(clone(newGrid));
-        }
-
-        this.setState({
-            showGearList: false,
-        });
-    }
-
     private handleGearListOpen() {
-        this.setState({
-            showGearList: true,
-        });
-    }
-
-    private handleGearListCancel() {
-        this.setState({
-            showGearList: false,
+        const { gridId, slotId } = this.props;
+        this.props.showLayer({
+            gridId,
+            slotId,
+            type: LayerType.gearlist,
         });
     }
 

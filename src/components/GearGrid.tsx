@@ -5,11 +5,12 @@ import { setPlayerName, showLayer } from "../actions";
 import { set as gearSets } from "../data/ItemDataHelper";
 import { Affinity, AffinityTypes, GearSet, ID, IGearGrid, ISimpleLayer, IState, LayerType } from "../interfaces";
 import { SetPlayerNameAction, ShowLayerAction } from "../interfaces/actions";
+import { colors } from "../theme";
 import AffinityIcon from "./AffinityIcon";
 import GridSlot from "./GridSlot";
 import Link from "./Link";
 import NameEdit from "./NameEdit";
-import { media } from "./StyledComponents";
+import { Card, StyledText } from "./StyledComponents";
 import SurvivorCard from "./SurvivorCard";
 
 interface IGearGridState {
@@ -53,6 +54,8 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
 
     public render() {
         const PlayerCard = styled.div`
+            border: 1px solid ${colors.hintedBorder};
+            padding: .5rem;
             width:47vw;
             margin:1vh 1%;
             @media only screen
@@ -60,13 +63,14 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
                     width: 98%;
             }
         `;
-        const StyledGrid = styled.div`
+        const StyledGrid = styled(Card)`
             display:flex;
             flex-wrap:wrap;
             width:100%;
             margin: 1vh 0;
         `;
         const PlayerCardHeadline = styled.div`
+            color: ${colors.text};
             font-weight:bold;
             text-align:center;
             margin:.5vh 0;
@@ -92,9 +96,9 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
                     </PlayerCardHeadline>
                     {typeof grid.survivorId !== "undefined" && <SurvivorCard key={grid.id} id={grid.survivorId} />}
                     <GridAffinities>
-                        <div>{grid.affinities && grid.affinities.reduce((acc, curr) => curr === 0 ? acc + 1 : acc, 0)}x <AffinityIcon affinity={Affinity.red} type={AffinityTypes.grid} /></div>
-                        <div>{grid.affinities && grid.affinities.reduce((acc, curr) => curr === 1 ? acc + 1 : acc, 0)}x <AffinityIcon affinity={Affinity.green} type={AffinityTypes.grid} /></div>
-                        <div>{grid.affinities && grid.affinities.reduce((acc, curr) => curr === 2 ? acc + 1 : acc, 0)}x <AffinityIcon affinity={Affinity.blue} type={AffinityTypes.grid} /></div>
+                        <StyledText>{grid.affinities && grid.affinities.reduce((acc, curr) => curr === 0 ? acc + 1 : acc, 0)}x <AffinityIcon affinity={Affinity.red} type={AffinityTypes.grid} /></StyledText>
+                        <StyledText>{grid.affinities && grid.affinities.reduce((acc, curr) => curr === 1 ? acc + 1 : acc, 0)}x <AffinityIcon affinity={Affinity.green} type={AffinityTypes.grid} /></StyledText>
+                        <StyledText>{grid.affinities && grid.affinities.reduce((acc, curr) => curr === 2 ? acc + 1 : acc, 0)}x <AffinityIcon affinity={Affinity.blue} type={AffinityTypes.grid} /></StyledText>
                     </GridAffinities>
                     <StyledGrid>
                         {Object.keys(grid.slots).map((v, i, slots) => <GridSlot key={i} gridId={grid.id} slotId={grid.slots[i].id} />)}
