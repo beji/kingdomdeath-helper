@@ -81,7 +81,7 @@ const CardHeadline = styled.div`
     text-align:center;
 `;
 const CardDescription = styled.div`
-    background:#ccc;
+    border: 1px solid #fff;
     font-size:.75rem;
     margin-bottom: .25rem;
     padding: .25rem;
@@ -155,22 +155,23 @@ const WeaponSpeed = styled.div`
 `;
 
 const AffinityWrapper = styled.div`
-    background:#ccc;
-    color: #939393;
+    border: 1px solid #fff;
     font-size:.875rem;
     padding:.125rem;
     text-align:left;
+    filter: brightness(60%);
     &.active {
-      color: #000;
+        filter: brightness(100%);
     }
     &:empty {
       background:transparent;
       padding:0;
+      border: 0;
     }
 `;
 
 const AffinityRequirments = styled.span`
-    border: 1px solid #757575;
+    border: 1px solid ${colors.hintedBorder};
     background: #aaa;
     display: inline-block;
     padding: .125rem;
