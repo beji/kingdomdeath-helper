@@ -7,6 +7,8 @@ import ResetHunt from "../components/ResetHunt";
 import SettlementName from "../components/SettlementName";
 import { Card, StyledText } from "../components/StyledComponents";
 import SurvivorListItem, { Cell } from "../components/SurvivorListItem";
+import Tab from "../components/Tab";
+import TabList from "../components/TabList";
 import { Gender, ID, IState, UUID } from "../interfaces";
 import { colors } from "../theme";
 
@@ -48,6 +50,11 @@ const SurvivorListHeadCell = Cell.extend`
     border-color: ${colors.hintedBorder};
 `;
 
+interface IGearGridEntry {
+    name?: string;
+    id: ID;
+}
+
 interface IAppProps {
     huntingSurvivors?: ID[];
     survivors?: ID[];
@@ -55,7 +62,7 @@ interface IAppProps {
     aliveCount?: number;
     aliveFemale?: number;
     aliveMale?: number;
-    geargrids?: ID[];
+    geargrids?: IGearGridEntry[];
     id?: UUID;
 }
 
@@ -65,7 +72,12 @@ const mapStateToProps = (state: IState): IAppProps => {
         aliveCount: survivors.filter((survivor) => survivor.alive).length,
         aliveFemale: survivors.filter((survivor) => survivor.alive && survivor.gender === Gender.female).length,
         aliveMale: survivors.filter((survivor) => survivor.alive && survivor.gender === Gender.male).length,
-        geargrids: state.settlement.geargrids.map((grid) => grid.id),
+        geargrids: state.settlement.geargrids.map((grid) => {
+            return {
+                id: grid.id,
+                name: grid.playername,
+            } as IGearGridEntry;
+        }),
         huntingSurvivors: state.settlement.survivors.filter((survivor) => survivor.hunting).map((survivor) => survivor.id),
         id: state.settlement.id,
         name: state.settlement.name,
@@ -80,9 +92,9 @@ class App extends React.Component<IAppProps> {
         return (
             <AppWrapper>
                 <SettlementName />
-                <SurvivorCardsWrapper>
-                    {geargrids && geargrids.map((id, idx) => <GearGrid key={idx} id={id} />)}
-                </SurvivorCardsWrapper>
+                <TabList>
+                    {geargrids && geargrids.map(({id, name}, idx) => name && <Tab label={name} key={idx}><GearGrid id={id} /></Tab>)}
+                </TabList>
                 <div>
                     <ResetHunt />
                 </div>
