@@ -4,7 +4,7 @@ import { Innovations } from "interfaces/innovations";
 import "mocha";
 import { addToHunt, importSettlement, removeFromHunt, setPlayerName } from "../../src/actions";
 import { addInnovation, removeInnovation, setName, updateSurvivalLimit } from "../../src/actions/settlementActions";
-import { createSurvivor, killSurvivor, updateSurvivorDisorders, updateSurvivorName, removeSurvivor } from "../../src/actions/survivorActions";
+import { createSurvivor, killSurvivor, removeSurvivor, updateSurvivorDisorders, updateSurvivorName } from "../../src/actions/survivorActions";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../../src/initialstate";
 import { DefenseStats, IDefenseStat, ISurvivor } from "../../src/interfaces";
 import reducer from "../../src/reducers";

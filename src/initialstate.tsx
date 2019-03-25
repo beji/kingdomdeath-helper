@@ -80,6 +80,7 @@ const huntingSurvivors: ID[] = survivors.filter((survivor) => survivor.hunting).
 const geargrids: ReadonlyArray<IGearGrid> = Array.apply(null, { length: 4 }).map(Number.call, Number).map((n: number) => {
     return {
         affinities: [],
+        gearSets: [],
         id: n,
         playername: `Slot ${n + 1}`,
         slots: Array.apply(null, { length: 9 }).map(Number.call, Number).map((x: number) => {

@@ -1,6 +1,6 @@
-import { DefenseStats, ISet, Set, StatType } from "../../src/interfaces";
+import { DefenseStats, GearSet, IGearSet, StatType } from "../../src/interfaces";
 
-export const set: ISet[] = [
+export const set: IGearSet[] = [
     {
         bonus: {
             desc: "Add 1 armor to all hit locations. When you perform a survival action roll 1d10. On a result of 6+, gain +1 survival.",
@@ -32,7 +32,7 @@ export const set: ISet[] = [
                 },
             ],
         },
-        id: Set.rawhide,
+        id: GearSet.rawhide,
         name: "Rawhide set",
     },
     {
@@ -66,7 +66,7 @@ export const set: ISet[] = [
                 },
             ],
         },
-        id: Set.dragon_armor,
+        id: GearSet.dragon_armor,
         name: "Dragon Armor",
     },
     {
@@ -100,7 +100,7 @@ export const set: ISet[] = [
                 },
             ],
         },
-        id: Set.white_lion,
+        id: GearSet.white_lion,
         name: "White Lion Armor",
     },
 ];

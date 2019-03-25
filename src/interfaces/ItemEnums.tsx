@@ -483,10 +483,10 @@ enum ItemType {
     noisy,
 }
 
-const enum Set {
+const enum GearSet {
     rawhide,
     dragon_armor,
     white_lion,
 }
 
-export { Item, ItemType, Set };
+export { Item, ItemType, GearSet };
