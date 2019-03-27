@@ -61,7 +61,6 @@ class TabList extends React.Component<{}, ITabListState> {
     public render() {
         const { children } = this.props;
         const tabs = getTabs(children).filter((child): child is Tab => child !== null);
-        console.log(children, tabs);
         return (
             <Wrapper>
                 <div>

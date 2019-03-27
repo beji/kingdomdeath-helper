@@ -50,7 +50,6 @@ export default class NumberEdit extends React.Component<INumberEditProps> {
     }
     public render() {
         const { addToDisplay, value } = this.props;
-        console.log("rendering numberfragment", value);
         return (
             <Fragment>
                 <FancyButtonLeft onClick={this.handleValueChange.bind(this, -1)}>-</FancyButtonLeft>
