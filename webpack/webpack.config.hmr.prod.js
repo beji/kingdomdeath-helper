@@ -30,7 +30,10 @@ module.exports =
                 },                     
                 {
                     test: [/\.tsx?$/, /\.ts?$/],
-                    loader: 'awesome-typescript-loader'
+                    loader: 'awesome-typescript-loader',
+                    options: {
+                        getCustomTransformers: path.join(__dirname, './ts-styled-transformer.js')
+                    }                    
                 }
             ],
         },
