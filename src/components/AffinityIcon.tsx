@@ -79,22 +79,21 @@ const HalfIcon = styled(CompleteIcon)`
     }}
 `;
 
-export default class AffinityIcon extends React.Component<IAffinityIconProps> {
-    public render() {
-        const { affinity, direction, type } = this.props;
-        switch (type) {
-            case AffinityTypes.card: {
-                return (<PuzzleIcon affinity={affinity} title="Affinity on this card" />);
-            }
-            case AffinityTypes.grid: {
-                return (<CompleteIcon affinity={affinity} title="Affinity on grid" />);
-            }
-            case AffinityTypes.connect: {
-                return (<HalfIcon affinity={affinity} direction={direction} />);
-            }
-            default: {
-                return "";
-            }
+const AffinityIcon: React.SFC<IAffinityIconProps> = ({ affinity, direction, type }) => {
+    switch (type) {
+        case AffinityTypes.card: {
+            return (<PuzzleIcon affinity={affinity} title="Affinity on this card" />);
+        }
+        case AffinityTypes.grid: {
+            return (<CompleteIcon affinity={affinity} title="Affinity on grid" />);
+        }
+        case AffinityTypes.connect: {
+            return (<HalfIcon affinity={affinity} direction={direction} />);
+        }
+        default: {
+            return <React.Fragment />;
         }
     }
-}
+};
+
+export default AffinityIcon;

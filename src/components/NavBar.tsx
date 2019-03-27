@@ -68,21 +68,19 @@ const StyledLink = styled(Link)`
     }
 `;
 
-export default class Navbar extends React.Component {
-    public render() {
-        return (
-            <NavbarWrapper>
-                <Head>Kingdom: Death - Helper </Head>
-                <NavTrigger type="checkbox" className="nav-trigger" id="nav-trigger" />
-                <NavTriggerLabel htmlFor="nav-trigger">☰</NavTriggerLabel>
-                <LinkBox className="nav-content">
-                    <StyledLink to="/">Home</StyledLink>
-                    <StyledLink to="/view/gear">Gear</StyledLink>
-                    <StyledLink to="/view/disorders">Disorders</StyledLink>
-                    <StyledLink to="/view/arts">Fighting arts</StyledLink>
-                    <StyledLink to="/innovations">Innovations</StyledLink>
-                </LinkBox>
-            </NavbarWrapper>
-        );
-    }
-}
+const Navbar: React.SFC = () => (
+    <NavbarWrapper>
+        <Head>Kingdom: Death - Helper </Head>
+        <NavTrigger type="checkbox" className="nav-trigger" id="nav-trigger" />
+        <NavTriggerLabel htmlFor="nav-trigger">☰</NavTriggerLabel>
+        <LinkBox className="nav-content">
+            <StyledLink to="/">Home</StyledLink>
+            <StyledLink to="/view/gear">Gear</StyledLink>
+            <StyledLink to="/view/disorders">Disorders</StyledLink>
+            <StyledLink to="/view/arts">Fighting arts</StyledLink>
+            <StyledLink to="/innovations">Innovations</StyledLink>
+        </LinkBox>
+    </NavbarWrapper>
+);
+
+export default Navbar;
