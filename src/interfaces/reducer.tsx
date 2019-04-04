@@ -46,10 +46,10 @@ export type RemoteableActions = AddToHuntAction |
     UpdateSurvivorDisordersAction |
     AddInnovationAction |
     RemoveInnovationAction |
+    ImportAction |
     RemoveSurvivorAction;
 
 type Actions = RemoteableActions |
-    ImportAction |
     ShowLayerAction |
     HideLayerAction |
     RemoteAction;
