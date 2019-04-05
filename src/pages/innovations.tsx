@@ -4,7 +4,7 @@ import { Dispatch } from "redux";
 import styled from "styled-components";
 import innovations from "../../data/final/innovations";
 import { addInnovation, removeInnovation, showLayer } from "../actions";
-import { FancyButton } from "../components/StyledComponents";
+import { FancyButton, StyledText } from "../components/StyledComponents";
 import { ISimpleLayer, IState, LayerType } from "../interfaces";
 import { AddInnovationAction, RemoveInnovationAction, ShowLayerAction } from "../interfaces/actions";
 import { Innovations } from "../interfaces/innovations";
@@ -64,7 +64,7 @@ const Content = styled.span`
 class InnovationsPage extends React.Component<IInnovationsPageProps> {
     public render() {
         return (
-            <React.Fragment>
+            <StyledText>
                 <h1>Taken</h1>
                 <ul>
                     {this.props.innovated.map((innovation, idx) => this.renderInnovation(innovation, idx, InnovationState.Taken))}
@@ -77,7 +77,7 @@ class InnovationsPage extends React.Component<IInnovationsPageProps> {
                 <ul>
                     {this.props.not_available.map((innovation, idx) => this.renderInnovation(innovation, idx, InnovationState.Not_Available))}
                 </ul>
-            </React.Fragment>
+            </StyledText>
         );
     }
 
