@@ -9,6 +9,7 @@ import { AddToHuntAction, KillSurvivorAction, RemoveFromHuntAction, RemoveSurviv
 import { colors } from "../theme";
 import { capitalize, clone, darken } from "../util";
 import GenderEdit from "./GenderEdit";
+import Link from "./Link";
 import NameEdit from "./NameEdit";
 import { colorMagentaLachs, FancyButton } from "./StyledComponents";
 import SurvivorBaseStat from "./SurvivorBaseStat";
@@ -86,6 +87,10 @@ const SmallSpaceLabel = styled.div`
     }
 `;
 
+const FullscreenLink = styled(Link)`
+    text-decoration: none;
+`;
+
 const mapDispatchToProps = (dispatch: Dispatch<AddToHuntAction | RemoveFromHuntAction | KillSurvivorAction | ReviveSurvivorAction | UpdateSurvivorNameAction | RemoveSurvivorAction>): ISurvivorListItemDispatchProps => ({
     addToHunt: (id: ID, gridId: number) => dispatch(addToHunt(id, gridId)),
     killSurvivor: (id: ID) => dispatch(killSurvivor(id)),
@@ -133,6 +138,7 @@ class SurvivorListItem extends Component<ISurvivorListItemProps> {
                         <SmallSpaceLabel>Name</SmallSpaceLabel>
                         <NameEdit name={name} updateFunc={this.handleNameUpdate} />
                         {!alive && <Fragment>✝</Fragment>}
+                        <FullscreenLink to={`/card/${id}`}>⛶</FullscreenLink>
                     </NameCell>
                     <Cell>
                         <SmallSpaceLabel>Gender</SmallSpaceLabel>

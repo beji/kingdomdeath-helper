@@ -9,7 +9,6 @@ import { SetPlayerNameAction, ShowLayerAction } from "../interfaces/actions";
 import { colors } from "../theme";
 import AffinityIcon from "./AffinityIcon";
 import GridSlot from "./GridSlot";
-import Link from "./Link";
 import NameEdit from "./NameEdit";
 import { Card, StyledText } from "./StyledComponents";
 import SurvivorCard from "./SurvivorCard";
@@ -47,6 +46,18 @@ const mapStateToProps = (state: IState, ownProps: IGearGridOwnProps): IGearGridS
     };
 };
 
+export const PlayerCard = styled.div`
+    max-width: 80%;
+    margin: 0 auto;
+    `;
+
+export const PlayerCardHeadline = styled.div`
+    color: ${colors.text};
+    font-weight:bold;
+    text-align:center;
+    margin:.5vh 0;
+`;
+
 class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
     public constructor(props: IGearGridProps) {
         super(props);
@@ -54,21 +65,12 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
     }
 
     public render() {
-        const PlayerCard = styled.div`
-            max-width: 80%;
-            margin: 0 auto;
-        `;
+
         const StyledGrid = styled(Card)`
             display:flex;
             flex-wrap:wrap;
             width:100%;
             margin: 1vh 0;
-        `;
-        const PlayerCardHeadline = styled.div`
-            color: ${colors.text};
-            font-weight:bold;
-            text-align:center;
-            margin:.5vh 0;
         `;
         const GridAffinities = styled.div`
             display:flex;
@@ -87,7 +89,6 @@ class GearGrid extends React.Component<IGearGridProps, IGearGridState> {
                 <PlayerCard>
                     <PlayerCardHeadline>
                         <div>Player: <NameEdit name={grid.playername || "not assigned"} updateFunc={this.handleSetPlayerName} /> </div>
-                        <Link to={`/card/${id}`}>Open slot on own page</Link>
                     </PlayerCardHeadline>
                     {typeof grid.survivorId !== "undefined" && <SurvivorCard key={grid.id} id={grid.survivorId} />}
                     <GridAffinities>
