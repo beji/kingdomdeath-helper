@@ -66,11 +66,11 @@ export const enum Innovations {
 }
 
 export interface IInnovation {
-    id: Innovations;
-    name: string;
-    consequence_of?: Innovations;
-    survival_limit?: number;
-    survival_depart?: number;
-    insanity_depart?: number;
-    description: string;
+    id: Innovations
+    name: string
+    consequence_of?: Innovations
+    survival_limit?: number
+    survival_depart?: number
+    insanity_depart?: number
+    description: string
 }

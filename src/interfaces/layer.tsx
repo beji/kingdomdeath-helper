@@ -1,4 +1,4 @@
-import { BaseStats, DefenseStats, ID, SpecialStats } from "interfaces";
+import { BaseStats, DefenseStats, ID, SpecialStats } from 'interfaces'
 
 export enum LayerType {
     simple,
@@ -11,41 +11,41 @@ export enum LayerType {
 }
 
 export interface ISimpleLayer {
-    type: LayerType.simple;
-    headline: string;
-    content: string;
+    type: LayerType.simple
+    headline: string
+    content: string
 }
 
 export interface IBaseStatLayer {
-    type: LayerType.basestat;
-    survivor: ID;
-    stat: BaseStats;
+    type: LayerType.basestat
+    survivor: ID
+    stat: BaseStats
 }
 
 export interface IDefenseStatLayer {
-    type: LayerType.defensestat;
-    survivor: ID;
-    stat: DefenseStats;
+    type: LayerType.defensestat
+    survivor: ID
+    stat: DefenseStats
 }
 
 export interface ISpecialStatLayer {
-    type: LayerType.specialstat;
-    survivor: ID;
-    stat: SpecialStats;
+    type: LayerType.specialstat
+    survivor: ID
+    stat: SpecialStats
 }
 
 export interface IDisorderListLayer {
-    type: LayerType.disorderlist;
-    survivor: ID;
+    type: LayerType.disorderlist
+    survivor: ID
 }
 
 export interface IFightingartListLayer {
-    type: LayerType.fightingartlist;
-    survivor: ID;
+    type: LayerType.fightingartlist
+    survivor: ID
 }
 
 export interface IGearListLayer {
-    type: LayerType.gearlist;
-    gridId: ID;
-    slotId: ID;
+    type: LayerType.gearlist
+    gridId: ID
+    slotId: ID
 }

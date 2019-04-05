@@ -55,7 +55,7 @@ export const enum Disorders {
 }
 
 export interface IDisorder {
-    readonly id: Disorders;
-    readonly name: string;
-    readonly description: string;
+    readonly id: Disorders
+    readonly name: string
+    readonly description: string
 }

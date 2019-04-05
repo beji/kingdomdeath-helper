@@ -1,34 +1,48 @@
-import { Disorders, FightingArt, Gender, IBaseStat, ID, IDefenseStat, ISpecialStat, ISurvivor } from "../interfaces";
-import { CreateSurvivorAction, KillSurvivorAction, RemoveSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorDisordersAction, UpdateSurvivorFightingArtsAction, UpdateSurvivorGenderAction, UpdateSurvivorNameAction, UpdateSurvivorStatAction } from "../interfaces/actions";
-import ActionTypes from "../interfaces/actionTypes";
+import { Disorders, FightingArt, Gender, IBaseStat, ID, IDefenseStat, ISpecialStat, ISurvivor } from '../interfaces'
+import {
+    CreateSurvivorAction,
+    KillSurvivorAction,
+    RemoveSurvivorAction,
+    ReviveSurvivorAction,
+    UpdateSurvivorAction,
+    UpdateSurvivorDisordersAction,
+    UpdateSurvivorFightingArtsAction,
+    UpdateSurvivorGenderAction,
+    UpdateSurvivorNameAction,
+    UpdateSurvivorStatAction,
+} from '../interfaces/actions'
+import ActionTypes from '../interfaces/actionTypes'
 
 export const updateSurvivor = (survivor: ISurvivor): UpdateSurvivorAction => ({
     payload: survivor,
     type: ActionTypes.UPDATE_SURVIVOR,
-});
+})
 
-export const updateSurvivorStat = (stat: IBaseStat | IDefenseStat | ISpecialStat, survivorId: ID): UpdateSurvivorStatAction => ({
+export const updateSurvivorStat = (
+    stat: IBaseStat | IDefenseStat | ISpecialStat,
+    survivorId: ID,
+): UpdateSurvivorStatAction => ({
     payload: {
         stat,
         survivorId,
     },
     type: ActionTypes.UPDATE_SURVIVOR_STAT,
-});
+})
 
 export const killSurvivor = (id: ID): KillSurvivorAction => ({
     payload: id,
     type: ActionTypes.KILL_SURVIVOR,
-});
+})
 
 export const reviveSurvivor = (id: ID): ReviveSurvivorAction => ({
     payload: id,
     type: ActionTypes.REVIVE_SURVIVOR,
-});
+})
 
 export const createSurvivor = (): CreateSurvivorAction => ({
     payload: undefined,
     type: ActionTypes.CREATE_SURVIVOR,
-});
+})
 
 export const updateSurvivorFightingArt = (id: ID, arts: FightingArt[]): UpdateSurvivorFightingArtsAction => ({
     payload: {
@@ -36,7 +50,7 @@ export const updateSurvivorFightingArt = (id: ID, arts: FightingArt[]): UpdateSu
         id,
     },
     type: ActionTypes.UPDATE_SURVIVOR_FIGHTNG_ART,
-});
+})
 
 export const updateSurvivorName = (id: ID, name: string): UpdateSurvivorNameAction => ({
     payload: {
@@ -44,7 +58,7 @@ export const updateSurvivorName = (id: ID, name: string): UpdateSurvivorNameActi
         name,
     },
     type: ActionTypes.UPDATE_SURVIVOR_NAME,
-});
+})
 
 export const updateSurvivorGender = (id: ID, gender: Gender): UpdateSurvivorGenderAction => ({
     payload: {
@@ -52,7 +66,7 @@ export const updateSurvivorGender = (id: ID, gender: Gender): UpdateSurvivorGend
         id,
     },
     type: ActionTypes.UPDATE_SURVIVOR_GENDER,
-});
+})
 
 export const updateSurvivorDisorders = (id: ID, disorders: Disorders[]): UpdateSurvivorDisordersAction => ({
     payload: {
@@ -60,9 +74,9 @@ export const updateSurvivorDisorders = (id: ID, disorders: Disorders[]): UpdateS
         id,
     },
     type: ActionTypes.UPDATE_DISORDERS,
-});
+})
 
 export const removeSurvivor = (id: ID): RemoveSurvivorAction => ({
     payload: id,
     type: ActionTypes.REMOVE_SURVIVOR,
-});
+})

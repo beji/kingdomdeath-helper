@@ -79,7 +79,7 @@ export const enum FightingArt {
     zero_presence,
 }
 export interface IFightingArt {
-    readonly id: FightingArt;
-    readonly name: string;
-    readonly description: string;
+    readonly id: FightingArt
+    readonly name: string
+    readonly description: string
 }

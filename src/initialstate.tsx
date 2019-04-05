@@ -1,8 +1,21 @@
-import { Innovations } from "interfaces/innovations";
-import uuid from "uuid/v4";
-import { BaseStats, DefenseStats, Gender, IBaseStat, ID, IDefenseStat, IGearGrid, ISpecialStat, IState, ISurvivor, SpecialStats, StatType } from "./interfaces";
+import { Innovations } from 'interfaces/innovations'
+import uuid from 'uuid/v4'
+import {
+    BaseStats,
+    DefenseStats,
+    Gender,
+    IBaseStat,
+    ID,
+    IDefenseStat,
+    IGearGrid,
+    ISpecialStat,
+    IState,
+    ISurvivor,
+    SpecialStats,
+    StatType,
+} from './interfaces'
 
-export const DEFAULT_SURVIVOR_NAME = "Rename me to get +1 Survival";
+export const DEFAULT_SURVIVOR_NAME = 'Rename me to get +1 Survival'
 
 const getSurvivorBaseStat = (stat: BaseStats): IBaseStat => ({
     gear: 0,
@@ -10,16 +23,17 @@ const getSurvivorBaseStat = (stat: BaseStats): IBaseStat => ({
     stat,
     token: 0,
     type: StatType.base,
-});
+})
 
-const getBaseStats = (): IBaseStat[] => ([
-    getSurvivorBaseStat(BaseStats.accuracy),
-    getSurvivorBaseStat(BaseStats.evasion),
-    getSurvivorBaseStat(BaseStats.luck),
-    getSurvivorBaseStat(BaseStats.movement),
-    getSurvivorBaseStat(BaseStats.speed),
-    getSurvivorBaseStat(BaseStats.strength),
-]).sort((a, b) => (a.stat - b.stat));
+const getBaseStats = (): IBaseStat[] =>
+    [
+        getSurvivorBaseStat(BaseStats.accuracy),
+        getSurvivorBaseStat(BaseStats.evasion),
+        getSurvivorBaseStat(BaseStats.luck),
+        getSurvivorBaseStat(BaseStats.movement),
+        getSurvivorBaseStat(BaseStats.speed),
+        getSurvivorBaseStat(BaseStats.strength),
+    ].sort((a, b) => a.stat - b.stat)
 
 const getHitLocation = (stat: DefenseStats, onlyHeavyWound: boolean, noWounds: boolean = false): IDefenseStat => ({
     armor: 0,
@@ -30,33 +44,35 @@ const getHitLocation = (stat: DefenseStats, onlyHeavyWound: boolean, noWounds: b
     onlyHeavyWound,
     stat,
     type: StatType.defense,
-});
+})
 
-const getDefense = (): IDefenseStat[] => ([
-    getHitLocation(DefenseStats.arms, false),
-    getHitLocation(DefenseStats.body, false),
-    getHitLocation(DefenseStats.brain, true),
-    getHitLocation(DefenseStats.head, true),
-    getHitLocation(DefenseStats.legs, false),
-    getHitLocation(DefenseStats.survival, false, true),
-    getHitLocation(DefenseStats.waist, false),
-]).sort((a, b) => (a.stat - b.stat));
+const getDefense = (): IDefenseStat[] =>
+    [
+        getHitLocation(DefenseStats.arms, false),
+        getHitLocation(DefenseStats.body, false),
+        getHitLocation(DefenseStats.brain, true),
+        getHitLocation(DefenseStats.head, true),
+        getHitLocation(DefenseStats.legs, false),
+        getHitLocation(DefenseStats.survival, false, true),
+        getHitLocation(DefenseStats.waist, false),
+    ].sort((a, b) => a.stat - b.stat)
 
 const getSpecialStat = (stat: SpecialStats): ISpecialStat => ({
     stat,
     type: StatType.special,
     value: 0,
-});
+})
 
-const getSpecialStats = (): ISpecialStat[] => ([
-    getSpecialStat(SpecialStats.bleed_token),
-    getSpecialStat(SpecialStats.courage),
-    getSpecialStat(SpecialStats.huntxp),
-    getSpecialStat(SpecialStats.understanding),
-    getSpecialStat(SpecialStats.weapon_proficiency),
-]).sort((a, b) => (a.stat - b.stat));
+const getSpecialStats = (): ISpecialStat[] =>
+    [
+        getSpecialStat(SpecialStats.bleed_token),
+        getSpecialStat(SpecialStats.courage),
+        getSpecialStat(SpecialStats.huntxp),
+        getSpecialStat(SpecialStats.understanding),
+        getSpecialStat(SpecialStats.weapon_proficiency),
+    ].sort((a, b) => a.stat - b.stat)
 
-const initialSurvivorCount = process.env.NODE_ENV === "production" ? 4 : 8;
+const initialSurvivorCount = process.env.NODE_ENV === 'production' ? 4 : 8
 
 // tslint:disable-next-line: variable-name
 const survivors: ReadonlyArray<ISurvivor> = Array.apply(null, Array(initialSurvivorCount)).map((_e, n) => {
@@ -70,13 +86,13 @@ const survivors: ReadonlyArray<ISurvivor> = Array.apply(null, Array(initialSurvi
         huntxp: 0,
         id: n,
         lifetimeReroll: false,
-        name: process.env.NODE_ENV === "production" ? DEFAULT_SURVIVOR_NAME : `Survivor ${n}`,
+        name: process.env.NODE_ENV === 'production' ? DEFAULT_SURVIVOR_NAME : `Survivor ${n}`,
         skipNextHunt: false,
         specialstats: getSpecialStats(),
-    } as ISurvivor;
-});
+    } as ISurvivor
+})
 
-const huntingSurvivors: ID[] = survivors.filter((survivor) => survivor.hunting).map((survivor) => survivor.id);
+const huntingSurvivors: ID[] = survivors.filter(survivor => survivor.hunting).map(survivor => survivor.id)
 
 // tslint:disable-next-line: variable-name
 const geargrids: ReadonlyArray<IGearGrid> = Array.apply(null, Array(4)).map((_el, n) => {
@@ -86,14 +102,16 @@ const geargrids: ReadonlyArray<IGearGrid> = Array.apply(null, Array(4)).map((_el
         id: n,
         playername: `Slot ${n + 1}`,
         // tslint:disable-next-line: variable-name
-        slots: Array.apply(null, Array(9)).map(Number.call, Number).map((_ele, x) => {
-            return {
-                id: x,
-            };
-        }),
+        slots: Array.apply(null, Array(9))
+            .map(Number.call, Number)
+            .map((_ele, x) => {
+                return {
+                    id: x,
+                }
+            }),
         survivorId: huntingSurvivors[n],
-    } as IGearGrid;
-});
+    } as IGearGrid
+})
 
 const initialState: IState = {
     interface: {
@@ -103,11 +121,11 @@ const initialState: IState = {
         geargrids,
         id: uuid(),
         innovations: [Innovations.language],
-        name: "Everybody-will-die-town",
+        name: 'Everybody-will-die-town',
         survivalLimit: 1,
         survivors,
     },
-};
+}
 
 export function newSurvivor(id: number): ISurvivor {
     return {
@@ -123,7 +141,7 @@ export function newSurvivor(id: number): ISurvivor {
         name: DEFAULT_SURVIVOR_NAME,
         skipNextHunt: false,
         specialstats: getSpecialStats(),
-    };
+    }
 }
 
-export default initialState;
+export default initialState
