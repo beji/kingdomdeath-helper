@@ -313,11 +313,12 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
                 survivors: state.survivors.filter((survivor) => survivor.id !== id),
             };
         }
-        case ActionTypes.SELECT_WEAPON_PROFICIENCY: {
+        case ActionTypes.UPDATE_WEAPON_PROFICIENCY: {
             const survivorId = action.payload.survivorId;
             if (typeof state.survivors.find((survivor) => survivor.id === survivorId) === "undefined") {
                 return state;
             }
+            // If the passed proficiency is undefined this will also result in undefined and remove any chosen proficiency
             const proficiency = weaponProficiencies.find((p) => p.id === action.payload.proficiency);
             return {
                 ...state,

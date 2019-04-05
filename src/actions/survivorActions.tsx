@@ -73,5 +73,5 @@ export const updateWeaponProficiency = (survivorId: ID, proficiency?: WeaponProf
         proficiency,
         survivorId,
     },
-    type: ActionTypes.SELECT_WEAPON_PROFICIENCY,
+    type: ActionTypes.UPDATE_WEAPON_PROFICIENCY,
 });
