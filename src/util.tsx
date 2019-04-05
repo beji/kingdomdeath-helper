@@ -51,3 +51,7 @@ export function getURLParam(name: string, urlFragment: string = window.location.
             new RegExp(
                 "^(?:.*[&\\?\\#]" + encodeURI(name).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 }
+
+export const deduplicate = <T extends any>(arr: ReadonlyArray<T>): ReadonlyArray<T> => (
+    arr.filter((item, idx) => idx === arr.indexOf(item))
+);

@@ -285,12 +285,31 @@ describe("The reducer", () => {
             }
         });
 
-        it("should not allow to set more than 3 disorders", () => {
+        it("should correctly remove duplicates", () => {
+            const result = reducer(initialState, updateSurvivorDisorders(0, [1, 2, 1]));
+            const disorders = result.settlement.survivors[0].disorders;
+            // tslint:disable-next-line:no-unused-expression
+            expect(disorders).to.exist;
+            if (disorders) {
+                expect(disorders.length).to.equal(2);
+                expect(disorders[0].id).to.equal(1);
+                expect(disorders[1].id).to.equal(2);
+            }
+        });
+
+        it("should allow to set more than 3 disorders", () => {
             const state = clone(initialState);
             const result = reducer(state, updateSurvivorDisorders(0, [1, 2, 3, 4]));
             const disorders = result.settlement.survivors[0].disorders;
             // tslint:disable-next-line:no-unused-expression
-            expect(disorders).to.not.exist;
+            expect(disorders).to.exist;
+            if (disorders) {
+                expect(disorders.length).to.equal(4);
+                expect(disorders[0].id).to.equal(1);
+                expect(disorders[1].id).to.equal(2);
+                expect(disorders[2].id).to.equal(3);
+                expect(disorders[3].id).to.equal(4);
+            }
         });
         it("should not affect the interface state", () => {
             const state = clone(initialState);
@@ -357,7 +376,7 @@ describe("The reducer", () => {
             const result = reducer(initialState, removeSurvivor(id));
 
             expect(result.settlement.survivors.length).to.equal(initialSurvivorCount);
-        })
-    })
+        });
+    });
 
 });
