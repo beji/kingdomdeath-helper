@@ -269,7 +269,8 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
             });
         }
         case ActionTypes.UPDATE_SURVIVOR_FIGHTNG_ART: {
-            const { id, arts } = action.payload;
+            const { id, arts: artsWithDuplicates } = action.payload;
+            const arts = deduplicate(artsWithDuplicates);
             if (arts.length <= 3) {
                 return {
                     ...state,

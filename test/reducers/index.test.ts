@@ -4,7 +4,7 @@ import { Innovations } from "interfaces/innovations";
 import "mocha";
 import { addToHunt, importSettlement, removeFromHunt, setPlayerName } from "../../src/actions";
 import { addInnovation, removeInnovation, setName, updateSurvivalLimit } from "../../src/actions/settlementActions";
-import { createSurvivor, killSurvivor, removeSurvivor, updateSurvivorDisorders, updateSurvivorName } from "../../src/actions/survivorActions";
+import { createSurvivor, killSurvivor, removeSurvivor, updateSurvivorDisorders, updateSurvivorFightingArt, updateSurvivorName } from "../../src/actions/survivorActions";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../../src/initialstate";
 import { DefenseStats, IDefenseStat, ISurvivor } from "../../src/interfaces";
 import reducer from "../../src/reducers";
@@ -376,6 +376,45 @@ describe("The reducer", () => {
             const result = reducer(initialState, removeSurvivor(id));
 
             expect(result.settlement.survivors.length).to.equal(initialSurvivorCount);
+        });
+    });
+
+    describe("UpdateSurvivorFightingArts", () => {
+        it("should add fighting arts to a survivor", () => {
+            const state = clone(initialState);
+            const result = reducer(state, updateSurvivorFightingArt(0, [1, 3]));
+            const fightingArts = result.settlement.survivors[0].fightingArts;
+            // tslint:disable-next-line:no-unused-expression
+            expect(fightingArts).to.exist;
+            if (fightingArts) {
+                expect(fightingArts[0].id).to.equal(1);
+                expect(fightingArts[1].id).to.equal(3);
+            }
+        });
+
+        it("should correctly remove duplicates", () => {
+            const result = reducer(initialState, updateSurvivorFightingArt(0, [1, 2, 1]));
+            const fightingArts = result.settlement.survivors[0].fightingArts;
+            // tslint:disable-next-line:no-unused-expression
+            expect(fightingArts).to.exist;
+            if (fightingArts) {
+                expect(fightingArts.length).to.equal(2);
+                expect(fightingArts[0].id).to.equal(1);
+                expect(fightingArts[1].id).to.equal(2);
+            }
+        });
+
+        it("should not allow to set more than 3 disorders", () => {
+            const state = clone(initialState);
+            const result = reducer(state, updateSurvivorFightingArt(0, [1, 2, 3, 4]));
+            const fightingArts = result.settlement.survivors[0].fightingArts;
+            // tslint:disable-next-line:no-unused-expression
+            expect(fightingArts).to.not.exist;
+        });
+        it("should not affect the interface state", () => {
+            const state = clone(initialState);
+            const result = reducer(state, updateSurvivorFightingArt(0, [1, 3]));
+            testInterfaceUnchanged(state, result);
         });
     });
 
