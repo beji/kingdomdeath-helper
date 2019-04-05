@@ -1,5 +1,5 @@
-import { IDisorder } from "interfaces";
-import { ID, UUID } from "../generics";
+import { IDisorder, IWeaponProficiency } from "interfaces";
+import { ID } from "../generics";
 import { IFightingArt } from "./fightingarts";
 import { IBaseStat, IDefenseStat, ISpecialStat } from "./stats";
 
@@ -28,4 +28,6 @@ export interface ISurvivor {
     readonly specialstats: ReadonlyArray<ISpecialStat>;
     readonly fightingArts?: ReadonlyArray<IFightingArt>;
     readonly disorders?: ReadonlyArray<IDisorder>;
+    readonly weaponProficiency?: IWeaponProficiency;
+
 }

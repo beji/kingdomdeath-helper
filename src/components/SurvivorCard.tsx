@@ -17,6 +17,7 @@ import SurvivorDisorders from "./SurvivorDisorders";
 import SurvivorFightingArts from "./SurvivorFightingArts";
 import SurvivorSpecialStat from "./SurvivorSpecialStat";
 import { StatLabel, SurvivorStat } from "./SurvivorStatElements";
+import SurvivorWeaponProficiency from "./SurvivorWeaponProficiency";
 
 const StyledCard = styled(Card)`
     flex: 1 1 45%;
@@ -134,6 +135,7 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
                     </NameWrapper>
                     <TextSection>
                         {survival && <SurvivorStat><StatLabel>{capitalize(DefenseStats[survival.stat])}</StatLabel><SurvivorDefenseStat id={id} statid={survival.stat} concatToDisplay={`/ ${this.props.survivalLimit}`} /></SurvivorStat>}
+                        <SurvivorWeaponProficiency id={id} />
                         <SurvivorFightingArts id={id} />
                         <SurvivorDisorders id={id} />
                     </TextSection>

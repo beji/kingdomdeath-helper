@@ -488,3 +488,17 @@ export const enum GearSet {
     dragon_armor,
     white_lion,
 }
+
+export const enum WeaponProficiency {
+    axe,
+    bow,
+    club,
+    dagger,
+    fist_tooth,
+    grand_weapon,
+    katar,
+    shield,
+    spear,
+    sword,
+    whip,
+}

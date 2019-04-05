@@ -1,6 +1,7 @@
 import { Reducer } from "redux";
 import disorderList from "../../../data/final/disorder.json";
 import fightingArts from "../../../data/final/fightingarts";
+import weaponProficiencies from "../../../data/final/weaponproficiencies";
 import { removeFromHunt, updateGear } from "../../actions";
 import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../../initialstate";
 import { DefenseStats, Disorders, FightingArt, IGearGrid, ISettlement, ISurvivor, StatType } from "../../interfaces";
@@ -310,6 +311,25 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
             return {
                 ...state,
                 survivors: state.survivors.filter((survivor) => survivor.id !== id),
+            };
+        }
+        case ActionTypes.SELECT_WEAPON_PROFICIENCY: {
+            const survivorId = action.payload.survivorId;
+            if (typeof state.survivors.find((survivor) => survivor.id === survivorId) === "undefined") {
+                return state;
+            }
+            const proficiency = weaponProficiencies.find((p) => p.id === action.payload.proficiency);
+            return {
+                ...state,
+                survivors: state.survivors.map((survivor) => {
+                    if (survivor.id === survivorId) {
+                        return {
+                            ...survivor,
+                            weaponProficiency: proficiency,
+                        } as ISurvivor;
+                    }
+                    return survivor;
+                }),
             };
         }
         default: return state;

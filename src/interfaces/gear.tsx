@@ -1,5 +1,5 @@
 import { ID } from "./generics";
-import { GearSet, Item, ItemType } from "./ItemEnums";
+import { GearSet, Item, ItemType, WeaponProficiency } from "./ItemEnums";
 import { BaseStats, DefenseStats, StatType } from "./survivor";
 
 export enum Affinity {
@@ -84,6 +84,12 @@ export interface IGearSet {
 export interface IGearSetBonus {
   readonly desc: string;
   readonly stats?: ReadonlyArray<IItemStat>;
+}
+
+export interface IWeaponProficiency {
+    readonly id: WeaponProficiency;
+    readonly desc: string;
+    readonly name: string;
 }
 
 export { Item, ItemType, GearSet };

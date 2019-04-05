@@ -1,6 +1,7 @@
 import { Disorders, FightingArt, Gender, IBaseStat, ID, IDefenseStat, ISpecialStat, ISurvivor } from "../interfaces";
-import { CreateSurvivorAction, KillSurvivorAction, RemoveSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorDisordersAction, UpdateSurvivorFightingArtsAction, UpdateSurvivorGenderAction, UpdateSurvivorNameAction, UpdateSurvivorStatAction } from "../interfaces/actions";
+import { CreateSurvivorAction, KillSurvivorAction, RemoveSurvivorAction, ReviveSurvivorAction, UpdateSurvivorAction, UpdateSurvivorDisordersAction, UpdateSurvivorFightingArtsAction, UpdateSurvivorGenderAction, UpdateSurvivorNameAction, UpdateSurvivorStatAction, UpdateSurvivorWeaponProficiencyAction } from "../interfaces/actions";
 import ActionTypes from "../interfaces/actionTypes";
+import { WeaponProficiency } from "../interfaces/ItemEnums";
 
 export const updateSurvivor = (survivor: ISurvivor): UpdateSurvivorAction => ({
     payload: survivor,
@@ -65,4 +66,12 @@ export const updateSurvivorDisorders = (id: ID, disorders: Disorders[]): UpdateS
 export const removeSurvivor = (id: ID): RemoveSurvivorAction => ({
     payload: id,
     type: ActionTypes.REMOVE_SURVIVOR,
+});
+
+export const updateWeaponProficiency = (survivorId: ID, proficiency?: WeaponProficiency): UpdateSurvivorWeaponProficiencyAction => ({
+    payload: {
+        proficiency,
+        survivorId,
+    },
+    type: ActionTypes.SELECT_WEAPON_PROFICIENCY,
 });

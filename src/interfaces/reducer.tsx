@@ -24,6 +24,7 @@ import {
   UpdateSurvivorGenderAction,
   UpdateSurvivorNameAction,
   UpdateSurvivorStatAction,
+  UpdateSurvivorWeaponProficiencyAction,
 } from "./actions";
 
 export type RemoteableActions = AddToHuntAction |
@@ -47,7 +48,8 @@ export type RemoteableActions = AddToHuntAction |
     AddInnovationAction |
     RemoveInnovationAction |
     ImportAction |
-    RemoveSurvivorAction;
+    RemoveSurvivorAction |
+    UpdateSurvivorWeaponProficiencyAction;
 
 type Actions = RemoteableActions |
     ShowLayerAction |

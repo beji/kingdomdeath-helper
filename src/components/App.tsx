@@ -18,6 +18,7 @@ import FightingArtsList from "./layers/FightingArtsList";
 import GearList from "./layers/GearList";
 import SimpleLayer from "./layers/SimpleLayer";
 import SpecialStatLayer from "./layers/SpecialStatLayer";
+import WeaponProficiencyList from "./layers/WeaponProficiencyList";
 import NavBar from "./NavBar";
 import SocketConnector from "./SocketConnector";
 
@@ -76,6 +77,7 @@ class App extends React.Component<IAppProps> {
                         <SpecialStatLayer />
                         <DisordersList />
                         <FightingArtsList />
+                        <WeaponProficiencyList />
                         <GearList />
                     </AppWrapper>
                     <NavBar />
