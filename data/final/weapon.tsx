@@ -232,7 +232,7 @@ export const weapon: IItem[] = [
         affinity: {
             left: Affinity.red,
         },
-        desc: "Frail. Savage: 1/attack, if you critically wound, cause 1 additional wound. Does not apply to impervious hit locations.",
+        desc: "**Frail**. **Savage**: 1/attack, if you critically wound, cause 1 additional wound. Does not apply to impervious hit locations.",
         id: 105,
         material: "1x bone, 1x organ",
         name: "Bone Axe",
@@ -253,7 +253,7 @@ export const weapon: IItem[] = [
         affinity: {
             left: Affinity.red,
         },
-        desc: "Frail: When you attempt to wound a super-dense hit location, this weapon breaks. Archive the card at the END of the attack.",
+        desc: "**Frail**: When you attempt to wound a super-dense hit location, this weapon breaks. Archive the card at the END of the attack.",
         id: 106,
         material: "1x bone",
         name: "Bone Blade",

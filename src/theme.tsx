@@ -14,12 +14,13 @@ export const theme = {
     background: "#646464",
     border: {
       base: "#8E9293",
-      highlight: "#505050",
+      highlight: "#A12D6A",
+      hint: "#505050",
     },
     text: "#fcfcfc",
   },
   gear: {
-    background: "#C7A888",
+    background: "linear-gradient(to bottom, #c7a888 0%,#dacaaf 50%,#c7a888 100%)",
     border: {
       base: "#646464",
       highlight: "#949494",
@@ -34,3 +35,5 @@ export const theme = {
     },
   },
 };
+
+export default theme;
