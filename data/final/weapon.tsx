@@ -1,4 +1,4 @@
-import { Affinity, AffinityTypes, IItem, ItemType, Item } from "../../src/interfaces";
+import { Affinity, AffinityTypes, IItem, Item, ItemType } from "../../src/interfaces";
 
 export const weapon: IItem[] = [
     {
