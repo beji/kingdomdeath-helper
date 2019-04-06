@@ -6,6 +6,7 @@ export enum Affinity {
     red,
     green,
     blue,
+    arrow,
 }
 
 export const enum AffinityTypes {
@@ -64,6 +65,7 @@ export interface IItem {
         readonly right?: Affinity;
         readonly bottom?: Affinity;
         readonly left?: Affinity;
+        readonly full?: Affinity;
         readonly bonus?: {
             readonly desc: string;
             readonly require: ReadonlyArray<IAffinity>
