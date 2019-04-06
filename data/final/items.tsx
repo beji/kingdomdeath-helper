@@ -195,12 +195,19 @@ export const items: IItem[] = [
         ],
     },
     {
+        affinity: {
+          left: Affinity.arrow,
+          right: Affinity.arrow,
+        },
         desc: "Spend action to activate weapon gear to right and left of card. These are 2 separate attacks. Cannot be used with 2H weapons.",
         id: 200,
         material: "paint, 1x bladder, 1x organ",
         name: "Blood Paint",
         obtained: "Stone Circle",
-        types: [],
+        types: [
+            ItemType.item,
+            ItemType.soluble,
+        ],
     },
     {
         desc: "Block 1. When Rainbow Katana is left of blood sheath, it loses Frail and gains Sharp (add 1d10 strength to each wound attempt).",
@@ -221,12 +228,31 @@ export const items: IItem[] = [
         ],
     },
     {
-        desc: "5-aff-blue = Unshakeable: When you draw a Trap, roll 1d10. On 6+ discard the Trap and reshuffle the deck. Grants 1x-aff-blue on its own.",
+        affinity: {
+          bonus: {
+            desc: "Unshakeable: When you draw a Trap, roll 1d10. On 6+ discard the Trap and reshuffle the deck.",
+            require: [
+              {
+                color: Affinity.blue,
+                connection: AffinityTypes.grid,
+              },
+              {
+                color: Affinity.blue,
+                connection: AffinityTypes.grid,
+              },
+            ],
+          },
+          full: Affinity.blue,
+        },
+        desc: "Grants 1x-aff-blue on its own.",
         id: 203,
         material: "3x organ",
         name: "Blue Charm",
         obtained: "Stone Circle",
-        types: [],
+        types: [
+          ItemType.item,
+          ItemType.jewelry,
+        ],
     },
     {
         desc: "All nuclear gear cards in your gear grid gain Deadly 2.",
@@ -257,7 +283,11 @@ export const items: IItem[] = [
         material: "1x shank bone, 1x bone",
         name: "Bone Earrings",
         obtained: "Stone Circle",
-        types: [],
+        types: [
+          ItemType.item,
+          ItemType.jewelry,
+          ItemType.bone,
+        ],
     },
     {
         desc: "soluble,symbol. At the start of your act, you may spend 3 insanity to gain 1 survival, or 1 survival to gain 3 insanity.",
@@ -276,7 +306,10 @@ export const items: IItem[] = [
         material: "1x golden whiskers, 1x bone",
         name: "Boss Mehndi",
         obtained: "Stone Circle",
-        types: [],
+        types: [
+          ItemType.item,
+          ItemType.soluble,
+        ],
     },
     {
         desc: "Consume to remove all your tokens and stand up. You may use this while knocked down. Use 1x/showdown.",
@@ -931,12 +964,44 @@ export const items: IItem[] = [
         ],
     },
     {
-        desc: "5-aff-green = undeathable. If you would die, then roll 1d10. On 6+ you inexplicably survive. Grants 1x 1-aff-green on its own.",
+        affinity: {
+          bonus: {
+            desc: "Undeathable. If you would die, then roll 1d10. On 6+ you inexplicably survive.",
+            require: [
+              {
+                color: Affinity.green,
+                connection: AffinityTypes.grid,
+              },
+              {
+                color: Affinity.green,
+                connection: AffinityTypes.grid,
+              },
+              {
+                color: Affinity.green,
+                connection: AffinityTypes.grid,
+              },
+              {
+                color: Affinity.green,
+                connection: AffinityTypes.grid,
+              },
+              {
+                color: Affinity.green,
+                connection: AffinityTypes.grid,
+              },
+            ],
+          },
+          full: Affinity.green,
+        },
+        desc: "Grants 1x 1-aff-green on its own.",
         id: 270,
         material: "3x organ",
         name: "Green Charm",
         obtained: "Stone Circle",
-        types: [],
+        types: [
+            ItemType.item,
+            ItemType.jewelry,
+            ItemType.fragile,
+        ],
     },
     {
         desc: "Armor 2 on hands. 3x 0.5-aff-green = The first time you are attacked each round, gain 3 to ALL armor locations if you are attacked.",
@@ -1733,12 +1798,44 @@ export const items: IItem[] = [
         ],
     },
     {
-        desc: "5x 1-aff-red = unstoppable: when you attempt to wound, instead roll 1d10. On 1-5 fail, on 6-10 wound. Grants 1x 1-aff-red by itself.",
+        affinity: {
+            bonus: {
+                desc: "Unstoppable: When you attempt to wound, instead roll 1d10. On 1-5 fail, on 6-10 wound.",
+                require: [
+                    {
+                        color: Affinity.red,
+                        connection: AffinityTypes.grid,
+                    },
+                    {
+                        color: Affinity.red,
+                        connection: AffinityTypes.grid,
+                    },
+                    {
+                        color: Affinity.red,
+                        connection: AffinityTypes.grid,
+                    },
+                    {
+                        color: Affinity.red,
+                        connection: AffinityTypes.grid,
+                    },
+                    {
+                        color: Affinity.red,
+                        connection: AffinityTypes.grid,
+                    },
+                ],
+            },
+            full: Affinity.red,
+        },
+        desc: "Grants 1x 1-aff-red by itself.",
         id: 337,
         material: "3x organ",
         name: "Red Charm",
         obtained: "Stone Circle",
-        types: [],
+        types: [
+            ItemType.item,
+            ItemType.jewelry,
+            ItemType.fragile,
+        ],
     },
     {
         desc: "All nuclear gear cards in your gear grid gain Sharp.",

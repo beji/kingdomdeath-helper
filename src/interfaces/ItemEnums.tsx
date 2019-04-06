@@ -495,4 +495,5 @@ export const enum GearSet {
     dragon_armor,
     white_lion,
     leather_armor,
+    screaming_armor,
 }

@@ -1671,11 +1671,18 @@ export const armor: IItem[] = [
         },
     },
     {
-        desc: "When you Slam, you may pass through other survivors without causing collision.",
+        affinity: {
+            left: Affinity.red,
+            top: Affinity.green,
+        },
+        desc: "On Arrival add Arcanthus Plant terrain to showdown. +2 to roll result if you activate terrain",
         id: 73,
         material: "1x pelt, 1x hide",
         name: "Screaming Bracers",
         obtained: "Stone Circle",
+        set: {
+            id: GearSet.screaming_armor,
+        },
         stats: [
             {
                 amount: 2,
@@ -1684,15 +1691,26 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+            ItemType.armor,
+            ItemType.set,
+            ItemType.fur,
         ],
     },
     {
-        desc: "Slam: Spend move to move forward in a straight line. If you move 4+ and stop adjacent to monster, then move it back 1 space. It gains -1 toughness until end of round.",
+        affinity: {
+            bottom: Affinity.green,
+            left: Affinity.green,
+            right: Affinity.blue,
+            top: Affinity.blue,
+        },
+        desc: "Slam: Spend move to full move forward in a straight line. If you move 4+ and stop adjacent to monster, it suffers knockback 1 and -1 toughness until end of round.",
         id: 74,
         material: "1x pelt, 1x bone",
         name: "Screaming Coat",
         obtained: "Stone Circle",
+        set: {
+            id: GearSet.screaming_armor,
+        },
         stats: [
             {
                 amount: 2,
@@ -1701,15 +1719,23 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+            ItemType.armor,
+            ItemType.set,
+            ItemType.fur,
         ],
     },
     {
+        affinity: {
+          bottom: Affinity.blue,
+        },
         desc: "Spend action to Scream: non-deaf insane survivors gain +1 movement until end of round. All other survivors gain +1 insanity.",
         id: 75,
         material: "1x spiral horn, 1x scrap",
         name: "Screaming Horns",
         obtained: "Stone Circle",
+        set: {
+            id: GearSet.screaming_armor,
+        },
         stats: [
             {
                 amount: 3,
@@ -1718,15 +1744,24 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+            ItemType.armor,
+            ItemType.set,
+            ItemType.fur,
         ],
     },
     {
-        desc: "When you depart, gain +1 insanity.",
+        affinity: {
+          right: Affinity.red,
+          top: Affinity.blue,
+        },
+        desc: "On Arrival your feet hurt, gain +3 insanity",
         id: 76,
         material: "1x pelt, 1x hide",
         name: "Screaming Leg Warmers",
         obtained: "Stone Circle",
+        set: {
+            id: GearSet.screaming_armor,
+        },
         stats: [
             {
                 amount: 2,
@@ -1735,15 +1770,24 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+            ItemType.armor,
+            ItemType.set,
+            ItemType.fur,
         ],
     },
     {
-        desc: "",
+        affinity: {
+          bottom: Affinity.blue,
+          right: Affinity.green,
+        },
+        desc: "Add +1 to severe waist injury rolls.",
         id: 77,
         material: "1x pelt",
         name: "Screaming Skirt",
         obtained: "Stone Circle",
+        set: {
+            id: GearSet.screaming_armor,
+        },
         stats: [
             {
                 amount: 2,
@@ -1752,7 +1796,9 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+            ItemType.armor,
+            ItemType.set,
+            ItemType.fur,
         ],
     },
     {

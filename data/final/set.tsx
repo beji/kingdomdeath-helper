@@ -104,37 +104,71 @@ export const set: IGearSet[] = [
         name: "White Lion Armor",
     },
     {
-      bonus: {
-          desc: "Add 1 to all hit locations. You ignore bash.",
-          stats: [
-              {
-                  amount: 1,
-                  stat: DefenseStats.head,
-                  type: StatType.defense,
-              },
-              {
-                  amount: 1,
-                  stat: DefenseStats.arms,
-                  type: StatType.defense,
-              },
-              {
-                  amount: 1,
-                  stat: DefenseStats.body,
-                  type: StatType.defense,
-              },
-              {
-                  amount: 1,
-                  stat: DefenseStats.waist,
-                  type: StatType.defense,
-              },
-              {
-                  amount: 1,
-                  stat: DefenseStats.legs,
-                  type: StatType.defense,
-              },
-          ],
-      },
-      id: GearSet.leather_armor,
-      name: "Leather Armor",
-  },
+        bonus: {
+            desc: "Add 1 to all hit locations. You ignore bash.",
+            stats: [
+                {
+                    amount: 1,
+                    stat: DefenseStats.head,
+                    type: StatType.defense,
+                },
+                {
+                    amount: 1,
+                    stat: DefenseStats.arms,
+                    type: StatType.defense,
+                },
+                {
+                    amount: 1,
+                    stat: DefenseStats.body,
+                    type: StatType.defense,
+                },
+                {
+                    amount: 1,
+                    stat: DefenseStats.waist,
+                    type: StatType.defense,
+                },
+                {
+                    amount: 1,
+                    stat: DefenseStats.legs,
+                    type: StatType.defense,
+                },
+            ],
+        },
+        id: GearSet.leather_armor,
+        name: "Leather Armor",
+    },
+    {
+        bonus: {
+            desc: "Add 2 to all hit locations. Skewer: After Slam spend action to move 1 and activate melee weapon with +2 strength. If you wound with a spear apply the roll result to next hit location this attack",
+            stats: [
+                {
+                    amount: 2,
+                    stat: DefenseStats.head,
+                    type: StatType.defense,
+                },
+                {
+                    amount: 2,
+                    stat: DefenseStats.arms,
+                    type: StatType.defense,
+                },
+                {
+                    amount: 2,
+                    stat: DefenseStats.body,
+                    type: StatType.defense,
+                },
+                {
+                    amount: 2,
+                    stat: DefenseStats.waist,
+                    type: StatType.defense,
+                },
+                {
+                    amount: 2,
+                    stat: DefenseStats.legs,
+                    type: StatType.defense,
+                },
+            ],
+        },
+        id: GearSet.screaming_armor,
+        name: "Screaming Armor",
+    },
 ];

@@ -158,15 +158,16 @@ export const weapon: IItem[] = [
         },
     },
     {
-        desc: "katar,bone. Paired. When you wound with this weapon, monster gains -1 toughness until end of this attack.",
+        desc: "Paired. When you wound with this weapon, monster gains -1 toughness until end of this attack.",
         id: 101,
         material: "1x large flat tooth, 1x pelt",
         name: "Beast Knuckle",
         obtained: "Stone Circle",
         types: [
-            4,
-            31,
-            10,
+            ItemType.weapon,
+            ItemType.melee,
+            ItemType.katar,
+            ItemType.bone,
         ],
         weapon: {
             accuracy: 6,
@@ -959,15 +960,17 @@ export const weapon: IItem[] = [
         },
     },
     {
-        desc: "spear,2H,bone. Irreplaceable, Reach 2. Each showdown, first time you wounds, monster gains -1 toughness token.",
+        desc: "Irreplaceable, Reach 2. Each showdown, first time you wounds, monster gains -1 toughness token.",
         id: 141,
         material: "1x legendary horns, 6x organ",
         name: "Lance of Longinus",
         obtained: "Stone Circle",
         types: [
-            4,
-            26,
-            10,
+            ItemType.weapon,
+            ItemType.melee,
+            ItemType.spear,
+            ItemType.two_handed,
+            ItemType.bone,
         ],
         weapon: {
             accuracy: 6,
