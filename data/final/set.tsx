@@ -103,4 +103,38 @@ export const set: IGearSet[] = [
         id: GearSet.white_lion,
         name: "White Lion Armor",
     },
+    {
+      bonus: {
+          desc: "Add 1 to all hit locations. You ignore bash.",
+          stats: [
+              {
+                  amount: 1,
+                  stat: DefenseStats.head,
+                  type: StatType.defense,
+              },
+              {
+                  amount: 1,
+                  stat: DefenseStats.arms,
+                  type: StatType.defense,
+              },
+              {
+                  amount: 1,
+                  stat: DefenseStats.body,
+                  type: StatType.defense,
+              },
+              {
+                  amount: 1,
+                  stat: DefenseStats.waist,
+                  type: StatType.defense,
+              },
+              {
+                  amount: 1,
+                  stat: DefenseStats.legs,
+                  type: StatType.defense,
+              },
+          ],
+      },
+      id: GearSet.leather_armor,
+      name: "Leather Armor",
+  },
 ];

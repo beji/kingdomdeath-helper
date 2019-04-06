@@ -91,12 +91,18 @@ export const items: IItem[] = [
         ],
     },
     {
+        affinity: {
+          bottom: Affinity.green,
+          left: Affinity.blue,
+        },
         desc: "Spend action to remove up to 2 bleeding tokens from yourself or adjacent survivor.",
         id: 190,
         material: "1x hide",
         name: "Bandages",
         obtained: "Skinnery",
-        types: [],
+        types: [
+          ItemType.item,
+        ],
     },
     {
         desc: "",
@@ -607,7 +613,11 @@ export const items: IItem[] = [
         material: "1x fresh acanthus",
         name: "Dried Acanthus",
         obtained: "Organ Grinder",
-        types: [],
+        types: [
+          ItemType.item,
+          ItemType.herb,
+          ItemType.consumable,
+        ],
     },
     {
         desc: "You may consume and archive this to select a Dream on the Birth of a Savior story event and gain all associated abilities.",
@@ -734,7 +744,11 @@ export const items: IItem[] = [
         material: "1x organ",
         name: "Fecal Salve",
         obtained: "Organ Grinder",
-        types: [],
+        types: [
+          ItemType.item,
+          ItemType.balm,
+          ItemType.stinky,
+        ],
     },
     {
         desc: "",
@@ -766,12 +780,16 @@ export const items: IItem[] = [
         ],
     },
     {
-        desc: "Spend action to consume = suffer Frenzy brain trauma. Can be used 1x/showdown.",
+        desc: "Spend action to consume: Suffer Frenzy brain trauma. 1x/showdown",
         id: 256,
         material: "1x lion testes",
         name: "Frenzy Drink",
         obtained: "Catarium",
-        types: [],
+        types: [
+          ItemType.item,
+          ItemType.consumable,
+          ItemType.fragile,
+        ],
     },
     {
         desc: "herb resource",
@@ -1262,12 +1280,39 @@ export const items: IItem[] = [
         ],
     },
     {
-        desc: "2x 1-aff-blue = +1 luck",
+        affinity: {
+          bonus: {
+            desc: "+1 Luck",
+            require: [
+              {
+                color: Affinity.blue,
+                connection: AffinityTypes.grid,
+              },
+              {
+                color: Affinity.blue,
+                connection: AffinityTypes.grid,
+              },
+            ],
+            stats: [
+              {
+                amount: 1,
+                stat: BaseStats.luck,
+                type: StatType.base,
+              },
+            ],
+          },
+          left: Affinity.blue,
+          right: Affinity.blue,
+        },
+        desc: "",
         id: 302,
         material: "1x organ",
         name: "Lucky Charm",
         obtained: "Organ Grinder",
-        types: [],
+        types: [
+          ItemType.item,
+          ItemType.jewelry,
+        ],
     },
     {
         desc: "",
@@ -1357,7 +1402,12 @@ export const items: IItem[] = [
                 type: StatType.base,
             },
         ],
-        types: [],
+        types: [
+          ItemType.item,
+          ItemType.consumable,
+          ItemType.soluble,
+          ItemType.stinky,
+        ],
     },
     {
         desc: "",
@@ -1415,7 +1465,11 @@ export const items: IItem[] = [
                 type: StatType.base,
             },
         ],
-        types: [],
+        types: [
+          ItemType.item,
+          ItemType.jewelry,
+          ItemType.bone,
+        ],
     },
     {
         desc: "",
@@ -1663,12 +1717,20 @@ export const items: IItem[] = [
         ],
     },
     {
-        desc: "When you depart, gain +1 insanity. When a monster performs an Intimidate action, roll 1d10. On 5+ cancel the effects for you and any adjacent non-deaf survivors.",
+        affinity: {
+          left: Affinity.green,
+        },
+        desc: "On Arrival, all survivors gain +1 insanity. Encourage affects all non-deaf survivors",
         id: 336,
         material: "drums, 1x bone, 1x hide",
         name: "Rawhide Drum",
         obtained: "Skinnery",
-        types: [],
+        types: [
+          ItemType.item,
+          ItemType.rawhide,
+          ItemType.instrument,
+          ItemType.noisy,
+        ],
     },
     {
         desc: "5x 1-aff-red = unstoppable: when you attempt to wound, instead roll 1d10. On 1-5 fail, on 6-10 wound. Grants 1x 1-aff-red by itself.",
@@ -2408,12 +2470,19 @@ export const items: IItem[] = [
         ],
     },
     {
-        desc: "Spend action to roll 1d10 to strum. On 7+ (3+ vs white lion), discard 1 mood currently in play.",
+        affinity: {
+          left: Affinity.blue,
+        },
+        desc: "On Arrival, all survivors gain +1 survival. Strum: Spend action to roll 1d10. On 6+ remove mood in play",
         id: 407,
         material: "1x golden whiskers, 1x bone",
         name: "Whisker Harp",
         obtained: "Catarium",
-        types: [],
+        types: [
+          ItemType.item,
+          ItemType.instrument,
+          ItemType.noisy,
+        ],
     },
     {
         desc: "",

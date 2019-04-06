@@ -1,4 +1,4 @@
-import { Affinity, IItem } from "../../src/interfaces";
+import { Affinity, AffinityTypes, IItem, ItemType, Item } from "../../src/interfaces";
 
 export const weapon: IItem[] = [
     {
@@ -238,10 +238,10 @@ export const weapon: IItem[] = [
         name: "Bone Axe",
         obtained: "Bone Smith",
         types: [
-            4,
-            20,
-            25,
-            10,
+          ItemType.weapon,
+          ItemType.melee,
+          ItemType.axe,
+          ItemType.bone,
         ],
         weapon: {
             accuracy: 6,
@@ -259,10 +259,10 @@ export const weapon: IItem[] = [
         name: "Bone Blade",
         obtained: "Bone Smith",
         types: [
-            4,
-            20,
-            22,
-            10,
+          ItemType.weapon,
+          ItemType.melee,
+          ItemType.sword,
+          ItemType.bone,
         ],
         weapon: {
             accuracy: 6,
@@ -281,10 +281,10 @@ export const weapon: IItem[] = [
         name: "Bone Dagger",
         obtained: "Bone Smith",
         types: [
-            4,
-            20,
-            21,
-            10,
+          ItemType.weapon,
+          ItemType.melee,
+          ItemType.dagger,
+          ItemType.bone,
         ],
         weapon: {
             accuracy: 7,
@@ -302,10 +302,10 @@ export const weapon: IItem[] = [
         name: "Bone Darts",
         obtained: "Bone Smith",
         types: [
-            4,
-            33,
-            34,
-            10,
+          ItemType.weapon,
+          ItemType.ranged,
+          ItemType.thrown,
+          ItemType.bone,
         ],
         weapon: {
             accuracy: 7,
@@ -323,10 +323,10 @@ export const weapon: IItem[] = [
         name: "Bone Pickaxe",
         obtained: "Bone Smith",
         types: [
-            4,
-            9,
-            35,
-            10,
+          ItemType.item,
+          ItemType.tool,
+          ItemType.pickaxe,
+          ItemType.bone,
         ],
         weapon: {
             accuracy: 8,
@@ -338,16 +338,16 @@ export const weapon: IItem[] = [
         affinity: {
             top: Affinity.green,
         },
-        desc: "Frail: When you attempt to wound a super-dense hit location, this weapon breaks. Archive the card at the END of the attack. After Hunt Phase setup, place Herb Gathering event on any hunt space.",
+        desc: "After Hunt Phase setup, place Herb Gathering event on any hunt space.",
         id: 110,
         material: "ammonia, 1x bone, 1x leather",
         name: "Bone Sickle",
         obtained: "Bone Smith",
         types: [
-            4,
-            9,
-            35,
-            10,
+            ItemType.item,
+            ItemType.tool,
+            ItemType.sickle,
+            ItemType.bone,
         ],
         weapon: {
             accuracy: 8,
@@ -430,16 +430,39 @@ export const weapon: IItem[] = [
         },
     },
     {
-        desc: "weapon,melee,dagger,bone. 3-aff-red = on a perfect hit gain +1 strength token. When knocked down, remove all +1 strength tokens.",
+        affinity: {
+          bonus: {
+            desc: "On a perfect hit gain +1 strength token. When knocked down, remove all +1 strength tokens.",
+            require: [
+              {
+                color: Affinity.red,
+                connection: AffinityTypes.grid,
+              },
+              {
+                color: Affinity.red,
+                connection: AffinityTypes.grid,
+              },
+              {
+                color: Affinity.red,
+                connection: AffinityTypes.grid,
+              },
+            ],
+          },
+          bottom: Affinity.red,
+          left: Affinity.red,
+          right: Affinity.red,
+          top: Affinity.red,
+        },
+        desc: "",
         id: 115,
         material: "1x elder cat teeth, 4x organ",
         name: "Cat Fang Knife",
         obtained: "Catarium",
         types: [
-            4,
-            20,
-            21,
-            10,
+          ItemType.weapon,
+          ItemType.melee,
+          ItemType.dagger,
+          ItemType.bone,
         ],
         weapon: {
             accuracy: 6,
@@ -448,15 +471,19 @@ export const weapon: IItem[] = [
         },
     },
     {
-        desc: "weapon,ranged,bow,2H. Range: 6. Cumbersome - spend move+action to fire weapon.",
+        affinity: {
+          top: Affinity.blue,
+        },
+        desc: "Range: 6. Cumbersome: Spend move+action to activate. Aim: Reduce Speed to 1 to gain +2 accuracy.",
         id: 116,
         material: "1x sinew, 1x bone",
         name: "Cat Gut Bow",
         obtained: "Catarium",
         types: [
-            4,
-            33,
-            28,
+            ItemType.weapon,
+            ItemType.ranged,
+            ItemType.bow,
+            ItemType.two_handed,
         ],
         weapon: {
             accuracy: 7,
@@ -483,17 +510,18 @@ export const weapon: IItem[] = [
         },
     },
     {
-        desc: "item,ammunition,bow,arrow. Slow, requires a bow. If you hit, monster gains -1 evasion token. Usable 1x/showdown.",
+        affinity: {
+          right: Affinity.blue,
+        },
+        desc: "Slow, requires a bow. If you hit, monster gains -1 evasion token. Usable 1x/showdown.",
         id: 118,
         material: "1x lion claw",
         name: "Claw Head Arrow",
         obtained: "Catarium",
         types: [
-            4,
-            9,
-            38,
-            28,
-            30,
+            ItemType.item,
+            ItemType.ammunition,
+            ItemType.arrow,
         ],
         weapon: {
             accuracy: 6,
@@ -840,7 +868,24 @@ export const weapon: IItem[] = [
         },
     },
     {
-        desc: "weapon,melee,whip,leather. 2x 0.5-aff-blue = on a perfect hit, discard one monster mood in play.",
+        affinity: {
+            bonus: {
+                desc: "On a perfect hit, discard one monster mood in play.",
+                require: [
+                  {
+                    color: Affinity.blue,
+                    connection: AffinityTypes.grid,
+                  },
+                  {
+                    color: Affinity.blue,
+                    connection: AffinityTypes.grid,
+                  },
+                ],
+            },
+            right: Affinity.blue,
+            top: Affinity.blue,
+        },
+        desc: "",
         id: 137,
         material: "2x leather, 1x bone",
         name: "Hunter Whip",
@@ -892,15 +937,20 @@ export const weapon: IItem[] = [
         },
     },
     {
-        desc: "spear,heavy, 2H. Reach 2.",
+        affinity: {
+          right: Affinity.red,
+        },
+        desc: "Reach 2",
         id: 140,
         material: "1x lion claw, 1x great cat bone",
         name: "King Spear",
         obtained: "Catarium",
         types: [
-            4,
-            26,
-            13,
+          ItemType.weapon,
+          ItemType.melee,
+          ItemType.spear,
+          ItemType.heavy,
+          ItemType.two_handed,
         ],
         weapon: {
             accuracy: 6,
@@ -998,15 +1048,15 @@ export const weapon: IItem[] = [
         },
     },
     {
-        desc: "weapon,melee,katar. Deadly (+1 luck with this weapon). Paired: When you attack, add the speed of a 2nd Lion Beast Katar in your gear grid.",
+        desc: "Deadly (+1 luck with this weapon). Paired: When you attack, add the speed of a 2nd Lion Beast Katar in your gear grid.",
         id: 146,
         material: "1x lion claw, 1x hide",
         name: "Lion Beast Katar",
         obtained: "Catarium",
         types: [
-            4,
-            20,
-            31,
+          ItemType.weapon,
+          ItemType.melee,
+          ItemType.katar,
         ],
         weapon: {
             accuracy: 7,
@@ -1188,7 +1238,10 @@ export const weapon: IItem[] = [
         },
     },
     {
-        desc: "whip,rawhide. Provoke: when you wound with this weapon, gain priority target token.",
+        affinity: {
+          bottom: Affinity.green,
+        },
+        desc: "Provoke: when you wound with this weapon, gain priority target token.",
         id: 157,
         material: "ammonia, 1x bone, 1x hide",
         name: "Rawhide Whip",
@@ -1311,7 +1364,27 @@ export const weapon: IItem[] = [
         },
     },
     {
-        desc: "sword,metal. On a perfect hit gain +4 strength for the rest of the attack. 2x 1-aff-red/1-aff-blue = gains Deadly.",
+        affinity: {
+            bonus: {
+                desc: "Gains Deadly",
+                require: [
+                    {
+                        color: Affinity.red,
+                        connection: AffinityTypes.grid,
+                    },
+                    {
+                        color: Affinity.red,
+                        connection: AffinityTypes.grid,
+                    },
+                    {
+                        color: Affinity.blue,
+                        connection: AffinityTypes.grid,
+                    },
+                ],
+            },
+            top: Affinity.blue,
+        },
+        desc: "sword,metal. On a perfect hit gain +4 strength for the rest of the attack.",
         id: 164,
         material: "heat, 2x bone, 1x scrap",
         name: "Scrap Sword",
@@ -1320,6 +1393,7 @@ export const weapon: IItem[] = [
             4,
             22,
             12,
+            ItemType.melee,
         ],
         weapon: {
             accuracy: 5,
@@ -1674,6 +1748,23 @@ export const weapon: IItem[] = [
         },
     },
     {
+        affinity: {
+            bonus: {
+                desc: "Gains Devastating 1: Whenever you wound, inflict an additional wound",
+                require: [
+                    {
+                        color: Affinity.red,
+                        connection: AffinityTypes.card,
+                    },
+                    {
+                        color: Affinity.green,
+                        connection: AffinityTypes.grid,
+                    },
+                ],
+            },
+            right: Affinity.green,
+            top: Affinity.red,
+        },
         desc: "grand,2H,bone. Slow, Frail, Deadly (+1 luck). 0.5-aff-red/1-aff-green = Gaints Devastating 1: whenever you wound, inflict 1 additional wound.",
         id: 185,
         material: "1x great cat bone, 2x hide",
@@ -1690,4 +1781,28 @@ export const weapon: IItem[] = [
             strength: 6,
         },
     },
+    {
+      affinity: {
+          left: Affinity.red,
+          right: Affinity.red,
+      },
+      desc: "Cumbersome: Additionaly spend movement to activate. Ignore on indirect activation (Pounce, Charge, etc)",
+      id: Item.bone_club,
+      material: "3x bone",
+      name: "Bone Club",
+      obtained: "Bone Smith",
+      types: [
+        ItemType.weapon,
+        ItemType.melee,
+        ItemType.two_handed,
+        ItemType.heavy,
+        ItemType.club,
+        ItemType.bone,
+      ],
+      weapon: {
+          accuracy: 6,
+          speed: 2,
+          strength: 5,
+      },
+  },
 ];
