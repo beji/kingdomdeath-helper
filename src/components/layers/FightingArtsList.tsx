@@ -32,10 +32,8 @@ interface IFightingArtslistProps extends IFightingArtslistStateProps, IFightingA
 
 const mapStateToProps = (state: IState): IFightingArtslistStateProps => {
     if (state.interface.layer && state.interface.layer.type === LayerType.fightingartlist) {
-        console.log("typ passt");
         if (typeof state.interface.layer.survivor !== "undefined") {
             const sid = state.interface.layer.survivor;
-            console.log("survivor ist auch da", sid);
             const survivor = state.settlement.survivors.find((s) => s.id === sid);
             if (survivor) {
                 return {

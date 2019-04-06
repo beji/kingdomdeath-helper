@@ -95,12 +95,10 @@ class Disorderslist extends React.Component<IDisorderslistProps, IDisorderslistS
     private selectDisorder(newArt: Disorders) {
         const currentlySelectedDisorders = this.props.currentlySelectedDisorders || [];
         const count = currentlySelectedDisorders.length + this.state.disordersToAdd.length - this.state.disordersToRemove.length;
-        if (count < 3) {
-            this.setState({
-                disordersToAdd: this.state.disordersToAdd.concat(newArt),
-                disordersToRemove: this.state.disordersToRemove.filter((art) => art !== newArt),
-            });
-        }
+        this.setState({
+            disordersToAdd: this.state.disordersToAdd.concat(newArt),
+            disordersToRemove: this.state.disordersToRemove.filter((art) => art !== newArt),
+        });
     }
     private deselectDisorder(artToDeselect: Disorders) {
         const currentlySelectedDisorders = this.props.currentlySelectedDisorders || [];

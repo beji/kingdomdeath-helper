@@ -27,16 +27,11 @@ interface ICheckboxProps {
     onChange: () => void;
 }
 
-class Checkbox extends React.Component<ICheckboxProps> {
-    public render() {
-        const { highlight = false, onChange, value } = this.props;
-        return (
-            <Wrapper>
-                {!highlight && <StyledCheckbox onClick={onChange} className={value ? "active" : ""} />}
-                {highlight && <HighlightedCheckbox onClick={onChange} className={value ? "active" : ""} />}
-            </Wrapper>
-        );
-    }
-}
+const Checkbox: React.SFC<ICheckboxProps> = ({ highlight = false, onChange, value }) => (
+    <Wrapper>
+        {!highlight && <StyledCheckbox onClick={onChange} className={value ? "active" : ""} />}
+        {highlight && <HighlightedCheckbox onClick={onChange} className={value ? "active" : ""} />}
+    </Wrapper>
+);
 
 export default Checkbox;

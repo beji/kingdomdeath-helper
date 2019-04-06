@@ -6,7 +6,7 @@ import initialState, { DEFAULT_SURVIVOR_NAME, newSurvivor } from "../../initials
 import { DefenseStats, Disorders, FightingArt, IGearGrid, ISettlement, ISurvivor, StatType } from "../../interfaces";
 import ActionTypes from "../../interfaces/actionTypes";
 import Actions from "../../interfaces/reducer";
-import { clone, getNewSurvivorID } from "../../util";
+import { clone, deduplicate, getNewSurvivorID } from "../../util";
 import { generateWithUpdatedSurvivors } from "../_helper";
 
 const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, action: Actions): ISettlement => {
@@ -269,7 +269,8 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
             });
         }
         case ActionTypes.UPDATE_SURVIVOR_FIGHTNG_ART: {
-            const { id, arts } = action.payload;
+            const { id, arts: artsWithDuplicates } = action.payload;
+            const arts = deduplicate(artsWithDuplicates);
             if (arts.length <= 3) {
                 return {
                     ...state,
@@ -288,21 +289,18 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
         }
         case ActionTypes.UPDATE_DISORDERS: {
             const { id, disorders } = action.payload;
-            if (disorders.length <= 3) {
-                return {
-                    ...state,
-                    survivors: state.survivors.map((survivor) => {
-                        if (survivor.id === id) {
-                            return {
-                                ...survivor,
-                                disorders: disorders.map((disorder: Disorders) => disorderList[disorder]),
-                            };
-                        }
-                        return survivor;
-                    }),
-                };
-            }
-            return state;
+            return {
+                ...state,
+                survivors: state.survivors.map((survivor) => {
+                    if (survivor.id === id) {
+                        return {
+                            ...survivor,
+                            disorders: deduplicate(disorders).map((disorder: Disorders) => disorderList[disorder]),
+                        };
+                    }
+                    return survivor;
+                }),
+            };
         }
         case ActionTypes.REMOVE_SURVIVOR: {
             const id = action.payload;
