@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateGearGridAction | ShowLayerA
 const mapStateToProps = (state: IState, ownProps: IGearCardOwnProps): IGearCardStateProps => {
     const grid = typeof ownProps.gridId !== "undefined" ? state.settlement.geargrids[ownProps.gridId] : undefined;
     const item = items.find((itm: IItem) => itm.id === ownProps.id);
-    const showDescButton = item ? item.desc.length > 40 : false;
+    const showDescButton = item ? item.desc.length > 150 : false;
     let slotKey;
     let affinityActive = false;
     let setActive = false;
@@ -69,6 +69,8 @@ const mapStateToProps = (state: IState, ownProps: IGearCardOwnProps): IGearCardS
 };
 
 const StyledCard = styled(Card)`
+    background: ${({theme}) => theme.gear.background};
+    color: ${({theme}) => theme.gear.text};
     line-height: 1rem;
     padding:1rem;
     margin:.5rem;
@@ -156,13 +158,16 @@ const WeaponSpeed = styled.div`
 `;
 
 const AffinityWrapper = styled.div`
-    border: 1px solid #fff;
+    background:rgba(100,100,100,0.3);
+    border: 1px solid #666;
+    color:#666;
     font-size:.875rem;
     padding:.125rem;
     text-align:left;
-    filter: brightness(60%);
     &.active {
-        filter: brightness(100%);
+        background: transparent;
+        border-color: #fff;
+        color: inherit;
     }
     &:empty {
       background:transparent;
@@ -172,8 +177,6 @@ const AffinityWrapper = styled.div`
 `;
 
 const AffinityRequirments = styled.span`
-    border: 1px solid ${colors.hintedBorder};
-    background: #aaa;
     display: inline-block;
     padding: .125rem;
     margin-right: .25rem;
@@ -189,6 +192,7 @@ const CloseIcon = styled.div`
     border:1px solid ${colors.hintedBorder};
     border-radius:50%;
     cursor:pointer;
+    font-size: .75rem;
     height:1.25rem;
     line-height:1.25rem;
     position:absolute;
@@ -197,7 +201,8 @@ const CloseIcon = styled.div`
     top:-.5rem;
     width:1.25rem;
     &:hover {
-        background:${colorMagentaLachs}
+        background:${colorMagentaLachs};
+        color: #fff;
     }
 `;
 

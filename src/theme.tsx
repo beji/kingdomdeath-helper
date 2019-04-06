@@ -20,7 +20,7 @@ export const theme = {
     text: "#fcfcfc",
   },
   gear: {
-    background: "#C7A888",
+    background: "linear-gradient(to bottom, #c7a888 0%,#dacaaf 50%,#c7a888 100%)",
     border: {
       base: "#646464",
       highlight: "#949494",
