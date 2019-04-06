@@ -33,6 +33,7 @@ export const theme = {
       serif: "font-family: 'Bitter', serif;",
       text: "font-family: 'Open Sans', sans-serif;",
     },
+    hightlightBackground: "#A12D6A",
   },
 };
 
