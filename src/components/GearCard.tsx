@@ -1,3 +1,4 @@
+import marked from "marked";
 import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
@@ -88,6 +89,9 @@ const CardDescription = styled.div`
     font-size:.75rem;
     margin-bottom: .25rem;
     padding: .25rem;
+    p {
+      margin: 0;
+    }
 `;
 const CardTypes = styled.div`
     font-size:.625rem;
@@ -181,6 +185,16 @@ const AffinityRequirments = styled.span`
     padding: .125rem;
     margin-right: .25rem;
 `;
+
+const AffintyDescription = styled.div`
+    display: inline;
+    font-size: 0.75rem;
+    p {
+      display: inline;
+      margin: 0;
+    }
+`;
+
 const MadeAt = styled.div`
     font-size:.625rem;
     margin-top:.25rem;
@@ -230,7 +244,7 @@ class GearCard extends React.Component<IGearCardProps> {
                     <CardHeadline>{name}</CardHeadline>
                     <CardTypes>{types && types.map((type, idx) => <span key={idx}>{(ItemType)[type]} </span>)}</CardTypes>
                     {showDescButton && <FancyButton onClick={this.showDescription}>Description</FancyButton>}
-                    {!showDescButton && desc && <CardDescription>{desc}</CardDescription>}
+                    {!showDescButton && desc && <CardDescription dangerouslySetInnerHTML={{ __html: marked(desc) }} />}
                     <CardStatsWrapper>
                         {weapon && <WeaponWrapper><div>{weapon.speed}</div><WeaponAcc>{weapon.accuracy}</WeaponAcc><WeaponSpeed>{weapon.strength}</WeaponSpeed></WeaponWrapper>}
                         {armorStat && <Shield>{armorStat.amount} <ShieldArmorType>{isShield ? "all" : capitalize(DefenseStats[armorStat.stat])}</ShieldArmorType></Shield>}
@@ -252,7 +266,7 @@ class GearCard extends React.Component<IGearCardProps> {
                 <div>
                     <AffinityWrapper className={this.props.affinityActive ? "active" : ""}>
                         {affinity.bonus && affinity.bonus.require && (<AffinityRequirments>{affinity.bonus.require.map((aff: IAffinity, idx: number) => <AffinityIcon key={idx} type={aff.connection} affinity={aff.color} />)}</AffinityRequirments>)}
-                        {affinity.bonus && affinity.bonus.desc}
+                        {affinity.bonus && <AffintyDescription dangerouslySetInnerHTML={{ __html: marked(affinity.bonus.desc) }} />}
                     </AffinityWrapper>
                     {directions.map((direction: string, idx) => affinity[direction] !== undefined && <AffinityIcon key={idx} affinity={affinity[direction]} type={AffinityTypes.connect} direction={direction} />)}
                 </div>
