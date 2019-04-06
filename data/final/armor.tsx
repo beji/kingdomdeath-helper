@@ -987,11 +987,31 @@ export const armor: IItem[] = [
         ],
     },
     {
-        desc: "2x 0.5-aff-green = at end of your act, you may move 1 space.",
+        affinity: {
+          bonus: {
+            desc: "At end of your act, you may move 1 space.",
+            require: [
+              {
+                color: Affinity.green,
+                connection: AffinityTypes.card,
+              },
+              {
+                color: Affinity.green,
+                connection: AffinityTypes.card,
+              },
+            ],
+          },
+          left: Affinity.green,
+          right: Affinity.green,
+        },
+        desc: "",
         id: 44,
         material: "1x leather, 1x hide",
         name: "Leather Boots",
         obtained: "Leather Worker",
+        set: {
+            id: GearSet.leather_armor,
+        },
         stats: [
             {
                 amount: 3,
@@ -1000,15 +1020,23 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+          ItemType.armor,
+          ItemType.set,
+          ItemType.leather,
         ],
     },
     {
+        affinity: {
+          right: Affinity.green,
+        },
         desc: "When you depart, gain +2 survival.",
         id: 45,
         material: "1x leather, 1x hide",
         name: "Leather Bracers",
         obtained: "Leather Worker",
+        set: {
+            id: GearSet.leather_armor,
+        },
         stats: [
             {
                 amount: 3,
@@ -1017,15 +1045,24 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+          ItemType.armor,
+          ItemType.set,
+          ItemType.leather,
         ],
     },
     {
+        affinity: {
+          bottom: Affinity.blue,
+          top: Affinity.red,
+        },
         desc: "",
         id: 46,
         material: "1x leather, 1x bone",
         name: "Leather Cuirass",
         obtained: "Leather Worker",
+        set: {
+            id: GearSet.leather_armor,
+        },
         stats: [
             {
                 amount: 3,
@@ -1034,15 +1071,24 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+          ItemType.armor,
+          ItemType.set,
+          ItemType.leather,
         ],
     },
     {
+        affinity: {
+          bottom: Affinity.red,
+          top: Affinity.blue,
+        },
         desc: "When you depart, gain +2 insanity.",
         id: 47,
         material: "1x leather, 1x scrap",
         name: "Leather Mask",
         obtained: "Leather Worker",
+        set: {
+            id: GearSet.leather_armor,
+        },
         stats: [
             {
                 amount: 3,
@@ -1051,15 +1097,23 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+            ItemType.armor,
+            ItemType.set,
+            ItemType.leather,
         ],
     },
     {
+        affinity: {
+          bottom: Affinity.green,
+        },
         desc: "",
         id: 48,
         material: "1x leather",
         name: "Leather Skirt",
         obtained: "Leather Worker",
+        set: {
+            id: GearSet.leather_armor,
+        },
         stats: [
             {
                 amount: 3,
@@ -1068,11 +1122,13 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+          ItemType.armor,
+          ItemType.set,
+          ItemType.leather,
         ],
     },
     {
-        desc: "",
+        desc: "Accessory: May wear this in addition to armor.",
         id: 49,
         material: "1x shimmering mane",
         name: "Lion Headdress",
@@ -1085,10 +1141,15 @@ export const armor: IItem[] = [
             },
         ],
         types: [
+            ItemType.item,
+            ItemType.flammable,
             ItemType.accessory,
         ],
     },
     {
+        affinity: {
+          right: Affinity.green,
+        },
         desc: "Reduce damage from every hit suffered by 1, to min of 1.",
         id: 50,
         material: "2x white fur",
@@ -1096,7 +1157,11 @@ export const armor: IItem[] = [
         obtained: "Catarium",
         stats: [],
         types: [
-            0,
+          ItemType.armor,
+          ItemType.fur,
+          ItemType.bone,
+          ItemType.heavy,
+          ItemType.flammable,
         ],
     },
     {
@@ -1491,6 +1556,9 @@ export const armor: IItem[] = [
         ],
     },
     {
+        affinity: {
+            top: Affinity.green,
+        },
         desc: "Block 1: spend action to ignore 1 hit location next time you are attacked. Lasts until your next act. Max 1 block/attack. Shield adds +1 armor to all locations.",
         id: 70,
         material: "1x leather, 1x bone, 1x hide",
@@ -1603,11 +1671,18 @@ export const armor: IItem[] = [
         },
     },
     {
-        desc: "When you Slam, you may pass through other survivors without causing collision.",
+        affinity: {
+            left: Affinity.red,
+            top: Affinity.green,
+        },
+        desc: "On Arrival add Arcanthus Plant terrain to showdown. +2 to roll result if you activate terrain",
         id: 73,
         material: "1x pelt, 1x hide",
         name: "Screaming Bracers",
         obtained: "Stone Circle",
+        set: {
+            id: GearSet.screaming_armor,
+        },
         stats: [
             {
                 amount: 2,
@@ -1616,15 +1691,26 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+            ItemType.armor,
+            ItemType.set,
+            ItemType.fur,
         ],
     },
     {
-        desc: "Slam: Spend move to move forward in a straight line. If you move 4+ and stop adjacent to monster, then move it back 1 space. It gains -1 toughness until end of round.",
+        affinity: {
+            bottom: Affinity.green,
+            left: Affinity.green,
+            right: Affinity.blue,
+            top: Affinity.blue,
+        },
+        desc: "Slam: Spend move to full move forward in a straight line. If you move 4+ and stop adjacent to monster, it suffers knockback 1 and -1 toughness until end of round.",
         id: 74,
         material: "1x pelt, 1x bone",
         name: "Screaming Coat",
         obtained: "Stone Circle",
+        set: {
+            id: GearSet.screaming_armor,
+        },
         stats: [
             {
                 amount: 2,
@@ -1633,15 +1719,23 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+            ItemType.armor,
+            ItemType.set,
+            ItemType.fur,
         ],
     },
     {
+        affinity: {
+          bottom: Affinity.blue,
+        },
         desc: "Spend action to Scream: non-deaf insane survivors gain +1 movement until end of round. All other survivors gain +1 insanity.",
         id: 75,
         material: "1x spiral horn, 1x scrap",
         name: "Screaming Horns",
         obtained: "Stone Circle",
+        set: {
+            id: GearSet.screaming_armor,
+        },
         stats: [
             {
                 amount: 3,
@@ -1650,15 +1744,24 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+            ItemType.armor,
+            ItemType.set,
+            ItemType.fur,
         ],
     },
     {
-        desc: "When you depart, gain +1 insanity.",
+        affinity: {
+          right: Affinity.red,
+          top: Affinity.blue,
+        },
+        desc: "On Arrival your feet hurt, gain +3 insanity",
         id: 76,
         material: "1x pelt, 1x hide",
         name: "Screaming Leg Warmers",
         obtained: "Stone Circle",
+        set: {
+            id: GearSet.screaming_armor,
+        },
         stats: [
             {
                 amount: 2,
@@ -1667,15 +1770,24 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+            ItemType.armor,
+            ItemType.set,
+            ItemType.fur,
         ],
     },
     {
-        desc: "",
+        affinity: {
+          bottom: Affinity.blue,
+          right: Affinity.green,
+        },
+        desc: "Add +1 to severe waist injury rolls.",
         id: 77,
         material: "1x pelt",
         name: "Screaming Skirt",
         obtained: "Stone Circle",
+        set: {
+            id: GearSet.screaming_armor,
+        },
         stats: [
             {
                 amount: 2,
@@ -1684,7 +1796,9 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+            ItemType.armor,
+            ItemType.set,
+            ItemType.fur,
         ],
     },
     {
@@ -1800,7 +1914,9 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+          ItemType.armor,
+          ItemType.bone,
+          ItemType.fragile,
         ],
     },
     {
@@ -1885,7 +2001,10 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+          ItemType.armor,
+          ItemType.set,
+          ItemType.fur,
+          ItemType.heavy,
         ],
     },
     {
@@ -1905,7 +2024,10 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+          ItemType.armor,
+          ItemType.set,
+          ItemType.fur,
+          ItemType.heavy,
         ],
     },
     {
@@ -1941,7 +2063,10 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+          ItemType.armor,
+          ItemType.set,
+          ItemType.fur,
+          ItemType.heavy,
         ],
     },
     {
@@ -1999,7 +2124,10 @@ export const armor: IItem[] = [
             },
         ],
         types: [
-            0,
+          ItemType.armor,
+          ItemType.set,
+          ItemType.fur,
+          ItemType.heavy,
         ],
     },
     {

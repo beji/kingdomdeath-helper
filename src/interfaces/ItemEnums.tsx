@@ -415,6 +415,7 @@ export const enum Item {
     threethousand_year_sunspot,
     stone_noses,
     beloved_rock,
+    bone_club,
 }
 
 export enum ItemType {
@@ -481,10 +482,18 @@ export enum ItemType {
     vermin,
     herb,
     noisy,
+    sickle,
+    instrument,
+    soluble,
+    stinky,
+    balm,
+    flammable,
 }
 
 export const enum GearSet {
     rawhide,
     dragon_armor,
     white_lion,
+    leather_armor,
+    screaming_armor,
 }

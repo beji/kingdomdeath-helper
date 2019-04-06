@@ -78,21 +78,27 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
                     // calculate affinities in this grid
                     let slots = gearGrid.slots.map((slot: IGridSlot, slotKey: number) => {
                         if (slot.content) {
-                            const thisCard = items.find((item) => item.id === slot.content);
+                            const thisCard: IItem = getGearItem(slot.content) as IItem;
                             const directions = [
                                 { o: "top", c: "bottom", slotId: slotKey - 3 },
                                 { o: "right", c: "left", slotId: slotKey % 3 === 2 ? -1 : slotKey + 1 },
                                 { o: "bottom", c: "top", slotId: slotKey + 3 },
                                 { o: "left", c: "right", slotId: slotKey % 3 === 0 ? -1 : slotKey - 1 },
                             ];
-                            const affinities = [] as Affinity[];
+                            const affinities: Affinity[] = [];
+
+                            // add card full affinity to affinites
+                            if (thisCard.affinity && thisCard.affinity.full !== undefined) {
+                                gridAffinities.push(thisCard.affinity.full);
+                                affinities.push(thisCard.affinity.full);
+                            }
 
                             // calculate slot affinities with adjacent slots and gridAffinities
                             directions.forEach((direction) => {
                                 if (direction.slotId > -1 && direction.slotId < 9) {
                                     if (gearGrid.slots[direction.slotId].content) {
                                         const card = items.find((item) => item.id === gearGrid.slots[direction.slotId].content);
-                                        const affinity = thisCard && thisCard.affinity && thisCard.affinity[direction.o];
+                                        const affinity = thisCard.affinity && thisCard.affinity[direction.o];
                                         const affinitySlotMarker = slotKey > direction.slotId ? `${direction.slotId}${slotKey}` : `${slotKey}${direction.slotId}`;
                                         if (affinity === (card && card.affinity && card.affinity[direction.c])) {
                                             affinities.push(affinity);

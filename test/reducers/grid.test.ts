@@ -30,6 +30,7 @@ describe("The grid reducer logic", () => {
     const itemBlueTopRedRight = items.find((item) => item.id === Item.rawhide_vest) as IItem;
     const itemRedLeft = items.find((item) => item.id === Item.rawhide_gloves) as IItem;
     const itemGreenLeft = items.find((item) => item.id === Item.monster_grease) as IItem;
+    const itemFullRedAffinty = items.find((item) => item.id === Item.red_charm) as IItem;
 
     it("should not add affinity if cards are not adjacent", () => {
       const state = clone(initialState);
@@ -73,6 +74,17 @@ describe("The grid reducer logic", () => {
       const survivorId = finalState.settlement.geargrids[0].survivorId as number;
       const finalSurvivor = finalState.settlement.survivors.find((survivor) => survivor.id === survivorId) as ISurvivor;
       expect(finalSurvivor.baseStats[BaseStats.evasion].gear, "survivor has 1 evasion from gear").to.equal(1);
+    });
+
+    it("should add affinity for item with full affinity on its own", () => {
+      const state = clone(initialState);
+      const testGrid = addItemToGrid(state.settlement.geargrids[0], itemFullRedAffinty.id, 0);
+
+      const finalState = reducer(state, updateGearSlotAffinity(testGrid));
+      const finalGridAffinity = finalState.settlement.geargrids[0].affinities;
+      expect(finalGridAffinity, "no blue affinity in grid").to.not.include(Affinity.blue);
+      expect(finalGridAffinity, "no green affinity in grid").to.not.include(Affinity.green);
+      expect(finalGridAffinity, "one red affinity in grid").to.include(Affinity.red);
     });
 
   });
