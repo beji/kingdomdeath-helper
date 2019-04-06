@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { showLayer } from "../actions";
 import { updateSurvivorStat } from "../actions/survivorActions";
+import { TextIcons } from "../data/Enums";
 import { ID, IDefenseStat, ISpecialStat, IState, SpecialStats } from "../interfaces";
 import { ShowLayerAction, UpdateSurvivorStatAction } from "../interfaces/actions";
 import { ISpecialStatLayer, LayerType } from "../interfaces/layer";
@@ -81,6 +82,14 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps> {
             const { stat } = this.props;
 
             switch (stat.stat) {
+                case SpecialStats.huntxp: {
+                    if ([2, 6, 10, 15].includes(stat.value)) {
+                        return `${TextIcons.BOOK} Age`;
+                    } else if (stat.value === 16) {
+                        return "Retired";
+                    }
+                    break;
+                }
                 case SpecialStats.weapon_proficiency: {
                     if (stat.value === 8) {
                         return "Master";
@@ -90,16 +99,16 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps> {
                 }
                 case SpecialStats.courage: {
                     if (stat.value === 9) {
-                        return "See the Truth";
+                        return `${TextIcons.BOOK} See the Truth`;
                     } else if (stat.value >= 3) {
-                        return "Bold";
+                        return `${TextIcons.BOOK} Bold`;
                     }
                 }
                 case SpecialStats.understanding: {
                     if (stat.value === 9) {
-                        return "Insight";
+                        return `${TextIcons.BOOK} White Secret`;
                     } else if (stat.value >= 3) {
-                        return "White Secret";
+                        return `${TextIcons.BOOK} Insight`;
                     }
                 }
                 default: return "";
