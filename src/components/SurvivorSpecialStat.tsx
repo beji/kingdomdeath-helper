@@ -97,9 +97,9 @@ class SurvivorSpecialStat extends React.Component<ISpecialStatProps> {
                 }
                 case SpecialStats.understanding: {
                     if (stat.value === 9) {
-                        return "Insight";
-                    } else if (stat.value >= 3) {
                         return "White Secret";
+                    } else if (stat.value >= 3) {
+                        return "Insight";
                     }
                 }
                 default: return "";
