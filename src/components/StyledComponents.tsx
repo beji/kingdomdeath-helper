@@ -7,11 +7,11 @@ const colorMagentaLachs = "#A12D6A";
 export { colorMagentaLachs };
 
 export const Card = styled.div`
-    color: ${colors.text};
-    border: 1px solid ${colors.cardBorder};
+    color: ${({theme}) => theme.card.text};
+    border: 1px solid ${({theme}) => theme.card.border.base};
     border-radius:.5rem;
     padding: 1vh 1vw;
-    background-color: ${colors.card};
+    background-color: ${({theme}) => theme.card.background};
     box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.75);
     &:hover{
         border-color: ${colorMagentaLachs}
@@ -21,7 +21,7 @@ export const Card = styled.div`
 export const CloseIcon = styled.div`
     background:#212121;
     color: #aaa;
-    border:1px solid ${colors.hintedBorder};
+    border:1px solid ${({theme}) => theme.card.border.hint};
     border-radius:50%;
     cursor:pointer;
     ${textFont}
@@ -85,10 +85,10 @@ export const FilterInput = styled.input`
     font-size:1rem;
     padding:.25rem;
     width: 80%;
-    background-color: ${colors.cardBorder};
+    background-color: ${({theme}) => theme.card.border.base};
     border: 1px solid ${colors.cardBorder};
     &::placeholder{
-        color: ${colors.hintedBorder}
+        color: ${({theme}) => theme.card.border.hint}
     }
 `;
 
@@ -119,7 +119,7 @@ export const ListElement = styled.div`
     margin:.25rem;
     padding:.5rem;
     &:hover {
-        background:${colors.cardBorder};
+        background:${({theme}) => theme.card.border.base};
         border-color:${colorMagentaLachs}
     }
 `;
@@ -129,5 +129,5 @@ export const SelectedListElement = styled(ListElement)`
 `;
 
 export const StyledText = styled.div`
-    color: ${colors.text}
+    color: ${({theme}) => theme.card.text}
 `;
