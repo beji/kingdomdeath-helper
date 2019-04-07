@@ -1,4 +1,4 @@
-FROM node:10.0-alpine as builder
+FROM node:10.15-alpine as builder
 ENV NODE_ENV=production
 WORKDIR /usr/src/app
 ADD . .
@@ -9,7 +9,7 @@ RUN yarn run build
 RUN yarn run test-only
 # CMD ["./node_modules/.bin/yarn", "run", "prod"]
 
-FROM node:10.0-alpine
+FROM node:10.15-alpine
 EXPOSE 3000
 ENV NODE_ENV=production
 WORKDIR /usr/src/app
