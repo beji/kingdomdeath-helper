@@ -209,7 +209,7 @@ export const weapon: IItem[] = [
       left: Affinity.red,
       top: Affinity.red,
     },
-    desc: 'On a Perfect Hit, gain +1 survival.',
+    desc: 'On a **Perfect Hit**, gain +1 survival.',
     id: 107,
     material: '1x bone',
     name: 'Bone Dagger',
@@ -225,7 +225,7 @@ export const weapon: IItem[] = [
     affinity: {
       left: Affinity.red,
     },
-    desc: 'Range: 6. Frail: When you attempt to wound a super-dense hit location, this weapon breaks. Archive the card at the END of the attack.',
+    desc: '**Range**: 6.\n\n**Frail**: When you attempt to wound a super-dense hit location, this weapon breaks. Archive the card at the END of the attack.',
     id: 108,
     material: '1x bone',
     name: 'Bone Darts',
@@ -242,7 +242,7 @@ export const weapon: IItem[] = [
       top: Affinity.green,
     },
     desc:
-      'Frail: When you attempt to wound a super-dense hit location, this weapon breaks. Archive the card at the END of the attack. After Hunt Phase setup, place Mineral Gathering event on any hunt space.',
+      '**Frail**: When you attempt to wound a super-dense hit location, this weapon breaks. Archive the card at the END of the attack. After Hunt Phase setup, place Mineral Gathering event on any hunt space.',
     id: 109,
     material: 'ammonia, 1x bone, 1x leather',
     name: 'Bone Pickaxe',
@@ -362,7 +362,7 @@ export const weapon: IItem[] = [
     affinity: {
       top: Affinity.blue,
     },
-    desc: 'Range: 6. Cumbersome: Spend move+action to activate. Aim: Reduce Speed to 1 to gain +2 accuracy.',
+    desc: '**Range**: 6. **Cumbersome**: Spend move+action to activate. Aim: Reduce Speed to 1 to gain +2 accuracy.',
     id: 116,
     material: '1x sinew, 1x bone',
     name: 'Cat Gut Bow',
@@ -404,12 +404,22 @@ export const weapon: IItem[] = [
     },
   },
   {
-    desc: 'weapon,melee,axe,2H. Reach 2. 0.5-aff-red = on a perfect hit, do not draw a hit location (monster suffers 1 wound).',
+    affinity: {
+      desc: 'On a **Perfect hit**, do not draw a hit location. Monster suffers 1 wound.',
+      require: [
+        {
+          color: Affinity.red,
+          connection: AffinityTypes.card,
+        },
+      ],
+      top: Affinity.red,
+    },
+    desc: '**Reach 2**',
     id: 119,
     material: '1x bone, 1x hide, 1x organ',
     name: 'Counterweighted Axe',
     obtained: 'Weapon Crafter',
-    types: [4, 20, 25],
+    types: [ItemType.weapon, ItemType.axe, ItemType.melee, ItemType.two_handed],
     weapon: {
       accuracy: 6,
       speed: 2,
@@ -483,12 +493,32 @@ export const weapon: IItem[] = [
     },
   },
   {
-    desc: 'weapon,melee,spear,2H. Reach 2. 1-aff-green/1-aff-blue/1-aff-red = if you have +5 survival then gain +1 accuracy and +1 strength.',
+    affinity: {
+      bonus: {
+        desc: 'If you have 5+ survival, gain +1 accuracy and +1 strength. (not added automatical)',
+        require: [
+          {
+            color: Affinity.green,
+            connection: AffinityTypes.grid,
+          },
+          {
+            color: Affinity.blue,
+            connection: AffinityTypes.grid,
+          },
+          {
+            color: Affinity.red,
+            connection: AffinityTypes.grid,
+          },
+        ],
+      },
+      top: Affinity.red,
+    },
+    desc: '**Reach 2.**',
     id: 125,
     material: '1x phoenix finger, 4x bone',
     name: 'Finger of God',
     obtained: 'Weapon Crafter',
-    types: [4, 20, 26],
+    types: [ItemType.weapon, ItemType.melee, ItemType.spear, ItemType.two_handed],
     weapon: {
       accuracy: 5,
       speed: 2,
@@ -792,7 +822,7 @@ export const weapon: IItem[] = [
     },
   },
   {
-    desc: 'Deadly (+1 luck with this weapon). Paired: When you attack, add the speed of a 2nd Lion Beast Katar in your gear grid.',
+    desc: '**Deadly** (+1 luck with this weapon). Paired: When you attack, add the speed of a 2nd Lion Beast Katar in your gear grid.',
     id: 146,
     material: '1x lion claw, 1x hide',
     name: 'Lion Beast Katar',
@@ -910,12 +940,32 @@ export const weapon: IItem[] = [
     },
   },
   {
-    desc: 'katana,finesse,2H. Frail. 0.5-aff-red/1-aff-green/1-aff-blue = gains Deadly.',
+    affinity: {
+      bonus: {
+        desc: 'Gains **Deadly**',
+        require: [
+          {
+            color: Affinity.red,
+            connection: AffinityTypes.card,
+          },
+          {
+            color: Affinity.green,
+            connection: AffinityTypes.grid,
+          },
+          {
+            color: Affinity.blue,
+            connection: AffinityTypes.grid,
+          },
+        ],
+      },
+      left: Affinity.red,
+    },
+    desc: '**Frail.**',
     id: 155,
     material: 'heat, 1x phoenix beak, 1x rainbow droppings, 1x iron, 6x bone',
     name: 'Rainbow Katana',
     obtained: 'Weapon Crafter',
-    types: [4, 45, 23],
+    types: [ItemType.weapon, ItemType.melee, ItemType.katana, ItemType.finesse, ItemType.two_handed],
     weapon: {
       accuracy: 4,
       speed: 4,
@@ -1018,12 +1068,16 @@ export const weapon: IItem[] = [
     },
   },
   {
-    desc: 'dagger,metal. On a perfect hit, gain +2 strength for the rest of the attack.',
+    affinity: {
+      bottom: Affinity.red,
+      right: Affinity.red,
+    },
+    desc: 'On a **Perfect hit**, gain +2 strength for the rest of the attack.',
     id: 163,
     material: 'heat, 1x bone, 1x scrap',
     name: 'Scrap Dagger',
     obtained: 'Weapon Crafter',
-    types: [4, 21, 12],
+    types: [ItemType.weapon, ItemType.melee, ItemType.dagger, ItemType.metal],
     weapon: {
       accuracy: 7,
       speed: 3,
@@ -1033,7 +1087,7 @@ export const weapon: IItem[] = [
   {
     affinity: {
       bonus: {
-        desc: 'Gains Deadly',
+        desc: 'Gains **Deadly**',
         require: [
           {
             color: Affinity.red,
@@ -1051,12 +1105,12 @@ export const weapon: IItem[] = [
       },
       top: Affinity.blue,
     },
-    desc: 'sword,metal. On a perfect hit gain +4 strength for the rest of the attack.',
+    desc: 'On a **Perfect hit** gain +4 strength for the rest of the attack.',
     id: 164,
     material: 'heat, 2x bone, 1x scrap',
     name: 'Scrap Sword',
     obtained: 'Weapon Crafter',
-    types: [4, 22, 12, ItemType.melee],
+    types: [ItemType.weapon, ItemType.melee, ItemType.sword, ItemType.metal],
     weapon: {
       accuracy: 5,
       speed: 2,
@@ -1090,12 +1144,15 @@ export const weapon: IItem[] = [
     },
   },
   {
-    desc: 'club,bone. On a perfect hit, monster is dazed and gains -1 speed token until end of its turn. Max -1/round.',
+    affinity: {
+      bottom: Affinity.green,
+    },
+    desc: 'On a **Perfect hit**, monster is dazed and gains -1 speed token until end of its turn. Monster can be dazed once per round.',
     id: 167,
     material: '2x bone, 1x scrap',
     name: 'Skullcap Hammer',
     obtained: 'Weapon Crafter',
-    types: [4, 29, 10],
+    types: [ItemType.weapon, ItemType.melee, ItemType.club, ItemType.bone],
     weapon: {
       accuracy: 7,
       speed: 2,
@@ -1300,12 +1357,15 @@ export const weapon: IItem[] = [
     },
   },
   {
-    desc: 'club,bone. On perfect hit, reveal next AI card. Place it on top or bottom of AI deck. Unwieldy: if any attack rolls are 1, you hit your self and suffer 1 damage.',
+    affinity: {
+      bottom: Affinity.green,
+    },
+    desc: 'On **Perfect hit**, reveal next AI card. Place it on top or bottom of AI deck.\n\n*Unwieldy**: if any attack rolls are 1, you hit your self and suffer 1 damage.',
     id: 183,
     material: '2x bone, 1x organ',
     name: 'Whistling Mace',
     obtained: 'Weapon Crafter',
-    types: [4, 29, 10],
+    types: [ItemType.weapon, ItemType.melee, ItemType.club, ItemType.bone],
     weapon: {
       accuracy: 6,
       speed: 3,
@@ -1328,7 +1388,7 @@ export const weapon: IItem[] = [
   {
     affinity: {
       bonus: {
-        desc: 'Gains Devastating 1: Whenever you wound, inflict an additional wound',
+        desc: 'Gains **Devastating 1**: Whenever you wound, inflict an additional wound',
         require: [
           {
             color: Affinity.red,
@@ -1343,12 +1403,12 @@ export const weapon: IItem[] = [
       right: Affinity.green,
       top: Affinity.red,
     },
-    desc: 'grand,2H,bone. Slow, Frail, Deadly (+1 luck). 0.5-aff-red/1-aff-green = Gaints Devastating 1: whenever you wound, inflict 1 additional wound.',
+    desc: '**Slow, Frail, Deadly** (+1 luck)',
     id: 185,
     material: '1x great cat bone, 2x hide',
     name: 'Zanbato',
     obtained: 'Weapon Crafter',
-    types: [4, 37, 10],
+    types: [ItemType.grand, ItemType.two_handed, ItemType.bone],
     weapon: {
       accuracy: 6,
       speed: 1,
@@ -1360,7 +1420,7 @@ export const weapon: IItem[] = [
       left: Affinity.red,
       right: Affinity.red,
     },
-    desc: 'Cumbersome: Additionaly spend movement to activate. Ignore on indirect activation (Pounce, Charge, etc)',
+    desc: '**Cumbersome**: Additionaly spend movement to activate. Ignore on indirect activation (Pounce, Charge, etc)',
     id: Item.bone_club,
     material: '3x bone',
     name: 'Bone Club',
