@@ -1,20 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
-import { colors } from '../theme'
-import { colorMagentaLachs } from './StyledComponents'
 
 const Wrapper = styled.div`
   display: inline-block;
 `
 const StyledCheckbox = styled.div`
-  border: 1px solid ${colors.text};
+  border: 1px solid ${({ theme }) => theme.card.text};
   cursor: pointer;
   display: inline-block;
   margin: 0 0.25vh;
   width: 1rem;
   height: 1rem;
   &.active {
-    background: ${colorMagentaLachs};
+    background: ${({ theme }) => theme.page.hightlightBackground};
   }
 `
 const HighlightedCheckbox = styled(StyledCheckbox)`
