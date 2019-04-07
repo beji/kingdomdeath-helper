@@ -1,3 +1,3 @@
 export enum TextIcons {
-    BOOK = "📖",
+  BOOK = '📖',
 }
