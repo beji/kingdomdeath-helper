@@ -236,9 +236,7 @@ describe('The reducer', () => {
     })
 
     it('should allow to set an empty name', () => {
-      const name = 'horst'
       const state = clone(initialState)
-      const action = setPlayerName(name, 0)
       const emptyAction = setPlayerName('', 0)
       const result = reducer(state, emptyAction)
       expect(result.settlement.geargrids[0].playername).to.equal('')
