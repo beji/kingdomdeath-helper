@@ -284,19 +284,23 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
       return state
     }
     case ActionTypes.UPDATE_DISORDERS: {
-      const { id, disorders } = action.payload
-      return {
-        ...state,
-        survivors: state.survivors.map(survivor => {
-          if (survivor.id === id) {
-            return {
-              ...survivor,
-              disorders: deduplicate(disorders).map((disorder: Disorders) => disorderList[disorder]),
+      const { id } = action.payload
+      const disorders = deduplicate(action.payload.disorders)
+      if (disorders.length <= 3) {
+        return {
+          ...state,
+          survivors: state.survivors.map(survivor => {
+            if (survivor.id === id) {
+              return {
+                ...survivor,
+                disorders: deduplicate(disorders).map((disorder: Disorders) => disorderList[disorder]),
+              }
             }
-          }
-          return survivor
-        }),
+            return survivor
+          }),
+        }
       }
+      return state
     }
     case ActionTypes.REMOVE_SURVIVOR: {
       const id = action.payload
