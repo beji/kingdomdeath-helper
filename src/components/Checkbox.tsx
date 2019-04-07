@@ -12,7 +12,7 @@ const StyledCheckbox = styled.div`
   width: 1rem;
   height: 1rem;
   &.active {
-    background: ${({ theme }) => theme.page.hightlightBackground};
+    background: ${({ theme }) => theme.page.background.highlight};
   }
 `
 const HighlightedCheckbox = styled(StyledCheckbox)`

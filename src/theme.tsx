@@ -34,7 +34,7 @@ export const theme = {
   page: {
     background: {
       base: '#3D3D3D',
-      hightlight: '#A12D6A',
+      highlight: '#A12D6A',
     },
     font: {
       serif: "font-family: 'Bitter', serif;",
