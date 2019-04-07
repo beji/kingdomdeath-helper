@@ -2,6 +2,7 @@ import ActionTypes from '../actionTypes'
 import { ID } from '../generics'
 import { Disorders, FightingArt, Gender, IBaseStat, IDefenseStat, ISpecialStat, ISurvivor } from '../survivor'
 import IAction from './genericAction'
+import { WeaponProficiency } from '../weaponproficiencies'
 
 export type UpdateSurvivorAction = IAction<ActionTypes.UPDATE_SURVIVOR, ISurvivor>
 
@@ -22,3 +23,5 @@ export type UpdateSurvivorFightingArtsAction = IAction<ActionTypes.UPDATE_SURVIV
 export type UpdateSurvivorDisordersAction = IAction<ActionTypes.UPDATE_DISORDERS, { id: ID; disorders: Disorders[] }>
 
 export type RemoveSurvivorAction = IAction<ActionTypes.REMOVE_SURVIVOR, ID>
+
+export type UpdateSurvivorWeaponProficiencyAction = IAction<ActionTypes.UPDATE_WEAPON_PROFICIENCY, { survivorId: ID; proficiency?: WeaponProficiency }>

@@ -1,4 +1,4 @@
-import { Disorders, FightingArt, Gender, IBaseStat, ID, IDefenseStat, ISpecialStat, ISurvivor } from '../interfaces'
+import { Disorders, FightingArt, Gender, IBaseStat, ID, IDefenseStat, ISpecialStat, ISurvivor, WeaponProficiency } from '../interfaces'
 import {
   CreateSurvivorAction,
   KillSurvivorAction,
@@ -10,6 +10,7 @@ import {
   UpdateSurvivorGenderAction,
   UpdateSurvivorNameAction,
   UpdateSurvivorStatAction,
+  UpdateSurvivorWeaponProficiencyAction,
 } from '../interfaces/actions'
 import ActionTypes from '../interfaces/actionTypes'
 
@@ -76,4 +77,12 @@ export const updateSurvivorDisorders = (id: ID, disorders: Disorders[]): UpdateS
 export const removeSurvivor = (id: ID): RemoveSurvivorAction => ({
   payload: id,
   type: ActionTypes.REMOVE_SURVIVOR,
+})
+
+export const updateWeaponProficiency = (survivorId: ID, proficiency?: WeaponProficiency): UpdateSurvivorWeaponProficiencyAction => ({
+  payload: {
+    proficiency,
+    survivorId,
+  },
+  type: ActionTypes.UPDATE_WEAPON_PROFICIENCY,
 })
