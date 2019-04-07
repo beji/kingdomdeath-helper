@@ -8,8 +8,8 @@
   "scripts": {
     "start": "yarn run dev",
     "dev": "npm-run-all dev:*",
-    "lint": "eslint --ext .tsx --ext .ts \"{src,data}/**/*.{ts,tsx}\" --fix",
-    "format": "prettier-eslint --write \"{src,data}/**/*.{ts,tsx}\"",
+    "lint": "eslint --ext .tsx --ext .ts \"{src,data,test}/**/*.{ts,tsx}\" --fix",
+    "format": "prettier-eslint --write \"{src,data,test}/**/*.{ts,tsx}\"",
     "dev:test": "mocha",
     "dev:run": "cross-env NODE_ENV=development ts-node ./src/hmr.ts",
     "prod": "cross-env NODE_ENV=production node ./src/hmr.js",
