@@ -1,3 +1,3 @@
-type UUID = string;
-type ID = number;
-export { UUID, ID };
+type UUID = string
+type ID = number
+export { UUID, ID }
