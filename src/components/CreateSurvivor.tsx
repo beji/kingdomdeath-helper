@@ -1,34 +1,34 @@
-import React from "react";
-import { SyntheticEvent } from "react";
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import { createSurvivor } from "../actions/survivorActions";
-import { CreateSurvivorAction } from "../interfaces/actions";
-import { FancyButton } from "./StyledComponents";
+import React from 'react'
+import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+import { createSurvivor } from '../actions/survivorActions'
+import { CreateSurvivorAction } from '../interfaces/actions'
+import { FancyButton } from './StyledComponents'
 
 interface ICreateSurvivorDispatchProps {
-    createSurvivor: () => CreateSurvivorAction;
+  createSurvivor: () => CreateSurvivorAction
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<CreateSurvivorAction>): ICreateSurvivorDispatchProps => ({
-    createSurvivor: () => dispatch(createSurvivor()),
-});
+  createSurvivor: () => dispatch(createSurvivor()),
+})
 
 class CreateSurvivor extends React.Component<ICreateSurvivorDispatchProps> {
-    public constructor(props: any) {
-        super(props);
+  public constructor(props: ICreateSurvivorDispatchProps) {
+    super(props)
 
-        this.handleClick = this.handleClick.bind(this);
-    }
-    public render() {
-        return (
-            <FancyButton onClick={this.handleClick}>Create Survivor</FancyButton>
-        );
-    }
+    this.handleClick = this.handleClick.bind(this)
+  }
+  public render() {
+    return <FancyButton onClick={this.handleClick}>Create Survivor</FancyButton>
+  }
 
-    private handleClick(e: SyntheticEvent<HTMLButtonElement>) {
-        this.props.createSurvivor();
-    }
+  private handleClick() {
+    this.props.createSurvivor()
+  }
 }
 
-export default connect(null, mapDispatchToProps)(CreateSurvivor);
+export default connect(
+  null,
+  mapDispatchToProps,
+)(CreateSurvivor)
