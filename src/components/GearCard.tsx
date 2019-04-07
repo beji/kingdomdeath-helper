@@ -8,10 +8,9 @@ import { updateGear } from '../actions/gearActions'
 import items from '../data/ItemDataHelper'
 import { AffinityTypes, DefenseStats, IAffinity, ID, IGearGrid, IGridSlot, IItem, ISimpleLayer, IState, Item, ItemType, LayerType, StatType } from '../interfaces'
 import { ShowLayerAction, UpdateGearGridAction } from '../interfaces/actions'
-import { colors, serifFont } from '../theme'
 import { capitalize } from '../util'
 import AffinityIcon from './AffinityIcon'
-import { Card, colorMagentaLachs, FancyButton } from './StyledComponents'
+import { Card, FancyButton } from './StyledComponents'
 
 interface IGearCardDispatchProps {
   updateGear: (gearGrid: IGearGrid) => UpdateGearGridAction
@@ -71,7 +70,7 @@ const mapStateToProps = (state: IState, ownProps: IGearCardOwnProps): IGearCardS
 
 const StyledCard = styled(Card)`
   background: ${({ theme }) => theme.gear.background};
-  color: ${({ theme }) => theme.gear.text};
+  color: ${({ theme }) => theme.gear.text.base};
   line-height: 1rem;
   padding: 1rem;
   margin: 0.5rem;
@@ -79,13 +78,13 @@ const StyledCard = styled(Card)`
   position: relative;
 `
 const CardHeadline = styled.div`
-  ${serifFont};
+  ${({ theme }) => theme.page.font.serif}
   font-weight: bold;
   padding-left: 1rem;
   text-align: center;
 `
 const CardDescription = styled.div`
-  border: 1px solid #fff;
+  border: 1px solid ${({ theme }) => theme.gear.border.highlight};
   font-size: 0.75rem;
   margin-bottom: 0.25rem;
   padding: 0.25rem;
@@ -164,14 +163,14 @@ const WeaponSpeed = styled.div`
 
 const AffinityWrapper = styled.div`
   background: rgba(100, 100, 100, 0.3);
-  border: 1px solid #666;
-  color: #666;
+  border: 1px solid ${({ theme }) => theme.gear.border.hint};
+  color: ${({ theme }) => theme.gear.text.hint};
   font-size: 0.875rem;
   padding: 0.125rem;
   text-align: left;
   &.active {
     background: transparent;
-    border-color: #fff;
+    border-color: ${({ theme }) => theme.gear.border.highlight};
     color: inherit;
   }
   &:empty {
@@ -203,8 +202,8 @@ const MadeAt = styled.div`
 `
 
 const CloseIcon = styled.div`
-  background: #ccc;
-  border: 1px solid ${colors.hintedBorder};
+  background: ${({ theme }) => theme.card.background};
+  border: 1px solid ${({ theme }) => theme.card.border.hint};
   border-radius: 50%;
   cursor: pointer;
   font-size: 0.75rem;
@@ -216,7 +215,7 @@ const CloseIcon = styled.div`
   top: -0.5rem;
   width: 1.25rem;
   &:hover {
-    background: ${colorMagentaLachs};
+    background: ${({ theme }) => theme.card.border.highlight};
     color: #fff;
   }
 `

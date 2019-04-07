@@ -23,18 +23,26 @@ export const theme = {
     background: 'linear-gradient(to bottom, #c7a888 0%,#dacaaf 50%,#c7a888 100%)',
     border: {
       base: '#646464',
-      highlight: '#949494',
+      highlight: '#fff',
+      hint: '#666',
     },
-    hightlightBackground: '#A12D6A',
-    text: '#252525',
+    text: {
+      base: '#252525',
+      hint: '#666',
+    },
   },
   page: {
-    background: '#3D3D3D',
+    background: {
+      base: '#3D3D3D',
+      hightlight: '#A12D6A',
+    },
     font: {
       serif: "font-family: 'Bitter', serif;",
       text: "font-family: 'Open Sans', sans-serif;",
     },
   },
 }
+
+export type Theme = typeof theme
 
 export default theme
