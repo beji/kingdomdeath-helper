@@ -6,7 +6,8 @@ import { Dispatch } from 'redux'
 import { hideLayer, updateSurvivorDisorders } from '../../actions'
 import { Disorders, ID, IDisorder, IState, LayerType } from '../../interfaces'
 import { HideLayerAction, UpdateSurvivorDisordersAction } from '../../interfaces/actions'
-import { CloseIcon, FancyButton, FilterInput, List, ListElement, ListWrapper, SelectedListElement } from './../StyledComponents'
+import { deduplicate } from '../../util'
+import { CloseIcon, FancyButton, FilterInput, List, ListElement, ListWrapper, SelectedListElement, SimpleLayerHeadline } from './../StyledComponents'
 
 interface IDisorderslistState {
   disordersToAdd: Disorders[]
@@ -65,9 +66,12 @@ class Disorderslist extends React.Component<IDisorderslistProps, IDisorderslistS
 
   public render() {
     if (typeof this.props.id !== 'undefined') {
+      const currentlySelectedDisorders = this.props.currentlySelectedDisorders || []
+      const count = currentlySelectedDisorders.length + this.state.disordersToAdd.length - this.state.disordersToRemove.length
       return (
         <ListWrapper>
           <CloseIcon onClick={this.props.hideLayer}>X</CloseIcon>
+          <SimpleLayerHeadline>{count} / 3</SimpleLayerHeadline>
           <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} autoFocus={true} />
           <List>
             {this.state.disorders.map((disorder, idx) => (
@@ -91,10 +95,14 @@ class Disorderslist extends React.Component<IDisorderslistProps, IDisorderslistS
     return <ListElement onClick={this.selectDisorder.bind(this, art.id)}>{art.name}</ListElement>
   }
   private selectDisorder(newArt: Disorders) {
-    this.setState({
-      disordersToAdd: this.state.disordersToAdd.concat(newArt),
-      disordersToRemove: this.state.disordersToRemove.filter(art => art !== newArt),
-    })
+    const currentlySelectedDisorders = this.props.currentlySelectedDisorders || []
+    const count = currentlySelectedDisorders.length + this.state.disordersToAdd.length - this.state.disordersToRemove.length
+    if (count < 3) {
+      this.setState({
+        disordersToAdd: this.state.disordersToAdd.concat(newArt),
+        disordersToRemove: this.state.disordersToRemove.filter(art => art !== newArt),
+      })
+    }
   }
   private deselectDisorder(artToDeselect: Disorders) {
     this.setState({
@@ -106,8 +114,8 @@ class Disorderslist extends React.Component<IDisorderslistProps, IDisorderslistS
   private submit() {
     if (typeof this.props.id !== 'undefined') {
       const { disordersToAdd, disordersToRemove } = this.state
-      const arts = (this.props.currentlySelectedDisorders || []).concat(disordersToAdd).filter(art => !disordersToRemove.includes(art))
-      this.props.updateSurvivorDisorder(this.props.id, arts)
+      const disorders = (this.props.currentlySelectedDisorders || []).concat(disordersToAdd).filter(art => !disordersToRemove.includes(art))
+      this.props.updateSurvivorDisorder(this.props.id, deduplicate(disorders) as Disorders[])
       this.props.hideLayer()
     }
   }

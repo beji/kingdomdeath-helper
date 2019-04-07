@@ -6,7 +6,8 @@ import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { hideLayer, updateSurvivorFightingArt } from '../../actions'
 import { FightingArt, ID, IFightingArt, IState, LayerType } from '../../interfaces'
-import { CloseIcon, FancyButton, FilterInput, List, ListElement, ListWrapper, SelectedListElement } from '../StyledComponents'
+import { CloseIcon, FancyButton, FilterInput, List, ListElement, ListWrapper, SelectedListElement, SimpleLayerHeadline } from '../StyledComponents'
+import { deduplicate } from '../../util'
 
 interface IFightingArtslistState {
   artsToAdd: FightingArt[]
@@ -65,9 +66,12 @@ class FightingArtslist extends React.Component<IFightingArtslistProps, IFighting
 
   public render() {
     if (typeof this.props.survivor !== 'undefined') {
+      const currentlySelectedArts = this.props.currentlySelectedArts || []
+      const count = currentlySelectedArts.length + this.state.artsToAdd.length - this.state.artsToRemove.length
       return (
         <ListWrapper>
           <CloseIcon onClick={this.props.hideLayer}>X</CloseIcon>
+          <SimpleLayerHeadline>{count} / 3</SimpleLayerHeadline>
           <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} autoFocus={true} />
           <List>
             {this.state.arts.map((art, idx) => (
@@ -111,7 +115,7 @@ class FightingArtslist extends React.Component<IFightingArtslistProps, IFighting
     if (typeof this.props.survivor !== 'undefined') {
       const { artsToAdd, artsToRemove } = this.state
       const arts = (this.props.currentlySelectedArts || []).concat(artsToAdd).filter(art => !artsToRemove.includes(art))
-      this.props.updateSurvivorFightingArt(this.props.survivor, arts)
+      this.props.updateSurvivorFightingArt(this.props.survivor, deduplicate(arts) as FightingArt[])
       this.props.hideLayer()
     }
   }
