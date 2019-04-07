@@ -9,10 +9,7 @@ export type UpdateSurvivorNameAction = IAction<ActionTypes.UPDATE_SURVIVOR_NAME,
 
 export type UpdateSurvivorGenderAction = IAction<ActionTypes.UPDATE_SURVIVOR_GENDER, { id: ID; gender: Gender }>
 
-export type UpdateSurvivorStatAction = IAction<
-    ActionTypes.UPDATE_SURVIVOR_STAT,
-    { stat: IBaseStat | IDefenseStat | ISpecialStat; survivorId: ID }
->
+export type UpdateSurvivorStatAction = IAction<ActionTypes.UPDATE_SURVIVOR_STAT, { stat: IBaseStat | IDefenseStat | ISpecialStat; survivorId: ID }>
 
 export type KillSurvivorAction = IAction<ActionTypes.KILL_SURVIVOR, ID>
 
@@ -20,10 +17,7 @@ export type ReviveSurvivorAction = IAction<ActionTypes.REVIVE_SURVIVOR, ID>
 
 export type CreateSurvivorAction = IAction<ActionTypes.CREATE_SURVIVOR, undefined>
 
-export type UpdateSurvivorFightingArtsAction = IAction<
-    ActionTypes.UPDATE_SURVIVOR_FIGHTNG_ART,
-    { id: ID; arts: FightingArt[] }
->
+export type UpdateSurvivorFightingArtsAction = IAction<ActionTypes.UPDATE_SURVIVOR_FIGHTNG_ART, { id: ID; arts: FightingArt[] }>
 
 export type UpdateSurvivorDisordersAction = IAction<ActionTypes.UPDATE_DISORDERS, { id: ID; disorders: Disorders[] }>
 

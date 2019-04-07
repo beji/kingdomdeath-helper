@@ -1,6 +1,6 @@
 import ActionTypes from '../actionTypes'
 import { IGearGrid } from '../gear'
-import { ID, UUID } from '../generics'
+import { ID } from '../generics'
 import IAction from './genericAction'
 
 export type SetPlayerNameAction = IAction<ActionTypes.SET_PLAYER_NAME, { name: string; gridId: ID }>

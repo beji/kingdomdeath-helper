@@ -20,13 +20,13 @@ const GlobalStyle = createGlobalStyle`
 `
 
 hydrate(
-    <Provider store={configureStore()}>
-        <GlobalStyle />
-        <App />
-    </Provider>,
-    document.getElementById('content'),
+  <Provider store={configureStore()}>
+    <GlobalStyle />
+    <App />
+  </Provider>,
+  document.getElementById('content'),
 )
 
 if (module.hot) {
-    module.hot.accept()
+  module.hot.accept()
 }

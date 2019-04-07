@@ -1,4 +1,4 @@
-import Actions, { RemoteableActions } from 'interfaces/reducer'
+import { RemoteableActions } from 'interfaces/reducer'
 import ActionTypes from '../actionTypes'
 import { ISettlement } from '../settlement'
 import IAction from './genericAction'

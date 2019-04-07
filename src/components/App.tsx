@@ -4,7 +4,7 @@ import React, { SyntheticEvent } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter, Route } from 'react-router-dom'
 import { Dispatch } from 'redux'
-import styled from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import { hideLayer } from '../actions'
 import Home from '../pages'
 import InnovationsPage from '../pages/innovations'
@@ -21,74 +21,78 @@ import SpecialStatLayer from './layers/SpecialStatLayer'
 import NavBar from './NavBar'
 import SocketConnector from './SocketConnector'
 
+import theme from '../theme'
+
 const AppWrapper = styled.div`
-    margin: 2.5rem 1vw 1vh;
+  margin: 2.5rem 1vw 1vh;
 `
 
 interface IAppStateProps {
-    readonly layerActive?: boolean
+  readonly layerActive?: boolean
 }
 
 interface IAppDispatchProps {
-    hideLayer: () => HideLayerAction
+  hideLayer: () => HideLayerAction
 }
 
 interface IAppProps extends IAppStateProps, IAppDispatchProps {}
 
 const BlurWrapper = styled.div<IAppStateProps>`
-    ${({ layerActive }) => layerActive && 'filter: blur(5px) brightness(50%)'}
+  ${({ layerActive }) => layerActive && 'filter: blur(5px) brightness(50%)'}
 `
 
 const mapStateToProps = (state: IState): IAppStateProps => ({
-    layerActive: typeof state.interface.layer !== 'undefined',
+  layerActive: typeof state.interface.layer !== 'undefined',
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<HideLayerAction>): IAppDispatchProps => ({
-    hideLayer: () => dispatch(hideLayer()),
+  hideLayer: () => dispatch(hideLayer()),
 })
 
 class App extends React.Component<IAppProps> {
-    public constructor(props: IAppProps) {
-        super(props)
-        this.hideLayer = this.hideLayer.bind(this)
-    }
+  public constructor(props: IAppProps) {
+    super(props)
+    this.hideLayer = this.hideLayer.bind(this)
+  }
 
-    public render() {
-        return (
-            <BrowserRouter>
-                <React.Fragment>
-                    <AppWrapper>
-                        <BlurWrapper layerActive={this.props.layerActive} onClick={this.hideLayer}>
-                            <Route exact={true} path="/" component={Home} />
-                            <Route path="/card/:cardnumber" component={SurvivorCardPage} />
-                            <Route path="/view/:type" component={ViewPage} />
-                            <Route path="/innovations" component={InnovationsPage} />
-                            <ExportForm />
-                            <SocketConnector />
-                        </BlurWrapper>
-                        <SimpleLayer />
-                        <BaseStatLayer />
-                        <DefenseStatLayer />
-                        <SpecialStatLayer />
-                        <DisordersList />
-                        <FightingArtsList />
-                        <GearList />
-                    </AppWrapper>
-                    <NavBar />
-                </React.Fragment>
-            </BrowserRouter>
-        )
-    }
+  public render() {
+    return (
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <>
+            <AppWrapper>
+              <BlurWrapper layerActive={this.props.layerActive} onClick={this.hideLayer}>
+                <Route exact={true} path="/" component={Home} />
+                <Route path="/card/:cardnumber" component={SurvivorCardPage} />
+                <Route path="/view/:type" component={ViewPage} />
+                <Route path="/innovations" component={InnovationsPage} />
+                <ExportForm />
+                <SocketConnector />
+              </BlurWrapper>
+              <SimpleLayer />
+              <BaseStatLayer />
+              <DefenseStatLayer />
+              <SpecialStatLayer />
+              <DisordersList />
+              <FightingArtsList />
+              <GearList />
+            </AppWrapper>
+            <NavBar />
+          </>
+        </ThemeProvider>
+      </BrowserRouter>
+    )
+  }
 
-    private hideLayer(e: SyntheticEvent<HTMLElement>) {
-        if (this.props.layerActive) {
-            e.stopPropagation()
-            this.props.hideLayer()
-        }
+  private hideLayer(e: SyntheticEvent<HTMLElement>) {
+    if (this.props.layerActive) {
+      e.stopPropagation()
+      this.props.hideLayer()
     }
+  }
 }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps,
 )(App)

@@ -9,63 +9,66 @@ import { clone } from '../util'
 import { FancyButton } from './StyledComponents'
 
 interface IExportFormProps extends ISettlement {
-    importSettlement: (settlement: ISettlement) => ImportAction
+  importSettlement: (settlement: ISettlement) => ImportAction
 }
 
 interface IExportFormState {
-    content: string
+  content: string
 }
 
 const mapStateToProps = (state: IState): IExportFormProps => {
-    return clone(state.settlement) as IExportFormProps
+  return clone(state.settlement) as IExportFormProps
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<ImportAction>) => ({
-    importSettlement: (settlement: ISettlement) => dispatch(importSettlement(settlement)),
+  importSettlement: (settlement: ISettlement) => dispatch(importSettlement(settlement)),
 })
 
 class ExportForm extends Component<IExportFormProps, IExportFormState> {
-    private textfield: RefObject<any>
+  private textfield: RefObject<HTMLTextAreaElement>
 
-    public constructor(props: IExportFormProps) {
-        super(props)
-        this.handleImport = this.handleImport.bind(this)
-        this.handleChange = this.handleChange.bind(this)
-        this.handleExport = this.handleExport.bind(this)
-        this.textfield = createRef()
-    }
+  public constructor(props: IExportFormProps) {
+    super(props)
+    this.handleImport = this.handleImport.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleExport = this.handleExport.bind(this)
+    this.textfield = createRef()
+  }
 
-    public render() {
-        const context = this.context as any
-        return (
-            <form>
-                <textarea ref={this.textfield} defaultValue="" readOnly={false} onChange={this.handleChange} />
-                <div>
-                    <FancyButton onClick={this.handleImport}>Import</FancyButton>
-                    <FancyButton onClick={this.handleExport}>Export</FancyButton>
-                </div>
-            </form>
-        )
-    }
+  public render() {
+    return (
+      <form>
+        <textarea ref={this.textfield} defaultValue="" readOnly={false} onChange={this.handleChange} />
+        <div>
+          <FancyButton onClick={this.handleImport}>Import</FancyButton>
+          <FancyButton onClick={this.handleExport}>Export</FancyButton>
+        </div>
+      </form>
+    )
+  }
 
-    private handleImport(e: SyntheticEvent<HTMLButtonElement>) {
-        e.preventDefault()
-        const importData = JSON.parse(atob(this.textfield.current.value)) as ISettlement
-        this.props.importSettlement(importData)
+  private handleImport(e: SyntheticEvent<HTMLButtonElement>) {
+    e.preventDefault()
+    if (this.textfield.current) {
+      const importData = JSON.parse(atob(this.textfield.current.value)) as ISettlement
+      this.props.importSettlement(importData)
     }
+  }
 
-    private handleExport(e: SyntheticEvent<HTMLButtonElement>) {
-        e.preventDefault()
-        const exportData = btoa(JSON.stringify(this.props))
-        this.textfield.current.value = exportData
+  private handleExport(e: SyntheticEvent<HTMLButtonElement>) {
+    e.preventDefault()
+    const exportData = btoa(JSON.stringify(this.props))
+    if (this.textfield.current) {
+      this.textfield.current.value = exportData
     }
+  }
 
-    private handleChange(e: SyntheticEvent<HTMLTextAreaElement>) {
-        e.preventDefault()
-    }
+  private handleChange(e: SyntheticEvent<HTMLTextAreaElement>) {
+    e.preventDefault()
+  }
 }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps,
 )(ExportForm)
