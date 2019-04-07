@@ -25,14 +25,15 @@ export const theme = {
       base: '#646464',
       highlight: '#949494',
     },
-    page: {
-      background: '#3D3D3D',
-      font: {
-        serif: "font-family: 'Bitter', serif;",
-        text: "font-family: 'Open Sans', sans-serif;",
-      },
-    },
     hightlightBackground: '#A12D6A',
+    text: '#252525',
+  },
+  page: {
+    background: '#3D3D3D',
+    font: {
+      serif: "font-family: 'Bitter', serif;",
+      text: "font-family: 'Open Sans', sans-serif;",
+    },
   },
 }
 
