@@ -10,15 +10,15 @@
     "dev": "npm-run-all dev:*",
     "lint": "eslint --ext .tsx --ext .ts \"{src,data,test}/**/*.{ts,tsx}\" --fix",
     "format": "prettier-eslint --write \"{src,data,test}/**/*.{ts,tsx}\"",
-    "dev:test": "mocha",
-    "dev:run": "cross-env NODE_ENV=development ts-node ./src/hmr.ts",
+    "dev:test": "cross-env TS_NODE_PROJECT=./tsconfig.commonjs.json mocha",
+    "dev:run": "cross-env NODE_ENV=development ts-node --project ./tsconfig.commonjs.json ./src/hmr.ts",
     "prod": "cross-env NODE_ENV=production node ./src/hmr.js",
     "build": "npm-run-all build:*",
     "build:client": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.client.prod.js",
     "build:server": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.server.prod.js",
     "build:hmr": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.hmr.prod.js",
-    "test": "nyc mocha",
-    "test-only": "mocha"
+    "test": "cross-env TS_NODE_PROJECT=./tsconfig.commonjs.json nyc mocha",
+    "test-only": "cross-env TS_NODE_PROJECT=./tsconfig.commonjs.json mocha"
   },
   "nyc": {
     "extension": [
