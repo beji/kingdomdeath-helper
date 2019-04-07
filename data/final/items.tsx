@@ -163,12 +163,15 @@ export const items: IItem[] = [
     types: [ItemType.item, ItemType.soluble],
   },
   {
-    desc: 'Block 1. When Rainbow Katana is left of blood sheath, it loses Frail and gains Sharp (add 1d10 strength to each wound attempt).',
+    affinity: {
+      left: Affinity.arrow,
+    },
+    desc: '**Block 1.**\n\nWhen Rainbow Katana is left of Blood Sheath, it loses **Frail** and gains **Sharp** (+1d10 strength on each wound attempt).',
     id: 201,
     material: '5x organ, 1x hollow wing bone, 1x muculent droppings',
     name: 'Blood Sheath',
     obtained: 'Weapon Crafter',
-    types: [],
+    types: [ItemType.item, ItemType.bone, ItemType.other],
   },
   {
     desc: '0.5-aff-green/0.5-aff-blue = when you are picked as target, roll 1d10. On 6+ monster must pick a new target if possible.',
@@ -203,7 +206,7 @@ export const items: IItem[] = [
     types: [ItemType.item, ItemType.jewelry],
   },
   {
-    desc: 'All nuclear gear cards in your gear grid gain Deadly 2.',
+    desc: 'All nuclear gear cards in your gear grid gain **Deadly 2**.',
     id: 204,
     material: '1x shining liver, 1x iron',
     name: 'Blue Power Core',
