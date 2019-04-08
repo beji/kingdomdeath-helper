@@ -330,6 +330,24 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
         }),
       }
     }
+    case ActionTypes.UPDATE_WEAPON_PROFICIENCY: {
+      const { survivorId, proficiency } = action.payload
+      return {
+        ...state,
+        survivors: state.survivors.map(survivor => {
+          if (survivor.id === survivorId) {
+            return {
+              ...survivor,
+              weaponproficiency: {
+                ...survivor.weaponproficiency,
+                proficiency,
+              },
+            }
+          }
+          return survivor
+        }),
+      }
+    }
     default:
       return state
   }
