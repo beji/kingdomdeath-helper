@@ -11,6 +11,7 @@ import {
   UpdateSurvivorNameAction,
   UpdateSurvivorStatAction,
   UpdateSurvivorWeaponProficiencyAction,
+  UpdateSurvivorWeaponProficiencyLevelAction,
 } from '../interfaces/actions'
 import ActionTypes from '../interfaces/actionTypes'
 
@@ -85,4 +86,12 @@ export const updateWeaponProficiency = (survivorId: ID, proficiency?: WeaponProf
     survivorId,
   },
   type: ActionTypes.UPDATE_WEAPON_PROFICIENCY,
+})
+
+export const updateSurvivorWeaponProficiencyLevel = (id: ID, level: number): UpdateSurvivorWeaponProficiencyLevelAction => ({
+  payload: {
+    id,
+    level,
+  },
+  type: ActionTypes.UPDATE_WEAPON_PROFICIENCY_LEVEL,
 })

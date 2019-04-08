@@ -25,3 +25,5 @@ export type UpdateSurvivorDisordersAction = IAction<ActionTypes.UPDATE_DISORDERS
 export type RemoveSurvivorAction = IAction<ActionTypes.REMOVE_SURVIVOR, ID>
 
 export type UpdateSurvivorWeaponProficiencyAction = IAction<ActionTypes.UPDATE_WEAPON_PROFICIENCY, { survivorId: ID; proficiency?: WeaponProficiency }>
+
+export type UpdateSurvivorWeaponProficiencyLevelAction = IAction<ActionTypes.UPDATE_WEAPON_PROFICIENCY_LEVEL, { id: ID; level: number }>
