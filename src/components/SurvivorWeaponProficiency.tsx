@@ -8,6 +8,7 @@ import { ID, IState, ISurvivor, IWeaponProficiencyLayer, LayerType } from '../in
 import { ShowLayerAction, UpdateSurvivorWeaponProficiencyLevelAction } from '../interfaces/actions'
 import Checkbox from './Checkbox'
 import { FancyButton } from './StyledComponents'
+import WeaponProficiencyItem from './WeaponProficiencyItem'
 
 interface ISurvivorWeaponProficiencyStateProps {
   survivor?: ISurvivor
@@ -59,7 +60,7 @@ class SurvivorWeaponProficiency extends React.Component<ISurvivorWeaponProficien
         <div>
           <FancyButton onClick={this.showWeaponProficiencies}>Manage weapon proficiency</FancyButton>
         </div>
-        {typeof weaponproficiency.proficiency !== 'undefined' && <div>{weaponproficiencies[weaponproficiency.proficiency].name}</div>}
+        {typeof weaponproficiency.proficiency !== 'undefined' && <WeaponProficiencyItem proficiency={weaponproficiencies[weaponproficiency.proficiency]} />}
         <div>
           {Array.apply(null, Array(8)).map((_el, n) => {
             const active = n < weaponproficiency.value
