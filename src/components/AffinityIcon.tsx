@@ -79,7 +79,7 @@ const HalfIcon = styled(CompleteIcon)`
     }}
 `
 
-const AffinityIcon: React.SFC<IAffinityIconProps> = ({ affinity, direction, type }) => {
+const AffinityIcon: React.FunctionComponent<IAffinityIconProps> = ({ affinity, direction, type }) => {
   switch (type) {
     case AffinityTypes.card: {
       return <PuzzleIcon affinity={affinity} title="Affinity on this card" />
