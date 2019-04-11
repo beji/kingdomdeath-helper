@@ -32,29 +32,16 @@ const mapDispatchToProps = (dispatch: Dispatch<ShowLayerAction>): IFightingArtIt
   showLayer: (layer: ISimpleLayer) => dispatch(showLayer(layer)),
 })
 
-class FightingArtItem extends React.Component<IFightingArtItemProps> {
-  public constructor(props: IFightingArtItemProps) {
-    super(props)
-
-    this.showDescription = this.showDescription.bind(this)
-  }
-
-  public render() {
-    const { art } = this.props
-    return (
-      <React.Fragment>
-        <FightingArtItemWrapper onClick={this.showDescription}>{art.name}</FightingArtItemWrapper>
-      </React.Fragment>
-    )
-  }
-  private showDescription() {
-    const { art } = this.props
-    this.props.showLayer({
+const FightingArtItem: React.FunctionComponent<IFightingArtItemProps> = ({ art, showLayer }) => {
+  const showDescription = () => {
+    showLayer({
       content: art.description,
       headline: art.name,
       type: LayerType.simple,
     })
   }
+
+  return <FightingArtItemWrapper onClick={showDescription}>{art.name}</FightingArtItemWrapper>
 }
 
 export default connect(

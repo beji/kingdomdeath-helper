@@ -49,47 +49,39 @@ const mapDispatchToProps = (dispatch: Dispatch<HideLayerAction>): IAppDispatchPr
   hideLayer: () => dispatch(hideLayer()),
 })
 
-class App extends React.Component<IAppProps> {
-  public constructor(props: IAppProps) {
-    super(props)
-    this.hideLayer = this.hideLayer.bind(this)
-  }
-
-  public render() {
-    return (
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <>
-            <AppWrapper>
-              <BlurWrapper layerActive={this.props.layerActive} onClick={this.hideLayer}>
-                <Route exact={true} path="/" component={Home} />
-                <Route path="/card/:cardnumber" component={SurvivorCardPage} />
-                <Route path="/view/:type" component={ViewPage} />
-                <Route path="/innovations" component={InnovationsPage} />
-                <ExportForm />
-                <SocketConnector />
-              </BlurWrapper>
-              <SimpleLayer />
-              <BaseStatLayer />
-              <DefenseStatLayer />
-              <SpecialStatLayer />
-              <DisordersList />
-              <FightingArtsList />
-              <GearList />
-            </AppWrapper>
-            <NavBar />
-          </>
-        </ThemeProvider>
-      </BrowserRouter>
-    )
-  }
-
-  private hideLayer(e: SyntheticEvent<HTMLElement>) {
-    if (this.props.layerActive) {
+const App: React.FunctionComponent<IAppProps> = ({ layerActive, hideLayer }) => {
+  const hideLayerIfActive = (e: SyntheticEvent<HTMLElement>) => {
+    if (layerActive) {
       e.stopPropagation()
-      this.props.hideLayer()
+      hideLayer()
     }
   }
+  return (
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <>
+          <AppWrapper>
+            <BlurWrapper layerActive={layerActive} onClick={hideLayerIfActive}>
+              <Route exact={true} path="/" component={Home} />
+              <Route path="/card/:cardnumber" component={SurvivorCardPage} />
+              <Route path="/view/:type" component={ViewPage} />
+              <Route path="/innovations" component={InnovationsPage} />
+              <ExportForm />
+              <SocketConnector />
+            </BlurWrapper>
+            <SimpleLayer />
+            <BaseStatLayer />
+            <DefenseStatLayer />
+            <SpecialStatLayer />
+            <DisordersList />
+            <FightingArtsList />
+            <GearList />
+          </AppWrapper>
+          <NavBar />
+        </>
+      </ThemeProvider>
+    </BrowserRouter>
+  )
 }
 
 export default connect(

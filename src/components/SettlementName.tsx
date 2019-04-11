@@ -46,46 +46,28 @@ const mapDispatchToProps = (dispatch: Dispatch<SetNameAction | UpdateSurvivalLim
   updateSurvivalLimit: (survivalLimit: number) => dispatch(updateSurvivalLimit(survivalLimit)),
 })
 
-class SettlementName extends React.Component<ISettlementNameProps> {
-  private valuefield?: HTMLInputElement
+const SettlementName: React.FunctionComponent<ISettlementNameProps> = ({ name, survivalLimit, setName, updateSurvivalLimit }) => {
+  let valuefield: HTMLInputElement | null = null
 
-  public constructor(props: ISettlementNameProps) {
-    super(props)
-    this.handleNameUpdate = this.handleNameUpdate.bind(this)
-    this.renderName = this.renderName.bind(this)
-    this.setupValueRef = this.setupValueRef.bind(this)
-    this.handleSLChange = this.handleSLChange.bind(this)
-    this.state = {
-      editmode: false,
-    }
+  const handleNameUpdate = (newName: string) => {
+    setName(newName)
   }
-  public render() {
-    return (
-      <Wrapper>
-        <StyledName>
-          <NameEdit name={this.props.name || 'The town with no name'} updateFunc={this.handleNameUpdate} />
-        </StyledName>
-        Survival Limit: <NumberEdit innerRef={this.setupValueRef} value={this.props.survivalLimit} changeFunc={this.handleSLChange} />
-      </Wrapper>
-    )
-  }
-
-  private handleNameUpdate(newName: string) {
-    this.props.setName(newName)
-  }
-  private handleSLChange() {
-    if (this.valuefield) {
-      this.props.updateSurvivalLimit(parseInt(this.valuefield.value, 10))
+  const handleSLChange = () => {
+    if (valuefield) {
+      updateSurvivalLimit(parseInt(valuefield.value, 10))
     }
   }
 
-  private renderName(name: string) {
-    return <h1>{name}</h1>
-  }
+  const setupValueRef = (elem: HTMLInputElement) => (valuefield = elem)
 
-  private setupValueRef(elem: HTMLInputElement) {
-    this.valuefield = elem
-  }
+  return (
+    <Wrapper>
+      <StyledName>
+        <NameEdit name={name || 'The town with no name'} updateFunc={handleNameUpdate} />
+      </StyledName>
+      Survival Limit: <NumberEdit innerRef={setupValueRef} value={survivalLimit} changeFunc={handleSLChange} />
+    </Wrapper>
+  )
 }
 
 export default connect(

@@ -38,44 +38,38 @@ interface INumberEditProps {
   value: number
 }
 
-export default class NumberEdit extends React.Component<INumberEditProps> {
-  private textfield?: HTMLInputElement
-  private displayfield?: HTMLInputElement
+const NumberEdit: React.FunctionComponent<INumberEditProps> = ({ addToDisplay, innerRef, changeFunc, value }) => {
+  let textfield: HTMLInputElement | null = null
+  let displayfield: HTMLInputElement | null = null
 
-  public constructor(props: INumberEditProps) {
-    super(props)
-    this.setupInputRef = this.setupInputRef.bind(this)
-    this.setupDisplayRef = this.setupDisplayRef.bind(this)
-  }
-  public render() {
-    const { addToDisplay, value } = this.props
-    return (
-      <Fragment>
-        <FancyButtonLeft onClick={this.handleValueChange.bind(this, -1)}>-</FancyButtonLeft>
-        <StyledInput type="text" ref={this.setupDisplayRef} value={(value + (addToDisplay || 0)).toString()} readOnly={true} />
-        <FancyButtonRight onClick={this.handleValueChange.bind(this, 1)}>+</FancyButtonRight>
-        <HiddenInput type="text" ref={this.setupInputRef} value={value.toString()} readOnly={true} />
-      </Fragment>
-    )
-  }
-
-  private handleValueChange(increment: number) {
-    if (this.textfield && this.textfield.value && this.displayfield) {
-      const oldValue = parseInt(this.textfield.value, 10)
-      this.textfield.value = (oldValue + increment).toString()
-      this.displayfield.value = ((this.props.addToDisplay || 0) + oldValue + increment).toString()
+  const handleValueChange = (increment: number) => {
+    if (textfield && textfield.value && displayfield) {
+      const oldValue = parseInt(textfield.value, 10)
+      textfield.value = (oldValue + increment).toString()
+      displayfield.value = ((addToDisplay || 0) + oldValue + increment).toString()
     }
-    if (this.props.changeFunc) {
-      this.props.changeFunc()
+    if (changeFunc) {
+      changeFunc()
     }
   }
 
-  private setupInputRef(elem: HTMLInputElement) {
-    this.textfield = elem
-    this.props.innerRef(elem)
+  const setupInputRef = (elem: HTMLInputElement) => {
+    textfield = elem
+    innerRef(elem)
   }
 
-  private setupDisplayRef(elem: HTMLInputElement) {
-    this.displayfield = elem
+  const setupDisplayRef = (elem: HTMLInputElement) => {
+    displayfield = elem
   }
+
+  return (
+    <Fragment>
+      <FancyButtonLeft onClick={() => handleValueChange(-1)}>-</FancyButtonLeft>
+      <StyledInput type="text" ref={setupDisplayRef} value={(value + (addToDisplay || 0)).toString()} readOnly={true} />
+      <FancyButtonRight onClick={() => handleValueChange(1)}>+</FancyButtonRight>
+      <HiddenInput type="text" ref={setupInputRef} value={value.toString()} readOnly={true} />
+    </Fragment>
+  )
 }
+
+export default NumberEdit

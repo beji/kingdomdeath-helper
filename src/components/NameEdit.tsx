@@ -1,4 +1,4 @@
-import { KeyboardEvent } from 'react'
+import { KeyboardEvent, useState } from 'react'
 import React from 'react'
 import { Fragment } from 'react'
 import styled from 'styled-components'
@@ -30,55 +30,36 @@ interface INameEditState {
   editName: boolean
 }
 
-export default class NameEdit extends React.Component<INameEditProps, INameEditState> {
-  private textfield?: HTMLInputElement
+const NameEdit: React.FunctionComponent<INameEditProps> = ({ name, updateFunc }) => {
+  const [editName, setEdit] = useState(false)
 
-  public constructor(props: INameEditProps) {
-    super(props)
-    this.state = {
-      editName: false,
-    }
-    this.handleKeyPress = this.handleKeyPress.bind(this)
-    this.handleNameBlur = this.handleNameBlur.bind(this)
-    this.handleNameClick = this.handleNameClick.bind(this)
-    this.setupTextRef = this.setupTextRef.bind(this)
-  }
-  public render() {
-    const { editName } = this.state
-    const { name } = this.props
-    if (editName) {
-      return (
-        <Fragment>
-          <StyledInput type="text" ref={this.setupTextRef} defaultValue={name} onKeyPress={this.handleKeyPress} autoFocus={true} />
-          <FancyButtonRight onClick={this.handleNameBlur}>✓</FancyButtonRight>
-        </Fragment>
-      )
-    } else {
-      return <EditableTarget onClick={this.handleNameClick}>{name} &#9998;</EditableTarget>
+  let textfield: HTMLInputElement | null = null
+
+  const setupTextRef = (elem: HTMLInputElement) => (textfield = elem)
+  const handleNameClick = () => setEdit(true)
+  const handleNameBlur = () => {
+    if (textfield && textfield.value) {
+      const newName = textfield.value
+      updateFunc(newName)
+      setEdit(false)
     }
   }
-
-  private setupTextRef(elem: HTMLInputElement) {
-    this.textfield = elem
-  }
-
-  private handleNameClick() {
-    this.setState({
-      editName: true,
-    })
-  }
-  private handleNameBlur() {
-    if (this.textfield && this.textfield.value) {
-      const newName = this.textfield.value
-      this.props.updateFunc(newName)
-      this.setState({
-        editName: false,
-      })
-    }
-  }
-  private handleKeyPress(e: KeyboardEvent<HTMLInputElement>) {
+  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      this.handleNameBlur()
+      handleNameBlur()
     }
+  }
+
+  if (editName) {
+    return (
+      <Fragment>
+        <StyledInput type="text" ref={setupTextRef} defaultValue={name} onKeyPress={handleKeyPress} autoFocus={true} />
+        <FancyButtonRight onClick={handleNameBlur}>✓</FancyButtonRight>
+      </Fragment>
+    )
+  } else {
+    return <EditableTarget onClick={handleNameClick}>{name} &#9998;</EditableTarget>
   }
 }
+
+export default NameEdit
