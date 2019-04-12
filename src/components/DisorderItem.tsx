@@ -1,11 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import styled from 'styled-components'
 import { showLayer } from '../actions'
 import { IDisorder, ISimpleLayer, LayerType } from '../interfaces'
 import { ShowLayerAction } from '../interfaces/actions'
-import { colorMagentaLachs } from './StyledComponents'
+import { ListItem } from './StyledComponents'
 
 interface IDisorderItemOwnProps {
   disorder: IDisorder
@@ -16,17 +15,6 @@ interface IDisorderItemDispatchProps {
 }
 
 interface IDisorderItemProps extends IDisorderItemOwnProps, IDisorderItemDispatchProps {}
-
-const DisorderItemWrapper = styled.div`
-  cursor: pointer;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-  &:before {
-    content: '►';
-    color: ${colorMagentaLachs};
-    margin-right: 0.25rem;
-  }
-`
 
 const mapDispatchToProps = (dispatch: Dispatch<ShowLayerAction>): IDisorderItemDispatchProps => ({
   showLayer: (layer: ISimpleLayer) => dispatch(showLayer(layer)),
@@ -40,7 +28,7 @@ const DisorderItem: React.FunctionComponent<IDisorderItemProps> = ({ disorder, s
       type: LayerType.simple,
     })
   }
-  return <DisorderItemWrapper onClick={showDescription}>{disorder.name}</DisorderItemWrapper>
+  return <ListItem onClick={showDescription}>{disorder.name}</ListItem>
 }
 
 export default connect(

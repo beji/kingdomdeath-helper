@@ -4,7 +4,7 @@ import { Dispatch } from 'redux'
 import styled from 'styled-components'
 import { updateSurvivor, updateSurvivorName } from '../actions/survivorActions'
 import { BaseStats, DefenseStats, ID, IState, ISurvivor } from '../interfaces'
-import { UpdateSurvivorAction, UpdateSurvivorNameAction } from '../interfaces/actions'
+import { UpdateSurvivorAction, UpdateSurvivorNameAction, UpdateSurvivorWeaponProficiencyLevelAction } from '../interfaces/actions'
 import { colors } from '../theme'
 import { capitalize, clone, specialStatToString } from '../util'
 import Checkbox from './Checkbox'
@@ -17,6 +17,7 @@ import SurvivorDisorders from './SurvivorDisorders'
 import SurvivorFightingArts from './SurvivorFightingArts'
 import SurvivorSpecialStat from './SurvivorSpecialStat'
 import { StatLabel, SurvivorStat } from './SurvivorStatElements'
+import SurvivorWeaponProficiency from './SurvivorWeaponProficiency'
 
 const StyledCard = styled(Card)`
   flex: 1 1 45%;
@@ -76,7 +77,7 @@ interface ISurvivorCardState {
   firstnameEdit: boolean
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorAction | UpdateSurvivorNameAction>): ISurvivorCardDispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorAction | UpdateSurvivorNameAction | UpdateSurvivorWeaponProficiencyLevelAction>): ISurvivorCardDispatchProps => ({
   updateSurvivor: (survivor: ISurvivor) => dispatch(updateSurvivor(survivor)),
   updateSurvivorName: (id: ID, name: string) => dispatch(updateSurvivorName(id, name)),
 })
@@ -140,6 +141,7 @@ class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardStat
             <SurvivorFightingArts id={id} />
             <SurvivorDisorders id={id} />
           </TextSection>
+          <SurvivorWeaponProficiency id={id} />
           <StatSection>
             {survivor.specialstats.map((specialStat, idx) => (
               <SurvivorStat key={idx}>

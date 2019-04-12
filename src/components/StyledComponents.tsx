@@ -127,3 +127,14 @@ export const SelectedListElement = styled(ListElement)`
 export const StyledText = styled.div`
   color: ${({ theme }) => theme.card.text};
 `
+
+export const ListItem = styled.div`
+  cursor: pointer;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  &:before {
+    content: '►';
+    color: ${colorMagentaLachs};
+    margin-right: 0.25rem;
+  }
+`

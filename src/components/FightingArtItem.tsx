@@ -1,11 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import styled from 'styled-components'
 import { showLayer } from '../actions'
 import { IFightingArt, ISimpleLayer, LayerType } from '../interfaces'
 import { ShowLayerAction } from '../interfaces/actions'
-import { colorMagentaLachs } from './StyledComponents'
+import { ListItem } from './StyledComponents'
 
 interface IFightingArtItemOwnProps {
   art: IFightingArt
@@ -16,17 +15,6 @@ interface IFightingArtItemDispatchProps {
 }
 
 interface IFightingArtItemProps extends IFightingArtItemOwnProps, IFightingArtItemDispatchProps {}
-
-const FightingArtItemWrapper = styled.div`
-  cursor: pointer;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-  &:before {
-    content: '►';
-    color: ${colorMagentaLachs};
-    margin-right: 0.25rem;
-  }
-`
 
 const mapDispatchToProps = (dispatch: Dispatch<ShowLayerAction>): IFightingArtItemDispatchProps => ({
   showLayer: (layer: ISimpleLayer) => dispatch(showLayer(layer)),
@@ -41,7 +29,7 @@ const FightingArtItem: React.FunctionComponent<IFightingArtItemProps> = ({ art, 
     })
   }
 
-  return <FightingArtItemWrapper onClick={showDescription}>{art.name}</FightingArtItemWrapper>
+  return <ListItem onClick={showDescription}>{art.name}</ListItem>
 }
 
 export default connect(
