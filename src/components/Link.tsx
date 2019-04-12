@@ -28,15 +28,10 @@ const StyledRouterLink = styled(RouterLink)`
   }
 `
 
-class Link extends React.Component<ILinkStateProps & ILinkOwnProps> {
-  public render() {
-    const { children, settlementId } = this.props
-    return (
-      <StyledRouterLink className={this.props.className} to={`${this.props.to}?id=${settlementId}`}>
-        {children}
-      </StyledRouterLink>
-    )
-  }
-}
+const Link: React.FunctionComponent<ILinkStateProps & ILinkOwnProps> = ({ children, settlementId, className, to }) => (
+  <StyledRouterLink className={className} to={`${to}?id=${settlementId}`}>
+    {children}
+  </StyledRouterLink>
+)
 
 export default connect(mapStateToProps)(Link)

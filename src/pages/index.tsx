@@ -76,56 +76,48 @@ const mapStateToProps = (state: IState): IAppProps => {
   }
 }
 
-class App extends React.Component<IAppProps> {
-  public render() {
-    const { geargrids, survivors, aliveCount, aliveFemale, aliveMale } = this.props
+const renderSurvivorListItem = (idx: number, id: ID) => <SurvivorListItem key={idx} id={id} />
 
-    return (
-      <AppWrapper>
-        <SettlementName />
-        <TabList>
-          {geargrids &&
-            geargrids.map(
-              ({ id, name }, idx) =>
-                name && (
-                  <Tab label={name} key={idx}>
-                    <GearGrid id={id} />
-                  </Tab>
-                ),
-            )}
-        </TabList>
-        <div>
-          <ResetHunt />
-        </div>
-        <StyledText>
-          Population: {aliveCount ? aliveCount : 0} (&#x2642; {aliveMale}, &#x2640; {aliveFemale}), dead:{' '}
-          {aliveCount && this.props.survivors ? this.props.survivors.length - aliveCount : 'all of them apparently'}
-        </StyledText>
-        <SurvivorList>
-          <SurvivorListHead>
-            <SurvivorListHeadCell>Name</SurvivorListHeadCell>
-            <SurvivorListHeadCell>Gender</SurvivorListHeadCell>
-            <SurvivorListHeadCell>Insanity</SurvivorListHeadCell>
-            <SurvivorListHeadCell>Survival</SurvivorListHeadCell>
-            <SurvivorListHeadCell>Accuracy</SurvivorListHeadCell>
-            <SurvivorListHeadCell>Evasion</SurvivorListHeadCell>
-            <SurvivorListHeadCell>Luck</SurvivorListHeadCell>
-            <SurvivorListHeadCell>Movement</SurvivorListHeadCell>
-            <SurvivorListHeadCell>Speed</SurvivorListHeadCell>
-            <SurvivorListHeadCell>Strength</SurvivorListHeadCell>
-            <SurvivorListHeadCell>Hunting</SurvivorListHeadCell>
-            <SurvivorListHeadCell>Kill/Revive</SurvivorListHeadCell>
-          </SurvivorListHead>
-          {survivors && survivors.map((id, idx) => this.renderSurvivorListItem(idx, id))}
-        </SurvivorList>
-        <CreateSurvivor />
-      </AppWrapper>
-    )
-  }
-
-  private renderSurvivorListItem(idx: number, id: ID) {
-    return <SurvivorListItem key={idx} id={id} />
-  }
-}
+const App: React.FunctionComponent<IAppProps> = ({ geargrids, aliveCount, aliveFemale, aliveMale, survivors }) => (
+  <AppWrapper>
+    <SettlementName />
+    <TabList>
+      {geargrids &&
+        geargrids.map(
+          ({ id, name }, idx) =>
+            name && (
+              <Tab label={name} key={idx}>
+                <GearGrid id={id} />
+              </Tab>
+            ),
+        )}
+    </TabList>
+    <div>
+      <ResetHunt />
+    </div>
+    <StyledText>
+      Population: {aliveCount ? aliveCount : 0} (&#x2642; {aliveMale}, &#x2640; {aliveFemale}), dead:{' '}
+      {aliveCount && survivors ? survivors.length - aliveCount : 'all of them apparently'}
+    </StyledText>
+    <SurvivorList>
+      <SurvivorListHead>
+        <SurvivorListHeadCell>Name</SurvivorListHeadCell>
+        <SurvivorListHeadCell>Gender</SurvivorListHeadCell>
+        <SurvivorListHeadCell>Insanity</SurvivorListHeadCell>
+        <SurvivorListHeadCell>Survival</SurvivorListHeadCell>
+        <SurvivorListHeadCell>Accuracy</SurvivorListHeadCell>
+        <SurvivorListHeadCell>Evasion</SurvivorListHeadCell>
+        <SurvivorListHeadCell>Luck</SurvivorListHeadCell>
+        <SurvivorListHeadCell>Movement</SurvivorListHeadCell>
+        <SurvivorListHeadCell>Speed</SurvivorListHeadCell>
+        <SurvivorListHeadCell>Strength</SurvivorListHeadCell>
+        <SurvivorListHeadCell>Hunting</SurvivorListHeadCell>
+        <SurvivorListHeadCell>Kill/Revive</SurvivorListHeadCell>
+      </SurvivorListHead>
+      {survivors && survivors.map((id, idx) => renderSurvivorListItem(idx, id))}
+    </SurvivorList>
+    <CreateSurvivor />
+  </AppWrapper>
+)
 
 export default connect(mapStateToProps)(App)

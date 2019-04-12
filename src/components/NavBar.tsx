@@ -65,7 +65,7 @@ const StyledLink = styled(Link)`
   }
 `
 
-const Navbar: React.SFC = () => (
+const Navbar: React.FunctionComponent = () => (
   <NavbarWrapper>
     <Head>Kingdom: Death - Helper </Head>
     <NavTrigger type="checkbox" className="nav-trigger" id="nav-trigger" />
