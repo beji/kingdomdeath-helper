@@ -1,4 +1,4 @@
-import { IDisorder } from 'interfaces'
+import { IDisorder, WeaponProficiency } from 'interfaces'
 import { ID } from '../generics'
 import { IFightingArt } from './fightingarts'
 import { IBaseStat, IDefenseStat, ISpecialStat } from './stats'
@@ -29,4 +29,8 @@ export interface ISurvivor {
   readonly specialstats: ReadonlyArray<ISpecialStat>
   readonly fightingArts?: ReadonlyArray<IFightingArt>
   readonly disorders?: ReadonlyArray<IDisorder>
+  readonly weaponproficiency: {
+    proficiency?: WeaponProficiency
+    value: number
+  }
 }

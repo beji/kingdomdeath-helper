@@ -8,6 +8,7 @@ export enum LayerType {
   disorderlist,
   fightingartlist,
   gearlist,
+  weaponproficiencylist,
 }
 
 export interface ISimpleLayer {
@@ -48,4 +49,9 @@ export interface IGearListLayer {
   type: LayerType.gearlist
   gridId: ID
   slotId: ID
+}
+
+export interface IWeaponProficiencyLayer {
+  type: LayerType.weaponproficiencylist
+  survivor: ID
 }

@@ -10,6 +10,7 @@ import Home from '../pages'
 import InnovationsPage from '../pages/innovations'
 import SurvivorCardPage from '../pages/suvivorcard'
 import ViewPage from '../pages/view'
+import theme from '../theme'
 import ExportForm from './ExportForm'
 import BaseStatLayer from './layers/BaseStatLayer'
 import DefenseStatLayer from './layers/DefenseStatLayer'
@@ -18,10 +19,9 @@ import FightingArtsList from './layers/FightingArtsList'
 import GearList from './layers/GearList'
 import SimpleLayer from './layers/SimpleLayer'
 import SpecialStatLayer from './layers/SpecialStatLayer'
+import WeaponProficiencyList from './layers/WeaponProficiencyList'
 import NavBar from './NavBar'
 import SocketConnector from './SocketConnector'
-
-import theme from '../theme'
 
 const AppWrapper = styled.div`
   margin: 2.5rem 1vw 1vh;
@@ -75,6 +75,7 @@ class App extends React.Component<IAppProps> {
               <SpecialStatLayer />
               <DisordersList />
               <FightingArtsList />
+              <WeaponProficiencyList />
               <GearList />
             </AppWrapper>
             <NavBar />

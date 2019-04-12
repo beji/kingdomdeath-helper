@@ -312,6 +312,42 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
         survivors: state.survivors.filter(survivor => survivor.id !== id),
       }
     }
+    case ActionTypes.UPDATE_WEAPON_PROFICIENCY_LEVEL: {
+      const { id, level } = action.payload
+      return {
+        ...state,
+        survivors: state.survivors.map(survivor => {
+          if (survivor.id === id) {
+            return {
+              ...survivor,
+              weaponproficiency: {
+                ...survivor.weaponproficiency,
+                value: level,
+              },
+            }
+          }
+          return survivor
+        }),
+      }
+    }
+    case ActionTypes.UPDATE_WEAPON_PROFICIENCY: {
+      const { survivorId, proficiency } = action.payload
+      return {
+        ...state,
+        survivors: state.survivors.map(survivor => {
+          if (survivor.id === survivorId) {
+            return {
+              ...survivor,
+              weaponproficiency: {
+                ...survivor.weaponproficiency,
+                proficiency,
+              },
+            }
+          }
+          return survivor
+        }),
+      }
+    }
     default:
       return state
   }

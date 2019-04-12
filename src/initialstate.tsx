@@ -75,6 +75,9 @@ const survivors: ReadonlyArray<ISurvivor> = Array.apply(null, Array(initialSurvi
     name: process.env.NODE_ENV === 'production' ? DEFAULT_SURVIVOR_NAME : `Survivor ${n}`,
     skipNextHunt: false,
     specialstats: getSpecialStats(),
+    weaponproficiency: {
+      value: 0,
+    },
   }
 })
 
@@ -125,6 +128,9 @@ export function newSurvivor(id: number): ISurvivor {
     name: DEFAULT_SURVIVOR_NAME,
     skipNextHunt: false,
     specialstats: getSpecialStats(),
+    weaponproficiency: {
+      value: 0,
+    },
   }
 }
 
