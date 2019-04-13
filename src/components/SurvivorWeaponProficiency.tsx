@@ -60,64 +60,52 @@ const BoxWithMargins = styled.div`
   margin-bottom: 1vh;
 `
 
-class SurvivorWeaponProficiency extends React.Component<ISurvivorWeaponProficiencyProps> {
-  public constructor(props: ISurvivorWeaponProficiencyProps) {
-    super(props)
-    this.renderRankText = this.renderRankText.bind(this)
-  }
+const renderRankText: React.FunctionComponent<ISurvivor> = survivor => {
+  const {
+    weaponproficiency: { value: value },
+  } = survivor
 
-  private showWeaponProficiencies = () => {
-    this.props.showLayer({
-      survivor: this.props.id,
+  if (value === 8) {
+    return <BoxWithMargins>Master</BoxWithMargins>
+  } else if (value >= 3) {
+    return <BoxWithMargins>Specialist</BoxWithMargins>
+  } else {
+    return <BoxWithMargins />
+  }
+}
+
+const SurvivorWeaponProficiency: React.FunctionComponent<ISurvivorWeaponProficiencyProps> = ({ id, showLayer, survivor, updateSurvivorWeaponProficiencyLevel }) => {
+  const showWeaponProficiencies = () => {
+    showLayer({
+      survivor: id,
       type: LayerType.weaponproficiencylist,
     })
   }
 
-  public render() {
-    const { survivor } = this.props
-    if (typeof survivor === 'undefined') {
-      return <React.Fragment />
-    }
-    const { weaponproficiency, id } = survivor
-    return (
-      <Wrapper>
-        <ManageBox>
-          <FancyButton onClick={this.showWeaponProficiencies}>Manage weapon proficiency</FancyButton>
-        </ManageBox>
-        <ProficiencyBox>
-          {typeof weaponproficiency.proficiency !== 'undefined' && <WeaponProficiencyItem proficiency={weaponproficiencies[weaponproficiency.proficiency]} />}
-        </ProficiencyBox>
-        <BoxWithMargins>
-          {Array.apply(null, Array(8)).map((_el, n) => {
-            const active = n < weaponproficiency.value
-            const same = n === weaponproficiency.value - 1
-            const highlight = n === 2 || n === 7
-            // We pass n + 1 as arrays are zero based but displayed xp levels are not
-            return <Checkbox key={n} highlight={highlight} value={active} onChange={() => this.props.updateSurvivorWeaponProficiencyLevel(id, same ? n : n + 1)} />
-          })}
-        </BoxWithMargins>
-        {this.renderRankText()}
-      </Wrapper>
-    )
+  if (typeof survivor === 'undefined') {
+    return <React.Fragment />
   }
-
-  private renderRankText() {
-    const { survivor } = this.props
-    if (typeof survivor === 'undefined') {
-      return <BoxWithMargins />
-    }
-    const {
-      weaponproficiency: { value: value },
-    } = survivor
-
-    if (value === 8) {
-      return <BoxWithMargins>Master</BoxWithMargins>
-    } else if (value >= 3) {
-      return <BoxWithMargins>Specialist</BoxWithMargins>
-    } else {
-      return <BoxWithMargins />
-    }
-  }
+  const { weaponproficiency } = survivor
+  return (
+    <Wrapper>
+      <ManageBox>
+        <FancyButton onClick={showWeaponProficiencies}>Manage weapon proficiency</FancyButton>
+      </ManageBox>
+      <ProficiencyBox>
+        {typeof weaponproficiency.proficiency !== 'undefined' && <WeaponProficiencyItem proficiency={weaponproficiencies[weaponproficiency.proficiency]} />}
+      </ProficiencyBox>
+      <BoxWithMargins>
+        {Array.apply(null, Array(8)).map((_el, n) => {
+          const active = n < weaponproficiency.value
+          const same = n === weaponproficiency.value - 1
+          const highlight = n === 2 || n === 7
+          // We pass n + 1 as arrays are zero based but displayed xp levels are not
+          return <Checkbox key={n} highlight={highlight} value={active} onChange={() => updateSurvivorWeaponProficiencyLevel(id, same ? n : n + 1)} />
+        })}
+      </BoxWithMargins>
+      {renderRankText(survivor)}
+    </Wrapper>
+  )
 }
 
 export default connect(

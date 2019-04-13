@@ -46,60 +46,43 @@ const mapStateToProps = (state: IState, ownProps: ISurvivorDefenseStatOwnProps):
   }
 }
 
-class SurvivorDefenseStat extends React.Component<ISurvivorDefenseStatProps, ISurvivorDefenceStatState> {
-  public constructor(props: ISurvivorDefenseStatProps) {
-    super(props)
-    this.state = {
-      renderWounds: props.renderWounds === undefined ? true : props.renderWounds,
-    }
-    this.handleEditClick = this.handleEditClick.bind(this)
-  }
-
-  public render() {
-    const { renderWounds } = this.state
-    const { stat, concatToDisplay } = this.props
+const SurvivorDefenseStat: React.FunctionComponent<ISurvivorDefenseStatProps> = ({ renderWounds, stat, concatToDisplay, survivor, updateSurvivorStat, showLayer, id }) => {
+  const toggleWound = (woundType: string) => {
     if (stat) {
-      return (
-        <StatWrapper>
-          <StatElement onClick={this.handleEditClick}>
-            {stat.armor + stat.modifier}
-            {concatToDisplay && ' ' + concatToDisplay}
-          </StatElement>
-          {renderWounds && !stat.noWounds && !stat.onlyHeavyWound && <Checkbox onChange={this.toggleWound.bind(this, 'lightWound')} value={stat.lightWound} />}
-          {renderWounds && !stat.noWounds && <Checkbox onChange={this.toggleWound.bind(this, 'heavyWound')} value={stat.heavyWound} highlight={true} />}
-        </StatWrapper>
-      )
-    }
-    return ''
-  }
-
-  private toggleWound(woundType: string) {
-    if (this.props.stat) {
-      if (
-        (woundType === 'lightWound' && !this.props.stat.heavyWound) ||
-        (woundType === 'heavyWound' && this.props.stat.lightWound) ||
-        (woundType === 'heavyWound' && this.props.stat.onlyHeavyWound)
-      ) {
+      if ((woundType === 'lightWound' && !stat.heavyWound) || (woundType === 'heavyWound' && stat.lightWound) || (woundType === 'heavyWound' && stat.onlyHeavyWound)) {
         const newState = {
-          ...this.props.stat,
-          [woundType]: !this.props.stat[woundType],
+          ...stat,
+          [woundType]: !stat[woundType],
         }
-        if (typeof this.props.survivor !== 'undefined') {
-          this.props.updateSurvivorStat(newState, this.props.survivor)
+        if (typeof survivor !== 'undefined') {
+          updateSurvivorStat(newState, survivor)
         }
       }
     }
   }
 
-  private handleEditClick() {
-    if (this.props.stat) {
-      this.props.showLayer({
-        stat: this.props.stat.stat,
-        survivor: this.props.id,
+  const handleEditClick = () => {
+    if (stat) {
+      showLayer({
+        stat: stat.stat,
+        survivor: id,
         type: LayerType.defensestat,
       })
     }
   }
+  if (stat) {
+    return (
+      <StatWrapper>
+        <StatElement onClick={handleEditClick}>
+          {stat.armor + stat.modifier}
+          {concatToDisplay && ' ' + concatToDisplay}
+        </StatElement>
+        {renderWounds && !stat.noWounds && !stat.onlyHeavyWound && <Checkbox onChange={() => toggleWound('lightWound')} value={stat.lightWound} />}
+        {renderWounds && !stat.noWounds && <Checkbox onChange={() => toggleWound('heavyWound')} value={stat.heavyWound} highlight={true} />}
+      </StatWrapper>
+    )
+  }
+  return <React.Fragment />
 }
 
 export default connect(

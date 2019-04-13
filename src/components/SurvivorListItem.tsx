@@ -114,116 +114,104 @@ const mapStateToProps = (state: IState, ownProps: ISurvivorListItemOwnProps): IS
   }
 }
 
-class SurvivorListItem extends Component<ISurvivorListItemProps> {
-  public constructor(props: ISurvivorListItemProps) {
-    super(props)
-    this.handleHuntBoxChange = this.handleHuntBoxChange.bind(this)
+const renderBaseStats = (baseStats: ReadonlyArray<IBaseStat>, id: ID) =>
+  baseStats.map((basestat, idx) => (
+    <Cell key={idx}>
+      <SmallSpaceLabel>{capitalize(BaseStats[basestat.stat])}</SmallSpaceLabel>
+      <SurvivorBaseStat id={id} statid={basestat.stat} />
+    </Cell>
+  ))
 
-    this.handleKillClick = this.handleKillClick.bind(this)
-    this.handleReviveClick = this.handleReviveClick.bind(this)
-    this.handleNameUpdate = this.handleNameUpdate.bind(this)
-    this.handleRemoveClick = this.handleRemoveClick.bind(this)
-  }
+const renderDefStats = (defenseStats: ReadonlyArray<IDefenseStat>, id: ID) =>
+  defenseStats
+    .filter(defStat => defStat.stat === DefenseStats.brain || defStat.stat === DefenseStats.survival)
+    .map((defStat, idx) => (
+      <Cell key={idx}>
+        <SmallSpaceLabel>{capitalize(DefenseStats[defStat.stat])}</SmallSpaceLabel>
+        <SurvivorDefenseStat id={id} statid={defStat.stat} renderWounds={false} />
+      </Cell>
+    ))
 
-  public render() {
-    if (this.props.survivor) {
-      const { huntSlots } = this.props
-      const { name, id, gridId, alive, hunting, baseStats, defenseStats } = this.props.survivor
-
-      return (
-        <ItemWrapper>
-          <NameCell>
-            <SmallSpaceLabel>Name</SmallSpaceLabel>
-            <NameEdit name={name} updateFunc={this.handleNameUpdate} />
-            {!alive && <Fragment>✝</Fragment>}
-            <FullscreenLink to={`/card/${id}`}>⛶</FullscreenLink>
-          </NameCell>
-          <Cell>
-            <SmallSpaceLabel>Gender</SmallSpaceLabel>
-            <GenderEdit id={id} />
-          </Cell>
-          {this.renderDefStats(defenseStats, id)}
-          {this.renderBaseStats(baseStats, id)}
-          <Cell>
-            <SmallSpaceLabel>Hunting</SmallSpaceLabel>
-            {alive && (
-              <div>
-                <select value={hunting ? gridId : 'remove'} onChange={this.handleHuntBoxChange}>
-                  <option value="remove">not hunting</option>
-                  {huntSlots.map((v, i) => (
-                    <option key={i} value={i}>
-                      Grid: {v.playername}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
-          </Cell>
-          <Cell>
-            <SmallSpaceLabel>Kill/Revive/Remove</SmallSpaceLabel>
-            {alive ? <FancyButton onClick={this.handleKillClick}>Kill</FancyButton> : <FancyButton onClick={this.handleReviveClick}>Revive</FancyButton>}
-            {!hunting && <FancyButton onClick={this.handleRemoveClick}>Remove</FancyButton>}
-          </Cell>
-        </ItemWrapper>
-      )
-    } else {
-      return ''
+const SurvivorListItem: React.FunctionComponent<ISurvivorListItemProps> = ({
+  id,
+  survivor,
+  updateSurvivorName,
+  addToHunt,
+  removeFromHunt,
+  killSurvivor,
+  reviveSurvivor,
+  removeSurvivor,
+  huntSlots,
+}) => {
+  const handleNameUpdate = (newName: string) => {
+    if (survivor) {
+      updateSurvivorName(survivor.id, newName)
     }
   }
 
-  private renderBaseStats(baseStats: ReadonlyArray<IBaseStat>, id: ID) {
-    return baseStats.map((basestat, idx) => {
-      return (
-        <Cell key={idx}>
-          <SmallSpaceLabel>{capitalize(BaseStats[basestat.stat])}</SmallSpaceLabel>
-          <SurvivorBaseStat id={id} statid={basestat.stat} />
-        </Cell>
-      )
-    })
-  }
-
-  private renderDefStats(defenseStats: ReadonlyArray<IDefenseStat>, id: ID) {
-    return defenseStats
-      .filter(defStat => defStat.stat === DefenseStats.brain || defStat.stat === DefenseStats.survival)
-      .map((defStat, idx) => {
-        return (
-          <Cell key={idx}>
-            <SmallSpaceLabel>{capitalize(DefenseStats[defStat.stat])}</SmallSpaceLabel>
-            <SurvivorDefenseStat id={id} statid={defStat.stat} renderWounds={false} />
-          </Cell>
-        )
-      })
-  }
-
-  private handleNameUpdate(newName: string) {
-    if (this.props.survivor) {
-      this.props.updateSurvivorName(this.props.survivor.id, newName)
-    }
-  }
-
-  private handleHuntBoxChange(event: SyntheticEvent<HTMLSelectElement>) {
-    if (this.props.survivor) {
+  const handleHuntBoxChange = (event: SyntheticEvent<HTMLSelectElement>) => {
+    if (survivor) {
       if (event.currentTarget.value !== 'remove') {
-        this.props.addToHunt(this.props.id, parseInt(event.currentTarget.value, 10))
+        addToHunt(id, parseInt(event.currentTarget.value, 10))
       } else {
-        this.props.removeFromHunt(this.props.id)
+        removeFromHunt(id)
       }
     }
   }
 
-  private handleKillClick() {
-    this.props.killSurvivor(this.props.id)
-  }
-  private handleReviveClick() {
-    this.props.reviveSurvivor(this.props.id)
-  }
+  const handleKillClick = () => killSurvivor(id)
 
-  private handleRemoveClick() {
-    if (this.props.survivor) {
+  const handleReviveClick = () => reviveSurvivor(id)
+
+  const handleRemoveClick = () => {
+    if (survivor) {
       if (window.confirm("You sure? this can't be undone!")) {
-        this.props.removeSurvivor(this.props.survivor.id)
+        removeSurvivor(survivor.id)
       }
     }
+  }
+
+  if (survivor) {
+    const { name, id, gridId, alive, hunting, baseStats, defenseStats } = survivor
+
+    return (
+      <ItemWrapper>
+        <NameCell>
+          <SmallSpaceLabel>Name</SmallSpaceLabel>
+          <NameEdit name={name} updateFunc={handleNameUpdate} />
+          {!alive && <Fragment>✝</Fragment>}
+          <FullscreenLink to={`/card/${id}`}>⛶</FullscreenLink>
+        </NameCell>
+        <Cell>
+          <SmallSpaceLabel>Gender</SmallSpaceLabel>
+          <GenderEdit id={id} />
+        </Cell>
+        {renderDefStats(defenseStats, id)}
+        {renderBaseStats(baseStats, id)}
+        <Cell>
+          <SmallSpaceLabel>Hunting</SmallSpaceLabel>
+          {alive && (
+            <div>
+              <select value={hunting ? gridId : 'remove'} onChange={handleHuntBoxChange}>
+                <option value="remove">not hunting</option>
+                {huntSlots.map((v, i) => (
+                  <option key={i} value={i}>
+                    Grid: {v.playername}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+        </Cell>
+        <Cell>
+          <SmallSpaceLabel>Kill/Revive/Remove</SmallSpaceLabel>
+          {alive ? <FancyButton onClick={handleKillClick}>Kill</FancyButton> : <FancyButton onClick={handleReviveClick}>Revive</FancyButton>}
+          {!hunting && <FancyButton onClick={handleRemoveClick}>Remove</FancyButton>}
+        </Cell>
+      </ItemWrapper>
+    )
+  } else {
+    return <React.Fragment />
   }
 }
 

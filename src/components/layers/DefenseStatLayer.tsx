@@ -49,59 +49,43 @@ const mapDispatchToProps = (dispatch: Dispatch<HideLayerAction | UpdateSurvivorS
   updateSurvivorStat: (stat: IBaseStat | IDefenseStat, survivorId: ID) => dispatch(updateSurvivorStat(stat, survivorId)),
 })
 
-class DefenseStatLayer extends React.Component<IDefenseStatLayerProps> {
-  private modifierfield?: HTMLInputElement
+const DefenseStatLayer: React.FunctionComponent<IDefenseStatLayerProps> = ({ hideLayer, stat, survivor, updateSurvivorStat, survivorname }) => {
+  let modifierfield: HTMLInputElement | null = null
 
-  public constructor(props: IDefenseStatLayerProps) {
-    super(props)
-    this.hideLayer = this.hideLayer.bind(this)
+  const setupModifierRef = (elem: HTMLInputElement) => (modifierfield = elem)
 
-    this.handleEditConfirm = this.handleEditConfirm.bind(this)
-    this.setupModifierRef = this.setupModifierRef.bind(this)
-  }
-  public render() {
-    if (this.props.stat && this.props.survivorname) {
-      const { survivorname } = this.props
-      const { stat, armor, modifier } = this.props.stat
-      return (
-        <SimpleLayerWrapper>
-          <CloseIcon onClick={this.hideLayer}>X</CloseIcon>
-          <SimpleLayerHeadline>
-            {survivorname}'s {capitalize(DefenseStats[stat])}
-          </SimpleLayerHeadline>
-          <StatEditWrapper>
-            <StatEdit>
-              <Label>Stat</Label>
-              <NumberEdit value={modifier} innerRef={this.setupModifierRef} addToDisplay={armor} />
-              <div>Gear total: {armor}</div>
-            </StatEdit>
-          </StatEditWrapper>
-          <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
-        </SimpleLayerWrapper>
-      )
-    } else {
-      return ''
-    }
-  }
-
-  private setupModifierRef(elem: HTMLInputElement) {
-    this.modifierfield = elem
-  }
-
-  private hideLayer() {
-    this.props.hideLayer()
-  }
-
-  private handleEditConfirm() {
-    if (this.props.stat && this.modifierfield) {
+  const handleEditConfirm = () => {
+    if (stat && modifierfield) {
       const nextStat = {
-        ...this.props.stat,
-        modifier: parseInt(this.modifierfield.value, 10),
+        ...stat,
+        modifier: parseInt(modifierfield.value, 10),
       }
-      if (typeof this.props.survivor !== 'undefined') {
-        this.props.updateSurvivorStat(nextStat, this.props.survivor)
+      if (typeof survivor !== 'undefined') {
+        updateSurvivorStat(nextStat, survivor)
       }
     }
+  }
+
+  if (stat && survivorname) {
+    const { armor, modifier } = stat
+    return (
+      <SimpleLayerWrapper>
+        <CloseIcon onClick={hideLayer}>X</CloseIcon>
+        <SimpleLayerHeadline>
+          {survivorname}'s {capitalize(DefenseStats[stat.stat])}
+        </SimpleLayerHeadline>
+        <StatEditWrapper>
+          <StatEdit>
+            <Label>Stat</Label>
+            <NumberEdit value={modifier} innerRef={setupModifierRef} addToDisplay={armor} />
+            <div>Gear total: {armor}</div>
+          </StatEdit>
+        </StatEditWrapper>
+        <FancyButton onClick={handleEditConfirm}>Save &#x2713;</FancyButton>
+      </SimpleLayerWrapper>
+    )
+  } else {
+    return <React.Fragment />
   }
 }
 

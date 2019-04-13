@@ -40,80 +40,64 @@ const mapStateToProps = (state: IState, ownProps: ISpecialStatOwnProps): ISpecia
   }
 }
 
-class SurvivorSpecialStat extends React.Component<ISpecialStatProps> {
-  public constructor(props: ISpecialStatProps) {
-    super(props)
-    this.state = {
-      showFightingArtList: false,
+const renderSpecialStatText = (stat: ISpecialStat) => {
+  if (stat) {
+    switch (stat.stat) {
+      case SpecialStats.huntxp: {
+        if ([2, 6, 10, 15].includes(stat.value)) {
+          return `${TextIcons.BOOK} Age`
+        } else if (stat.value === 16) {
+          return 'Retired'
+        }
+        break
+      }
+      case SpecialStats.weapon_proficiency: {
+        if (stat.value === 8) {
+          return 'Master'
+        } else if (stat.value >= 3) {
+          return 'Specialist'
+        }
+      }
+      case SpecialStats.courage: {
+        if (stat.value === 9) {
+          return `${TextIcons.BOOK} See the Truth`
+        } else if (stat.value >= 3) {
+          return `${TextIcons.BOOK} Bold`
+        }
+      }
+      case SpecialStats.understanding: {
+        if (stat.value === 9) {
+          return `${TextIcons.BOOK} White Secret`
+        } else if (stat.value >= 3) {
+          return `${TextIcons.BOOK} Insight`
+        }
+      }
+      default:
+        return ''
     }
-    this.handleEditClick = this.handleEditClick.bind(this)
-    this.renderSpecialStatText = this.renderSpecialStatText.bind(this)
   }
+  return ''
+}
 
-  public render() {
-    const { stat } = this.props
+const SurvivorSpecialStat: React.FunctionComponent<ISpecialStatProps> = ({ id, stat, showLayer }) => {
+  const handleEditClick = () => {
     if (stat) {
-      return (
-        <StatWrapper>
-          <StatElement onClick={this.handleEditClick}>{stat.value}</StatElement>
-          {this.renderSpecialStatText()}
-        </StatWrapper>
-      )
-    }
-    return ''
-  }
-
-  private handleEditClick() {
-    if (this.props.stat) {
-      const { stat } = this.props.stat
-      this.props.showLayer({
-        stat,
-        survivor: this.props.id,
+      showLayer({
+        stat: stat.stat,
+        survivor: id,
         type: LayerType.specialstat,
       })
     }
   }
-
-  private renderSpecialStatText() {
-    if (this.props.stat) {
-      const { stat } = this.props
-
-      switch (stat.stat) {
-        case SpecialStats.huntxp: {
-          if ([2, 6, 10, 15].includes(stat.value)) {
-            return `${TextIcons.BOOK} Age`
-          } else if (stat.value === 16) {
-            return 'Retired'
-          }
-          break
-        }
-        case SpecialStats.weapon_proficiency: {
-          if (stat.value === 8) {
-            return 'Master'
-          } else if (stat.value >= 3) {
-            return 'Specialist'
-          }
-        }
-        case SpecialStats.courage: {
-          if (stat.value === 9) {
-            return `${TextIcons.BOOK} See the Truth`
-          } else if (stat.value >= 3) {
-            return `${TextIcons.BOOK} Bold`
-          }
-        }
-        case SpecialStats.understanding: {
-          if (stat.value === 9) {
-            return `${TextIcons.BOOK} White Secret`
-          } else if (stat.value >= 3) {
-            return `${TextIcons.BOOK} Insight`
-          }
-        }
-        default:
-          return ''
-      }
-    }
-    return ''
+  if (stat) {
+    return (
+      <StatWrapper>
+        <StatElement onClick={handleEditClick}>{stat.value}</StatElement>
+        {renderSpecialStatText(stat)}
+      </StatWrapper>
+    )
   }
+  return <React.Fragment />
 }
 
 export default connect(

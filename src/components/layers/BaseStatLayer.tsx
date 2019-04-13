@@ -49,81 +49,56 @@ const mapDispatchToProps = (dispatch: Dispatch<HideLayerAction | UpdateSurvivorS
   updateSurvivorStat: (stat: IBaseStat | IDefenseStat, survivorId: ID) => dispatch(updateSurvivorStat(stat, survivorId)),
 })
 
-class BaseStatLayer extends React.Component<IBaseStatLayerProps> {
-  private permfield?: HTMLInputElement
-  private gearfield?: HTMLInputElement
-  private tokenfield?: HTMLInputElement
+const BaseStatLayer: React.FunctionComponent<IBaseStatLayerProps> = ({ hideLayer, stat, survivor, updateSurvivorStat, survivorname }) => {
+  let permfield: HTMLInputElement | null = null
+  let gearfield: HTMLInputElement | null = null
+  let tokenfield: HTMLInputElement | null = null
 
-  public constructor(props: IBaseStatLayerProps) {
-    super(props)
-    this.hideLayer = this.hideLayer.bind(this)
+  const setupPermRef = (elem: HTMLInputElement) => (permfield = elem)
+  const setupGearRef = (elem: HTMLInputElement) => (gearfield = elem)
+  const setupTokenRef = (elem: HTMLInputElement) => (tokenfield = elem)
 
-    this.handleEditConfirm = this.handleEditConfirm.bind(this)
-
-    this.setupPermRef = this.setupPermRef.bind(this)
-    this.setupGearRef = this.setupGearRef.bind(this)
-    this.setupTokenRef = this.setupTokenRef.bind(this)
-  }
-  public render() {
-    if (this.props.stat && this.props.survivorname) {
-      const { survivorname } = this.props
-      const { permanent, gear, token, stat } = this.props.stat
-      return (
-        <SimpleLayerWrapper>
-          <CloseIcon onClick={this.hideLayer}>X</CloseIcon>
-          <SimpleLayerHeadline>
-            {survivorname}'s {capitalize(BaseStats[stat])}
-          </SimpleLayerHeadline>
-          <StatEditWrapper>
-            <StatEdit>
-              <Label>Permanent</Label>
-              <NumberEdit value={permanent} innerRef={this.setupPermRef} />
-            </StatEdit>
-            <StatEdit>
-              <Label>Gear</Label>
-              <NumberEdit value={gear} innerRef={this.setupGearRef} />
-            </StatEdit>
-            <StatEdit>
-              <Label>Token</Label>
-              <NumberEdit value={token} innerRef={this.setupTokenRef} />
-            </StatEdit>
-          </StatEditWrapper>
-          <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
-        </SimpleLayerWrapper>
-      )
-    } else {
-      return ''
-    }
-  }
-
-  private setupPermRef(elem: HTMLInputElement) {
-    this.permfield = elem
-  }
-
-  private setupGearRef(elem: HTMLInputElement) {
-    this.gearfield = elem
-  }
-
-  private setupTokenRef(elem: HTMLInputElement) {
-    this.tokenfield = elem
-  }
-
-  private hideLayer() {
-    this.props.hideLayer()
-  }
-
-  private handleEditConfirm() {
-    if (this.gearfield && this.permfield && this.tokenfield && this.props.stat) {
+  const handleEditConfirm = () => {
+    if (gearfield && permfield && tokenfield && stat) {
       const nextStat = {
-        ...this.props.stat,
-        gear: parseInt(this.gearfield.value, 10),
-        permanent: parseInt(this.permfield.value, 10),
-        token: parseInt(this.tokenfield.value, 10),
+        ...stat,
+        gear: parseInt(gearfield.value, 10),
+        permanent: parseInt(permfield.value, 10),
+        token: parseInt(tokenfield.value, 10),
       }
-      if (this.props && typeof this.props.survivor !== 'undefined') {
-        this.props.updateSurvivorStat(nextStat, this.props.survivor)
+      if (typeof survivor !== 'undefined') {
+        updateSurvivorStat(nextStat, survivor)
       }
     }
+  }
+
+  if (stat && survivorname) {
+    const { permanent, gear, token } = stat
+    return (
+      <SimpleLayerWrapper>
+        <CloseIcon onClick={hideLayer}>X</CloseIcon>
+        <SimpleLayerHeadline>
+          {survivorname}'s {capitalize(BaseStats[stat.stat])}
+        </SimpleLayerHeadline>
+        <StatEditWrapper>
+          <StatEdit>
+            <Label>Permanent</Label>
+            <NumberEdit value={permanent} innerRef={setupPermRef} />
+          </StatEdit>
+          <StatEdit>
+            <Label>Gear</Label>
+            <NumberEdit value={gear} innerRef={setupGearRef} />
+          </StatEdit>
+          <StatEdit>
+            <Label>Token</Label>
+            <NumberEdit value={token} innerRef={setupTokenRef} />
+          </StatEdit>
+        </StatEditWrapper>
+        <FancyButton onClick={handleEditConfirm}>Save &#x2713;</FancyButton>
+      </SimpleLayerWrapper>
+    )
+  } else {
+    return <React.Fragment />
   }
 }
 

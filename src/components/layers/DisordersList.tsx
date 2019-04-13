@@ -1,6 +1,6 @@
 import disorders from 'data/final/disorder.json'
 import Fuse from 'fuse.js'
-import React, { SyntheticEvent } from 'react'
+import React, { SyntheticEvent, useState } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { hideLayer, updateSurvivorDisorders } from '../../actions'
@@ -51,89 +51,68 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorDisordersAction | H
   updateSurvivorDisorder: (id: ID, arts: Disorders[]) => dispatch(updateSurvivorDisorders(id, arts)),
 })
 
-class Disorderslist extends React.Component<IDisorderslistProps, IDisorderslistState> {
-  public constructor(props: IDisorderslistProps) {
-    super(props)
-    this.renderListElement = this.renderListElement.bind(this)
-    this.submit = this.submit.bind(this)
-    this.handleFilter = this.handleFilter.bind(this)
-    this.state = {
-      disorders,
-      disordersToAdd: [],
-      disordersToRemove: [],
-    }
-  }
+const Disorderslist: React.FunctionComponent<IDisorderslistProps> = ({ currentlySelectedDisorders = [], id, updateSurvivorDisorder, hideLayer }) => {
+  const [disordersToRemove, setDisordersToRemove] = useState<Disorders[]>([])
+  const [disordersToAdd, setDisordersToAdd] = useState<Disorders[]>([])
+  const [displayedDisorders, setDisplayed] = useState<IDisorder[]>(disorders)
 
-  public render() {
-    if (typeof this.props.id !== 'undefined') {
-      const currentlySelectedDisorders = this.props.currentlySelectedDisorders || []
-      const count = currentlySelectedDisorders.length + this.state.disordersToAdd.length - this.state.disordersToRemove.length
-      return (
-        <ListWrapper>
-          <CloseIcon onClick={this.props.hideLayer}>X</CloseIcon>
-          <SimpleLayerHeadline>{count} / 3</SimpleLayerHeadline>
-          <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} autoFocus={true} />
-          <List>
-            {this.state.disorders.map((disorder, idx) => (
-              <React.Fragment key={idx}>{this.renderListElement(disorder)}</React.Fragment>
-            ))}
-          </List>
-          <FancyButton onClick={this.submit}>Submit</FancyButton>
-        </ListWrapper>
-      )
-    } else {
-      return ''
-    }
-  }
-
-  private renderListElement(art: IDisorder) {
-    const currentlySelectedDisorders = this.props.currentlySelectedDisorders || []
-    const isSelected = (currentlySelectedDisorders.includes(art.id) && !this.state.disordersToRemove.includes(art.id)) || this.state.disordersToAdd.includes(art.id)
+  const renderListElement = (disorder: IDisorder) => {
+    const currentlySelectedDisordersInner = currentlySelectedDisorders || []
+    const isSelected = (currentlySelectedDisordersInner.includes(disorder.id) && !disordersToRemove.includes(disorder.id)) || disordersToAdd.includes(disorder.id)
     if (isSelected) {
-      return <SelectedListElement onClick={this.deselectDisorder.bind(this, art.id)}>{art.name}</SelectedListElement>
+      return <SelectedListElement onClick={() => deselectDisorder(disorder.id)}>{disorder.name}</SelectedListElement>
     }
-    return <ListElement onClick={this.selectDisorder.bind(this, art.id)}>{art.name}</ListElement>
+    return <ListElement onClick={() => selectDisorder(disorder.id)}>{disorder.name}</ListElement>
   }
-  private selectDisorder(newArt: Disorders) {
-    const currentlySelectedDisorders = this.props.currentlySelectedDisorders || []
-    const count = currentlySelectedDisorders.length + this.state.disordersToAdd.length - this.state.disordersToRemove.length
+  const selectDisorder = (newDisorder: Disorders) => {
+    const count = currentlySelectedDisorders.length + disordersToAdd.length - disordersToRemove.length
     if (count < 3) {
-      this.setState({
-        disordersToAdd: this.state.disordersToAdd.concat(newArt),
-        disordersToRemove: this.state.disordersToRemove.filter(art => art !== newArt),
-      })
+      setDisordersToAdd(disordersToAdd.concat(newDisorder))
+      setDisordersToRemove(disordersToRemove.filter(disorder => disorder !== newDisorder))
     }
   }
-  private deselectDisorder(artToDeselect: Disorders) {
-    this.setState({
-      disordersToAdd: this.state.disordersToAdd.filter(art => art !== artToDeselect),
-      disordersToRemove: this.state.disordersToRemove.concat(artToDeselect),
-    })
+  const deselectDisorder = (disorderToDeselect: Disorders) => {
+    setDisordersToAdd(disordersToAdd.filter(disorder => disorder !== disorderToDeselect))
+    setDisordersToRemove(disordersToRemove.concat(disorderToDeselect))
   }
 
-  private submit() {
-    if (typeof this.props.id !== 'undefined') {
-      const { disordersToAdd, disordersToRemove } = this.state
-      const disorders = (this.props.currentlySelectedDisorders || []).concat(disordersToAdd).filter(art => !disordersToRemove.includes(art))
-      this.props.updateSurvivorDisorder(this.props.id, deduplicate(disorders) as Disorders[])
-      this.props.hideLayer()
+  const submit = () => {
+    if (typeof id !== 'undefined') {
+      const disorders = (currentlySelectedDisorders || []).concat(disordersToAdd).filter(art => !disordersToRemove.includes(art))
+      updateSurvivorDisorder(id, deduplicate(disorders) as Disorders[])
+      hideLayer()
     }
   }
 
-  private handleFilter(event: SyntheticEvent<HTMLInputElement>) {
+  const handleFilter = (event: SyntheticEvent<HTMLInputElement>) => {
     if (event.currentTarget.value === '') {
-      this.setState({
-        disorders,
-      })
+      setDisplayed(disorders)
     } else {
       const fuse = new Fuse(disorders, {
         keys: ['name'],
         threshold: 0.5,
       })
-      this.setState({
-        disorders: fuse.search(event.currentTarget.value),
-      })
+      setDisplayed(fuse.search(event.currentTarget.value))
     }
+  }
+
+  if (typeof id !== 'undefined') {
+    const count = currentlySelectedDisorders.length + disordersToAdd.length - disordersToRemove.length
+    return (
+      <ListWrapper>
+        <CloseIcon onClick={hideLayer}>X</CloseIcon>
+        <SimpleLayerHeadline>{count} / 3</SimpleLayerHeadline>
+        <FilterInput type="text" placeholder="filter..." onChange={handleFilter} autoFocus={true} />
+        <List>
+          {displayedDisorders.map((disorder, idx) => (
+            <React.Fragment key={idx}>{renderListElement(disorder)}</React.Fragment>
+          ))}
+        </List>
+        <FancyButton onClick={submit}>Submit</FancyButton>
+      </ListWrapper>
+    )
+  } else {
+    return <React.Fragment />
   }
 }
 
