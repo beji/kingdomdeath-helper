@@ -96,6 +96,12 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
         innovations: state.innovations.filter(innovation => innovation !== id),
       }
     }
+    case ActionTypes.SET_LANTERNYEAR: {
+      return {
+        ...state,
+        year: action.payload,
+      }
+    }
     default:
       return secondaryReducers.reduce((updatedState, secondaryReducer) => secondaryReducer(updatedState, action), state)
   }

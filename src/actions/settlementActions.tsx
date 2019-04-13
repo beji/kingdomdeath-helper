@@ -1,5 +1,5 @@
 import { Innovations } from 'interfaces/innovations'
-import { AddInnovationAction, RemoveInnovationAction, SetNameAction, UpdateSurvivalLimitAction } from '../interfaces/actions'
+import { AddInnovationAction, RemoveInnovationAction, SetNameAction, UpdateSurvivalLimitAction, SetLanternYearAction } from '../interfaces/actions'
 import ActionTypes from '../interfaces/actionTypes'
 
 export const setName = (name: string): SetNameAction => ({
@@ -20,4 +20,9 @@ export const addInnovation = (innovation: Innovations): AddInnovationAction => (
 export const removeInnovation = (innovation: Innovations): RemoveInnovationAction => ({
   payload: innovation,
   type: ActionTypes.REMOVE_INNOVATION,
+})
+
+export const setLanternYear = (year: number): SetLanternYearAction => ({
+  payload: year,
+  type: ActionTypes.SET_LANTERNYEAR,
 })
