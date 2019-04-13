@@ -9,12 +9,6 @@ import { HideLayerAction, UpdateSurvivorDisordersAction } from '../../interfaces
 import { deduplicate } from '../../util'
 import { CloseIcon, FancyButton, FilterInput, List, ListElement, ListWrapper, SelectedListElement, SimpleLayerHeadline } from './../StyledComponents'
 
-interface IDisorderslistState {
-  disordersToAdd: Disorders[]
-  disordersToRemove: Disorders[]
-  disorders: IDisorder[]
-}
-
 interface IDisorderslistStateProps {
   currentlySelectedDisorders?: Disorders[]
   id?: ID

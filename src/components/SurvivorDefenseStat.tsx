@@ -26,10 +26,6 @@ interface ISurvivorDefenseStatOwnProps {
   concatToDisplay?: string
 }
 
-interface ISurvivorDefenceStatState {
-  renderWounds: boolean
-}
-
 interface ISurvivorDefenseStatProps extends ISurvivorDefenseStatStatStateProps, ISurvivorDefenseStatOwnProps, ISurvivorDefenseStatDispatchProps {}
 
 const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorStatAction | ShowLayerAction>): ISurvivorDefenseStatDispatchProps => ({

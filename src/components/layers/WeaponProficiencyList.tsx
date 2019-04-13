@@ -9,11 +9,6 @@ import { ID, IState, IWeaponProficiency, LayerType } from '../../interfaces'
 import { WeaponProficiency } from '../../interfaces'
 import { CloseIcon, FancyButton, FilterInput, List, ListElement, ListWrapper, SelectedListElement } from '../StyledComponents'
 
-interface IWeaponProficiencylistState {
-  selected?: WeaponProficiency
-  proficiencies: ReadonlyArray<IWeaponProficiency>
-}
-
 interface IWeaponProficiencylistStateProps {
   currentlySelectedProficiency?: IWeaponProficiency
   survivor?: ID

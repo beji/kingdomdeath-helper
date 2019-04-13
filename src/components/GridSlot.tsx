@@ -9,10 +9,6 @@ import { colors } from '../theme'
 import GearCard from './GearCard'
 import { FancyButton } from './StyledComponents'
 
-interface IGridSlotState {
-  active: boolean
-}
-
 interface IGridSlotStateProps {
   grid?: IGearGrid
   slotKey?: number

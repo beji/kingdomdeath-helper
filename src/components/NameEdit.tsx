@@ -26,10 +26,6 @@ interface INameEditProps {
   updateFunc: (name: string) => void
 }
 
-interface INameEditState {
-  editName: boolean
-}
-
 const NameEdit: React.FunctionComponent<INameEditProps> = ({ name, updateFunc }) => {
   const [editName, setEdit] = useState(false)
 

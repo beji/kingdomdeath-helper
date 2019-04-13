@@ -71,12 +71,6 @@ interface ISurvivorCardDispatchProps {
 
 interface ISurvivorCardProps extends ISurvivorCardOwnProps, ISurvivorCardStateProps, ISurvivorCardDispatchProps {}
 
-interface ISurvivorCardState {
-  id?: ID
-  survivor?: ISurvivor
-  firstnameEdit: boolean
-}
-
 const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorAction | UpdateSurvivorNameAction | UpdateSurvivorWeaponProficiencyLevelAction>): ISurvivorCardDispatchProps => ({
   updateSurvivor: (survivor: ISurvivor) => dispatch(updateSurvivor(survivor)),
   updateSurvivorName: (id: ID, name: string) => dispatch(updateSurvivorName(id, name)),

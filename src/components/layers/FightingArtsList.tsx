@@ -9,12 +9,6 @@ import { FightingArt, ID, IFightingArt, IState, LayerType } from '../../interfac
 import { CloseIcon, FancyButton, FilterInput, List, ListElement, ListWrapper, SelectedListElement, SimpleLayerHeadline } from '../StyledComponents'
 import { deduplicate } from '../../util'
 
-interface IFightingArtslistState {
-  artsToAdd: FightingArt[]
-  artsToRemove: FightingArt[]
-  arts: IFightingArt[]
-}
-
 interface IFightingArtslistStateProps {
   currentlySelectedArts?: FightingArt[]
   survivor?: ID

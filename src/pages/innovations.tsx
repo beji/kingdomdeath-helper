@@ -63,58 +63,46 @@ const Content = styled.span`
   flex: 1;
 `
 
-class InnovationsPage extends React.Component<IInnovationsPageProps> {
-  public render() {
-    return (
-      <StyledText>
-        <h1>Taken</h1>
-        <ul>{this.props.innovated.map((innovation, idx) => this.renderInnovation(innovation, idx, InnovationState.Taken))}</ul>
-        <h1>Available</h1>
-        <ul>{this.props.available.map((innovation, idx) => this.renderInnovation(innovation, idx, InnovationState.Available))}</ul>
-        <h1>Not available</h1>
-        <ul>{this.props.not_available.map((innovation, idx) => this.renderInnovation(innovation, idx, InnovationState.Not_Available))}</ul>
-      </StyledText>
-    )
-  }
-
-  private renderInnovation(id: Innovations, idx: number, state: InnovationState) {
+const InnovationsPage: React.FunctionComponent<IInnovationsPageProps> = ({ showLayer, addInnovation, removeInnovation, innovated, available, not_available }) => {
+  const handleDetailClick = (id: Innovations) => {
     const innovation = innovations[id]
-    return (
-      <ListItem key={idx}>
-        <Content>{innovation.name}</Content>
-        <Content>
-          <FancyButton onClick={this.handleDetailClick.bind(this, id)}>🔍</FancyButton>
-        </Content>
-        {(state === InnovationState.Available || state === InnovationState.Not_Available) && (
-          <Content>
-            <FancyButton onClick={this.handleAddClick.bind(this, id)}>Take</FancyButton>
-          </Content>
-        )}
-        {state === InnovationState.Taken && (
-          <Content>
-            <FancyButton onClick={this.handleRemoveClick.bind(this, id)}>Remove</FancyButton>
-          </Content>
-        )}
-      </ListItem>
-    )
-  }
-
-  private handleDetailClick(id: Innovations) {
-    const innovation = innovations[id]
-    this.props.showLayer({
+    showLayer({
       content: innovation.description,
       headline: innovation.name,
       type: LayerType.simple,
     })
   }
-
-  private handleAddClick(id: Innovations) {
-    this.props.addInnovation(id)
+  const renderInnovation = (id: Innovations, idx: number, state: InnovationState) => {
+    const innovation = innovations[id]
+    return (
+      <ListItem key={idx}>
+        <Content>{innovation.name}</Content>
+        <Content>
+          <FancyButton onClick={() => handleDetailClick(id)}>🔍</FancyButton>
+        </Content>
+        {(state === InnovationState.Available || state === InnovationState.Not_Available) && (
+          <Content>
+            <FancyButton onClick={() => addInnovation(id)}>Take</FancyButton>
+          </Content>
+        )}
+        {state === InnovationState.Taken && (
+          <Content>
+            <FancyButton onClick={() => removeInnovation(id)}>Remove</FancyButton>
+          </Content>
+        )}
+      </ListItem>
+    )
   }
-
-  private handleRemoveClick(id: Innovations) {
-    this.props.removeInnovation(id)
-  }
+  return (
+    <StyledText>
+      <h1>Taken</h1>
+      <ul>{innovated.map((innovation, idx) => renderInnovation(innovation, idx, InnovationState.Taken))}</ul>
+      <h1>Available</h1>
+      <ul>{available.map((innovation, idx) => renderInnovation(innovation, idx, InnovationState.Available))}</ul>
+      <h1>Not available</h1>
+      <ul>{not_available.map((innovation, idx) => renderInnovation(innovation, idx, InnovationState.Not_Available))}</ul>
+    </StyledText>
+  )
 }
 
 export default connect(

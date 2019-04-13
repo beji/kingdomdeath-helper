@@ -9,11 +9,6 @@ import { HideLayerAction, UpdateGearGridAction } from '../../interfaces/actions'
 import { clone } from '../../util'
 import { CloseIcon, FilterInput, List, ListElement, ListWrapper } from '../StyledComponents'
 
-interface IGearListState {
-  filter: ItemType[]
-  items: ReadonlyArray<IItem>
-}
-
 interface IGearListStateProps {
   slotId?: ID
   grid?: IGearGrid

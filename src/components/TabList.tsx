@@ -4,10 +4,6 @@ import { colors } from '../theme'
 import { colorMagentaLachs } from './StyledComponents'
 import Tab from './Tab'
 
-export interface ITabListState {
-  activeTab: number
-}
-
 const isReactElement = (obj: {}): obj is React.ReactElement<{}> => {
   return obj.hasOwnProperty('type')
 }

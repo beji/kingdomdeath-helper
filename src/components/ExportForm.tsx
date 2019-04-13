@@ -11,10 +11,6 @@ interface IExportFormProps extends ISettlement {
   importSettlement: (settlement: ISettlement) => ImportAction
 }
 
-interface IExportFormState {
-  content: string
-}
-
 const mapStateToProps = (state: IState): IExportFormProps => {
   return clone(state.settlement) as IExportFormProps
 }
