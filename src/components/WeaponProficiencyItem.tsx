@@ -20,25 +20,15 @@ const mapDispatchToProps = (dispatch: Dispatch<ShowLayerAction>): IWeaponProfici
   showLayer: (layer: ISimpleLayer) => dispatch(showLayer(layer)),
 })
 
-class WeaponProficiencyItem extends React.Component<IWeaponProficiencyItemProps> {
-  public constructor(props: IWeaponProficiencyItemProps) {
-    super(props)
-
-    this.showDescription = this.showDescription.bind(this)
-  }
-
-  public render() {
-    const { proficiency } = this.props
-    return <ListItem onClick={this.showDescription}>{proficiency.name}</ListItem>
-  }
-  private showDescription() {
-    const { proficiency } = this.props
-    this.props.showLayer({
+const WeaponProficiencyItem: React.FunctionComponent<IWeaponProficiencyItemProps> = ({ proficiency, showLayer }) => {
+  const showDescription = () => {
+    showLayer({
       content: proficiency.desc,
       headline: proficiency.name,
       type: LayerType.simple,
     })
   }
+  return <ListItem onClick={showDescription}>{proficiency.name}</ListItem>
 }
 
 export default connect(

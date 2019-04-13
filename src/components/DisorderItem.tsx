@@ -20,25 +20,15 @@ const mapDispatchToProps = (dispatch: Dispatch<ShowLayerAction>): IDisorderItemD
   showLayer: (layer: ISimpleLayer) => dispatch(showLayer(layer)),
 })
 
-class DisorderItem extends React.Component<IDisorderItemProps> {
-  public constructor(props: IDisorderItemProps) {
-    super(props)
-
-    this.showDescription = this.showDescription.bind(this)
-  }
-
-  public render() {
-    const { disorder } = this.props
-    return <ListItem onClick={this.showDescription}>{disorder.name}</ListItem>
-  }
-  private showDescription() {
-    const { disorder } = this.props
-    this.props.showLayer({
+const DisorderItem: React.FunctionComponent<IDisorderItemProps> = ({ disorder, showLayer }) => {
+  const showDescription = () => {
+    showLayer({
       content: disorder.description,
       headline: disorder.name,
       type: LayerType.simple,
     })
   }
+  return <ListItem onClick={showDescription}>{disorder.name}</ListItem>
 }
 
 export default connect(

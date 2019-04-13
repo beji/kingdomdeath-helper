@@ -38,40 +38,28 @@ const mapStateToProps = (state: IState, ownProps: IBaseStatOwnProps): IBaseStatS
   }
 }
 
-class SurvivorBaseStat extends React.Component<IBaseStatProps> {
-  private permfield?: HTMLInputElement
-  private gearfield?: HTMLInputElement
-  private tokenfield?: HTMLInputElement
-
-  public constructor(props: IBaseStatProps) {
-    super(props)
-    this.handleEditClick = this.handleEditClick.bind(this)
-  }
-
-  public render() {
-    const { stat } = this.props
+const SurvivorBaseStat: React.FunctionComponent<IBaseStatProps> = ({ id, stat, showLayer }) => {
+  const handleEditClick = () => {
     if (stat) {
-      const classes = [stat.gear > 0 ? 'gear' : '', stat.token > 0 ? 'token' : '']
-      return (
-        <StatWrapper>
-          <StatElement onClick={this.handleEditClick} className={classes.map(v => v).join(' ')}>
-            {stat.permanent + stat.gear + stat.token}
-          </StatElement>
-        </StatWrapper>
-      )
-    }
-    return ''
-  }
-
-  private handleEditClick() {
-    if (this.props.stat) {
-      this.props.showLayer({
-        stat: this.props.stat.stat,
-        survivor: this.props.id,
+      showLayer({
+        stat: stat.stat,
+        survivor: id,
         type: LayerType.basestat,
       })
     }
   }
+
+  if (stat) {
+    const classes = [stat.gear > 0 ? 'gear' : '', stat.token > 0 ? 'token' : '']
+    return (
+      <StatWrapper>
+        <StatElement onClick={handleEditClick} className={classes.map(v => v).join(' ')}>
+          {stat.permanent + stat.gear + stat.token}
+        </StatElement>
+      </StatWrapper>
+    )
+  }
+  return <React.Fragment />
 }
 
 export default connect(

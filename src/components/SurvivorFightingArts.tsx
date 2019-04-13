@@ -45,39 +45,30 @@ const mapDispatchToProps = (dispatch: Dispatch<ShowLayerAction>): IFightingArtsD
   showLayer: (layer: IFightingartListLayer) => dispatch(showLayer(layer)),
 })
 
-class SurvivorFightingArts extends React.Component<IFightingArtsProps> {
-  public constructor(props: IFightingArtsProps) {
-    super(props)
-
-    this.showFightingArtList = this.showFightingArtList.bind(this)
-  }
-  public render() {
-    const { fightingArts } = this.props
-    if (fightingArts.length > 0) {
-      return (
-        <FightingArtsWrapper>
-          <FightingArtItemsWrapper>
-            {fightingArts.map((art, idx) => (
-              <FightingArtItem key={idx} art={art} />
-            ))}
-          </FightingArtItemsWrapper>
-          <FancyButton onClick={this.showFightingArtList}>Manage Fighting Arts</FancyButton>
-        </FightingArtsWrapper>
-      )
-    } else {
-      return (
-        <FightingArtsWrapper>
-          <FancyButton onClick={this.showFightingArtList}>Manage Fighting Arts</FancyButton>
-        </FightingArtsWrapper>
-      )
-    }
-  }
-
-  private showFightingArtList() {
-    this.props.showLayer({
-      survivor: this.props.id,
+const SurvivorFightingArts: React.FunctionComponent<IFightingArtsProps> = ({ id, showLayer, fightingArts }) => {
+  const showFightingArtList = () => {
+    showLayer({
+      survivor: id,
       type: LayerType.fightingartlist,
     })
+  }
+  if (fightingArts.length > 0) {
+    return (
+      <FightingArtsWrapper>
+        <FightingArtItemsWrapper>
+          {fightingArts.map((art, idx) => (
+            <FightingArtItem key={idx} art={art} />
+          ))}
+        </FightingArtItemsWrapper>
+        <FancyButton onClick={showFightingArtList}>Manage Fighting Arts</FancyButton>
+      </FightingArtsWrapper>
+    )
+  } else {
+    return (
+      <FightingArtsWrapper>
+        <FancyButton onClick={showFightingArtList}>Manage Fighting Arts</FancyButton>
+      </FightingArtsWrapper>
+    )
   }
 }
 

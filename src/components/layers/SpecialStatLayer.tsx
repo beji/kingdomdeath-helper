@@ -49,58 +49,40 @@ const mapDispatchToProps = (dispatch: Dispatch<HideLayerAction | UpdateSurvivorS
   updateSurvivorStat: (stat: ISpecialStat, survivorId: ID) => dispatch(updateSurvivorStat(stat, survivorId)),
 })
 
-class SpecialStatLayer extends React.Component<ISpecialStatLayerProps> {
-  private valueRef?: HTMLInputElement
+const SpecialStatLayer: React.FunctionComponent<ISpecialStatLayerProps> = ({ stat, survivor, survivorname, hideLayer, updateSurvivorStat }) => {
+  let valueRef: HTMLInputElement | null = null
+  const setupValueRef = (elem: HTMLInputElement) => (valueRef = elem)
 
-  public constructor(props: ISpecialStatLayerProps) {
-    super(props)
-    this.hideLayer = this.hideLayer.bind(this)
-
-    this.handleEditConfirm = this.handleEditConfirm.bind(this)
-    this.setupValueRef = this.setupValueRef.bind(this)
-  }
-  public render() {
-    if (this.props.stat && this.props.survivorname) {
-      const { survivorname } = this.props
-      const { stat, value } = this.props.stat
-      return (
-        <SimpleLayerWrapper>
-          <CloseIcon onClick={this.hideLayer}>X</CloseIcon>
-          <SimpleLayerHeadline>
-            {survivorname}'s {specialStatToString(stat)}
-          </SimpleLayerHeadline>
-          <StatEditWrapper>
-            <StatEdit>
-              <Label>Value</Label>
-              <NumberEdit value={value} innerRef={this.setupValueRef} />
-            </StatEdit>
-          </StatEditWrapper>
-          <FancyButton onClick={this.handleEditConfirm}>Save &#x2713;</FancyButton>
-        </SimpleLayerWrapper>
-      )
-    } else {
-      return ''
-    }
-  }
-
-  private setupValueRef(elem: HTMLInputElement) {
-    this.valueRef = elem
-  }
-
-  private hideLayer() {
-    this.props.hideLayer()
-  }
-
-  private handleEditConfirm() {
-    if (this.props.stat && this.valueRef) {
+  const handleEditConfirm = () => {
+    if (stat && valueRef) {
       const nextStat = {
-        ...this.props.stat,
-        value: parseInt(this.valueRef.value, 10),
+        ...stat,
+        value: parseInt(valueRef.value, 10),
       }
-      if (typeof this.props.survivor !== 'undefined') {
-        this.props.updateSurvivorStat(nextStat, this.props.survivor)
+      if (typeof survivor !== 'undefined') {
+        updateSurvivorStat(nextStat, survivor)
       }
     }
+  }
+  if (stat && survivorname) {
+    const { value } = stat
+    return (
+      <SimpleLayerWrapper>
+        <CloseIcon onClick={hideLayer}>X</CloseIcon>
+        <SimpleLayerHeadline>
+          {survivorname}'s {specialStatToString(stat.stat)}
+        </SimpleLayerHeadline>
+        <StatEditWrapper>
+          <StatEdit>
+            <Label>Value</Label>
+            <NumberEdit value={value} innerRef={setupValueRef} />
+          </StatEdit>
+        </StatEditWrapper>
+        <FancyButton onClick={handleEditConfirm}>Save &#x2713;</FancyButton>
+      </SimpleLayerWrapper>
+    )
+  } else {
+    return <React.Fragment />
   }
 }
 

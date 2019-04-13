@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from 'react'
+import React, { SyntheticEvent, useState } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import styled from 'styled-components'
@@ -51,62 +51,35 @@ const mapStateToProps = (state: IState, ownProps: IGridSlotOwnProps): IGridSlotS
   }
 }
 
-class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
-  public constructor(props: IGridSlotProps) {
-    super(props)
-    this.state = {
-      active: false,
-    }
-
-    this.handleGridDrop = this.handleGridDrop.bind(this)
-    this.handleGearListOpen = this.handleGearListOpen.bind(this)
+const StyledElement = styled.div`
+  border: 1px solid ${colors.hintedBorder};
+  width: 33.33333%;
+  min-height: 10vh;
+  text-align: center;
+  line-height: 10vh;
+  &.active {
+    background: #aaa;
   }
+`
 
-  public render() {
-    const StyledElement = styled.div`
-      border: 1px solid ${colors.hintedBorder};
-      width: 33.33333%;
-      min-height: 10vh;
-      text-align: center;
-      line-height: 10vh;
-      &.active {
-        background: #aaa;
-      }
-    `
-    const { slotId, grid, slotKey } = this.props
-    const { active } = this.state
-    const content = grid && grid.slots[this.props.slotKey as number].content
-    return (
-      <StyledElement
-        className={active ? 'active' : ''}
-        onDrop={this.generateHandler(slotKey, this.handleGridDrop)}
-        onDragOver={this.handleDragOver}
-        onDragEnter={this.handleDragEnter.bind(this, slotKey)}
-        onDragLeave={this.handleDragLeave.bind(this, slotKey)}
-      >
-        {content !== undefined && grid && <GearCard id={content} slotId={slotId} gridId={grid.id} />}
-        {content === undefined && <FancyButton onClick={this.handleGearListOpen}>+</FancyButton>}
-      </StyledElement>
-    )
-  }
+const GridSlot: React.FunctionComponent<IGridSlotProps> = ({ grid, slotKey, showLayer, updateGear, gridId, slotId }) => {
+  const [active, setActive] = useState(false)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private generateHandler = (value: any, method: any) => (...e: SyntheticEvent<HTMLDivElement>[]) => method(value, ...e)
+  const generateHandler = (value: any, method: any) => (...e: SyntheticEvent<HTMLDivElement>[]) => method(value, ...e)
 
-  private handleGearListOpen() {
-    const { gridId, slotId } = this.props
-    this.props.showLayer({
+  const handleGearListOpen = () => {
+    showLayer({
       gridId,
       slotId,
       type: LayerType.gearlist,
     })
   }
 
-  private handleGridDrop(slotKey: number, e: SyntheticEvent<HTMLDivElement>) {
+  const handleGridDrop = (slotKey: number, e: SyntheticEvent<HTMLDivElement>) => {
     const event = e.nativeEvent as Event & { dataTransfer: DataTransfer }
     const data = JSON.parse(event.dataTransfer.getData('ids'))
-    const { grid } = this.props
-    if (grid) {
+    if (typeof grid !== 'undefined') {
       const newGrid = {
         ...grid,
         slots: grid.slots.map((slot, idx) => {
@@ -125,31 +98,37 @@ class GridSlot extends React.Component<IGridSlotProps, IGridSlotState> {
           return slot
         }),
       }
-      this.props.updateGear(newGrid)
+      updateGear(newGrid)
 
-      this.setState({
-        active: false,
-      })
+      setActive(false)
     }
   }
 
-  private handleDragEnter() {
-    if (!this.state.active) {
-      this.setState({
-        active: true,
-      })
+  const handleDragEnter = () => {
+    if (!active) {
+      setActive(true)
     }
   }
 
-  private handleDragLeave() {
-    this.setState({
-      active: false,
-    })
+  const handleDragLeave = () => {
+    setActive(false)
   }
 
-  private handleDragOver(e: SyntheticEvent<HTMLDivElement>) {
-    e.preventDefault()
-  }
+  const handleDragOver = (e: SyntheticEvent<HTMLDivElement>) => e.preventDefault()
+
+  const content = grid && grid.slots[slotKey as number].content
+  return (
+    <StyledElement
+      className={active ? 'active' : ''}
+      onDrop={generateHandler(slotKey, handleGridDrop)}
+      onDragOver={handleDragOver}
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+    >
+      {content !== undefined && grid && <GearCard id={content} slotId={slotId} gridId={grid.id} />}
+      {content === undefined && <FancyButton onClick={handleGearListOpen}>+</FancyButton>}
+    </StyledElement>
+  )
 }
 
 export default connect(

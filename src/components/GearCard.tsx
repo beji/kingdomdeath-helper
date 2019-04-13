@@ -220,61 +220,14 @@ const CloseIcon = styled.div`
   }
 `
 
-class GearCard extends React.Component<IGearCardProps> {
-  public constructor(props: IGearCardProps) {
-    super(props)
-    this.state = {
-      dragging: false,
-    }
-    this.handleDragStart = this.handleDragStart.bind(this)
-    this.handleCloseIconClick = this.handleCloseIconClick.bind(this)
-    this.renderAffinity = this.renderAffinity.bind(this)
-    this.showDescription = this.showDescription.bind(this)
-  }
-
-  public render() {
-    if (this.props.item) {
-      const { item, slotId, showDescButton } = this.props
-      const { desc, name, types, weapon, obtained } = item
-      const armorStat = item.stats && item.stats.find(stat => stat.type === StatType.defense)
-      const isShield = item.stats && item.stats.length === 5
-      return (
-        <StyledCard onDragStart={this.handleDragStart} draggable={true}>
-          {typeof slotId !== 'undefined' && <CloseIcon onClick={this.handleCloseIconClick}>x</CloseIcon>}
-          <CardHeadline>{name}</CardHeadline>
-          <CardTypes>{types && types.map((type, idx) => <span key={idx}>{ItemType[type]} </span>)}</CardTypes>
-          {showDescButton && <FancyButton onClick={this.showDescription}>Description</FancyButton>}
-          {!showDescButton && desc && <CardDescription dangerouslySetInnerHTML={{ __html: marked(desc) }} />}
-          <CardStatsWrapper>
-            {weapon && (
-              <WeaponWrapper>
-                <div>{weapon.speed}</div>
-                <WeaponAcc>{weapon.accuracy}</WeaponAcc>
-                <WeaponSpeed>{weapon.strength}</WeaponSpeed>
-              </WeaponWrapper>
-            )}
-            {armorStat && (
-              <Shield>
-                {armorStat.amount} <ShieldArmorType>{isShield ? 'all' : capitalize(DefenseStats[armorStat.stat])}</ShieldArmorType>
-              </Shield>
-            )}
-          </CardStatsWrapper>
-          {this.renderAffinity(item)}
-          {obtained && <MadeAt>{obtained}</MadeAt>}
-        </StyledCard>
-      )
-    } else {
-      return ''
-    }
-  }
-
-  private renderAffinity(item: IItem) {
+const GearCard: React.FunctionComponent<IGearCardProps> = props => {
+  const renderAffinity = (item: IItem) => {
     const { affinity } = item
     const directions: string[] = ['top', 'left', 'bottom', 'right']
     if (affinity) {
       return (
         <div>
-          <AffinityWrapper className={this.props.affinityActive ? 'active' : ''}>
+          <AffinityWrapper className={props.affinityActive ? 'active' : ''}>
             {affinity.bonus && affinity.bonus.require && (
               <AffinityRequirments>
                 {affinity.bonus.require.map((aff: IAffinity, idx: number) => (
@@ -291,12 +244,12 @@ class GearCard extends React.Component<IGearCardProps> {
         </div>
       )
     }
-    return ''
+    return <React.Fragment />
   }
 
-  private handleCloseIconClick() {
-    if (this.props.grid) {
-      const { grid, slotKey } = this.props
+  const handleCloseIconClick = () => {
+    if (props.grid) {
+      const { grid, slotKey } = props
       const newGrid = {
         ...grid,
         slots: grid.slots.map((slot, idx) => {
@@ -309,37 +262,68 @@ class GearCard extends React.Component<IGearCardProps> {
           return slot
         }),
       }
-      this.props.updateGear(newGrid)
-      this.setState({
-        active: false,
-      })
+      props.updateGear(newGrid)
     }
   }
 
-  private handleDragStart = (e: SyntheticEvent<HTMLDivElement>) => {
+  const handleDragStart = (e: SyntheticEvent<HTMLDivElement>) => {
     const event = e.nativeEvent as Event & { dataTransfer: DataTransfer }
     if (event.dataTransfer) {
       event.dataTransfer.effectAllowed = 'move'
       event.dataTransfer.setData(
         'ids',
         JSON.stringify({
-          id: this.props.id,
-          slotKey: this.props.slotKey,
+          id: props.id,
+          slotKey: props.slotKey,
         }),
       )
     }
   }
 
-  private showDescription() {
-    const { item } = this.props
+  const showDescription = () => {
+    const { item } = props
     if (item) {
       const { desc, name } = item
-      this.props.showLayer({
+      props.showLayer({
         content: desc,
         headline: name,
         type: LayerType.simple,
       })
     }
+  }
+
+  if (props.item) {
+    const { item, slotId, showDescButton } = props
+    const { desc, name, types, weapon, obtained } = item
+    const armorStat = item.stats && item.stats.find(stat => stat.type === StatType.defense)
+    const isShield = item.stats && item.stats.length === 5
+    return (
+      <StyledCard onDragStart={handleDragStart} draggable={true}>
+        {typeof slotId !== 'undefined' && <CloseIcon onClick={handleCloseIconClick}>x</CloseIcon>}
+        <CardHeadline>{name}</CardHeadline>
+        <CardTypes>{types && types.map((type, idx) => <span key={idx}>{ItemType[type]} </span>)}</CardTypes>
+        {showDescButton && <FancyButton onClick={showDescription}>Description</FancyButton>}
+        {!showDescButton && desc && <CardDescription dangerouslySetInnerHTML={{ __html: marked(desc) }} />}
+        <CardStatsWrapper>
+          {weapon && (
+            <WeaponWrapper>
+              <div>{weapon.speed}</div>
+              <WeaponAcc>{weapon.accuracy}</WeaponAcc>
+              <WeaponSpeed>{weapon.strength}</WeaponSpeed>
+            </WeaponWrapper>
+          )}
+          {armorStat && (
+            <Shield>
+              {armorStat.amount} <ShieldArmorType>{isShield ? 'all' : capitalize(DefenseStats[armorStat.stat])}</ShieldArmorType>
+            </Shield>
+          )}
+        </CardStatsWrapper>
+        {renderAffinity(item)}
+        {obtained && <MadeAt>{obtained}</MadeAt>}
+      </StyledCard>
+    )
+  } else {
+    return <React.Fragment />
   }
 }
 

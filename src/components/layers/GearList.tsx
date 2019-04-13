@@ -1,5 +1,5 @@
 import Fuse from 'fuse.js'
-import React, { KeyboardEvent, SyntheticEvent } from 'react'
+import React, { KeyboardEvent, SyntheticEvent, useState } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { hideLayer, updateGear } from '../../actions'
@@ -52,41 +52,11 @@ const mapStateToProps = (state: IState): IGearListStateProps => {
   }
 }
 
-class GearList extends React.Component<IGearListProps, IGearListState> {
-  private inputfield?: HTMLInputElement
+const GearList: React.FunctionComponent<IGearListProps> = ({ grid, slotId, updateGear, hideLayer }) => {
+  const [displayedItems, setDisplayedItems] = useState<ReadonlyArray<IItem>>(items)
 
-  public constructor(props: IGearListProps) {
-    super(props)
-    this.state = {
-      filter: [],
-      items: items as IItem[],
-    }
-    this.handleFilter = this.handleFilter.bind(this)
-    this.handleKeyPress = this.handleKeyPress.bind(this)
-    this.setupInputRef = this.setupInputRef.bind(this)
-  }
-
-  public render() {
-    if (this.props.grid && typeof this.props.slotId !== 'undefined') {
-      return (
-        <ListWrapper>
-          <CloseIcon onClick={this.props.hideLayer}>X</CloseIcon>
-          <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} onKeyPress={this.handleKeyPress} ref={this.setupInputRef} autoFocus={true} />
-          <List>
-            {this.state.items.map((v, i) => (
-              <ListElement key={i} onClick={this.handleItemSelect.bind(this, v.id)} dangerouslySetInnerHTML={{ __html: v.name }} />
-            ))}
-          </List>
-        </ListWrapper>
-      )
-    } else {
-      return ''
-    }
-  }
-
-  private handleItemSelect(itemId: Item) {
-    if (this.props.grid && typeof this.props.slotId !== 'undefined') {
-      const { grid, slotId } = this.props
+  const handleItemSelect = (itemId: Item) => {
+    if (grid && typeof slotId !== 'undefined') {
       const newGrid: IGearGrid = {
         ...grid,
         slots: grid.slots.map(slot => {
@@ -99,38 +69,48 @@ class GearList extends React.Component<IGearListProps, IGearListState> {
           return slot
         }),
       }
-      this.props.updateGear(clone(newGrid))
-      this.props.hideLayer()
+      updateGear(clone(newGrid))
+      hideLayer()
     }
   }
 
-  private setupInputRef(elem: HTMLInputElement) {
-    this.inputfield = elem
-  }
-
-  private handleFilter(event: SyntheticEvent<HTMLInputElement>) {
+  const handleFilter = (event: SyntheticEvent<HTMLInputElement>) => {
     if (event.currentTarget.value === '') {
-      this.setState({ items })
+      setDisplayedItems(items)
     } else {
       const fuse = new Fuse(items, {
         keys: ['name'],
         threshold: 0.5,
       })
-      this.setState({
-        items: fuse.search(event.currentTarget.value).map(item => {
-          return {
-            ...item,
-            name: item.name.replace(new RegExp(event.currentTarget.value, 'gi'), '<b>$&</b>'),
-          }
-        }),
-      })
+      setDisplayedItems(
+        fuse.search(event.currentTarget.value).map(item => ({
+          ...item,
+          name: item.name.replace(new RegExp(event.currentTarget.value, 'gi'), '<b>$&</b>'),
+        })),
+      )
     }
   }
 
-  private handleKeyPress(event: KeyboardEvent<HTMLInputElement>) {
+  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      this.handleItemSelect(this.state.items[0].id)
+      handleItemSelect(displayedItems[0].id)
     }
+  }
+
+  if (grid && typeof slotId !== 'undefined') {
+    return (
+      <ListWrapper>
+        <CloseIcon onClick={hideLayer}>X</CloseIcon>
+        <FilterInput type="text" placeholder="filter..." onChange={handleFilter} onKeyPress={handleKeyPress} autoFocus={true} />
+        <List>
+          {displayedItems.map((v, i) => (
+            <ListElement key={i} onClick={() => handleItemSelect(v.id)} dangerouslySetInnerHTML={{ __html: v.name }} />
+          ))}
+        </List>
+      </ListWrapper>
+    )
+  } else {
+    return <React.Fragment />
   }
 }
 

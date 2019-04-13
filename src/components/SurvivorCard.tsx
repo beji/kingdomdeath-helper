@@ -90,105 +90,91 @@ const mapStateToProps = (state: IState, ownProps: ISurvivorCardOwnProps): ISurvi
   }
 }
 
-class SurvivorCard extends React.Component<ISurvivorCardProps, ISurvivorCardState> {
-  public constructor(props: ISurvivorCardProps) {
-    super(props)
-
-    this.state = {
-      firstnameEdit: false,
-      id: props.id,
-      survivor: props.survivor,
-    }
-    this.nameUpdate = this.nameUpdate.bind(this)
-  }
-
-  public render() {
-    const { survivor } = this.props
+const SurvivorCard: React.FunctionComponent<ISurvivorCardProps> = ({ survivor, updateSurvivorName, updateSurvivor, survivalLimit }) => {
+  const nameUpdate = (newName: string) => {
     if (survivor) {
-      const { name, id, defenseStats } = survivor
-      const survival = defenseStats.find(stat => stat.stat === DefenseStats.survival)
-      return (
-        <StyledCard>
-          <NameWrapper>
-            <NameSection>
-              <section>
-                <Label>Name</Label>
-                <NameEdit name={name} updateFunc={this.nameUpdate} />
-              </section>
-              <section>
-                <Label>Gender</Label>
-                <GenderEdit id={id} />
-              </section>
-            </NameSection>
-            <SpecialSection>
-              <section>
-                <Label>Skip next hunt</Label>
-                <Checkbox value={survivor.skipNextHunt} onChange={this.toggleBooleanStat.bind(this, 'skipNextHunt')} />
-              </section>
-              <section>
-                <Label>Lifetime ReRoll</Label>
-                <Checkbox value={survivor.lifetimeReroll} onChange={this.toggleBooleanStat.bind(this, 'lifetimeReroll')} />
-              </section>
-            </SpecialSection>
-          </NameWrapper>
-          <TextSection>
-            {survival && (
-              <SurvivorStat>
-                <StatLabel>{capitalize(DefenseStats[survival.stat])}</StatLabel>
-                <SurvivorDefenseStat id={id} statid={survival.stat} concatToDisplay={`/ ${this.props.survivalLimit}`} />
-              </SurvivorStat>
-            )}
-            <SurvivorFightingArts id={id} />
-            <SurvivorDisorders id={id} />
-          </TextSection>
-          <SurvivorWeaponProficiency id={id} />
-          <StatSection>
-            {survivor.specialstats.map((specialStat, idx) => (
-              <SurvivorStat key={idx}>
-                <StatLabel>{specialStatToString(specialStat.stat)}</StatLabel>
-                <SurvivorSpecialStat id={id} statid={specialStat.stat} />
-              </SurvivorStat>
-            ))}
-          </StatSection>
-          <StatSection>
-            {survivor.baseStats.map((baseStat, idx) => (
-              <SurvivorStat key={idx}>
-                <StatLabel>{capitalize(BaseStats[baseStat.stat])}</StatLabel>
-                <SurvivorBaseStat id={id} statid={baseStat.stat} />
-              </SurvivorStat>
-            ))}
-          </StatSection>
-          <StatSection>
-            {survivor.defenseStats.map(
-              (defenseStat, idx) =>
-                defenseStat.stat !== DefenseStats.survival && (
-                  <SurvivorStat key={idx}>
-                    <StatLabel>{capitalize(DefenseStats[defenseStat.stat])}</StatLabel>
-                    <SurvivorDefenseStat id={id} statid={defenseStat.stat} />
-                  </SurvivorStat>
-                ),
-            )}
-          </StatSection>
-        </StyledCard>
-      )
-    } else {
-      return <StyledCard>No Survivor chosen!</StyledCard>
+      updateSurvivorName(survivor.id, newName)
     }
   }
-  private nameUpdate(newName: string) {
-    if (this.props.survivor) {
-      this.props.updateSurvivorName(this.props.survivor.id, newName)
-    }
-  }
-  private toggleBooleanStat(statKey: string) {
-    const { survivor } = this.props
+  const toggleBooleanStat = (statKey: string) => {
     if (survivor) {
       const updateData: ISurvivor = {
         ...survivor,
         [statKey]: !survivor[statKey],
       }
-      this.props.updateSurvivor(updateData)
+      updateSurvivor(updateData)
     }
+  }
+
+  if (survivor) {
+    const { name, id, defenseStats } = survivor
+    const survival = defenseStats.find(stat => stat.stat === DefenseStats.survival)
+    return (
+      <StyledCard>
+        <NameWrapper>
+          <NameSection>
+            <section>
+              <Label>Name</Label>
+              <NameEdit name={name} updateFunc={nameUpdate} />
+            </section>
+            <section>
+              <Label>Gender</Label>
+              <GenderEdit id={id} />
+            </section>
+          </NameSection>
+          <SpecialSection>
+            <section>
+              <Label>Skip next hunt</Label>
+              <Checkbox value={survivor.skipNextHunt} onChange={() => toggleBooleanStat('skipNextHunt')} />
+            </section>
+            <section>
+              <Label>Lifetime ReRoll</Label>
+              <Checkbox value={survivor.lifetimeReroll} onChange={() => toggleBooleanStat('lifetimeReroll')} />
+            </section>
+          </SpecialSection>
+        </NameWrapper>
+        <TextSection>
+          {survival && (
+            <SurvivorStat>
+              <StatLabel>{capitalize(DefenseStats[survival.stat])}</StatLabel>
+              <SurvivorDefenseStat id={id} statid={survival.stat} concatToDisplay={`/ ${survivalLimit}`} />
+            </SurvivorStat>
+          )}
+          <SurvivorFightingArts id={id} />
+          <SurvivorDisorders id={id} />
+        </TextSection>
+        <SurvivorWeaponProficiency id={id} />
+        <StatSection>
+          {survivor.specialstats.map((specialStat, idx) => (
+            <SurvivorStat key={idx}>
+              <StatLabel>{specialStatToString(specialStat.stat)}</StatLabel>
+              <SurvivorSpecialStat id={id} statid={specialStat.stat} />
+            </SurvivorStat>
+          ))}
+        </StatSection>
+        <StatSection>
+          {survivor.baseStats.map((baseStat, idx) => (
+            <SurvivorStat key={idx}>
+              <StatLabel>{capitalize(BaseStats[baseStat.stat])}</StatLabel>
+              <SurvivorBaseStat id={id} statid={baseStat.stat} />
+            </SurvivorStat>
+          ))}
+        </StatSection>
+        <StatSection>
+          {survivor.defenseStats.map(
+            (defenseStat, idx) =>
+              defenseStat.stat !== DefenseStats.survival && (
+                <SurvivorStat key={idx}>
+                  <StatLabel>{capitalize(DefenseStats[defenseStat.stat])}</StatLabel>
+                  <SurvivorDefenseStat id={id} statid={defenseStat.stat} />
+                </SurvivorStat>
+              ),
+          )}
+        </StatSection>
+      </StyledCard>
+    )
+  } else {
+    return <StyledCard>No Survivor chosen!</StyledCard>
   }
 }
 

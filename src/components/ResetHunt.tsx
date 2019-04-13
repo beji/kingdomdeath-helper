@@ -14,21 +14,14 @@ const mapDispatchToProps = (dispatch: Dispatch<ResetHuntAction>): IResetHuntProp
   resetHunt: () => dispatch(resetHunt()),
 })
 
-class ResetHunt extends React.Component<IResetHuntProps> {
-  public constructor(props: IResetHuntProps) {
-    super(props)
-    this.handleClick = this.handleClick.bind(this)
-  }
-  public render() {
-    return <FancyButton onClick={this.handleClick}>⚠ Reset hunt ⚠</FancyButton>
-  }
-
-  private handleClick(e: SyntheticEvent<HTMLButtonElement>) {
+const ResetHunt: React.FunctionComponent<IResetHuntProps> = ({ resetHunt }) => {
+  const handleClick = (e: SyntheticEvent<HTMLButtonElement>) => {
     e.preventDefault()
     if (window.confirm('You sure? This will reset all stat modifiers and tokens!')) {
-      this.props.resetHunt()
+      resetHunt()
     }
   }
+  return <FancyButton onClick={handleClick}>⚠ Reset hunt ⚠</FancyButton>
 }
 
 export default connect(

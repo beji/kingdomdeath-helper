@@ -10,6 +10,7 @@ interface ISettlement {
   readonly survivors: ReadonlyArray<ISurvivor>
   readonly geargrids: ReadonlyArray<IGearGrid>
   readonly innovations: ReadonlyArray<Innovations>
+  readonly year: number
 }
 
 export { ISettlement }

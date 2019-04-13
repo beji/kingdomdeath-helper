@@ -111,6 +111,7 @@ const initialState: IState = {
     name: 'Everybody-will-die-town',
     survivalLimit: 1,
     survivors,
+    year: 1,
   },
 }
 

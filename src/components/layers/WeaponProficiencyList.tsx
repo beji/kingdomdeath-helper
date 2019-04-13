@@ -1,7 +1,7 @@
 import weaponproficiencies from 'data/final/selectableStats'
 import Fuse from 'fuse.js'
 import { HideLayerAction, UpdateSurvivorWeaponProficiencyAction } from 'interfaces/actions'
-import React, { SyntheticEvent } from 'react'
+import React, { SyntheticEvent, useState } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { hideLayer, updateWeaponProficiency } from '../../actions'
@@ -50,80 +50,52 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorWeaponProficiencyAc
   updateWeaponProficiency: (survivorId: ID, proficiency?: WeaponProficiency) => dispatch(updateWeaponProficiency(survivorId, proficiency)),
 })
 
-class WeaponProficiencylist extends React.Component<IWeaponProficiencylistProps, IWeaponProficiencylistState> {
-  public constructor(props: IWeaponProficiencylistProps) {
-    super(props)
-    this.renderListElement = this.renderListElement.bind(this)
-    this.submit = this.submit.bind(this)
-    this.handleFilter = this.handleFilter.bind(this)
-    this.state = {
-      proficiencies: weaponproficiencies,
-      selected: undefined,
-    }
-  }
+const WeaponProficiencylist: React.FunctionComponent<IWeaponProficiencylistProps> = ({ survivor, updateWeaponProficiency, hideLayer }) => {
+  const [selected, setSelected] = useState<WeaponProficiency | undefined>(undefined)
+  const [displayedProficiencies, setDisplayedProficiencies] = useState<ReadonlyArray<IWeaponProficiency>>(weaponproficiencies)
 
-  public render() {
-    if (typeof this.props.survivor !== 'undefined') {
-      return (
-        <ListWrapper>
-          <CloseIcon onClick={this.props.hideLayer}>X</CloseIcon>
-          <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} autoFocus={true} />
-          <List>
-            {this.state.proficiencies.map((proficiency, idx) => (
-              <React.Fragment key={idx}>{this.renderListElement(proficiency)}</React.Fragment>
-            ))}
-          </List>
-          <FancyButton onClick={this.submit}>Submit</FancyButton>
-        </ListWrapper>
-      )
-    } else {
-      return ''
-    }
-  }
-
-  private renderListElement(proficiency: IWeaponProficiency) {
-    const selected = this.state.selected
+  const renderListElement = (proficiency: IWeaponProficiency) => {
     const isSelected = typeof selected !== 'undefined' && proficiency.id === selected
     if (isSelected) {
-      // tslint:disable-next-line:jsx-no-bind
-      return <SelectedListElement onClick={this.deselectProficiency.bind(this)}>{proficiency.name}</SelectedListElement>
+      return <SelectedListElement onClick={() => setSelected(undefined)}>{proficiency.name}</SelectedListElement>
     }
-    return <ListElement onClick={this.selectProficiency.bind(this, proficiency.id)}>{proficiency.name}</ListElement>
-  }
-  private selectProficiency(newProficiency: WeaponProficiency) {
-    this.setState({
-      ...this.state,
-      selected: newProficiency,
-    })
-  }
-  private deselectProficiency() {
-    this.setState({
-      ...this.state,
-      selected: undefined,
-    })
+    return <ListElement onClick={() => setSelected(proficiency.id)}>{proficiency.name}</ListElement>
   }
 
-  private submit() {
-    if (typeof this.props.survivor !== 'undefined') {
-      this.props.updateWeaponProficiency(this.props.survivor, this.state.selected)
-      this.props.hideLayer()
+  const submit = () => {
+    if (typeof survivor !== 'undefined') {
+      updateWeaponProficiency(survivor, selected)
+      hideLayer()
     }
   }
 
-  private handleFilter(event: SyntheticEvent<HTMLInputElement>) {
+  const handleFilter = (event: SyntheticEvent<HTMLInputElement>) => {
     if (event.currentTarget.value === '') {
-      this.setState({
-        proficiencies: weaponproficiencies,
-      })
+      setDisplayedProficiencies(weaponproficiencies)
     } else {
       const fuse = new Fuse(weaponproficiencies, {
         keys: ['name'],
         threshold: 0.5,
       })
-      this.setState({
-        proficiencies: fuse.search(event.currentTarget.value),
-      })
+      setDisplayedProficiencies(fuse.search(event.currentTarget.value))
     }
+  }
+
+  if (typeof survivor !== 'undefined') {
+    return (
+      <ListWrapper>
+        <CloseIcon onClick={hideLayer}>X</CloseIcon>
+        <FilterInput type="text" placeholder="filter..." onChange={handleFilter} autoFocus={true} />
+        <List>
+          {displayedProficiencies.map((proficiency, idx) => (
+            <React.Fragment key={idx}>{renderListElement(proficiency)}</React.Fragment>
+          ))}
+        </List>
+        <FancyButton onClick={submit}>Submit</FancyButton>
+      </ListWrapper>
+    )
+  } else {
+    return <React.Fragment />
   }
 }
 

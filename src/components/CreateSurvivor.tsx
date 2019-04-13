@@ -13,20 +13,7 @@ const mapDispatchToProps = (dispatch: Dispatch<CreateSurvivorAction>): ICreateSu
   createSurvivor: () => dispatch(createSurvivor()),
 })
 
-class CreateSurvivor extends React.Component<ICreateSurvivorDispatchProps> {
-  public constructor(props: ICreateSurvivorDispatchProps) {
-    super(props)
-
-    this.handleClick = this.handleClick.bind(this)
-  }
-  public render() {
-    return <FancyButton onClick={this.handleClick}>Create Survivor</FancyButton>
-  }
-
-  private handleClick() {
-    this.props.createSurvivor()
-  }
-}
+const CreateSurvivor: React.FunctionComponent<ICreateSurvivorDispatchProps> = ({ createSurvivor }) => <FancyButton onClick={() => createSurvivor()}>Create Survivor</FancyButton>
 
 export default connect(
   null,

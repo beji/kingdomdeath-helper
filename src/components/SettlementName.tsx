@@ -2,9 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import styled from 'styled-components'
-import { setName, updateSurvivalLimit } from '../actions/settlementActions'
+import { setName, updateSurvivalLimit, setLanternYear } from '../actions/settlementActions'
 import { IState } from '../interfaces'
-import { SetNameAction, UpdateSurvivalLimitAction } from '../interfaces/actions'
+import { SetNameAction, UpdateSurvivalLimitAction, SetLanternYearAction } from '../interfaces/actions'
 import { colors, serifFont } from '../theme'
 import NameEdit from './NameEdit'
 import NumberEdit from './NumberEdit'
@@ -12,11 +12,13 @@ import NumberEdit from './NumberEdit'
 interface ISettlementNameDispatchProps {
   setName: (name: string) => SetNameAction
   updateSurvivalLimit: (survivalLimit: number) => UpdateSurvivalLimitAction
+  setLanternYear: (year: number) => SetLanternYearAction
 }
 
 interface ISettlementNameStateProps {
   name?: string
   survivalLimit: number
+  year: number
 }
 const Wrapper = styled.section`
   margin-bottom: 0.25rem;
@@ -31,6 +33,10 @@ const StyledName = styled.div`
     display: inline-block;
   }
 `
+const InlineItem = styled.div`
+  display: inline-block;
+  margin-right: 1rem;
+`
 
 interface ISettlementNameProps extends ISettlementNameDispatchProps, ISettlementNameStateProps {}
 
@@ -38,54 +44,49 @@ const mapStateToProps = (state: IState): ISettlementNameStateProps => {
   return {
     name: state.settlement.name,
     survivalLimit: state.settlement.survivalLimit,
+    year: state.settlement.year,
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<SetNameAction | UpdateSurvivalLimitAction>): ISettlementNameDispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<SetNameAction | UpdateSurvivalLimitAction | SetLanternYearAction>): ISettlementNameDispatchProps => ({
   setName: (name: string) => dispatch(setName(name)),
   updateSurvivalLimit: (survivalLimit: number) => dispatch(updateSurvivalLimit(survivalLimit)),
+  setLanternYear: (year: number) => dispatch(setLanternYear(year)),
 })
 
-class SettlementName extends React.Component<ISettlementNameProps> {
-  private valuefield?: HTMLInputElement
+const SettlementName: React.FunctionComponent<ISettlementNameProps> = ({ name, survivalLimit, year, setName, updateSurvivalLimit, setLanternYear }) => {
+  let survivalLimitField: HTMLInputElement | null = null
+  let yearField: HTMLInputElement | null = null
+  const setupSurvivalLimitField = (elem: HTMLInputElement) => (survivalLimitField = elem)
+  const setupYearField = (elem: HTMLInputElement) => (yearField = elem)
 
-  public constructor(props: ISettlementNameProps) {
-    super(props)
-    this.handleNameUpdate = this.handleNameUpdate.bind(this)
-    this.renderName = this.renderName.bind(this)
-    this.setupValueRef = this.setupValueRef.bind(this)
-    this.handleSLChange = this.handleSLChange.bind(this)
-    this.state = {
-      editmode: false,
+  const handleNameUpdate = (newName: string) => {
+    setName(newName)
+  }
+  const handleSLChange = () => {
+    if (survivalLimitField) {
+      updateSurvivalLimit(parseInt(survivalLimitField.value, 10))
     }
   }
-  public render() {
-    return (
-      <Wrapper>
-        <StyledName>
-          <NameEdit name={this.props.name || 'The town with no name'} updateFunc={this.handleNameUpdate} />
-        </StyledName>
-        Survival Limit: <NumberEdit innerRef={this.setupValueRef} value={this.props.survivalLimit} changeFunc={this.handleSLChange} />
-      </Wrapper>
-    )
-  }
-
-  private handleNameUpdate(newName: string) {
-    this.props.setName(newName)
-  }
-  private handleSLChange() {
-    if (this.valuefield) {
-      this.props.updateSurvivalLimit(parseInt(this.valuefield.value, 10))
+  const handleYearChange = () => {
+    if (yearField) {
+      setLanternYear(parseInt(yearField.value, 10))
     }
   }
 
-  private renderName(name: string) {
-    return <h1>{name}</h1>
-  }
-
-  private setupValueRef(elem: HTMLInputElement) {
-    this.valuefield = elem
-  }
+  return (
+    <Wrapper>
+      <StyledName>
+        <NameEdit name={name || 'The town with no name'} updateFunc={handleNameUpdate} />
+      </StyledName>
+      <InlineItem>
+        Survival Limit: <NumberEdit innerRef={setupSurvivalLimitField} value={survivalLimit} changeFunc={handleSLChange} />
+      </InlineItem>
+      <InlineItem>
+        Lantern year: <NumberEdit innerRef={setupYearField} value={year} changeFunc={handleYearChange} />
+      </InlineItem>
+    </Wrapper>
+  )
 }
 
 export default connect(

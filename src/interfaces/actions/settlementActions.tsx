@@ -9,3 +9,5 @@ export type UpdateSurvivalLimitAction = IAction<ActionTypes.UPDATE_SURVIVAL_LIMI
 export type AddInnovationAction = IAction<ActionTypes.ADD_INNOVATION, Innovations>
 
 export type RemoveInnovationAction = IAction<ActionTypes.REMOVE_INNOVATION, Innovations>
+
+export type SetLanternYearAction = IAction<ActionTypes.SET_LANTERNYEAR, number>

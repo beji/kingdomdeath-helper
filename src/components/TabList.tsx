@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { colors } from '../theme'
 import { colorMagentaLachs } from './StyledComponents'
@@ -54,55 +54,37 @@ const Wrapper = styled.div`
   margin-bottom: 1vh;
 `
 
-class TabList extends React.Component<{}, ITabListState> {
-  public constructor(props: {}) {
-    super(props)
-    this.state = {
-      activeTab: 0,
-    }
-    this.renderTabSelector = this.renderTabSelector.bind(this)
-    this.changeTab = this.changeTab.bind(this)
-  }
-  public render() {
-    const { children } = this.props
-    const tabs = getTabs(children).filter((child): child is Tab => child !== null)
-    return (
-      <Wrapper>
-        <div>{tabs.map((tab: Tab, index: number) => tab && this.renderTabSelector(tab, index))}</div>
-        <div>{tabs.map((tab: Tab, index: number) => tab && this.renderTabContent(tab, index))}</div>
-      </Wrapper>
-    )
-  }
-
-  private changeTab(activeTab: number) {
-    this.setState({
-      activeTab,
-    })
-  }
-
-  private renderTabSelector(tab: Tab, index: number) {
+const TabList: React.FunctionComponent = ({ children }) => {
+  const [activeTab, setActiveTab] = useState(0)
+  const renderTabSelector = (tab: Tab, index: number) => {
     const { label } = tab.props
-    const { activeTab } = this.state
     if (index === activeTab) {
       return <ActiveTabListItem key={index}>{label}</ActiveTabListItem>
     } else {
       // tslint:disable-next-line:jsx-no-lambda
       return (
-        <TabListItem key={index} onClick={() => this.changeTab(index)}>
+        <TabListItem key={index} onClick={() => setActiveTab(index)}>
           {label}
         </TabListItem>
       )
     }
   }
-  private renderTabContent(tab: Tab, index: number) {
+  const renderTabContent = (tab: Tab, index: number) => {
     const { children } = tab.props
-    const { activeTab } = this.state
     if (index === activeTab) {
       return <TabContent key={index}>{children}</TabContent>
     } else {
-      return ''
+      return <React.Fragment key={index} />
     }
   }
+
+  const tabs = getTabs(children).filter((child): child is Tab => child !== null)
+  return (
+    <Wrapper>
+      <div>{tabs.map((tab: Tab, index: number) => tab && renderTabSelector(tab, index))}</div>
+      <div>{tabs.map((tab: Tab, index: number) => tab && renderTabContent(tab, index))}</div>
+    </Wrapper>
+  )
 }
 
 export default TabList

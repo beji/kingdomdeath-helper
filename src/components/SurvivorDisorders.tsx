@@ -45,46 +45,30 @@ const mapDispatchToProps = (dispatch: Dispatch<ShowLayerAction>): ISurvivorDisor
   showLayer: (layer: IDisorderListLayer) => dispatch(showLayer(layer)),
 })
 
-class SurvivorDisorders extends React.Component<ISurvivorDisordersProps> {
-  public constructor(props: ISurvivorDisordersProps) {
-    super(props)
-
-    this.showList = this.showList.bind(this)
-    this.hideList = this.hideList.bind(this)
-  }
-  public render() {
-    const { disorders } = this.props
-    if (disorders.length > 0) {
-      return (
-        <DisordersWrapper>
-          <ItemWrapper>
-            {disorders.map((disorder, idx) => (
-              <DisorderItem key={idx} disorder={disorder} />
-            ))}
-          </ItemWrapper>
-          <FancyButton onClick={this.showList}>Manage Disorders</FancyButton>
-        </DisordersWrapper>
-      )
-    } else {
-      return (
-        <DisordersWrapper>
-          <FancyButton onClick={this.showList}>Manage Disorders</FancyButton>
-        </DisordersWrapper>
-      )
-    }
-  }
-
-  private showList() {
-    this.props.showLayer({
-      survivor: this.props.id,
+const SurvivorDisorders: React.FunctionComponent<ISurvivorDisordersProps> = ({ id, disorders, showLayer }) => {
+  const showList = () => {
+    showLayer({
+      survivor: id,
       type: LayerType.disorderlist,
     })
   }
-
-  private hideList() {
-    this.setState({
-      showList: false,
-    })
+  if (disorders.length > 0) {
+    return (
+      <DisordersWrapper>
+        <ItemWrapper>
+          {disorders.map((disorder, idx) => (
+            <DisorderItem key={idx} disorder={disorder} />
+          ))}
+        </ItemWrapper>
+        <FancyButton onClick={showList}>Manage Disorders</FancyButton>
+      </DisordersWrapper>
+    )
+  } else {
+    return (
+      <DisordersWrapper>
+        <FancyButton onClick={showList}>Manage Disorders</FancyButton>
+      </DisordersWrapper>
+    )
   }
 }
 

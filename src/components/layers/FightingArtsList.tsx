@@ -1,7 +1,7 @@
 import fightingArts from 'data/final/fightingarts'
 import Fuse from 'fuse.js'
 import { HideLayerAction, UpdateSurvivorFightingArtsAction } from 'interfaces/actions'
-import React, { SyntheticEvent } from 'react'
+import React, { SyntheticEvent, useState } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { hideLayer, updateSurvivorFightingArt } from '../../actions'
@@ -51,89 +51,67 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorFightingArtsAction 
   updateSurvivorFightingArt: (id: ID, arts: FightingArt[]) => dispatch(updateSurvivorFightingArt(id, arts)),
 })
 
-class FightingArtslist extends React.Component<IFightingArtslistProps, IFightingArtslistState> {
-  public constructor(props: IFightingArtslistProps) {
-    super(props)
-    this.renderListElement = this.renderListElement.bind(this)
-    this.submit = this.submit.bind(this)
-    this.handleFilter = this.handleFilter.bind(this)
-    this.state = {
-      arts: fightingArts,
-      artsToAdd: [],
-      artsToRemove: [],
-    }
-  }
+const FightingArtslist: React.FunctionComponent<IFightingArtslistProps> = ({ currentlySelectedArts = [], survivor, updateSurvivorFightingArt, hideLayer }) => {
+  const [artsToAdd, setArtsToAdd] = useState<FightingArt[]>([])
+  const [artsToRemove, setArtsToRemove] = useState<FightingArt[]>([])
+  const [displayedArts, setDisplayedArts] = useState<IFightingArt[]>(fightingArts)
 
-  public render() {
-    if (typeof this.props.survivor !== 'undefined') {
-      const currentlySelectedArts = this.props.currentlySelectedArts || []
-      const count = currentlySelectedArts.length + this.state.artsToAdd.length - this.state.artsToRemove.length
-      return (
-        <ListWrapper>
-          <CloseIcon onClick={this.props.hideLayer}>X</CloseIcon>
-          <SimpleLayerHeadline>{count} / 3</SimpleLayerHeadline>
-          <FilterInput type="text" placeholder="filter..." onChange={this.handleFilter} autoFocus={true} />
-          <List>
-            {this.state.arts.map((art, idx) => (
-              <React.Fragment key={idx}>{this.renderListElement(art)}</React.Fragment>
-            ))}
-          </List>
-          <FancyButton onClick={this.submit}>Submit</FancyButton>
-        </ListWrapper>
-      )
-    } else {
-      return ''
-    }
-  }
-
-  private renderListElement(art: IFightingArt) {
-    const currentlySelectedArts = this.props.currentlySelectedArts || []
-    const isSelected = (currentlySelectedArts.includes(art.id) && !this.state.artsToRemove.includes(art.id)) || this.state.artsToAdd.includes(art.id)
-    if (isSelected) {
-      return <SelectedListElement onClick={this.deselectFightingArt.bind(this, art.id)}>{art.name}</SelectedListElement>
-    }
-    return <ListElement onClick={this.selectFightingArt.bind(this, art.id)}>{art.name}</ListElement>
-  }
-  private selectFightingArt(newArt: FightingArt) {
-    const currentlySelectedArts = this.props.currentlySelectedArts || []
-    const count = currentlySelectedArts.length + this.state.artsToAdd.length - this.state.artsToRemove.length
+  const selectFightingArt = (newArt: FightingArt) => {
+    const count = currentlySelectedArts.length + artsToAdd.length - artsToRemove.length
     if (count < 3) {
-      this.setState({
-        artsToAdd: this.state.artsToAdd.concat(newArt),
-        artsToRemove: this.state.artsToRemove.filter(art => art !== newArt),
-      })
+      setArtsToAdd(artsToAdd.concat(newArt))
+      setArtsToRemove(artsToRemove.filter(art => art !== newArt))
     }
   }
-  private deselectFightingArt(artToDeselect: FightingArt) {
-    this.setState({
-      artsToAdd: this.state.artsToAdd.filter(art => art !== artToDeselect),
-      artsToRemove: this.state.artsToRemove.concat(artToDeselect),
-    })
+  const deselectFightingArt = (artToDeselect: FightingArt) => {
+    setArtsToAdd(artsToAdd.filter(art => art !== artToDeselect))
+    setArtsToRemove(artsToRemove.concat(artToDeselect))
   }
 
-  private submit() {
-    if (typeof this.props.survivor !== 'undefined') {
-      const { artsToAdd, artsToRemove } = this.state
-      const arts = (this.props.currentlySelectedArts || []).concat(artsToAdd).filter(art => !artsToRemove.includes(art))
-      this.props.updateSurvivorFightingArt(this.props.survivor, deduplicate(arts) as FightingArt[])
-      this.props.hideLayer()
+  const renderListElement = (art: IFightingArt) => {
+    const isSelected = (currentlySelectedArts.includes(art.id) && !artsToRemove.includes(art.id)) || artsToAdd.includes(art.id)
+    if (isSelected) {
+      return <SelectedListElement onClick={() => deselectFightingArt(art.id)}>{art.name}</SelectedListElement>
+    }
+    return <ListElement onClick={() => selectFightingArt(art.id)}>{art.name}</ListElement>
+  }
+
+  const submit = () => {
+    if (typeof survivor !== 'undefined') {
+      const arts = (currentlySelectedArts || []).concat(artsToAdd).filter(art => !artsToRemove.includes(art))
+      updateSurvivorFightingArt(survivor, deduplicate(arts) as FightingArt[])
+      hideLayer()
     }
   }
 
-  private handleFilter(event: SyntheticEvent<HTMLInputElement>) {
+  const handleFilter = (event: SyntheticEvent<HTMLInputElement>) => {
     if (event.currentTarget.value === '') {
-      this.setState({
-        arts: fightingArts,
-      })
+      setDisplayedArts(fightingArts)
     } else {
       const fuse = new Fuse(fightingArts, {
         keys: ['name'],
         threshold: 0.5,
       })
-      this.setState({
-        arts: fuse.search(event.currentTarget.value),
-      })
+      setDisplayedArts(fuse.search(event.currentTarget.value))
     }
+  }
+  if (typeof survivor !== 'undefined') {
+    const count = currentlySelectedArts.length + artsToAdd.length - artsToRemove.length
+    return (
+      <ListWrapper>
+        <CloseIcon onClick={hideLayer}>X</CloseIcon>
+        <SimpleLayerHeadline>{count} / 3</SimpleLayerHeadline>
+        <FilterInput type="text" placeholder="filter..." onChange={handleFilter} autoFocus={true} />
+        <List>
+          {displayedArts.map((art, idx) => (
+            <React.Fragment key={idx}>{renderListElement(art)}</React.Fragment>
+          ))}
+        </List>
+        <FancyButton onClick={submit}>Submit</FancyButton>
+      </ListWrapper>
+    )
+  } else {
+    return <React.Fragment />
   }
 }
 
