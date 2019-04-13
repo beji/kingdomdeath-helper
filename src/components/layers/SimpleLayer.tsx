@@ -32,28 +32,18 @@ const mapDispatchToProps = (dispatch: Dispatch<HideLayerAction>): ISimpleLayerDi
   hideLayer: () => dispatch(hideLayer()),
 })
 
-class SimpleLayer extends React.Component<ISimpleLayerProps> {
-  public constructor(props: ISimpleLayerProps) {
-    super(props)
-    this.hideLayer = this.hideLayer.bind(this)
-  }
-  public render() {
-    if (this.props.layer) {
-      const { headline, content } = this.props.layer
-      return (
-        <SimpleLayerWrapper>
-          <CloseIcon onClick={this.hideLayer}>X</CloseIcon>
-          {headline && <SimpleLayerHeadline>{headline}</SimpleLayerHeadline>}
-          {content}
-        </SimpleLayerWrapper>
-      )
-    } else {
-      return ''
-    }
-  }
-
-  private hideLayer() {
-    this.props.hideLayer()
+const SimpleLayer: React.FunctionComponent<ISimpleLayerProps> = ({ hideLayer, layer }) => {
+  if (layer) {
+    const { headline, content } = layer
+    return (
+      <SimpleLayerWrapper>
+        <CloseIcon onClick={hideLayer}>X</CloseIcon>
+        {headline && <SimpleLayerHeadline>{headline}</SimpleLayerHeadline>}
+        {content}
+      </SimpleLayerWrapper>
+    )
+  } else {
+    return <React.Fragment />
   }
 }
 

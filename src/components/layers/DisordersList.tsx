@@ -56,14 +56,6 @@ const Disorderslist: React.FunctionComponent<IDisorderslistProps> = ({ currently
   const [disordersToAdd, setDisordersToAdd] = useState<Disorders[]>([])
   const [displayedDisorders, setDisplayed] = useState<IDisorder[]>(disorders)
 
-  const renderListElement = (disorder: IDisorder) => {
-    const currentlySelectedDisordersInner = currentlySelectedDisorders || []
-    const isSelected = (currentlySelectedDisordersInner.includes(disorder.id) && !disordersToRemove.includes(disorder.id)) || disordersToAdd.includes(disorder.id)
-    if (isSelected) {
-      return <SelectedListElement onClick={() => deselectDisorder(disorder.id)}>{disorder.name}</SelectedListElement>
-    }
-    return <ListElement onClick={() => selectDisorder(disorder.id)}>{disorder.name}</ListElement>
-  }
   const selectDisorder = (newDisorder: Disorders) => {
     const count = currentlySelectedDisorders.length + disordersToAdd.length - disordersToRemove.length
     if (count < 3) {
@@ -74,6 +66,15 @@ const Disorderslist: React.FunctionComponent<IDisorderslistProps> = ({ currently
   const deselectDisorder = (disorderToDeselect: Disorders) => {
     setDisordersToAdd(disordersToAdd.filter(disorder => disorder !== disorderToDeselect))
     setDisordersToRemove(disordersToRemove.concat(disorderToDeselect))
+  }
+
+  const renderListElement = (disorder: IDisorder) => {
+    const currentlySelectedDisordersInner = currentlySelectedDisorders || []
+    const isSelected = (currentlySelectedDisordersInner.includes(disorder.id) && !disordersToRemove.includes(disorder.id)) || disordersToAdd.includes(disorder.id)
+    if (isSelected) {
+      return <SelectedListElement onClick={() => deselectDisorder(disorder.id)}>{disorder.name}</SelectedListElement>
+    }
+    return <ListElement onClick={() => selectDisorder(disorder.id)}>{disorder.name}</ListElement>
   }
 
   const submit = () => {

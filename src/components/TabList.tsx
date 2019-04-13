@@ -74,7 +74,7 @@ const TabList: React.FunctionComponent = ({ children }) => {
     if (index === activeTab) {
       return <TabContent key={index}>{children}</TabContent>
     } else {
-      return <React.Fragment />
+      return <React.Fragment key={index} />
     }
   }
 

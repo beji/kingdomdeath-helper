@@ -115,14 +115,14 @@ const GearGrid: React.FunctionComponent<IGearGridProps> = ({ grid, id, setPlayer
         <GearSets>
           {/* tslint:disable-next-line: jsx-no-lambda */}
           {grid.gearSets && grid.gearSets.length > 0 && (
-            <>
+            <StyledText>
               Full gearsets:{' '}
               {grid.gearSets.map((setId: GearSet, idx: number) => (
                 <a key={idx} onClick={() => showGearSetDescription(setId)}>
                   {gearSets[setId].name}
                 </a>
               ))}
-            </>
+            </StyledText>
           )}
         </GearSets>
       </PlayerCard>

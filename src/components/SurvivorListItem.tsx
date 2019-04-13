@@ -1,4 +1,4 @@
-import React, { Component, Fragment, SyntheticEvent } from 'react'
+import React, { Fragment, SyntheticEvent } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import styled from 'styled-components'

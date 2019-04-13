@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch: Dispatch<ShowLayerAction>): ISurvivorDisor
   showLayer: (layer: IDisorderListLayer) => dispatch(showLayer(layer)),
 })
 
-const SurvivorDisorders: React.FunctionComponent<ISurvivorDisordersProps> = ({ id, disorders }) => {
+const SurvivorDisorders: React.FunctionComponent<ISurvivorDisordersProps> = ({ id, disorders, showLayer }) => {
   const showList = () => {
     showLayer({
       survivor: id,

@@ -30,7 +30,7 @@ const ExportForm: React.FunctionComponent<IExportFormProps> = props => {
     e.preventDefault()
     if (textfield.current) {
       const importData = JSON.parse(atob(textfield.current.value)) as ISettlement
-      importSettlement(importData)
+      props.importSettlement(importData)
     }
   }
 
