@@ -1739,7 +1739,7 @@ export const armor: IItem[] = [
           },
         ],
       },
-      bottom: Affinity.blue,
+      bottom: Affinity.red,
     },
     desc: '',
     id: 89,
@@ -1779,9 +1779,6 @@ export const armor: IItem[] = [
     material: 'endeavor, 1x shimmering mane, 6x bone, 4x organ',
     name: 'White Lion Mask',
     obtained: 'Mask Maker',
-    set: {
-      id: GearSet.white_lion,
-    },
     stats: [
       {
         amount: 2,
