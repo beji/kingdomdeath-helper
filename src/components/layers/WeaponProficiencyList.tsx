@@ -1,4 +1,4 @@
-import weaponproficiencies from 'data/final/weaponproficiencies'
+import weaponproficiencies from 'data/final/selectableStats'
 import Fuse from 'fuse.js'
 import { HideLayerAction, UpdateSurvivorWeaponProficiencyAction } from 'interfaces/actions'
 import React, { SyntheticEvent } from 'react'

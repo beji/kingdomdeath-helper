@@ -33,6 +33,18 @@ export enum SpecialStats {
   bleed_token,
 }
 
+export enum CourageSpec {
+  stalwart,
+  prepared,
+  matchmaker,
+}
+
+export enum UnderstandingSpec {
+  analyze,
+  explore,
+  tinker,
+}
+
 export interface IDefenseStat {
   readonly [key: string]: UUID | string | number | boolean
   readonly armor: number
@@ -58,4 +70,10 @@ export interface ISpecialStat {
   readonly stat: SpecialStats
   readonly value: number
   readonly type: StatType.special
+}
+
+export interface ISpecialStatSpec {
+  readonly id: CourageSpec | UnderstandingSpec
+  readonly desc: string
+  readonly name: string
 }

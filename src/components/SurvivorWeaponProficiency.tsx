@@ -1,4 +1,4 @@
-import weaponproficiencies from 'data/final/weaponproficiencies'
+import weaponproficiencies from 'data/final/selectableStats'
 import React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
