@@ -10,7 +10,7 @@ import { CloseIcon, FancyButton, FilterInput, List, ListElement, ListWrapper, Se
 import { deduplicate } from '../../util'
 
 interface IFightingArtslistStateProps {
-  currentlySelectedArts?: FightingArt[]
+  selectedFightingArtsFromProps: FightingArt[]
   survivor?: ID
 }
 
@@ -28,7 +28,7 @@ const mapStateToProps = (state: IState): IFightingArtslistStateProps => {
       const survivor = state.settlement.survivors.find(s => s.id === sid)
       if (survivor) {
         return {
-          currentlySelectedArts: typeof survivor.fightingArts !== 'undefined' ? survivor.fightingArts.map(art => art.id) : [],
+          selectedFightingArtsFromProps: typeof survivor.fightingArts !== 'undefined' ? survivor.fightingArts.map(art => art.id) : [],
           survivor: survivor.id,
         }
       }
@@ -36,7 +36,7 @@ const mapStateToProps = (state: IState): IFightingArtslistStateProps => {
   }
 
   return {
-    currentlySelectedArts: undefined,
+    selectedFightingArtsFromProps: [],
   }
 }
 
@@ -45,25 +45,21 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorFightingArtsAction 
   updateSurvivorFightingArt: (id: ID, arts: FightingArt[]) => dispatch(updateSurvivorFightingArt(id, arts)),
 })
 
-const FightingArtslist: React.FunctionComponent<IFightingArtslistProps> = ({ currentlySelectedArts = [], survivor, updateSurvivorFightingArt, hideLayer }) => {
-  const [artsToAdd, setArtsToAdd] = useState<FightingArt[]>([])
-  const [artsToRemove, setArtsToRemove] = useState<FightingArt[]>([])
+const FightingArtslist: React.FunctionComponent<IFightingArtslistProps> = ({ selectedFightingArtsFromProps, survivor, updateSurvivorFightingArt, hideLayer }) => {
+  const [selectedFightingArts, setSelectedFightingArts] = useState<FightingArt[]>(selectedFightingArtsFromProps)
   const [displayedArts, setDisplayedArts] = useState<IFightingArt[]>(fightingArts)
 
   const selectFightingArt = (newArt: FightingArt) => {
-    const count = currentlySelectedArts.length + artsToAdd.length - artsToRemove.length
-    if (count < 3) {
-      setArtsToAdd(artsToAdd.concat(newArt))
-      setArtsToRemove(artsToRemove.filter(art => art !== newArt))
+    if (selectedFightingArts.length < 3 && !selectedFightingArts.includes(newArt)) {
+      setSelectedFightingArts(selectedFightingArts.concat(newArt))
     }
   }
   const deselectFightingArt = (artToDeselect: FightingArt) => {
-    setArtsToAdd(artsToAdd.filter(art => art !== artToDeselect))
-    setArtsToRemove(artsToRemove.concat(artToDeselect))
+    setSelectedFightingArts(selectedFightingArts.filter(art => art !== artToDeselect))
   }
 
   const renderListElement = (art: IFightingArt) => {
-    const isSelected = (currentlySelectedArts.includes(art.id) && !artsToRemove.includes(art.id)) || artsToAdd.includes(art.id)
+    const isSelected = selectedFightingArts.includes(art.id)
     if (isSelected) {
       return <SelectedListElement onClick={() => deselectFightingArt(art.id)}>{art.name}</SelectedListElement>
     }
@@ -72,8 +68,8 @@ const FightingArtslist: React.FunctionComponent<IFightingArtslistProps> = ({ cur
 
   const submit = () => {
     if (typeof survivor !== 'undefined') {
-      const arts = (currentlySelectedArts || []).concat(artsToAdd).filter(art => !artsToRemove.includes(art))
-      updateSurvivorFightingArt(survivor, deduplicate(arts) as FightingArt[])
+      updateSurvivorFightingArt(survivor, deduplicate(selectedFightingArts) as FightingArt[])
+      setDisplayedArts(fightingArts)
       hideLayer()
     }
   }
@@ -90,7 +86,7 @@ const FightingArtslist: React.FunctionComponent<IFightingArtslistProps> = ({ cur
     }
   }
   if (typeof survivor !== 'undefined') {
-    const count = currentlySelectedArts.length + artsToAdd.length - artsToRemove.length
+    const count = selectedFightingArts.length
     return (
       <ListWrapper>
         <CloseIcon onClick={hideLayer}>X</CloseIcon>

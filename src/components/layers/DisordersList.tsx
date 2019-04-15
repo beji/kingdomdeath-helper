@@ -10,7 +10,7 @@ import { deduplicate } from '../../util'
 import { CloseIcon, FancyButton, FilterInput, List, ListElement, ListWrapper, SelectedListElement, SimpleLayerHeadline } from './../StyledComponents'
 
 interface IDisorderslistStateProps {
-  currentlySelectedDisorders?: Disorders[]
+  selectedDisordersFromProps?: Disorders[]
   id?: ID
 }
 
@@ -28,14 +28,14 @@ const mapStateToProps = (state: IState): IDisorderslistStateProps => {
       const survivor = state.settlement.survivors.find(s => s.id === sid)
       if (survivor) {
         return {
-          currentlySelectedDisorders: survivor.disorders ? survivor.disorders.map(disorder => disorder.id) : [],
+          selectedDisordersFromProps: survivor.disorders ? survivor.disorders.map(disorder => disorder.id) : [],
           id: sid,
         }
       }
     }
   }
   return {
-    currentlySelectedDisorders: undefined,
+    selectedDisordersFromProps: undefined,
     id: undefined,
   }
 }
@@ -45,26 +45,21 @@ const mapDispatchToProps = (dispatch: Dispatch<UpdateSurvivorDisordersAction | H
   updateSurvivorDisorder: (id: ID, arts: Disorders[]) => dispatch(updateSurvivorDisorders(id, arts)),
 })
 
-const Disorderslist: React.FunctionComponent<IDisorderslistProps> = ({ currentlySelectedDisorders = [], id, updateSurvivorDisorder, hideLayer }) => {
-  const [disordersToRemove, setDisordersToRemove] = useState<Disorders[]>([])
-  const [disordersToAdd, setDisordersToAdd] = useState<Disorders[]>([])
+const Disorderslist: React.FunctionComponent<IDisorderslistProps> = ({ selectedDisordersFromProps = [], id, updateSurvivorDisorder, hideLayer }) => {
+  const [selectedDisorders, setSelectedDisorders] = useState<Disorders[]>(selectedDisordersFromProps)
   const [displayedDisorders, setDisplayed] = useState<IDisorder[]>(disorders)
 
   const selectDisorder = (newDisorder: Disorders) => {
-    const count = currentlySelectedDisorders.length + disordersToAdd.length - disordersToRemove.length
-    if (count < 3) {
-      setDisordersToAdd(disordersToAdd.concat(newDisorder))
-      setDisordersToRemove(disordersToRemove.filter(disorder => disorder !== newDisorder))
+    if (selectedDisorders.length < 3 && !selectedDisorders.includes(newDisorder)) {
+      setSelectedDisorders(selectedDisorders.concat(newDisorder))
     }
   }
   const deselectDisorder = (disorderToDeselect: Disorders) => {
-    setDisordersToAdd(disordersToAdd.filter(disorder => disorder !== disorderToDeselect))
-    setDisordersToRemove(disordersToRemove.concat(disorderToDeselect))
+    setSelectedDisorders(selectedDisorders.filter(disorder => disorder !== disorderToDeselect))
   }
 
   const renderListElement = (disorder: IDisorder) => {
-    const currentlySelectedDisordersInner = currentlySelectedDisorders || []
-    const isSelected = (currentlySelectedDisordersInner.includes(disorder.id) && !disordersToRemove.includes(disorder.id)) || disordersToAdd.includes(disorder.id)
+    const isSelected = selectedDisorders.includes(disorder.id)
     if (isSelected) {
       return <SelectedListElement onClick={() => deselectDisorder(disorder.id)}>{disorder.name}</SelectedListElement>
     }
@@ -73,8 +68,8 @@ const Disorderslist: React.FunctionComponent<IDisorderslistProps> = ({ currently
 
   const submit = () => {
     if (typeof id !== 'undefined') {
-      const disorders = (currentlySelectedDisorders || []).concat(disordersToAdd).filter(art => !disordersToRemove.includes(art))
-      updateSurvivorDisorder(id, deduplicate(disorders) as Disorders[])
+      updateSurvivorDisorder(id, deduplicate(selectedDisorders) as Disorders[])
+      setDisplayed(disorders)
       hideLayer()
     }
   }
@@ -92,7 +87,7 @@ const Disorderslist: React.FunctionComponent<IDisorderslistProps> = ({ currently
   }
 
   if (typeof id !== 'undefined') {
-    const count = currentlySelectedDisorders.length + disordersToAdd.length - disordersToRemove.length
+    const count = selectedDisorders.length
     return (
       <ListWrapper>
         <CloseIcon onClick={hideLayer}>X</CloseIcon>
