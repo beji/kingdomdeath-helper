@@ -65,6 +65,7 @@ const GearList: React.FunctionComponent<IGearListProps> = ({ grid, slotId, updat
         }),
       }
       updateGear(clone(newGrid))
+      setDisplayedItems(items)
       hideLayer()
     }
   }
