@@ -160,7 +160,7 @@ const SurvivorCard: React.FunctionComponent<ISurvivorCardProps> = ({ survivor, u
               defenseStat.stat !== DefenseStats.survival && (
                 <SurvivorStat key={idx}>
                   <StatLabel>{capitalize(DefenseStats[defenseStat.stat])}</StatLabel>
-                  <SurvivorDefenseStat id={id} statid={defenseStat.stat} />
+                  <SurvivorDefenseStat id={id} statid={defenseStat.stat} renderWounds />
                 </SurvivorStat>
               ),
           )}
