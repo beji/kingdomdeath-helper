@@ -8,6 +8,7 @@ import ActionTypes from '../../interfaces/actionTypes'
 import Actions from '../../interfaces/reducer'
 import { clone, deduplicate, getNewSurvivorID } from '../../util'
 import { generateWithUpdatedSurvivors } from '../_helper'
+import gearReducer from './geargrid'
 
 const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, action: Actions): ISettlement => {
   if (!state) {
@@ -60,7 +61,7 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
         return survivor
       })
       // Now the grid has to reference the new survivor
-      let newGrid
+      let newGrid: IGearGrid | undefined
       const updatedGearGrids = nextState.geargrids.map((geargrid, idx) => {
         if (action.payload && idx === action.payload.gridId) {
           newGrid = {
@@ -72,12 +73,15 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
         return geargrid
       })
 
-      const returnState = {
+      const returnState: ISettlement = {
         ...nextState,
         geargrids: updatedGearGrids,
       }
 
-      return newGrid ? reducer(returnState, updateGear(newGrid as IGearGrid)) : returnState
+      if (typeof newGrid !== 'undefined') {
+        return gearReducer(returnState, updateGear(newGrid))
+      }
+      return returnState
     }
     // Remove a survivor from the hunt
     case ActionTypes.REMOVE_FROM_HUNT: {
