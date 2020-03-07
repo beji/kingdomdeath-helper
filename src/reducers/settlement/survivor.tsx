@@ -96,6 +96,11 @@ const reducer: Reducer<ISettlement, Actions> = (state: ISettlement | undefined, 
                 gear: 0,
               }
             }),
+            // A non-hunting survivor can't have any gear and therefore no armor
+            defenseStats: survivor.defenseStats.map(defenseStat => ({
+              ...defenseStat,
+              armor: 0,
+            })),
             gridId: undefined,
             hunting: false,
           }
