@@ -98,7 +98,7 @@
   "dependencies": {
     "express": "^4.16.4",
     "fuse.js": "^3.4.4",
-    "marked": "^0.6.2",
+    "marked": "^0.7.0",
     "morgan": "^1.9.1",
     "qrcode.react": "^0.9.3",
     "react": "^16.8.5",
