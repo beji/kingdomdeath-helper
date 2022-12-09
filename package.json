@@ -96,7 +96,7 @@
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "fuse.js": "^3.4.4",
     "marked": "^0.6.2",
     "morgan": "^1.9.1",
